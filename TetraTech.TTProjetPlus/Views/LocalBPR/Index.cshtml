@@ -1,0 +1,281 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.TTProjet
+@using Resources2 = TetraTech.TTProjetPlus.Views.FolderStructure 
+@model TetraTech.TTProjetPlus.Models.LocalBPRModel
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/select/1.3.4/js/dataTables.select.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
+@*<script type="text/javascript" src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js"></script>*@
+<link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" media="screen">
+<link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet" media="screen">
+<link href="https://cdn.datatables.net/select/1.3.4/css/select.dataTables.min.css" rel="stylesheet" media="screen">
+<link href="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css" rel="stylesheet" media="screen">
+<link href="https://editor.datatables.net/extensions/Editor/css/editor.dataTables.min.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
+
+<style>
+    #data_ListADTTLocalBPR {
+        width: 100% !important;
+    }
+
+        #data_ListADTTLocalBPR td {
+            width: auto !important;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        #data_ListADTTLocalBPR th {
+            width: auto !important;
+            white-space: normal;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+</style>
+
+<div class="container " style="height: 200vh;width: 100%;">
+    <div class="main">
+        <div class="row">
+            <div class="row">
+                <div class="col-lg-4" style="padding-top: -49px;">
+                    <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 140px;">
+                        <div class="panel-body">
+                            <ul class="list-inline">
+                                <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet" )">TT Projet +  /</a></li>
+                                <li><a style="color:#183666; font-weight: bold" href="@Url.Action("Index", "TTProjet", new { selectedPanel = "collapse8" })">@Resources.TTProjet.TITools</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 140px; ">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li>
+                                        &bull;&nbsp;<a style="color: #183666" href="@Url.Action("IndexActiverProjet", "TTProjet")">@Resources.TTProjet.ActiverProjet</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color:#183666  " href="@Url.Action("IndexAdmin", "Admin")">@Resources.TTProjet.cancelProjectClosing</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color: #183666" href="@Url.Action("Index2", "FolderStructure")">@Resources2.FoldStructRessource.ChangeServer</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "SecurityProjectEquivalence")">@Resources.TTProjet.ProjectEquivalence</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "Litige")">@Resources.TTProjet.LitigeManagement</a>
+                                    </li>
+                                    <br>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-lg-4">
+                    <div class="">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 140px; ">
+                            <div class="panel-body">
+                                <ul class="list-inline">                                   
+                                    <li>
+                                        &bull;&nbsp;<a style="color: #183666; " href="@Url.Action("Index", "ProjetSecuriser")">Gestion des projets sécurisés</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color: #183666;" href="@Url.Action("Index", "GestionGroupeAD")">Gestion Groupe AD</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color: #183666; font-weight: bold" href="@Url.Action("Index", "LocalBPR")">@Resources.TTProjet.EmployeeInfos</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color: #183666" href="@Url.Action("Index3", "FolderStructure")">@Resources.TTProjet.Security60Conf</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="row" style="color:steelblue; font-size:initial">
+            <div class="form-group">
+                <div class="col-sm-12 ">
+                    <div class="row">
+                        <div class="row form-group">
+                            <div class="col-lg-12">
+                                <div class="panel pagination-grey" style="border-radius: 10px; margin-left: -10px; margin-top: -10px; ">
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h4 style="margin-top: 0px; color: #183666; font-family: 'Arial Bold'; font-size: 18pt; margin-left: 30px;">
+                                                <b>@Resources.TTProjet.EmployeeInfos</b>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div id="data-table_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer" style=" margin-right: 10px; margin-left: 10px">
+                                        <table id="data_ListADTTLocalBPR" class=" table table-bordered  data-table  dataTable display" style="margin-top: -50px; width: 100%; font-size: 12px;">
+                                            <thead id="tableHeaderGP">
+                                                <tr style="font-style:italic; ">
+                                                    <th>
+                                                        <input type="text" placeholder=cn class="column_search" />
+                                                    </th>
+                                                    <th>
+                                                        <input type="text" placeholder=name class="column_search" />
+                                                    </th>
+                                                    <th>
+                                                        <input type="text" placeholder=mail class="column_search" />
+                                                    </th>
+                                                    <th>
+                                                        <input type="text" placeholder=sAMAccountName class="column_search" />
+                                                    </th>
+                                                    <th>
+                                                        <input type="text" placeholder=employeeID class="column_search" />
+                                                    </th>
+                                                    <th>
+                                                        <input type="text" placeholder=preferredLanguage class="column_search" />
+                                                    </th>
+                                                    <th>
+                                                        <input type="text" placeholder=company class="column_search" />
+                                                    </th>
+                                                    <th>
+                                                        <input type="text" placeholder=title class="column_search" />
+                                                    </th>
+                                                    <th>
+                                                        <input type="text" placeholder=department class="column_search" />
+                                                    </th>
+                                                    <th>
+                                                        <input type="text" placeholder=physicalDeliveryOfficeName class="column_search" />
+                                                    </th>
+                                                </tr>
+                                                <tr class="grey" role="row">
+
+                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> cn </a>
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> name </a>
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> mail </a>
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> sAMAccountName </a>
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> employeeID </a>
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> preferredLanguage </a>
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> company </a>
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> title </a>
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> department </a>
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> physicalDeliveryOfficeName </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for (var i = 0; i < Model.ListADTTLocalBPR.Count(); i++)
+                                                {
+
+                                                    <tr>
+                                                        <td style="text-align: left; width:10%">
+                                                            @Model.ListADTTLocalBPR[i].cn
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            @Model.ListADTTLocalBPR[i].name
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            @Model.ListADTTLocalBPR[i].mail
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            @Model.ListADTTLocalBPR[i].sAMAccountName
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            @Model.ListADTTLocalBPR[i].employeeID
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            @Model.ListADTTLocalBPR[i].preferredLanguage
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            @Model.ListADTTLocalBPR[i].company
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            @Model.ListADTTLocalBPR[i].title
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            @Model.ListADTTLocalBPR[i].department
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            @Model.ListADTTLocalBPR[i].physicalDeliveryOfficeName
+                                                        </td>
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $('#data_ListADTTLocalBPR').DataTable({
+            pageResize: true,
+            pageLength: 10,
+            select: true,
+            scrollX: true,
+            scrollY: $(window).height() <= 722 ? $(window).height() / 3.5 : $(window).height() / 2,
+            scrollCollapse: true,
+            language: {
+                "url": '@Session["lang"].ToString()' == 'fr' ? "/Content/assets/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json",
+                select: {
+                    rows: '@Session["lang"].ToString()' == 'fr' ? '' : ''
+                }
+            },
+        });
+        $('#data_ListADTTLocalBPR').DataTable().draw();
+    });
+
+    $('#data_ListADTTLocalBPR thead').on('keyup', ".column_search", function () {
+
+        $('#data_ListADTTLocalBPR').DataTable()
+            .column($(this).parent().index())
+            .search(this.value)
+            .draw();
+    });
+
+</script>

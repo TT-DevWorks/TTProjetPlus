@@ -1,0 +1,265 @@
+﻿@model TetraTech.TTProjetPlus.Models.OfferProject
+@using Resources = TetraTech.TTProjetPlus.Views.InfoProjet.InfoProjectRessources
+
+<style>
+    .text-on-pannel {
+        background: #fff none repeat scroll 0 0;
+        height: auto;
+        margin-left: 20px;
+        padding: 3px 5px;
+        position: absolute;
+        margin-top: -47px;
+        border: 1px solid #337ab7;
+        border-radius: 8px;
+    }
+
+    .panel {
+        /* for text on pannel */
+        margin-top: 27px !important;
+    }
+
+    .panel-body {
+        padding-top: 30px !important;
+    }
+
+    /* enable absolute positioning */
+    .inner-addon {
+        position: relative;
+    }
+
+        /* style icon */
+        .inner-addon .glyphicon {
+            position: absolute;
+            padding: 10px;
+            pointer-events: none;
+        }
+
+    /* align icon */
+    .left-addon .glyphicon {
+        left: 0px;
+    }
+
+    .right-addon .glyphicon {
+        right: 0px;
+    }
+
+    /* add padding  */
+    .left-addon input {
+        padding-left: 30px;
+    }
+
+    .right-addon input {
+        padding-right: 30px;
+    }
+
+    i {
+        background: lightblue;
+    }
+
+    .redText {
+        color: red;
+    }
+
+    .inputWidth {
+        width: 100%;
+    }
+
+    .inputWidth2 {
+        width: 30%;
+        display: inline
+    }
+
+    .ui-draggable, .ui-droppable {
+        background-position: top;
+    }
+
+    table {
+        font-size: 1em;
+    }
+</style>
+@using (Html.BeginForm("submitAction", "InfoProject", null, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <h4 class="text-on-pannel text-primary"><strong>@Resources.generalInfotmation</strong></h4>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.projectNumber </label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.ProjectNumber, "", new { htmlAttributes = new { @class = "form-control ", @Value = Model.ProjectNumber } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                    @Html.ValidationMessageFor(m => m.ProjectNumber, "", new { @class = "redText" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.MasterProject *:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.MasterProject, "", new { htmlAttributes = new { @class = "form-control ", @Value = Model.MasterProject } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                    @Html.ValidationMessageFor(m => m.MasterProject, "", new { @class = "redText" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.CodePhase *:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.CodePhase, "", new { htmlAttributes = new { @class = "form-control ", @Value = Model.CodePhase } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                    @Html.ValidationMessageFor(m => m.MasterProject, "", new { @class = "redText" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <h4 class="text-on-pannel text-primary"><strong>@Resources.Details</strong></h4>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.TitleProjet * </label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.Title, "", new { htmlAttributes = new { @class = "form-control ", @Value = Model.Title } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                    @Html.ValidationMessageFor(m => m.Title, "", new { @class = "redText" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.ClientNumber *:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.ClientNumber, "", new { htmlAttributes = new { @class = "form-control ", @Value = Model.ClientNumber } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                    @Html.ValidationMessageFor(m => m.MasterProject, "", new { @class = "redText" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.ClientName *:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.ClientName, "", new { htmlAttributes = new { @class = "form-control ", @Value = Model.ClientName } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                    @Html.ValidationMessageFor(m => m.ClientName, "", new { @class = "redText" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.Company *:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.Company, "", new { htmlAttributes = new { @class = "form-control ", @Value = Model.Company } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                    @Html.ValidationMessageFor(m => m.Company, "", new { @class = "redText" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.BusinessUnit *:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.BussinessUnit, "", new { htmlAttributes = new { @class = "form-control ", @Value = Model.BussinessUnit } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                    @Html.ValidationMessageFor(m => m.MasterProject, "", new { @class = "redText" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.ORG *:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.ORG, "", new { htmlAttributes = new { @class = "form-control ", @Value = Model.ORG } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                    @Html.ValidationMessageFor(m => m.ORG, "", new { @class = "redText" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.ProgramManager :</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.ProgramManager, "", new { htmlAttributes = new { @class = "form-control " } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.FacturationAgent *:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.FacturationAgent, "", new { htmlAttributes = new { @class = "form-control " } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                    @Html.ValidationMessageFor(m => m.FacturationAgent, "", new { @class = "redText" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.FinalClient :</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.FinalClient, "", new { htmlAttributes = new { @class = "form-control " } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.ContactClient:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.ContactClient, "", new { htmlAttributes = new { @class = "form-control ", @Value = Model.ContactClient } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.ApproximateAmount:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.ApproximateAmount, "", new { htmlAttributes = new { @class = "form-control " } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.FacturationAddress :</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.FacturationAddress, "", new { htmlAttributes = new { @class = "form-control " } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.ShippingAddress:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.ShippingAddress, "", new { htmlAttributes = new { @class = "form-control " } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.EmailAdressIf:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.EmailAdressIf, "", new { htmlAttributes = new { @class = "form-control " } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.ContractType:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.ContractType, "", new { htmlAttributes = new { @class = "form-control " } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                    @Html.ValidationMessageFor(m => m.MasterProject, "", new { @class = "redText" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.Program:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.Program, "", new { htmlAttributes = new { @class = "form-control " } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.WorkCategory:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.WorkCategory, "", new { htmlAttributes = new { @class = "form-control " } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.OfficeAddress:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.OfficeAddress, "", new { htmlAttributes = new { @class = "form-control " } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.Currency:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.Currency, "", new { htmlAttributes = new { @class = "form-control " } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.ContractNumber:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.ContractNumber, "", new { htmlAttributes = new { @class = "form-control " } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.OpeningDate:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.OpeningDate, "", new { htmlAttributes = new { @class = "form-control " } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.RefAndComments:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.RefAndComments, "", new { htmlAttributes = new { @class = "form-control " } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="text-align: center">
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="display: inline-block">
+            <div class="btn-group mr-2" role="group" aria-label="Second group">
+                <button type="button" class="btn btn-secondary" id="accepter">@Resources.Accept</button>
+            </div>
+            <div class="btn-group" role="group" aria-label="Third group">
+                <button type="button" class="btn btn-secondary" id="annuler">@Resources.Cancel</button>
+            </div>
+        </div>
+    </div>
+}

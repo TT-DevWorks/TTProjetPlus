@@ -1,0 +1,94 @@
+﻿@model List<TetraTech.TTProjetPlus.Data.Customer>
+@using InfoResources = TetraTech.TTProjetPlus.Views.Home
+@{
+    ViewBag.Title = "CustomersNumberNamePartial";
+}
+
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="panel pagination-grey clearfix m-b-0">
+        <div id="data-table_wrapper2" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+            <table id="data_CustomerNumberName" class="table table-bordered  data-table  dataTable" style="width: 100%">
+                <thead id="tableHeader">
+                    <tr class="grey" role="row">
+
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width: 20%">
+                            @InfoResources.informations.ClienNumber
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 80%">
+                            @InfoResources.informations.ClientName
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <td style="text-align: left;width: 20%">
+                               @item.Customer_Number
+                            </td>
+                            <td style="text-align: left;width: 80%">
+                                @item.Customer_Name
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+else
+{
+    if (Model == null)
+    {
+        @Html.Partial("Error")
+    }
+    else
+    {
+    <span>@InfoResources.informations.mp_null</span>
+    }
+}
+<script>
+    $(document).ready(function () {
+        //   $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+
+        $('#data_CustomerNumberName').DataTable({
+            "order": [[1, "asc"]],
+            "language": {
+                "url": '@Session["lang"].ToString()' == 'fr' ? "/Content/assets/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+            }
+        });
+        $('#data_CustomerNumberName').DataTable().draw();
+
+    });
+
+    $('#data_CustomerNumberName tbody tr  td').on('click', function () {
+     
+        $('#data_CustomerNumberName tr').removeClass('selected');
+        $(this).closest('tr').addClass('selected');
+        if (sourceFinalClient == "true") {
+            clientFinal = ($(this).closest('tr').children()[1].textContent).trim();
+        }
+        else {
+            clientNumber = ($(this).closest('tr').children()[0].textContent).trim();
+            clientName = ($(this).closest('tr').children()[1].textContent).trim();
+            //if ($("#ClientFinal").val()=="") {
+                clientFinal = ($(this).closest('tr').children()[1].textContent).trim();
+            //}
+            
+        }
+    });	
+
+    $('#cancelCustomer').click(function ()
+    {
+        ($('input[type=search]')[0]).value = "";
+        $('#data_CustomerNumberName tr').removeClass('selected');
+        $('#data_CustomerNumberName').DataTable().search('').draw();
+    });
+</script>
+
+

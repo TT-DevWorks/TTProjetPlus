@@ -1,0 +1,113 @@
+﻿@model TetraTech.TTProjetPlus.Models.LocalBPRModel
+@using InfoResources = TetraTech.TTProjetPlus.Views.Home
+@{
+    ViewBag.Title = "EmployeesInfosPartial";
+}
+
+@if (Model != null && Model.ListADTTLocalBPR.Count() > 0)
+{
+    <div class="panel pagination-grey clearfix m-b-0">
+        <div id="data-table_wrapper2" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+            <table id="data_EmployeesInfos" class="table table-bordered  data-table  dataTable" style="width: 100%">
+                <thead id="tableHeader">
+                    <tr class="grey" role="row">
+
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width: 20%">
+                            name
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 80%">
+                            mail
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 80%">
+                            employeeID
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 80%">
+                            LastName
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 80%">
+                            FirstName
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.ListADTTLocalBPR.Count(); i++)
+                    {
+
+                    <tr>
+                        <td style="text-align: left;width: 20%">
+                            @Model.ListADTTLocalBPR[i].name
+                        </td>
+                        <td style="text-align: left;width: 80%">
+                            @Model.ListADTTLocalBPR[i].mail
+                        </td>
+                        <td style="text-align: left;width: 80%">
+                            @Model.ListADTTLocalBPR[i].employeeID
+                        </td>
+                        <td style="text-align: left;width: 80%">
+                            @Model.ListADTTLocalBPR[i].LastName
+                        </td>
+                        <td style="text-align: left;width: 80%">
+                            @Model.ListADTTLocalBPR[i].FirstName 
+                        </td>
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+else
+{
+    if (Model == null)
+    {
+        @Html.Partial("Error")
+    }
+    else
+    {
+        <span>@InfoResources.informations.mp_null</span>
+    }
+}
+<script>
+    $(document).ready(function () {
+        //   $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+
+        $('#data_EmployeesInfos').DataTable({
+            "order": [[1, "asc"]],
+            "language": {
+                "url": '@Session["lang"].ToString()' == 'fr' ? "/Content/assets/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+            }
+        });
+        $('#data_EmployeesInfos').DataTable().draw();
+
+    });
+
+    //$('#data_EmployeesInfos tbody tr  td').on('click', function () {
+
+    //    $('#data_EmployeesInfos tr').removeClass('selected');
+    //    $(this).closest('tr').addClass('selected');
+    //    if (sourceFinalClient == "true") {
+    //        clientFinal = ($(this).closest('tr').children()[1].textContent).trim();
+    //    }
+    //    else {
+    //        clientNumber = ($(this).closest('tr').children()[0].textContent).trim();
+    //        clientName = ($(this).closest('tr').children()[1].textContent).trim();
+    //        //if ($("#ClientFinal").val()=="") {
+    //            clientFinal = ($(this).closest('tr').children()[1].textContent).trim();
+    //        //}
+
+    //    }
+    //});
+
+    $('#cancelEmployeesInfos').click(function ()
+    {
+        ($('input[type=search]')[0]).value = "";
+        $('#data_EmployeesInfos tr').removeClass('selected');
+        $('#data_EmployeesInfos').DataTable().search('').draw();
+    });
+</script>
+
+

@@ -1,0 +1,417 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.ProjectToClose
+@using Resources1 = TetraTech.TTProjetPlus.Views.Home
+@using GlobalResources = Resources
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Controllers
+
+@model TetraTech.TTProjetPlus.Models.ProjectToCloseModel
+@{
+    var projectClosed = (ViewData.ModelState.IsValid) ? Model.IsClosedOrPostponed : Model.ToBeClosed;
+
+    var projectArchived = (ViewData.ModelState.IsValid) ? Model.IsArchivedOrPostponed : Model.ToBeArchived;
+    var lang = Session["lang"].ToString();
+}
+
+
+@using (Html.BeginForm("SaveProjectToClose", "ProjectToClose", FormMethod.Post, new { @id = "form-ProjectToClose" }))
+{
+    <div id="ptcmessagefalse" class="alert alert-warning" role="alert" hidden="hidden">  </div>
+    <div id="" class="alert alert-success" role="alert" hidden="hidden">   </div>
+    @Html.ValidationSummary(false, "", new { @class = "stylewarning" })
+
+    <div>
+        @Html.HiddenFor(m => m.OSProjectNumber)
+        @Html.HiddenFor(m => m.OSProjectID)
+        @Html.HiddenFor(m => m.TlinxProjectNumber)
+        @Html.HiddenFor(m => m.TlinxProjectId)
+        @Html.HiddenFor(m => m.ProjectToCloseId)
+        @Html.HiddenFor(m => m.StatusID)
+        @Html.HiddenFor(m => m.DocStatusID)
+        @Html.HiddenFor(m => m.IsClosedOrPostponed)
+        @Html.HiddenFor(m => m.IsArchivedOrPostponed)
+        @Html.HiddenFor(m => m.EstimateEndDateDefault)
+        @Html.HiddenFor(m => m.DocPostponedDateDefault)
+        @Html.HiddenFor(m => m.NoDocumentation)
+        @Html.HiddenFor(m => m.AccessType)
+        @Html.HiddenFor(m => m.StatusDocName)
+
+    </div>
+
+    <div class="alert alert-warning" id="MissingFields" hidden="hidden" style="margin:30px;">
+        <button type="button" class="close" data-hide="alert">&times;</button>        
+        <strong>@Resources.ProjectToCloseRessources.AddPMName </strong>
+    </div>        
+        
+    <div id="sectionToClose">
+        @if (Model.IsClosedOrPostponed)
+        {
+            <div class="row form-group">
+                <label class="control-label col-sm-4">@Resources.ProjectToCloseRessources.LabelIsClosed</label>
+                <div class="col-sm-2 ">
+                    <input checked="checked" data-val="true" disabled="disabled" type="radio" value="True">@GlobalResources.TTProjetPlusResource.Yes
+                    @Html.HiddenFor(m => m.ToBeClosed)
+                    @Html.HiddenFor(m => m.SubmittedDate)
+                </div>
+                <label class="col-sm-4" style="color: red">@Resources.ProjectToCloseRessources.SubmittedDate: @Html.DisplayFor(model => model.SubmittedDateLabel)  @Html.DisplayFor(model => model.submitByName)</label>
+            </div>
+        }
+        else
+        {
+            <div class="row form-group">
+                <label class="control-label col-sm-4">@Resources.ProjectToCloseRessources.LabelIsClosed</label>
+                <div class="col-sm-2 ">
+                    @Html.RadioButtonFor(m => m.ToBeClosed, true, new { id = "optClosedTrue" }) @GlobalResources.TTProjetPlusResource.Yes
+                    @Html.RadioButtonFor(m => m.ToBeClosed, false, new { id = "optClosedFalse" }) @GlobalResources.TTProjetPlusResource.No
+                </div>
+                <div class="TOBE-CLOSED-isfalse " style="display:none;">
+                    <label class="control-label col-sm-2">@Resources.ProjectToCloseRessources.EstimateEndDate: </label>
+                    <div class="col-sm-2">
+                        <div class='input-group open-datepicker'>
+                            @Html.TextBoxFor(model => model.EstimateEndDateString, new { @class = "form-control datepicker nolimit ", placeholder = Resources.ProjectToCloseRessources.EstimateEndDate })
+                            <div class="input-group-addon "> <span class="fa fa-calendar"></span>  </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1 " style="color:red">
+                        <h3 class="pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div id="statutDocumentation" class="row form-group">
+        <label class="control-label col-sm-4">@Resources.ProjectToCloseRessources.StatusDocName</label>
+        <span class="control-label col-sm-4">@Html.DisplayFor(model => model.StatusDocName) </span>
+    </div>
+
+    if (!Model.NoDocumentation)
+    {
+        <div id="sectionToArchive" class="TOBE-CLOSED-istrue">
+            @if (Model.IsArchivedOrPostponed)
+            {
+                <div class="row form-group">
+                    <label class="control-label col-sm-4">@Resources.ProjectToCloseRessources.LabelIsArchived</label>
+                    <div class="col-sm-2 ">
+                        <input checked="checked" data-val="true" disabled="disabled" type="radio" value="True">@GlobalResources.TTProjetPlusResource.Yes
+                        @Html.HiddenFor(m => m.ToBeArchived)
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 ">
+                    </div>
+                    <div class="col-sm-6 ">
+                        <label>@Resources.ProjectToCloseRessources.message3</label>
+                    </div>
+                </div>
+
+
+            }
+            else if (Model.DocPostponedDateTimeIsRequired && Model.DocPostponedDateTimeString != null)
+            {
+                <div class="row form-group">
+                    <label class="control-label col-sm-4">@Resources.ProjectToCloseRessources.LabelIsArchived</label>
+                    <div class="col-sm-2 ">
+                        <input data-val="true" disabled="disabled" type="radio" value="True">@GlobalResources.TTProjetPlusResource.Yes
+                        <input checked="checked" data-val="true" disabled="disabled" type="radio" value="True">@GlobalResources.TTProjetPlusResource.No
+                        @Html.HiddenFor(m => m.ToBeArchived)
+                    </div>
+
+                    <div class="TOBE-ARCHIVED-isfalse" style="display:none;">
+                        <label class="control-label col-sm-3 ">@Resources.ProjectToCloseRessources.LabelArchivedPostponedDate </label>
+                        <div class="col-sm-2">
+                            <div class='input-group open-datepicker'>
+                                @Html.TextBoxFor(model => model.DocPostponedDateTimeString, new
+                                {
+                                    @disabled = "disabled",
+                                    @class = "form-control f limit",
+                                placeholder = Model.DocPostponedDateTime
+                            })
+                                <div class="input-group-addon"> <span class="fa fa-calendar"></span>  </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 ">
+                    </div>
+                    <div class="col-sm-6 ">
+                        <label>@Resources.ProjectToCloseRessources.message1</label>
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <div class="row form-group">
+
+                    <label class="control-label col-sm-4">@Resources.ProjectToCloseRessources.LabelIsArchived</label>
+                    <div class="col-sm-2 ">
+                        @Html.RadioButtonFor(m => m.ToBeArchived, true, new { id = "optArchivedTrue" }) @GlobalResources.TTProjetPlusResource.Yes
+                        @Html.RadioButtonFor(m => m.ToBeArchived, false, new { id = "optArchivedFalse" }) @GlobalResources.TTProjetPlusResource.No
+                    </div>
+                    <div class="TOBE-ARCHIVED-isfalse" style="display:none;">
+                        <label class="control-label col-sm-3 ">@Resources.ProjectToCloseRessources.LabelArchivedPostponedDate </label>
+                        <div class="col-sm-2">
+                            <div class='input-group open-datepicker'>
+                                @Html.TextBoxFor(model => model.DocPostponedDateTimeString, new
+                                {@*@disabled = "disabled",*@@class = "form-control datepicker limit",
+placeholder = Resources.ProjectToCloseRessources.ArchiveDateTime
+})
+                                <div class="input-group-addon"> <span class="fa fa-calendar"></span>  </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-1 " style="color:red">
+                            <h3 class="pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 ">
+                    </div>
+                    <div class="col-sm-6 ">
+                        <label id="messageToUser">@Resources.ProjectToCloseRessources.message2</label>
+                    </div>
+                </div>
+                <div class="row" hidden>
+                    <label class=" col-sm-4">@Resources.ProjectToCloseRessources.emailLang</label>
+                    <div class="col-sm-2 border border-primary" id="emailLang">
+                        <div class="form-group " style="text-align: left">
+                            @Html.RadioButtonFor(m => m.EmailLang, "FR", new { id = "optLangFR" }) @Resources.ProjectToCloseRessources.fr
+                            @Html.RadioButtonFor(m => m.EmailLang, "EN", new { id = "optLangEN" }) @Resources.ProjectToCloseRessources.en
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+
+    //ProjectManager
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-12">
+                    @*<b>@Resources1.informations.ProjectManagerName </b>*@
+                    <b style=" color: #183666;font-family: 'Arial';font-size: 12pt;">@Resources1.informations.ProjectManagerName</b>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-10" data-toggle="tooltip" data-placement="top">
+                    @Html.TextBoxFor(model => model.ProjectInformations.Client_ProjectManager, new { id = "ClientProjectManager", @class = "form-control" })
+
+                </div>
+                <div class="col-sm-1" style="color:red">
+                    <h3 class="pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-12">                    
+                    <b style=" color: #183666;font-family: 'Arial';font-size: 12pt;">@Resources1.informations.ProjectManagerCourriel</b>
+                    <b style=" color: #000000; font-family: 'Arial'; font-size: 10pt; font-weight: bold;">@Resources1.informations.ProjectMangerReg</b>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-10" data-toggle="tooltip" data-placement="top" id="Client_Email_ProjectManager">
+                    @Html.TextBoxFor(model => model.ProjectInformations.Client_Email_ProjectManager, new { id = "ClientEmailProjectManager", @class = "form-control" })
+                </div>
+                <div class="col-sm-1 " style="color:red">
+                    <h3 class="pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sectionComment" class="row TOBE-CLOSED-istrue">
+        <label class="col-sm-12" for="CommentFermeture_Projet" style="display:none;">@Resources.ProjectToCloseRessources.CommentFermeture_Projet</label>
+        <div class="col-sm-12">
+            @Html.TextAreaFor(model => model.CommentFermeture_Projet, 5, 55, new { @class = "form-control", placeholder = Resources.ProjectToCloseRessources.CommentFermeture_Projet })
+        </div>
+    </div>
+
+    if (Model.AccessType != TypesEnum.ReadOnly)
+    {
+        <div id="sectionSave" class="row " style=" border-top:1px solid lightgray;padding-top:8px;">
+            <div class="col-sm-8">  <span id="savemessage" style="display:none;">@Resources.ProjectToCloseRessources.SaveMessage</span> </div>
+            <div class="col-sm-offset-1 col-sm-3">
+                <input type="submit" class="btn btn-primary btn-block" value="@GlobalResources.TTProjetPlusResource.Save" />
+            </div>
+        </div>
+    }
+
+}
+
+@if (lang == "fr")
+{
+    @Scripts.Render("~/bundles/librairiesdatejsFR")
+}
+else
+{
+    @Scripts.Render("~/bundles/librairiesdatejs")
+}
+<script>
+
+
+$(document).ready(function () {
+    $('.datepicker.limit').datepicker({ dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true, minDate: +0, maxDate: "+1y"});
+    $('.datepicker.nolimit').datepicker({ dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true, minDate: +0});
+
+    $(".form-control.datepicker").inputmask("9999-99-99");
+
+    if ("@Model.IsClosedOrPostponed" == "True") {
+        $('#CommentFermeture_Projet').attr('readonly', 'readonly');$('label[for="CommentFermeture_Projet"]').show();
+    }
+
+    if ("@Model.AccessType" == "@TypesEnum.ReadOnly") {
+        $('#form-ProjectToClose input').attr('disabled', 'disabled');
+    }
+
+    refreshFormControls({ className: ".TOBE-CLOSED-is",  value:"@projectClosed"  });
+    refreshFormControls({ className: ".TOBE-ARCHIVED-is",  value:"@projectArchived" });
+
+    if ('@Session["lang"].ToString()' != 'fr')
+    {
+        $("#optLangFR").prop("checked", false)
+        $("#optLangEN").prop("checked", true)
+    }
+});
+
+    $("input[name='ToBeClosed']").on("change", function () {
+    var estimatedenddate = (this.value == "True") ? '' :  $("#EstimateEndDateDefault").val();
+    $("#EstimateEndDateString").val(estimatedenddate);
+    $("#form-ProjectToClose").resetValidation();
+    refreshFormControls({ className: ".TOBE-CLOSED-is",   value:this.value });
+        if ((this.value == "True")) {
+   $("#savemessage").show();
+            $("#optArchivedTrue").prop("checked", true)
+            $("#optArchivedFalse").prop("checked", false)
+            refreshFormControls({ className: ".TOBE-ARCHIVED-is", value: "True" });
+
+        }
+             else $("#savemessage").hide();
+});
+    $("input[name='ToBeArchived']").on("change", function () {
+
+     var docpostponed = (this.value == "True") ? '' :  $("#DocPostponedDateDefault").val();
+    $("#DocPostponedDateTimeString").val(docpostponed);
+    $("#form-ProjectToClose").resetValidation();
+    refreshFormControls({ className: ".TOBE-ARCHIVED-is",  value:this.value });
+});
+
+
+    function refreshFormControls(control = { className, value }) {
+    let boolValue = (control.value=="True")?true:false;
+    $(control.className + boolValue).show();
+    $(control.className + !boolValue).hide();
+}
+
+$("#form-ProjectToClose").on('submit', function (e) {
+    e.preventDefault();
+    var projectId = "";
+    var continueProcess = false;
+    var etimatedDateStatus = "";
+    var ClientProjectManager1 = $("#ClientProjectManager").val();
+    var ClientEmailProjectManager1 = $("#ClientEmailProjectManager").val();
+
+
+    if (ClientProjectManager1 != "" && ClientEmailProjectManager1 != "")
+    {
+
+        if ( $("input[name='ToBeClosed']:checked").val()== "False" && $("#EstimateEndDateDefault").val() != null && $("#EstimateEndDateDefault").val()!="" ) {
+        etimatedDateStatus = "reported"
+        }
+
+    var selectedValue = $('#ddlnumeroProjet').val();
+    var form = $(this); var action = form.attr("action"); var data = form.serialize();
+    $.ajax({
+        type: "POST",
+        url: action,
+        async: true,
+        cache: false,
+        data: data,
+        success: function (result) {
+            if (result.success == null)
+            {
+                $("#project-to-close-details").html(result);
+            }
+            else {
+                var id = "#ptcmessage" + result.success;
+                $(id).text(result.message);
+                if (result.success)
+                {
+                    continueProcess = true;
+                    projectId = result.osProjectID
+                 $(id).show();
+                    var activeParam = $("#closedProjectsCheckbox").is(':checked') == true ? "yes" : "no";
+
+                    loadUpdatedList(activeParam);
+
+                    if (etimatedDateStatus == "reported") {
+                        $(".filter-option-inner-inner").css('backgroundColor', '#FFA500');
+                    }
+                    else $(".filter-option-inner-inner").css('backgroundColor', '#32CD32');
+                    $("#ddlnumeroProjet").selectpicker('val', selectedValue);
+
+                    setTimeout(function () {
+
+                        $(id).fadeOut('slow'); RefreshDetails('@Model.OSProjectID')
+                    }, 2000
+                    )
+
+                    if ('@Session["pageVisible"].ToString()' == 'true') {
+                        window.location.href = '@Url.Action("Index", "ProjectToClose")'
+                    }
+                }
+                else {
+                    alert(id)
+                    $(id).show();
+                    setTimeout(function () {
+                        $(id).fadeOut('slow');
+                    }, 2000
+                    )
+                }
+            }
+        }
+    });
+
+    }
+    else
+    {
+        $("#MissingFields").show();
+        setTimeout(function () {
+            $('#MissingFields').fadeOut('slow');
+        }, 2000
+        );
+    }
+
+})
+
+    function retrunId() {
+
+    }
+$('.open-datepicker').click(function(event){event.preventDefault();
+    $(this).find('.datepicker').focus();
+});
+
+
+    $('#optArchivedFalse').on("click", function () {
+            $("#messageToUser").html("");
+        $("#messageToUser").html(" @Resources.ProjectToCloseRessources.message1");
+    });
+    $('#optArchivedTrue').on("click", function () {
+        $("#messageToUser").html("");
+        $("#messageToUser").html("@Resources.ProjectToCloseRessources.message3");
+    });
+
+
+    $(".close").click(function () {
+        $(".alert").hide();
+
+    });
+</script>

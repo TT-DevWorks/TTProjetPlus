@@ -1,0 +1,472 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.TTProjet
+@using Resources2 = TetraTech.TTProjetPlus.Views.FolderStructure 
+@model TetraTech.TTProjetPlus.Models.SecurityProjectEquivalenceModel
+
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/select/1.3.4/js/dataTables.select.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
+<script type="text/javascript" src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js"></script>
+<link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" media="screen">
+<link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet" media="screen">
+<link href="https://cdn.datatables.net/select/1.3.4/css/select.dataTables.min.css" rel="stylesheet" media="screen">
+<link href="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css" rel="stylesheet" media="screen">
+<link href="https://editor.datatables.net/extensions/Editor/css/editor.dataTables.min.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
+
+<style>
+    #data_ListSecurityProjectEquivalenceModel {
+        width: 100% !important;
+    }
+
+        #data_ListSecurityProjectEquivalenceModel td {
+            width: auto !important;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        #data_ListSecurityProjectEquivalenceModel th {
+            width: auto !important;
+            white-space: normal;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+</style>
+
+
+<div class="container " style="height: 200vh;width: 100%;">
+    <div class="main">
+        <div class="row">
+            <div class="row">
+                <div class="col-lg-4" style="padding-top: -49px; ">
+                    <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 140px;">
+                        <div class="panel-body">
+                            <ul class="list-inline">
+                                <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet" )">TT Projet +  /</a></li>
+                                <li><a style="color:#183666; font-weight: bold" href="@Url.Action("Index", "TTProjet", new { selectedPanel = "collapse8" })">@Resources.TTProjet.TITools</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 140px; ">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li>
+                                        &bull;&nbsp;<a style="color: #183666" href="@Url.Action("IndexActiverProjet", "TTProjet")">@Resources.TTProjet.ActiverProjet</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color:#183666  " href="@Url.Action("IndexAdmin", "Admin")">@Resources.TTProjet.cancelProjectClosing</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color: #183666" href="@Url.Action("Index2", "FolderStructure")">@Resources2.FoldStructRessource.ChangeServer</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color:#183666 ;font-weight: bold" href="@Url.Action("Index", "SecurityProjectEquivalence")">@Resources.TTProjet.ProjectEquivalence</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "Litige")">@Resources.TTProjet.LitigeManagement</a>
+                                    </li>
+                                    <br>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-lg-4">
+                    <div class="">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 140px; ">
+                            <div class="panel-body">
+                                <ul class="list-inline">                                    
+                                    <li>
+                                        &bull;&nbsp;<a style="color: #183666; " href="@Url.Action("Index", "ProjetSecuriser")">Gestion des projets sécurisés</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color: #183666;" href="@Url.Action("Index", "GestionGroupeAD")">Gestion Groupe AD</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "LocalBPR")">@Resources.TTProjet.EmployeeInfos</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color: #183666" href="@Url.Action("Index3", "FolderStructure")">@Resources.TTProjet.Security60Conf</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row" style="color:steelblue; font-size:initial">
+            <div class="form-group">
+                <div class="col-sm-12 ">
+                    <div class="row">
+                        <div class="row form-group">
+                            <div class="col-lg-12">
+                                <div class="panel pagination-grey" style="border-radius: 10px; margin-left: -10px; margin-top: -10px;">
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h4 style="margin-top: 0px; color: #183666; font-family: 'Arial Bold'; font-size: 18pt; margin-left: 30px;">
+                                                <b>@Resources.TTProjet.ProjectEquivalenceInfos</b>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <button type="button" style="margin-left: 10px; " class="btn btn-info" id="insertButton" onclick="openInsertModel()">
+                                        Ajouter
+                                    </button>
+                                    <br />
+                                    <br />
+                                    <div id="data-table_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer" style=" margin-right: 10px; margin-left: 10px">
+                                        <table id="data_ListSecurityProjectEquivalenceModel" class=" table table-bordered  data-table  dataTable display" style="margin-top: -50px; width: 100%; font-size: 12px; ">
+                                            <thead id="tableHeaderGP">
+                                                <tr style="font-style:italic; ">
+                                                    <th>
+                                                        <input type="text" placeholder=TTprojetID class="column_search" />
+                                                    </th>
+                                                    <th>
+                                                        <input type="text" placeholder=TlinxProjetID class="column_search" />
+                                                    </th>
+                                                </tr>
+                                                <tr class="grey" role="row">
+
+                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> TTprojetID </a>
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> TlinxProjetID </a>
+                                                    </th>
+                                                    <th class="sorting_disabled" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> Modifier </a>
+                                                    </th>
+                                                    <th class="sorting_disabled" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> Supprimer </a>
+                                                    </th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for (var i = 0; i < Model.ListSecurityProjectEquivalence.Count(); i++)
+                                                {
+
+                                                    <tr>
+                                                        <td style="text-align: left; width:10%">
+                                                            @Model.ListSecurityProjectEquivalence[i].TTprojetID
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            @Model.ListSecurityProjectEquivalence[i].TlinxProjetID
+                                                        </td>
+
+                                                        <td style="text-align: left;">
+                                                            <div class="btn-toolbar" style="">
+                                                                <button type="button" id="btnSubmit" class="btn btn-primary btn-sm " style=" padding: 0px 15px;" onclick="openEditModel('@Model.ListSecurityProjectEquivalence[i].TTprojetID','@Model.ListSecurityProjectEquivalence[i].TlinxProjetID', 'Edit')"><span class="glyphicon glyphicon-edit"></span></button>
+                                                            </div>
+                                                        </td>
+
+                                                        <td style="text-align: left;">
+                                                            <div class="btn-toolbar" style="">
+                                                                <div class="btn-toolbar" style="">
+                                                                    <button type="button" id="btnSubmit" class="btn btn-primary btn-sm " style=" padding: 0px 15px;" onclick="openDeleteModel('@Model.ListSecurityProjectEquivalence[i].TTprojetID','@Model.ListSecurityProjectEquivalence[i].TlinxProjetID', 'Delete')">Supprimer</button>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<div class="modal" id="insertModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Ajouter / Modifier / Supprimer</h4>
+                <button type="button" class="close" data-dismiss="modal" onclick="">&times;</button>
+            </div>
+
+            <div class="row">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="alert alert-warning" id="error" hidden="hidden">
+                        <button type="button" class="close" data-hide="alert">&times;</button>
+                        <strong id="error"> </strong>
+                    </div>
+
+                    <div class="container">
+                        <h3 id="insertNew"></h3>
+                        <div class="col-sm-8">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">TTprojetID</label>
+                                    <div class="input-group col-sm-6">
+                                        <input type="text" class="form-control" id="TTprojetID" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">TlinxProjetID</label>
+                                    <div class=" input-group col-sm-6">
+                                        <input type="text" class="form-control" id="TlinxProjetID" placeholder="">
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" id="actionButton" class="btn btn-info" onclick="actionButton()"></button>
+                <button type="button" id="" class="btn btn-info" data-dismiss="modal" onclick="cancel()">Annuler</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    var globalType = 'insert'
+
+    $(document).ready(function () {
+
+        $('#TTprojetID').prop('disabled', false);
+        $('#TlinxProjetID').prop('disabled', false);
+        $('#actionButton').text('@Html.Raw("Ajouter")')
+        $('#contentEditModal').html('');
+        $('#TTprojetID').val('')
+        $('#TlinxProjetID').val('')
+        $('#insertNew').html('');
+        $('#insertNew').html('@Html.Raw("Ajouter")');
+
+        $('#data_ListSecurityProjectEquivalenceModel').DataTable({
+            pageResize: true,
+            pageLength: 10,
+            select: true,
+            scrollX: true,
+            scrollY: $(window).height() <= 722 ? $(window).height() / 3.5 : $(window).height() / 2,
+            scrollCollapse: true,
+            "aoColumnDefs": [
+                { 'bSortable': false, 'aTargets': [2, 3] }
+            ],
+            language: {
+                "url": '@Session["lang"].ToString()' == 'fr' ? "/Content/assets/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json",
+                select: {
+                    rows: '@Session["lang"].ToString()' == 'fr' ? '' : ''
+                }
+            },
+        });
+        $('#data_ListSecurityProjectEquivalenceModel').DataTable().draw();
+
+    });
+
+    $('#data_ListSecurityProjectEquivalenceModel thead').on('keyup', ".column_search", function () {
+
+        $('#data_ListSecurityProjectEquivalenceModel').DataTable()
+            .column($(this).parent().index())
+            .search(this.value)
+            .draw();
+    });
+
+
+    function openEditModel(TTprojetID, TlinxProjetID, type) {
+        globalType = 'modify'
+       $('#insertNew').html('');
+        $('#insertNew').html('Modifier');
+        $('#TTprojetID').val(TTprojetID)
+        $('#TlinxProjetID').val(TlinxProjetID)
+        $('#TTprojetID').prop('disabled', false);
+        $('#TlinxProjetID').prop('disabled', false);
+        $('#actionButton').text('@Html.Raw("Modifier")')
+        $("#error").hide();
+         $('#insertModal').modal('show');
+
+        }
+
+    function cancel() {
+        $('#insertModal').modal('hide');
+
+    }
+
+        function openInsertModel() {
+
+        globalType = 'insert'
+        $('#insertNew').html('');
+        $('#insertNew').html('@Html.Raw("Ajouter")');
+        $('#contentEditModal').html('');
+         $('#TTprojetID').val('')
+            $('#TlinxProjetID').val('')
+            $('#TTprojetID').prop('disabled', false);
+            $('#TlinxProjetID').prop('disabled', false);
+        $('#actionButton').text('@Html.Raw("Ajouter")')
+        $("#error").hide();
+        $('#insertModal').modal('show');
+
+    }
+
+        function openDeleteModel(TTprojetID, TlinxProjetID, type) {
+        globalType = 'delete'
+       $('#insertNew').html('');
+        $('#insertNew').html('Supprimer');
+        $('#TTprojetID').val(TTprojetID)
+        $('#TlinxProjetID').val(TlinxProjetID)
+        $('#TTprojetID').prop('disabled', true);
+        $('#TlinxProjetID').prop('disabled', true);
+        $('#actionButton').text('@Html.Raw("Supprimer")')
+        $("#error").hide();
+         $('#insertModal').modal('show');
+
+        }
+
+    function actionButton()
+    {
+         var TTprojetID1 = $('#TTprojetID').val()
+         var TlinxProjetID1 = $('#TlinxProjetID').val()
+         if (TTprojetID1 != '' && TlinxProjetID1 != '')
+         {
+             if (globalType == 'delete')
+             {
+                 if (confirm("Voulez-vous vraiment supprimer cette ligne ?"))
+                 {
+                     $.ajax({
+                    url: '@Url.Action("insertModifiyInProject", "SecurityProjectEquivalence")',
+                    type: 'GET',
+                    cache: false,
+                    async: false,
+                    data: {
+                        type: globalType,
+                        TTprojetID: TTprojetID1,
+                        TlinxProjetID: TlinxProjetID1
+                    },
+                    success: function (result) {
+                        var message = ''
+                        if (result[0] == '1') {
+                            message = '@Session["lang"].ToString()' == 'fr' ?  'Insertion réussie!' : "Insertion was successfull!"
+                        }
+                        else if (result[0] == '2') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "L'insertion a échoué...!" : "Insertion failed..."
+                        }
+                        else if (result[0] == '3') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La modifictaion a réussie!" : "Modify was successful!"
+                        }
+                        else if (result[0] == '4') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La modifictaion a échoué!" : "Modify failed"
+                        }
+                        else if (result[0] == '5') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La suppression a réussie!" : "Delete was successfull"
+                        }
+                        else if (result[0] == '6') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La suppression a échoué!" : "Delete failed"
+                        }
+
+                        //$('#insertModal').modal('hide');
+
+                        window.setTimeout(function () {
+                            location.reload();
+                            alert(message);
+                        }, 500);
+
+                         }
+                    });
+                 }
+             }
+             else
+             {
+                  $.ajax({
+                    url: '@Url.Action("insertModifiyInProject", "SecurityProjectEquivalence")',
+                    type: 'GET',
+                    cache: false,
+                    async: false,
+                    data: {
+                        type: globalType,
+                        TTprojetID: TTprojetID1,
+                        TlinxProjetID: TlinxProjetID1
+                    },
+                    success: function (result) {
+                        var message = ''
+                        if (result[0] == '1') {
+                            message = '@Session["lang"].ToString()' == 'fr' ?  'Insertion réussie!' : "Insertion was successfull!"
+                        }
+                        else if (result[0] == '2') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "L'insertion a échoué...!" : "Insertion failed..."
+                        }
+                        else if (result[0] == '3') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La modifictaion a réussie!" : "Modify was successful!"
+                        }
+                        else if (result[0] == '4') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La modifictaion a échoué!" : "Modify failed"
+                        }
+                        else if (result[0] == '5') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La suppression a réussie!" : "Delete was successfull"
+                        }
+                        else if (result[0] == '6') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La suppression a échoué!" : "Delete failed"
+                        }
+
+                        //$('#insertModal').modal('hide');
+
+                        window.setTimeout(function () {
+                            location.reload();
+                            alert(message);
+                        }, 500);
+                    }
+                    });
+             }
+         }
+         else
+         {
+             $("#error").html('Tous les champs sont obligatoires');
+             $("#error").show();
+             setTimeout(function () {
+                $('#error').fadeOut('slow');
+             }, 1000
+             );
+         }
+
+    }
+
+
+</script>

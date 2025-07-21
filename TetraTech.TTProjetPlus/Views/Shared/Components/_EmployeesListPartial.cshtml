@@ -1,0 +1,94 @@
+﻿@model List<TetraTech.TTProjetPlus.Models.EmployeeItem>
+@using InfoResources = TetraTech.TTProjetPlus.Views.InfoProjet
+<style>
+
+</style>
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="panel pagination-grey clearfix m-b-0">
+        <div id="data-table_wrapper2" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+            <table id="data_SearchEmployees" class="table table-bordered  data-table  dataTable" style="width: 100%">
+                <thead id="tableHeaderGP">
+                    <tr class="grey" role="row"> 
+                        <th></th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width: 25%">
+                            @InfoResources.InfoProjectRessources.Name
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 25%">
+                            @InfoResources.InfoProjectRessources.ORG
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 25%">
+                            @InfoResources.InfoProjectRessources.Office
+                        </th> 
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 25%">
+                            @InfoResources.InfoProjectRessources.Email
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    { 
+                    <tr>
+                        <td >@item.Employee_Number</td>
+                        <td style="text-align: left;width: 25%">
+                            @item.Full_Name
+                        </td>
+                        <td style="text-align: left;width: 25%">
+                            @item.Org
+                        </td>
+                        <td style="text-align: left;width: 25%">
+                            @item.Office
+                        </td>
+                        <td style="text-align: left;width: 25%">
+                            @item.Email
+                        </td> 
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+else
+{
+    if (Model == null)
+    {
+        @Html.Partial("Error")
+    }
+    else
+    {
+    <span> @InfoResources.InfoProjectRessources.noResultForThisQuery</span>
+    }
+}
+<script>
+    $(document).ready(function () { 
+        $('#data_SearchEmployees').DataTable({
+            "order": [[1, "asc"]],  
+            "columnDefs": [ { "targets": [ 0 ],  "visible": false } ], 
+            "language": {
+                "url": '@Session["lang"].ToString()' == 'fr' ? "/Content/assets/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+            }
+        }); 
+    });  
+    $('#data_SearchEmployees tbody tr  td').on('click', function () { 
+        $('#data_SearchEmployees tr').removeClass('selected');
+        $(this).closest('tr').addClass('selected');   
+        var item=$('#data_SearchEmployees').dataTable().fnGetData($(this)); 
+        searchedModalEmployee = { 
+            number: item[0],
+            name: item[1] 
+        };
+    });	
+
+    function clearModalTable() {  
+        $('#data_SearchEmployees tr').removeClass('selected');
+        ($('input[type=search]')[0]).value = "";
+        $('#data_SearchEmployees').DataTable().search('').draw();  
+    };
+</script>
+
+

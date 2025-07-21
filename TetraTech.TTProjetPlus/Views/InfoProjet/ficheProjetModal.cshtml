@@ -1,0 +1,184 @@
+﻿@model TetraTech.TTProjetPlus.Models.numberGenerationModel
+@using Resources = TetraTech.TTProjetPlus.Views.Home.informations
+@using TetraTech.TTProjetPlus.Controllers
+@using TetraTech.TTProjetPlus.Security
+
+
+@{
+    ViewBag.Title = "Accueil";
+
+    var currentUser = UserService.CurrentUser;
+
+}
+
+<style>
+    .text-on-pannel {
+        background: #fff none repeat scroll 0 0;
+        height: auto;
+        margin-left: 20px;
+        padding: 3px 5px;
+        position: absolute;
+        margin-top: -47px;
+        border: 1px solid #337ab7;
+        border-radius: 8px;
+    }
+
+    .panel {
+        /* for text on pannel */
+        margin-top: 27px !important;
+    }
+
+    .panel-body {
+        padding-top: 30px !important;
+    }
+
+    /* enable absolute positioning */
+    .inner-addon {
+        position: relative;
+    }
+
+        /* style icon */
+        .inner-addon .glyphicon {
+            position: absolute;
+            padding: 10px;
+            pointer-events: none;
+        }
+
+    /* align icon */
+    .left-addon .glyphicon {
+        left: 0px;
+    }
+
+    .right-addon .glyphicon {
+        right: 0px;
+    }
+
+    /* add padding  */
+    .left-addon input {
+        padding-left: 30px;
+    }
+
+    .right-addon input {
+        padding-right: 30px;
+    }
+
+    i {
+        background: lightblue;
+    }
+
+    .redText {
+        color: red;
+    }
+
+    .inputWidth {
+        width: 100%;
+    }
+
+    .inputWidth2 {
+        width: 20%;
+        display: inline
+    }
+
+    .ui-draggable, .ui-droppable {
+        background-position: top;
+    }
+
+    table {
+        font-size: 1em;
+    }
+</style>
+@{
+    var state = HomeController.masterProjectPanelState;
+}
+@using (Html.BeginForm("submitAction", "Home", null, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <h3 class=" text-primary" style="float: left"><strong>@Resources.projectnumberCreation</strong></h3>
+        <h5 class=" text-primary" style="float:right">* @Resources.MandatoryField</h5>
+    </div>
+    <br />
+    <br />
+    <br />
+
+    <div class="panel panel-primary">
+
+        <div class="panel-body">
+            <h4 class="text-on-pannel text-primary"><strong>@Resources.GeneralInformation</strong></h4>
+            <div class="form-group">
+                <label class=" col-sm-3">@Resources.TitleOS *:</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.AbreviatedTitle, "", new { htmlAttributes = new { @class = "form-control " } }) @*<input type="text" class="form-control" id="titre" name="titre">*@
+                    @Html.ValidationMessageFor(m => m.AbreviatedTitle, "", new { @class = "redText" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-3" for="pwd">@Resources.IsItLinkedToMasterProject? *:</label>
+                <div class="col-sm-9">
+                    @Html.RadioButtonFor(m => m.HasAMasterProject, 1, new { @class = "master_project" }) @Resources.yes
+                    @Html.RadioButtonFor(m => m.HasAMasterProject, 0, new { @class = "master_project", Checked = "checked" }) @Resources.no
+                </div>
+            </div>
+            <div id="masterProjectPanel">
+                <div class="form-group ui-widget">
+                    <label class="col-sm-3">@Resources.NoMasterProject:</label>
+                    <div class="col-sm-9 ">
+                        <div class="inner-addon right-addon ">
+                            <i class="glyphicon glyphicon-search"></i>
+                            @Html.TextBoxFor(m => m.MasterProjectNumber, new { @class = "form-control inputWidth" })
+                            @Html.ValidationMessageFor(m => m.MasterProjectNumber, "", new { @class = "redText" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class=" col-sm-3">@Resources.SelectPhaseCode:</label>
+                    <div id="inline_content" class="col-sm-5">
+                        <div class="form-check">
+                            <div>
+                                <label class="form-check-label">
+                                    <input class="form-check-input master_project_phase" type="radio" name="phaseCode" value="alphabetic" checked>&nbsp; @Resources.Alphabetic&nbsp;
+                                </label>
+                                <div id="alphabetique">
+                                    @Html.DropDownListFor(m => m.Company, new SelectList(HomeController.Letters, "LetterName", "Value"), "", new { @class = "form-control inputWidth2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input master_project_phase" type="radio" name="phaseCode" value="numeric">&nbsp; @Resources.Numeric &nbsp; &nbsp;
+                            </label>
+                            <div id="numerique">
+                                @Html.DropDownListFor(m => m.Company, new SelectList(HomeController.Letters, "LetterName", "Value"), "", new { @class = "form-control inputWidth2" })
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input master_project_phase" type="radio" name="phaseCode" value="textField">&nbsp; @Resources.TextField
+                            </label>
+                            <div id="texte">
+                                <input style="width:20%; display: inline" id="textSelect" type="text" class="form-control" name="textSelect">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+    <div style="text-align:right">
+        <button class="btn btn-info " type="reset" value="Cancel">@Resources.Cancel</button>&nbsp;
+        <button class="btn btn-info " type="submit" value="Submit">@Resources.Next</button>
+
+    </div>
+
+
+
+}
+<script>
+
+
+</script>
+

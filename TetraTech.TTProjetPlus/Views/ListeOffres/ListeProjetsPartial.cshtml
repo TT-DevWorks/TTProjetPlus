@@ -1,0 +1,280 @@
+﻿@using InfoResources = TetraTech.TTProjetPlus.Views.InfoProjet
+@using TetraTech.TTProjetPlus.Security
+@using Resources = TetraTech.TTProjetPlus.Views.ListeOffres
+@model TetraTech.TTProjetPlus.Models.ListOfOffers
+
+<style>
+
+
+    .selectForEdit {
+        cursor: pointer;
+    }
+
+    td {
+        width: 11%;
+    }
+</style>
+<div class="">
+    <div class="pagination-grey clearfix m-b-0">
+        <div id="data-table_wrapper1" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+            <table id="data_table_ProjectList" data-page-length='10' class="table table-bordered  data-table  dataTable display " style="width:100%; font-size:12px">
+                <thead>
+                    <tr style="font-style:italic; ">
+                        <th>
+                        </th>
+
+                        <th>
+                            <input type="text" placeholder=" @InfoResources.InfoProjectRessources.projectNumber" class="column_search" />
+                        </th>
+
+                        <th>
+                            <input type="text" placeholder=" @InfoResources.InfoProjectRessources.TitleOS" class="column_search" style="width: 200px" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder=" @InfoResources.InfoProjectRessources.Path" class="column_search" style="width: 300px" />
+                        </th>
+
+                        <th>
+                            <input type="text" placeholder=" @InfoResources.InfoProjectRessources.ClientName" class="column_search" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder=" @InfoResources.InfoProjectRessources.ORGList" class="column_search" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder=" @InfoResources.InfoProjectRessources.ProjectManager" class="column_search" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder=" @InfoResources.InfoProjectRessources.ProgramManager" class="column_search" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder=" @InfoResources.InfoProjectRessources.InitiatedByOS" class="column_search" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder="@InfoResources.InfoProjectRessources.submittedDate" class="column_search" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder=" @InfoResources.InfoProjectRessources.Status" class="column_search" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder=" @InfoResources.InfoProjectRessources.StatusDoc" class="column_search" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder=" @InfoResources.InfoProjectRessources.DocPostponedDate" class="column_search" />
+                        </th>
+                    </tr>
+
+                    <tr class="grey" role="row">
+                        <th>
+                            @InfoResources.InfoProjectRessources.DetailsE
+                        </th>
+                        <th>
+                            @InfoResources.InfoProjectRessources.projectNumber
+                        </th>
+
+                        <th>
+                            @InfoResources.InfoProjectRessources.TitleOS
+                        </th>
+                        <th>
+                            @InfoResources.InfoProjectRessources.Path
+                        </th>
+
+                        <th>
+                            @InfoResources.InfoProjectRessources.ClientName
+                        </th>
+                        <th>
+                            @InfoResources.InfoProjectRessources.ORGList
+                        </th>
+                        <th>
+                            @InfoResources.InfoProjectRessources.ProjectManager
+                        </th>
+                        <th>
+                            @InfoResources.InfoProjectRessources.ProgramManager
+                        </th>
+
+                        <th>
+                            @InfoResources.InfoProjectRessources.InitiatedByOS
+                        </th>
+                        <th>
+                            @InfoResources.InfoProjectRessources.submittedDate
+                        </th>
+                        <th>
+                            @InfoResources.InfoProjectRessources.Status
+                        </th>
+                        <th>
+                            @InfoResources.InfoProjectRessources.StatusDoc
+                        </th>
+                        <th>
+                            @InfoResources.InfoProjectRessources.DocPostponedDate
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (var i = 0; i < Model.OffersList.Count(); i++)
+                    {
+
+                        <tr>
+
+                            <td class="selectForEdit" id="@Model.OffersList[i].Project_Number" onclick="openProjectModal('@Model.OffersList[i].OS_Project_ID','@Model.OffersList[i].Project_Number' )">
+                                @InfoResources.InfoProjectRessources.Edit
+                            </td>
+                            <td>
+                                @Model.OffersList[i].Project_Number
+                            </td>
+
+                            <td>
+                                @Model.OffersList[i].Project_Description
+                            </td>
+                            <td>
+                                <div style="width: 500px">
+                                    <span style="float:left" id="path_@i">
+                                        @Model.OffersList[i].path
+                                    </span>
+                                    @if (Model.OffersList[i].path != "")
+                                    {
+                                        <div style="float: right">
+                                            <button class="copyButton" style="margin-right: 5px;" onclick="copyFunction2('path_@i')" title="@Resources.ListeProjetsRessources.OpenPath @Model.OffersList[i].path">
+                                                <i class="fa fa-folder-open" aria-hidden="true"></i>
+                                            </button>
+                                            <button class="copyButton" style="margin-right: 5px;" onclick="copyFunction('path_@i')" title="@Resources.ListeProjetsRessources.CopyPath @Model.OffersList[i].path
+@Resources.ListeProjetsRessources.CopyPath2">   <i class="fa fa-copy"></i></button>
+                                        </div>
+                                    }
+
+                                </div>
+                            </td>
+
+                            <td>
+                                @Model.OffersList[i].Customer_Name
+                            </td>
+
+                            <td>
+                                @Model.OffersList[i].Organisation
+                            </td>
+                            <td>
+                                @Model.OffersList[i].GestionnaireProjet
+                            </td>
+                            <td>
+                                @Model.OffersList[i].Program_Mgr_Name
+                            </td>
+                            <td>
+                                @Model.OffersList[i].Initiated_By_Name
+                            </td>
+                            <td>
+                                @Model.OffersList[i].submittedDate
+                            </td>
+                            <td>
+                                @Model.OffersList[i].StatusName
+                            </td>
+                            <td>
+                                @Model.OffersList[i].StatusDocName
+                            </td>
+                            <td>
+                                @Model.OffersList[i].Doc_PostponedDate
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+
+        $('#data_table_ProjectList').DataTable({
+                order: [[1, "desc"]],
+                pageResize: true,
+                dom:
+                    "<'row'<'col-lg-2'l><'col-lg-7 text-center'B><'col-lg-2'f>>" +
+                    "<'row'<'col-lg-12'tr>>" +
+                    "<'row'<'col-lg-5'i><'col-lg-7'p>>",
+                buttons: [
+                { extend: 'excel', text: '@Session["lang"].ToString()' == 'fr' ?'Exporter vers Excel' : 'Export to Excel' },
+                { extend: 'selectAll', text: '@Session["lang"].ToString()' == 'fr' ?'Tout sélectionner' : 'Select all' },
+                { extend: 'selectNone', text: '@Session["lang"].ToString()' == 'fr' ?'Tout désélectionner' : 'Deselect all' },
+
+                ],
+
+                pageLength: 25,
+                select: true,
+                scrollX: true,
+                scrollY: $(window).height() <= 722 ? $(window).height() / 2.25 : $(window).height() / 1.75,
+                scrollCollapse: true,
+                language: {
+                    "url": '@Session["lang"].ToString()' == 'fr' ? "/Content/assets/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+                },
+            });
+        });
+
+    $('#data_table_ProjectList thead').on('keyup', ".column_search", function () {
+
+        $('#data_table_ProjectList').DataTable()
+            .column($(this).parent().index())
+            .search(this.value)
+            .draw();
+    });
+
+    $('input[type="search"]').css(
+        { 'width': '165px', 'background-color': 'pink' }
+    );
+
+    function copyFunction(itemId) {
+
+            $.ajax({
+            url: '@Url.Action("checkIfDirectoryOnDisk", "ListeOffres")',
+                type: 'GET',
+            dataType :'JSON',
+            data: {
+                path: $("#" + itemId).text().trim()
+            },
+
+            success:function(result)
+            {
+                if (result.exist == "yes") {
+                    copyToClipboard($("#" + itemId).text().trim());
+                }
+                else {
+                    $('#directoryDontExist').modal('show');
+                    copyToClipboard($("#" + itemId).text().trim());
+                }
+            }
+           });
+    }
+
+    @*function copyFunction2(itemId) {
+        window.location.href = '@Url.Action("createBatchFile", "ListeOffres")?folderLocation=' + $("#" + itemId).text().trim();
+    }*@
+
+    function copyFunction2(itemId) {
+            $.ajax({
+            url: '@Url.Action("checkIfDirectoryOnDisk", "ListeOffres")',
+                type: 'GET',
+            dataType :'JSON',
+            data: {
+                path: $("#" + itemId).text().trim()
+            },
+
+            success:function(result)
+            {
+                if (result.exist == "yes") {
+                    window.location.href = '@Url.Action("createBatchFile", "ListeOffres")?folderLocation=' + $("#" + itemId).text().trim();
+                }
+                else {
+                    $('#directoryDontExist').modal('show');
+                }
+            }
+           });
+    }
+
+    function copyToClipboard(text) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val(text).select();
+        document.execCommand("copy");
+        $temp.remove();
+    }
+</script>

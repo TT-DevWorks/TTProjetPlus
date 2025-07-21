@@ -1,0 +1,316 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.ModeleSelection
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Controllers
+@model TetraTech.TTProjetPlus.Models.NewSelectionModele
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+}
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+@* searchable *@
+@*<script type="text/javascript" src="~/Content/Searchable/jquery.searchabledropdown-1.0.8.min.js"></script>*@
+
+<style type="text/css">
+
+    #main-container {
+        width: 600px;
+        margin: 150px auto;
+    }
+
+    .inputWidth3 {
+        width: 60%;
+        display: inline
+    }
+
+
+    .redText {
+        color: red;
+    }
+</style>
+
+
+
+<div id="loading">
+    <img id="loadingGIF2" src="~/Content/assets/img/ajax-loader.gif" alt="Loading..." />
+</div>
+<div class="">
+
+    <div style="">
+
+        <div class="panel panel-primary">
+            <div class="panel-body" style="margin:15px;">
+                <div class="row">
+                    <div class="">
+                        <div class="alert alert-warning" id="warningAdd" hidden="hidden">
+                            <button type="button" class="close" data-hide="alert">&times;</button>
+                            <strong>@Resources.ModeleSelectionManagementRessources.message1</strong>
+                        </div>
+
+                        <div class="alert alert-warning" id="alreadyExists" hidden="hidden">
+                            <button type="button" class="close" data-hide="alert">&times;</button>
+                            <strong>@Resources.ModeleSelectionManagementRessources.message2.</strong>
+                        </div>
+                        <div class="alert alert-success" id="successAdd" hidden="hidden">
+                            <button type="button" class="close" data-hide="alert">&times;</button>
+                            <strong>@Resources.ModeleSelectionManagementRessources.message3</strong>
+                        </div>
+
+                        <div class="alert alert-danger" id="failedAdd" hidden="hidden">
+                            <button type="button" class="close" data-hide="alert">&times;</button>
+                            <strong>@Resources.ModeleSelectionManagementRessources.message4</strong>
+                            <button data-toggle="collapse" data-target="#detailsFail">@Resources.ModeleSelectionManagementRessources.Details</button>
+                            <div id="detailsFail" class="collapse">
+                            </div>
+                        </div>
+                        <div class="alert alert-warning" id="MissingFieldsAdd" hidden="hidden">
+                            <button type="button" class="close" data-hide="alert">&times;</button>
+                            <strong>@Resources.ModeleSelectionManagementRessources.message5</strong>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4 style="margin-top: 0px; color:#183666; font-family: 'Arial Bold'; font-size: 18pt;"><b>@Resources.ModeleSelectionManagementRessources.AddModel</b></h4>
+                    </div>
+                </div>
+
+                <div class="row" style="color:steelblue; font-size:initial">
+                    <div class="form-group" style="padding-top: 20px">
+                        <div class="col-sm-5">
+                            <div>
+                                <div style="float:left;width:100%">
+                                    <div class="required">
+                                        @Html.EditorFor(m => m.modeleSelectionName, "", new { htmlAttributes = new { placeholder = @Resources.ModeleSelectionManagementRessources.ModeleName, @class = "form-control" } })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-0" style="color:red">
+                            <h3 class="pull-left" style="margin-top: 2px;margin-left: -1px">*</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="color:steelblue; font-size:initial">
+                    <div class="form-group" style="padding-top: 20px">
+                        <div class="col-sm-5">
+                            <div>
+                                <div style="float:left;width:100%">
+                                    @Html.EditorFor(m => m.modeleSelectionDescription, "", new { htmlAttributes = new { placeholder = @Resources.ModeleSelectionManagementRessources.ModeleDescription, @class = "form-control" } })
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(m => m.modeleSelectionName, "", new { @class = "redText" })
+                        </div>
+                        <div class="col-sm-0" style="color:red">
+                            <h3 class="pull-left" style="margin-top: 2px;margin-left: -1px">*</h3>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row" style="color:steelblue; font-size:initial">
+                    <div class="form-group" style="padding-top: 20px">
+                        <div class="col-sm-5">
+                            <div>
+                                <div style="float:left;width:100%">
+                                    @Html.DropDownListFor(m => m.modID, new SelectList(ModeleSelectionController.ListeModelsMS, "Value", "Name"), new { @class = "form-control select-modele select1" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-0" style="color:red">
+                            <h3 class="pull-left" style="margin-top: 2px;margin-left: -1px">*</h3>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row" style="color:steelblue; font-size:initial">
+                    <div class="form-group" style="padding-top: 20px">
+                        <div class="col-sm-5">
+                            <div>
+                                <div style="float:left;width:100%">
+                                    @Html.DropDownListFor(m => m.copyingFromExistingModeleSelection, new SelectList(" "), new { @class = "form-control select-modeleSelection select1" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div style="text-align:right">
+                    <button class="specialB" value="Submit" onclick="SubmitFormAdd()" style="">@Resources.ModeleSelectionManagementRessources.Add</button>&nbsp;
+                    @*@if (ViewBag.displayRetour == "true")
+                        {
+                            <button class="btn btn-info retour" type="reset" value="Cancel" onclick="returntoMenu()" style="">@Resources.Cancel</button>
+                        }*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+        $('#divForTreeMod').hide();
+
+        $(".select-modele").prepend('<option value="" disabled selected style="color:#ccc">' + ' @Resources.ModeleSelectionManagementRessources.Modele ' + '</option>');
+
+        $(".select-modeleSelection").prepend('<option value="" disabled selected style="color:#ccc">'+' @Resources.ModeleSelectionManagementRessources.CopyFromExistingElement ' + '</option>');
+
+
+    });
+
+//on change project: choose a server
+        $('#modID').on('change', function () {
+
+            if ($('#modID').val() != null)
+    {
+ $.ajax ({
+    url: '@Url.Action("returnModeleSelection", "ModeleSelection")',
+     type: 'GET',
+     data: {
+
+         modID: $('#modID').val()
+     },
+    success:function(data)
+    {
+
+        if (data == null || data == "") {
+            $("#copyingFromExistingModeleSelection").empty();
+            $("#selecopyingFromExistingModeleSelectionctionModel").append('<option value="">'+'@Resources.ModeleSelectionManagementRessources.NoSelectionModel'+'</option >');
+        }
+        else
+        {
+            $("#copyingFromExistingModeleSelection").empty();
+            $("#copyingFromExistingModeleSelection").append('<option value="">'+'@Resources.ModeleSelectionManagementRessources.ChooseASelectionModel'+'</option >');
+            $.each(data, function (index, row) {
+
+                $("#copyingFromExistingModeleSelection").append('<option value="'
+                    + row.Value + '">'
+                    + row.Name + '</option>');
+            });
+        }
+    }
+  });
+ }
+});
+
+
+
+     function returntoMenu()
+    {
+        window.location.href = "@Url.Action("Index", "TTProjet")";
+    }
+
+
+
+    function SubmitFormAdd() {
+        if (($('#modeleSelectionName').val() == "") || ($('#modeleSelectionDescription').val() == "") || ($('#modID').val() == "")) {
+            $("#MissingFieldsAdd").show();
+            setTimeout(function () {
+                $('#MissingFieldsAdd').fadeOut('slow');
+            }, 60000
+            )
+        }
+        else
+        {
+        $.ajax ({
+            url: '@Url.Action("submitAction", "ModeleSelection")',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                modeleSelectionName: $("#modeleSelectionName").val(),
+                modeleSelectionDescription: $("#modeleSelectionDescription").val(),
+                modID: $("#modID").val(),
+                copyingFromExistingModeleSelection: $("#copyingFromExistingModeleSelection").val()
+
+            },
+            success: function (data1) {
+
+                // remettre a jour ici les liste de modeles de selection de toutes les pages
+                if (data1.result == "alreadyExists") {
+                    $("#alreadyExists").show();
+                    setTimeout(function () {
+                        $('#alreadyExists').fadeOut('slow');
+                    }, 60000
+                    );
+                }
+
+                else
+                {
+                $.ajax({
+                    url: '@Url.Action("returnModeleSelectionAll", "ModeleSelection")',
+                    type: 'GET',
+                    dataType: 'json',
+                    cache: false,
+                    success: function (data2) {
+                        //dans le cas ou le nouveau modele a un nom qui existe deja dans les modeles de l utilisateur
+
+                        //1. mise a jour de la liste des modeles selection pour la page modification:
+
+                        $("#modeleSelectionNameTomodify").empty();
+                        $("#modeleSelectionNameTomodify").append('<option value="">'+'@Resources.ModeleSelectionManagementRessources.ChooseASelectionModel'+'</option >');
+
+                        $.each(data2.ListAll, function (index, row) {
+                            $("#modeleSelectionNameTomodify").append('<option value="'
+                                + row.Value + '">'
+                                + row.Name + '</option>');
+                        });
+
+                        //2. mise a jour de la liste des modeles selection pour la page delete:
+                        $("#modeleSelectionNameToDelete").empty();
+                        $("#modeleSelectionNameToDelete").append('<option value="">'+'@Resources.ModeleSelectionManagementRessources.ChooseASelectionModel'+'</option >');
+
+                        $.each(data2.ListUserOnly, function (index, row) {
+                            $("#modeleSelectionNameToDelete").append('<option value="'
+                                + row.Value + '">'
+                                + row.Name + '</option>');
+                        });
+
+                        //3. mise a jour de la liste des modeles selection pour la page ajout:
+
+                    }
+                });
+                //fin des mises a jour
+                    if (data1.result == "success") {
+                        $("#successAdd").show();
+                        setTimeout(function () {
+                            $('#successAdd').fadeOut('slow');
+                        }, 60000
+                        );
+
+                    }else
+                        if (data1.result == "failed")
+                        {
+                         $('#detailsFail').html("");
+                         $('#detailsFail').html(data1.details);
+                         $("#failedAdd").show();
+                    }
+
+                    //reinitilaisation des inputs:
+                    $("#modeleSelectionName").val("")
+                    $("#modeleSelectionDescription").val("")
+                    $("#modID").val("")
+                    $("#copyingFromExistingModeleSelection").val("")
+                    $("#copyingFromExistingModeleSelection").empty();
+
+                }
+            }
+        });
+     }
+ }
+    $(".close").click(function () {
+        $(".alert").hide();
+
+    });
+
+</script>

@@ -1,0 +1,72 @@
+﻿@using TetraTech.TTProjetPlus.Models
+@using InfoResources = TetraTech.TTProjetPlus.Views.Securite
+@using TetraTech.TTProjetPlus.Controllers
+
+@{
+    ViewBag.Title = "CustomersNumberNamePartial";
+}
+<meta charset="utf-8">
+<textarea id="textbox" style="width: 300px; height: 200px;" hidden>
+</textarea>
+<div class="panel pagination-grey clearfix m-b-0; col-sm-12" style="  padding: 15px;">
+    <div id="data-table_wrapper3" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+        <table id="data_AdministratorsList2" class="table table-bordered  data-table  dataTable display" style="width:100%; font-size: 12px">
+            <thead id="tableHeader">
+                <tr class="grey" role="row">
+
+                    @*<th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending">
+                            @InfoResources.Company
+                        </th>*@
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.Securite.projectReponsible
+                    </th>
+                    <th>
+
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" hidden>
+                        id
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (structureItem item in SecuriteController.ListeResponsableProjet)
+                {
+
+                    <tr>
+                        @*<td style="text-align: left;">
+                                @item.Description
+                            </td>*@
+                        <td style="text-align:left ">
+                            @item.Name
+                        </td>
+                        <td style="text-align: left;width: 10%">
+                            <a href="" class="btn btn-default editor_remove" onclick="confirmDeleteEmploye(@item.Value,'@item.Name' ); return false;"> <span class="k-icon k-i-close"></span>  @InfoResources.Securite.delete</a>
+                        </td>
+                        <td style="text-align:left " hidden>
+                            @item.Value
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $('#data_AdministratorsList2').DataTable({
+            "order": [[0, "asc"]],
+            "language": {
+                "url": '@Session["lang"].ToString()' == 'fr' ? "/Content/assets/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+            }
+        });
+
+    });
+
+
+</script>

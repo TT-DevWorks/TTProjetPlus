@@ -1,0 +1,2148 @@
+﻿@model  TetraTech.TTProjetPlus.Models.FicheModel
+@using res = TetraTech.TTProjetPlus.Views.Boomerang.fiche
+<style>
+    div#fiche-view {
+        text-align: left;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 14px;
+    }
+
+    table#fiche-view-activite {
+        background-color: #FB8506;
+        color: #FFFFFF;
+        margin-bottom: 5px;
+        width: 100%;
+        height: 18px;
+    }
+
+        table#fiche-view-activite .left {
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 16px;
+            padding-left: 10px;
+        }
+
+        table#fiche-view-activite .right {
+            font-size: 12px;
+            padding-right: 5px;
+            color: #FFFFFF;
+        }
+
+            table#fiche-view-activite .right a {
+                color: #FFFFFF;
+            }
+
+    div#fiche-view-image {
+        float: left;
+        padding-right: 5px;
+        padding-bottom: 10px;
+    }
+
+    div#fiche-view-localisation {
+        font-weight: bold;
+        font-size: 16px;
+        text-transform: uppercase;
+    }
+
+    div#fiche-view-intitule {
+        font-weight: bold;
+        font-size: 16px;
+        margin-top: 5px;
+        text-transform: uppercase;
+    }
+
+    div#fiche-view-type-mission {
+        margin-top: 10px;
+    }
+
+    div#fiche-view-description {
+        clear: both;
+        border-top: 2px solid #000000;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #000000;
+    }
+
+    table.fiche-view-data {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+        table.fiche-view-data td.title {
+            font-weight: bold;
+            width: 280px;
+        }
+
+        table.fiche-view-data td.separator {
+            border-bottom: 2px solid #000000;
+            font-size: 1px;
+            height: 1px;
+        }
+
+        table.fiche-view-data td {
+            padding: 2px;
+        }
+
+    table2.fiche-view-data {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+        table2.fiche-view-data td.title {
+            font-weight: bold;
+            width: 280px;
+        }
+
+        table2.fiche-view-data td.separator {
+            border-bottom: 2px solid #000000;
+            font-size: 1px;
+            height: 1px;
+        }
+
+        table2.fiche-view-data td {
+            padding: 2px;
+        }
+
+    div.msg-info {
+        padding-top: 4px;
+        padding-bottom: 4px;
+        border-left: 3px solid #4BC060;
+        border-right: 3px solid #4BC060;
+        text-align: center;
+        color: #4BC060;
+        font-weight: bold;
+        background-color: #F8FBF9;
+        font-size: 16px;
+    }
+
+    div.msg-info2 {
+        padding-top: 4px;
+        padding-bottom: 4px;
+        border-left: 3px solid #ffff00;
+        border-right: 3px solid #ffff00;
+        text-align: center;
+        color: #003d82;
+        font-weight: bold;
+        background-color: #ffff00;
+        font-size: 16px;
+    }
+
+    .tdColor {
+        color: #003D82;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 14px;
+    }
+    
+    td{
+        width:33%;
+    }
+    .equipe {
+        margin: 0;
+    }
+</style>
+
+<br />
+
+<div id="fiche-view" style="color:#003D82;">
+
+    <table cellpadding="0" cellspacing="0" id="fiche-view-activite">
+        <tr>
+            <td class="left" style="background-color: @Model.ficheDetails.couleur;">
+                > @Model.ficheDetails.libelle_activite
+            </td>
+
+            <td class="right" style="background-color: @Model.ficheDetails.couleur;">
+                <a href="#" onclick="history.back();" style="float:right">@res.back</a>
+                @if (Model.ficheDetails.etat == "ONLINE" || Model.ficheDetails.etat == "FORBIDDEN")
+                {
+                    //impression de la fiche a implanter  <a href="misc/fiche.print.php?id_fiche={$f.id_fiche}">@res.impr</a>&nbsp;| &nbsp;
+                    <a href="#" style="float:right">@res.impr | &nbsp;</a>
+                }
+
+            </td>
+        </tr>
+    </table>
+    <div class="container" style="width: 100%;">
+        <div class="row">
+            <div class="col-sm4">
+                <div id="fiche-view-image">
+                    @if (!string.IsNullOrEmpty(Model.image))
+                    {
+                        <img src="~/Content/images/indisponible-400.png" alt="" /> @*<img src="thumb.php?img={$f.image}" width="400" alt="" />*@
+                    }
+
+                    else
+                    {
+                        <img src="~/Content/images/indisponible-400.png" alt="" />
+                    }
+
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="row">
+                    <div id="fiche-view-localisation">
+
+                        @if (!string.IsNullOrEmpty(Model.ficheDetails.localisation))
+                        {
+                            <div style="float:left">@Model.ficheDetails.localisation</div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.ficheDetails.libelle_province))
+                        {
+                            <div style="float:left"> - @Model.ficheDetails.libelle_province</div>
+                        }
+                        else
+                        {
+                            if (!string.IsNullOrEmpty(Model.ficheDetails.autre_lieu))
+                            {
+                                <div style="float:left"> - @Model.ficheDetails.autre_lieu</div>
+                            }
+
+                        }
+                        @if (!string.IsNullOrEmpty(Model.ficheDetails.libelle_pays))
+                        {
+                            <div style="float:left"> - @Model.ficheDetails.libelle_pays</div>
+                        }
+
+
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div id="fiche-view-intitule">
+                        @Model.ficheDetails.intitule
+                    </div>
+                </div>
+                <div class="row">
+                    @if (Model.ficheDetails.id_pole == 22)
+                    {
+                        <div id="fiche-view-type-mission">
+                            @if (!string.IsNullOrEmpty(Model.services))
+                            {
+                                <strong>@res.serviceEnvironnement</strong> @Model.services
+
+                            }
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div id="fiche-view-type-mission">
+                            @if (!string.IsNullOrEmpty(Model.services))
+                            {
+                                <strong>@res.service</strong> @Model.services
+
+                            }
+                        </div>
+
+                    }
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div id="fiche-view-description" style="border-color: @Model.ficheDetails.couleur;">
+        @if (Session["ADMIN"].ToString() == "True" || (Session["ADMIN"].ToString() == "False" && Model.ficheDetails.etat != "FORBIDDEN"))
+        {
+            <div>
+                @Html.Raw(Model.ficheDetails.description)
+            </div>
+        }
+
+        @if (Session["ADMIN"].ToString() == "False" && Model.ficheDetails.etat != "FORBIDDEN")
+        {
+            <div style="text-align: center;color: #FB2706;">
+                <img src="~/Content/images/icons/64/security.gif" alt="{@res.confidentiel" />@*align="absmiddle"*@
+                <br /><br />
+                <strong>@res.txtConfidentiel</strong>
+            </div>
+
+        }
+    </div>
+
+    @if (Session["ADMIN"].ToString() == "True" || (Session["ADMIN"].ToString() == "False" && Model.ficheDetails.etat != "FORBIDDEN"))
+    {
+
+        <table id="fiche-view-mission" class="fiche-view-data" cellspacing="2" cellpadding="0">
+            <tr>
+                <td class="title" valign="top" style="width:15%">@res.mission:</td>
+                <td lass="title" style="width:85%; text-align:left">
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.mission))
+                    {
+                        @Model.ficheDetails.mission
+                    }
+                    else
+                    {
+                        <i>@res.none</i>
+                    }
+
+                </td>
+            </tr>
+            <tr>
+                <td class="title" valign="top" style="width:15%">@res.particularite:</td>
+                <td style="width:85%; text-align:left">
+
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.particularite))
+                    {
+                        <div>@Model.ficheDetails.particularite </div>
+                    }
+                    else
+                    {
+                        <i>@res.none</i>
+                    }
+
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="separator" style="border-color: @Model.ficheDetails.couleur;"></td>
+            </tr>
+        </table>
+        <table class="fiche-view-data" cellspacing="5" cellpadding="0" style=" text-align: left;">
+            <tr>
+                <td colspan="4" style="text-align: center; font-weight: bold; background-color: #EFEFEF;">@res.chiffres</td>
+            </tr>
+            <tr>
+                <td class="title" valign="top">@res.yearReal:</td>
+                <td class="title" valign="top">@res.datePrevue</td>
+                <td class="title" valign="top">@res.dateFinale</td>
+            </tr>
+            <tr>
+                <td></td>
+
+                <td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.annee_debut))
+                    {
+                        if (!string.IsNullOrEmpty(Model.ficheDetails.mois_debut))
+                        {
+                            if (Int32.Parse(Model.ficheDetails.mois_debut) != 0 && Int32.Parse(Model.ficheDetails.mois_debut) < 10)
+                            {
+                                <div style="float:left">0</div>
+                            }
+                            var div1 = Model.ficheDetails.mois_debut + "/";
+                            <div style="float:left">@div1</div>
+
+                        }
+                        <div style="float: left">@Model.ficheDetails.annee_debut </div>
+
+
+                        if (!string.IsNullOrEmpty(Model.ficheDetails.annee_fin))
+                        {
+                            if ((Model.ficheDetails.annee_debut != Model.ficheDetails.annee_fin) || ((Model.ficheDetails.annee_debut == Model.ficheDetails.annee_fin) && (!string.IsNullOrEmpty(Model.ficheDetails.mois_fin) == true) && (Model.ficheDetails.mois_debut != Model.ficheDetails.mois_fin)))
+                            {
+                                <div style="float: left">-</div>
+                                if (!string.IsNullOrEmpty(Model.ficheDetails.mois_fin))
+                                {
+                                    if (Int32.Parse(Model.ficheDetails.mois_fin) != 0 && Int32.Parse(Model.ficheDetails.mois_fin) < 10)
+                                    {
+                                        <div style="float: left">0</div>
+                                    }
+
+                                    var div2 = Model.ficheDetails.mois_fin + "/";
+
+                                    <div style="float:left">@div2</div>
+
+                                }
+                                <div style="float: left"> @Model.ficheDetails.annee_fin</div>
+                            }
+                        }
+
+                    }
+
+                    else
+                    {
+                        <i>@res.none</i>
+                    }
+
+
+                </td>
+
+                <td>
+
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.annee_debut))
+                    {
+                        if (!string.IsNullOrEmpty(Model.ficheDetails.mois_debut_fin))
+                        {
+                            if (Int32.Parse(Model.ficheDetails.mois_debut_fin) != 0 && Int32.Parse(Model.ficheDetails.mois_debut_fin) < 10)
+                            {
+                                <div style="float:left">0</div>
+                            }
+
+                            var div3 = Model.ficheDetails.mois_debut_fin + "/";
+                            <div style="float:left">@div3</div>
+                        }
+
+                        <div style="float: left">@Model.ficheDetails.annee_debut_fin </div>
+
+
+
+
+                        if (!string.IsNullOrEmpty(Model.ficheDetails.annee_fin_fin))
+                        {
+                            if ((Model.ficheDetails.annee_debut_fin != Model.ficheDetails.annee_fin_fin) || ((Model.ficheDetails.annee_debut_fin == Model.ficheDetails.annee_fin_fin) && (!string.IsNullOrEmpty(Model.ficheDetails.mois_fin_fin) == true) && (Model.ficheDetails.mois_debut_fin != Model.ficheDetails.mois_fin_fin)))
+                            {
+                                <div style="float: left">-</div>
+                                if (!string.IsNullOrEmpty(Model.ficheDetails.mois_fin_fin))
+                                {
+                                    if (Int32.Parse(Model.ficheDetails.mois_fin_fin) != 0 && Int32.Parse(Model.ficheDetails.mois_fin_fin) < 10)
+                                    {
+                                        <div style="float: left">0</div>
+                                    }
+
+                                    var div4 = Model.ficheDetails.mois_fin_fin + "/";
+
+                                    <div style="float:left">@div4</div>
+
+                                }
+                                <div style="float: left"> @Model.ficheDetails.annee_fin_fin</div>
+                            }
+                        }
+
+                    }
+
+                    else
+                    {
+                        <i>@res.none</i>
+                    }
+
+                </td>
+
+            </tr>
+            @*enlever table: pour test seulement:*@
+            <tr><td colspan="3"></td></tr>
+            <tr>
+                <td class="title" valign="top">@res.duration:</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.duree.ToString()))
+                    {
+                        if (Int32.Parse(Model.ficheDetails.duree.ToString()) != 0)
+                        {
+                            var div5 = Model.ficheDetails.duree + " " + res.months;
+                            <div style="float:left">@div5</div>
+
+                        }
+                    }
+                    else
+                    {
+                        <i>@res.none</i>
+                    }
+                </td>
+            </tr>
+            <tr><td colspan="3"></td></tr>
+            <!-- ajout Fred: pole autre que batiment -->
+            @if (Model.ficheDetails.id_pole != 1 && Model.ficheDetails.id_pole != 14)
+            {
+                <tr>
+                    <td class="title" valign="top">@res.echeancier</td>
+                    <td class="title" valign="top">@res.datePrevue</td>
+                    <td class="title" valign="top">@res.dateFinale</td>
+                </tr>
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.conception</span></td>
+                    <td>
+                        @if (Model.ficheDetails.conception_prevue_mois_debut.GetValueOrDefault() != 0 && Model.ficheDetails.conception_prevue_annee_debut.GetValueOrDefault() != 0 && Model.ficheDetails.conception_prevue_mois_fin.GetValueOrDefault() != 0 && Model.ficheDetails.conception_prevue_annee_fin.GetValueOrDefault() != 0)
+                        {
+                            if (Model.ficheDetails.conception_prevue_mois_debut < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+
+                            var div6 = Model.ficheDetails.conception_prevue_mois_debut + "/" + Model.ficheDetails.conception_prevue_annee_debut + " - ";
+
+                            <div style="float:left">@div6</div>
+                            if (Model.ficheDetails.conception_prevue_mois_fin < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+                            var div7 = Model.ficheDetails.conception_prevue_mois_fin + "/" + Model.ficheDetails.conception_prevue_annee_fin;
+                            <div style="float:left">@div7</div>
+                        }
+                        else
+                        {
+                            <i>@res.none</i>
+                        }
+
+
+                    </td>
+                    <td>
+                        @if (Model.ficheDetails.conception_finale_mois_debut.GetValueOrDefault() != 0 && Model.ficheDetails.conception_finale_annee_debut.GetValueOrDefault() != 0 && Model.ficheDetails.conception_finale_mois_fin.GetValueOrDefault() != 0 && Model.ficheDetails.conception_finale_annee_fin.GetValueOrDefault() != 0)
+                        {
+                            if (Model.ficheDetails.conception_finale_mois_debut < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+
+                            var div8 = Model.ficheDetails.conception_finale_mois_debut + "/" + Model.ficheDetails.conception_finale_annee_debut + " - ";
+
+                            <div style="float:left">@div8</div>
+                            if (Model.ficheDetails.conception_finale_mois_fin < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+                            var div9 = Model.ficheDetails.conception_finale_mois_fin + "/" + Model.ficheDetails.conception_finale_annee_fin;
+                            <div style="float:left">@div9</div>
+                        }
+                        else
+                        {
+                            <i>@res.none</i>
+                        }
+                    </td>
+                </tr>
+
+
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.planDevis</span></td>
+                    <td>
+                        @if (Model.ficheDetails.plan_prevu_mois_debut.GetValueOrDefault() != 0 && Model.ficheDetails.plan_prevu_annee_debut.GetValueOrDefault() != 0 && Model.ficheDetails.plan_prevu_mois_fin.GetValueOrDefault() != 0 && Model.ficheDetails.plan_prevu_annee_fin.GetValueOrDefault() != 0)
+                        {
+                            if (Model.ficheDetails.plan_prevu_mois_debut < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+
+                            var div10 = Model.ficheDetails.plan_prevu_mois_debut + "/" + Model.ficheDetails.plan_prevu_annee_debut + " - ";
+
+                            <div style="float:left">@div10</div>
+                            if (Model.ficheDetails.plan_prevu_mois_fin < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+                            var div11 = Model.ficheDetails.plan_prevu_mois_fin + "/" + Model.ficheDetails.plan_prevu_annee_fin;
+                            <div style="float:left">@div11</div>
+                        }
+                        else
+                        {
+                            <i>@res.none</i>
+                        }
+
+                    </td>
+                    <td>
+                        @if (Model.ficheDetails.plan_final_mois_debut.GetValueOrDefault() != 0 && Model.ficheDetails.plan_final_annee_debut.GetValueOrDefault() != 0 && Model.ficheDetails.plan_final_mois_fin.GetValueOrDefault() != 0 && Model.ficheDetails.plan_final_annee_fin.GetValueOrDefault() != 0)
+                        {
+                            if (Model.ficheDetails.plan_final_mois_debut < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+
+                            var div10 = Model.ficheDetails.plan_final_mois_debut + "/" + Model.ficheDetails.plan_final_annee_debut + " - ";
+
+                            <div style="float:left">@div10</div>
+                            if (Model.ficheDetails.plan_final_mois_fin < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+                            var div11 = Model.ficheDetails.plan_final_mois_fin + "/" + Model.ficheDetails.plan_final_annee_fin;
+                            <div style="float:left">@div11</div>
+                        }
+                        else
+                        {
+                            <i>@res.none</i>
+                        }
+
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.construct</span></td>
+                    <td>
+
+                        @if (Model.ficheDetails.construction_prevue_mois_debut.GetValueOrDefault() != 0 && Model.ficheDetails.construction_prevue_annee_debut.GetValueOrDefault() != 0 && Model.ficheDetails.construction_prevue_mois_fin.GetValueOrDefault() != 0 && Model.ficheDetails.construction_prevue_annee_fin.GetValueOrDefault() != 0)
+                        {
+                            if (Model.ficheDetails.construction_prevue_mois_debut < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+
+                            var div12 = Model.ficheDetails.construction_prevue_mois_debut + "/" + Model.ficheDetails.construction_prevue_annee_debut + " - ";
+
+                            <div style="float:left">@div12</div>
+                            if (Model.ficheDetails.construction_prevue_mois_fin < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+                            var div13 = Model.ficheDetails.construction_prevue_mois_fin + "/" + Model.ficheDetails.construction_prevue_annee_fin;
+                            <div style="float:left">@div13</div>
+                        }
+                        else
+                        {
+                            <i>@res.none</i>
+                        }
+
+                    </td>
+                    <td>
+                        @if (Model.ficheDetails.construction_finale_mois_debut.GetValueOrDefault() != 0 && Model.ficheDetails.construction_finale_annee_debut.GetValueOrDefault() != 0 && Model.ficheDetails.construction_finale_mois_fin.GetValueOrDefault() != 0 && Model.ficheDetails.construction_finale_annee_fin.GetValueOrDefault() != 0)
+                        {
+                            if (Model.ficheDetails.construction_finale_mois_debut < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+
+                            var div12 = Model.ficheDetails.construction_finale_mois_debut + "/" + Model.ficheDetails.construction_finale_annee_debut + " - ";
+
+                            <div style="float:left">@div12</div>
+                            if (Model.ficheDetails.construction_finale_mois_fin < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+                            var div13 = Model.ficheDetails.construction_finale_mois_fin + "/" + Model.ficheDetails.construction_finale_annee_fin;
+                            <div style="float:left">@div13</div>
+                        }
+                        else
+                        {
+                            <i>@res.none</i>
+                        }
+
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.ecartReal</span></td>
+                    <td>
+
+                        @if (!string.IsNullOrEmpty(Model.ficheDetails.ecart_periode_real))
+                        {
+                            <div style="float:left">@Model.ficheDetails.ecart_periode_real</div>
+                        }
+                        else
+                        {
+                            <i>@res.none</i>
+                        }
+                    </td>
+                </tr>
+
+            }
+            <!-- fin ajout Fred: pole autre que batiment  -->
+            <!-- POUR LE POLE BATIMENT -->
+            @if (Model.ficheDetails.id_pole == 1 || Model.ficheDetails.id_pole == 14)
+            {
+                <tr>
+                    <td class="title" valign="top">@res.echeancier</td>
+                    <td class="title" valign="top">@res.datePrevue</td>
+                    <td class="title" valign="top">@res.dateFinale</td>
+                </tr>
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.conception</span></td>
+                    <td>
+                        @if (Model.ficheDetails.conception_prevue_mois_debut.GetValueOrDefault() != 0 && Model.ficheDetails.conception_prevue_annee_debut.GetValueOrDefault() != 0 && Model.ficheDetails.conception_prevue_mois_fin.GetValueOrDefault() != 0 && Model.ficheDetails.conception_prevue_annee_fin.GetValueOrDefault() != 0)
+                        {
+                            if (Model.ficheDetails.conception_prevue_mois_debut < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+
+                            var div14 = Model.ficheDetails.conception_prevue_mois_debut + "/" + Model.ficheDetails.conception_prevue_annee_debut + " - ";
+
+                            <div style="float:left">@div14</div>
+                            if (Model.ficheDetails.conception_prevue_mois_fin < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+                            var div15 = Model.ficheDetails.conception_prevue_mois_fin + "/" + Model.ficheDetails.conception_prevue_annee_fin;
+                            <div style="float:left">@div15</div>
+                        }
+                        else
+                        {
+                            <i>@res.none</i>
+                        }
+
+
+                    </td>
+                    <td>
+                        @if (Model.ficheDetails.conception_finale_mois_debut.GetValueOrDefault() != 0 && Model.ficheDetails.conception_finale_annee_debut.GetValueOrDefault() != 0 && Model.ficheDetails.conception_finale_mois_fin.GetValueOrDefault() != 0 && Model.ficheDetails.conception_finale_annee_fin.GetValueOrDefault() != 0)
+                        {
+                            if (Model.ficheDetails.conception_finale_mois_debut < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+
+                            var div16 = Model.ficheDetails.conception_finale_mois_debut + "/" + Model.ficheDetails.conception_finale_annee_debut + " - ";
+
+                            <div style="float:left">@div16</div>
+                            if (Model.ficheDetails.conception_finale_mois_fin < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+                            var div17 = Model.ficheDetails.conception_finale_mois_fin + "/" + Model.ficheDetails.conception_finale_annee_fin;
+                            <div style="float:left">@div17</div>
+                        }
+                        else
+                        {
+                            <i>@res.none</i>
+                        }
+                    </td>
+                </tr>
+
+
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.planDevis</span></td>
+                    <td>
+                        @if (Model.ficheDetails.plan_prevu_mois_debut.GetValueOrDefault() != 0 && Model.ficheDetails.plan_prevu_annee_debut.GetValueOrDefault() != 0 && Model.ficheDetails.plan_prevu_mois_fin.GetValueOrDefault() != 0 && Model.ficheDetails.plan_prevu_annee_fin.GetValueOrDefault() != 0)
+                        {
+                            if (Model.ficheDetails.plan_prevu_mois_debut < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+
+                            var div18 = Model.ficheDetails.plan_prevu_mois_debut + "/" + Model.ficheDetails.plan_prevu_annee_debut + " - ";
+
+                            <div style="float:left">@div18</div>
+                            if (Model.ficheDetails.plan_prevu_mois_fin < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+                            var div19 = Model.ficheDetails.plan_prevu_mois_fin + "/" + Model.ficheDetails.plan_prevu_annee_fin;
+                            <div style="float:left">@div19</div>
+                        }
+                        else
+                        {
+                            <i>@res.none</i>
+                        }
+
+                    </td>
+                    <td>
+                        @if (Model.ficheDetails.plan_final_mois_debut.GetValueOrDefault() != 0 && Model.ficheDetails.plan_final_annee_debut.GetValueOrDefault() != 0 && Model.ficheDetails.plan_final_mois_fin.GetValueOrDefault() != 0 && Model.ficheDetails.plan_final_annee_fin.GetValueOrDefault() != 0)
+                        {
+                            if (Model.ficheDetails.plan_final_mois_debut < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+
+                            var div20 = Model.ficheDetails.plan_final_mois_debut + "/" + Model.ficheDetails.plan_final_annee_debut + " - ";
+
+                            <div style="float:left">@div20</div>
+                            if (Model.ficheDetails.plan_final_mois_fin < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+                            var div21 = Model.ficheDetails.plan_final_mois_fin + "/" + Model.ficheDetails.plan_final_annee_fin;
+                            <div style="float:left">@div21</div>
+                        }
+                        else
+                        {
+                            <i>@res.none</i>
+                        }
+
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.construct</span></td>
+                    <td>
+
+                        @if (Model.ficheDetails.construction_prevue_mois_debut.GetValueOrDefault() != 0 && Model.ficheDetails.construction_prevue_annee_debut.GetValueOrDefault() != 0 && Model.ficheDetails.construction_prevue_mois_fin.GetValueOrDefault() != 0 && Model.ficheDetails.construction_prevue_annee_fin.GetValueOrDefault() != 0)
+                        {
+                            if (Model.ficheDetails.construction_prevue_mois_debut < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+
+                            var div22 = Model.ficheDetails.construction_prevue_mois_debut + "/" + Model.ficheDetails.construction_prevue_annee_debut + " - ";
+
+                            <div style="float:left">@div22</div>
+                            if (Model.ficheDetails.construction_prevue_mois_fin < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+                            var div23 = Model.ficheDetails.construction_prevue_mois_fin + "/" + Model.ficheDetails.construction_prevue_annee_fin;
+                            <div style="float:left">@div23</div>
+                        }
+                        else
+                        {
+                            <i>@res.none</i>
+                        }
+
+                    </td>
+                    <td>
+                        @if (Model.ficheDetails.construction_finale_mois_debut.GetValueOrDefault() != 0 && Model.ficheDetails.construction_finale_annee_debut.GetValueOrDefault() != 0 && Model.ficheDetails.construction_finale_mois_fin.GetValueOrDefault() != 0 && Model.ficheDetails.construction_finale_annee_fin.GetValueOrDefault() != 0)
+                        {
+                            if (Model.ficheDetails.construction_finale_mois_debut < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+
+                            var div24 = Model.ficheDetails.construction_finale_mois_debut + "/" + Model.ficheDetails.construction_finale_annee_debut + " - ";
+
+                            <div style="float:left">@div24</div>
+                            if (Model.ficheDetails.construction_finale_mois_fin < 10)
+                            {
+                                <div style="float: left">0</div>
+                            }
+                            var div25 = Model.ficheDetails.construction_finale_mois_fin + "/" + Model.ficheDetails.construction_finale_annee_fin;
+                            <div style="float:left">@div25</div>
+                        }
+                        else
+                        {
+                            <i>@res.none</i>
+                        }
+
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.ecartReal</span></td>
+                    <td>
+
+                        @if (!string.IsNullOrEmpty(Model.ficheDetails.ecart_periode_real))
+                        {
+                            <div style="float:left">@Model.ficheDetails.ecart_periode_real</div>
+                        }
+                        else
+                        {
+                            <i>@res.none</i>
+                        }
+                    </td>
+                </tr>
+            }
+            <!-- FIN -->
+
+            <tr>
+                <td colspan="3"></td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                @if (Model.ficheDetails.unite_1.GetValueOrDefault() != 0 && !string.IsNullOrEmpty(Model.ficheDetails.libelle_type_unite_1))
+                {
+
+                    <td class="title" valign="top">@Model.ficheDetails.libelle_type_unite_1:</td>
+                    <td>@Model.ficheDetails.unite_1&nbsp;@Model.ficheDetails.libelle_unite_1</td>
+
+                }
+            </tr>
+
+
+            <tr>
+                @if (Model.ficheDetails.unite_2.GetValueOrDefault() != 0 && !string.IsNullOrEmpty(Model.ficheDetails.libelle_type_unite_2))
+                {
+
+                    <td class="title" valign="top">@Model.ficheDetails.libelle_type_unite_2:</td>
+                    <td>@Model.ficheDetails.unite_2&nbsp;@Model.ficheDetails.libelle_unite_2</td>
+
+                }
+            </tr>
+            <tr>
+                @if (!string.IsNullOrEmpty(Model.ficheDetails.libelle_type_unite_1) && !string.IsNullOrEmpty(Model.ficheDetails.libelle_type_unite_2))
+                {
+                    <td class="title" valign="top">@res.unite</td>
+                    <td>
+                        < <i>@res.none</i>
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td colspan="3"></td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="title" valign="top">@res.coutGlob:</td>
+                <td>
+                    @if (Model.ficheDetails.montant_operation.GetValueOrDefault() != 0)
+                    {
+                        <div>@Model.ficheDetails.montant_operation @res.devise HT</div>
+                    }
+
+                    else
+                    {
+                        <i>@res.none</i>
+                    }
+
+                </td>
+            </tr>
+
+            <!-- POUR LE POLE BATIMENT -->
+            @if (Model.ficheDetails.id_pole == 1 || Model.ficheDetails.id_pole == 14)
+            {
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.montantEstim</span></td>
+                    <td>
+                        @if (Model.ficheDetails.montant_estimation.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.montant_estimation @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.ecart_cout))
+                    {
+                        <td colspan="2" rowspan="3" valign="top" style="border-left: 1px solid black; padding-left: 8px;">@Model.ficheDetails.ecart_cout</td>
+                    }
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.montantSoum</span></td>
+                    <td>
+                        @if (Model.ficheDetails.montant_soumission.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.montant_soumission @res.devise HT
+                            </div>
+                        }
+
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.montantFin</span></td>
+                    <td>
+                        @if (Model.ficheDetails.montant_final.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.montant_final @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+
+                        }
+
+                    </td>
+                </tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.chgmtBpr</span></td>
+                    <td>
+                        @if (Model.ficheDetails.changement_bpr.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.changement_bpr @res.devise Nb
+                            </div>
+                        }
+
+                        else
+                        {
+                            <i>@res.none</i>
+                        }
+
+                    </td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.nature_changement_bpr))
+                    {
+                        <td colspan="2" rowspan="2" valign="top" style="border-left: 1px solid black; padding-left: 8px;">@Model.ficheDetails.nature_changement_bpr</td>
+
+                    }
+
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.montant</span></td>
+                    <td>
+                        @if (Model.ficheDetails.montant_changement_bpr.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.montant_changement_bpr @res.devise HT
+                            </div>
+                        }
+
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                </tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.chgmtClient</span></td>
+                    <td>
+                        @if (Model.ficheDetails.changement_client.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.changement_client @res.devise HT
+                            </div>
+                        }
+
+                        else
+                        {
+                            <i>@res.none</i>
+                        }
+                    </td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.nature_changement_client))
+                    {
+                        <td colspan="2" rowspan="2" valign="top" style="border-left: 1px solid black; padding-left: 8px;">@Model.ficheDetails.nature_changement_client</td>
+
+                    }
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.montant</span></td>
+                    <td>
+                        @if (Model.ficheDetails.montant_changement_client.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.montant_changement_client @res.devise HT
+                            </div>
+                        }
+
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                </tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.structPrev</span></td>
+                    <td>
+                        @if (Model.ficheDetails.structure_prevu.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.structure_prevu @res.devise HT
+                            </div>
+                        }
+
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.ecart_structure))
+                    {
+                        <td colspan="2" rowspan="2" valign="top" style="border-left: 1px solid black; padding-left: 8px;">@Model.ficheDetails.ecart_structure</td>
+                    }
+                </tr>
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.structFin</span></td>
+                    <td>
+                        @if (Model.ficheDetails.structure_final.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.structure_final @res.devise HT
+                            </div>
+                        }
+
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                </tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.amenagmtPrev</span></td>
+                    <td>
+                        @if (Model.ficheDetails.amenagement_prevu.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.amenagement_prevu @res.devise HT
+                            </div>
+                        }
+
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.ecart_amenagement))
+                    {
+                        <td colspan="2" rowspan="2" valign="top" style="border-left: 1px solid black; padding-left: 8px;">@Model.ficheDetails.ecart_amenagement</td>
+
+                    }
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.amenagmtFin</span></td>
+                    <td>
+                        @if (Model.ficheDetails.amenagement_final.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.amenagement_final @res.devise HT
+                            </div>
+                        }
+
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                </tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.mecaPrev</span></td>
+                    <td>
+                        @if (Model.ficheDetails.mecanique_prevu.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.mecanique_prevu @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+
+                    </td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.ecart_mecanique))
+                    {
+                        <td colspan="2" rowspan="2" valign="top" style="border-left: 1px solid black; padding-left: 8px;">@Model.ficheDetails.ecart_mecanique</td>
+
+                    }
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.mecaFin</span></td>
+                    <td>
+                        @if (Model.ficheDetails.mecanique_final.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.mecanique_final @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+
+                    </td>
+                </tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.electPrev</span></td>
+                    <td>
+                        @if (Model.ficheDetails.electricite_prevu.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.electricite_prevu @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.ecart_electricite))
+                    {
+                        <td colspan="2" rowspan="2" valign="top" style="border-left: 1px solid black; padding-left: 8px;">@Model.ficheDetails.ecart_electricite</td>
+
+                    }
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.electFin</span></td>
+                    <td>
+                        @if (Model.ficheDetails.electricite_final.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.electricite_final @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                </tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.infraPrev</span></td>
+                    <td>
+                        @if (Model.ficheDetails.infrastructure_prevu.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.infrastructure_prevu @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.ecart_infrastructure))
+                    {
+                        <td colspan="2" rowspan="2" valign="top" style="border-left: 1px solid black; padding-left: 8px;">@Model.ficheDetails.ecart_infrastructure</td>
+
+                    }
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.infraFin</span></td>
+                    <td>
+                        @if (Model.ficheDetails.infrastructure_final.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.infrastructure_final @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                </tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.gestPrev</span></td>
+                    <td>
+                        @if (Model.ficheDetails.gestion_prevu.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.gestion_prevu @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.ecart_gestion))
+                    {
+                        <td colspan="2" rowspan="2" valign="top" style="border-left: 1px solid black; padding-left: 8px;">@Model.ficheDetails.ecart_gestion</td>
+                    }
+
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.gestFin</span></td>
+                    <td>
+                        @if (Model.ficheDetails.gestion_final.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.gestion_final @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                </tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.coutPrev @Model.ficheDetails.autre_nom</span></td>
+                    <td>
+                        @if (Model.ficheDetails.autre_prevu.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.autre_prevu @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.ecart_autre))
+                    {
+                        <td colspan="2" rowspan="2" valign="top" style="border-left: 1px solid black; padding-left: 8px;">@Model.ficheDetails.ecart_autre</td>
+                    }
+
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.coutFin @Model.ficheDetails.autre_nom</span>
+                    <td>
+                        @if (Model.ficheDetails.autre_final.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.autre_final @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                </tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+
+
+            }
+            <tr><td colspan="3"></td></tr>
+
+            <tr>
+                <td class="title" valign="top">@res.feesTeam:</td>
+                <td class="title" valign="top">@res.Prevus</td>
+                <td class="title" valign="top">@res.Finaux</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @if (Model.ficheDetails.montant_equipe.GetValueOrDefault() != 0)
+                    {
+                        <div>
+                            @Model.ficheDetails.montant_equipe @res.devise HT
+                        </div>
+                    }
+                    else
+                    {
+                        <span>	0,00 $ HT</span>
+                    }
+
+                </td>
+                <td>
+                    @if (Model.ficheDetails.montant_equipe_fin.GetValueOrDefault() != 0)
+                    {
+                        <div>
+                            @Model.ficheDetails.montant_equipe_fin @res.devise HT
+                        </div>
+                    }
+                    else
+                    {
+                        <span>	0,00 $ HT</span>
+                    }
+                </td>
+            </tr>
+
+            <tr><td>&nbsp;</td></tr>
+
+
+            <tr>
+                <td class="title" valign="top">@res.feesBpr:</td>
+                <td class="title" valign="top">@res.Prevus</td>
+                <td class="title" valign="top">@res.Finaux</td>
+            </tr>
+            <tr>
+                <td class="title" valign="top"></td>
+                <td>
+                    @if (Model.ficheDetails.montant_societe.GetValueOrDefault() != 0)
+                    {
+                        <div>
+                            @Model.ficheDetails.montant_societe @res.devise HT
+                        </div>
+                    }
+                    else
+                    {
+                        <span>	0,00 $ HT</span>
+                    }
+                </td>
+                <td>
+                    @if (Model.ficheDetails.montant_societe_fin.GetValueOrDefault() != 0)
+                    {
+                        <div>
+                            @Model.ficheDetails.montant_societe_fin @res.devise HT
+                        </div>
+                    }
+                    else
+                    {
+                        <span>	0,00 $ HT</span>
+                    }
+                </td>
+            </tr>
+
+
+            @if (Model.ficheDetails.id_pole == 1 || Model.ficheDetails.id_pole == 14)
+            {
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.structPrevFees</span></td>
+                    <td>
+                        @if (Model.ficheDetails.structure_prevu_bpr.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.structure_prevu_bpr @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.ecart_structure_bpr))
+                    {
+                        <td colspan="2" rowspan="2" valign="top" style="border-left: 1px solid black; padding-left: 8px;">Model.ficheDetails.ecart_structure_bpr</td>
+                    }
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.structFinFees</span></td>
+                    <td>
+                        @if (Model.ficheDetails.structure_final_bpr.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.structure_final_bpr @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                </tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.amenagmtPrevFees</span></td>
+                    <td>
+                        @if (Model.ficheDetails.amenagement_prevu_bpr.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.amenagement_prevu_bpr @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.ecart_amenagement_bpr))
+                    {
+                        <td colspan="2" rowspan="2" valign="top" style="border-left: 1px solid black; padding-left: 8px;">Model.ficheDetails.ecart_amenagement_bpr</td>
+                    }
+
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.amenagmtFinFees</span></td>
+                    <td>
+                        @if (Model.ficheDetails.amenagement_final_bpr.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.amenagement_final_bpr @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                </tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.mecaPrevFees</span></td>
+                    <td>
+                        @if (Model.ficheDetails.mecanique_prevu_bpr.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.mecanique_prevu_bpr @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.ecart_mecanique_bpr))
+                    {
+                        <td colspan="2" rowspan="2" valign="top" style="border-left: 1px solid black; padding-left: 8px;">Model.ficheDetails.ecart_mecanique_bpr</td>
+                    }
+
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.mecaFinFees</span></td>
+                    <td>
+                        @if (Model.ficheDetails.mecanique_final_bpr.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.mecanique_final_bpr @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                </tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.electPrevFees</span></td>
+                    <td>
+                        @if (Model.ficheDetails.electricite_prevu_bpr.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.electricite_prevu_bpr @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.ecart_electricite_bpr))
+                    {
+                        <td colspan="2" rowspan="2" valign="top" style="border-left: 1px solid black; padding-left: 8px;">Model.ficheDetails.ecart_electricite_bpr</td>
+                    }
+                </tr>
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.electFinFees</span></td>
+                    <td>
+                        @if (Model.ficheDetails.electricite_final_bpr.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.electricite_final_bpr @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                </tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.infraPrevFees</span></td>
+                    <td>
+                        @if (Model.ficheDetails.infrastructure_prevu_bpr.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.infrastructure_prevu_bpr @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.ecart_infrastructure_bpr))
+                    {
+                        <td colspan="2" rowspan="2" valign="top" style="border-left: 1px solid black; padding-left: 8px;">Model.ficheDetails.ecart_infrastructure_bpr</td>
+                    }
+                </tr>
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.infraFinFees</span></td>
+                    <td>
+                        @if (Model.ficheDetails.infrastructure_final_bpr.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.infrastructure_final_bpr @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                </tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.gestPrevFees</span></td>
+                    <td>
+                        @if (Model.ficheDetails.gestion_prevu_bpr.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.gestion_prevu_bpr @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.ecart_gestion_bpr))
+                    {
+                        <td colspan="2" rowspan="2" valign="top" style="border-left: 1px solid black; padding-left: 8px;">Model.ficheDetails.ecart_gestion_bpr</td>
+                    }
+
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.gestFinFees</span></td>
+                    <td>
+                        @if (Model.ficheDetails.gestion_final_bpr.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.gestion_final_bpr @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>	0,00 $ HT</span>
+                        }
+                    </td>
+                </tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.feesPrev {$f.autre_nom_bpr}</span></td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(Model.ficheDetails.autre_prevu_bpr))
+                        {
+                            <div>
+                                @Model.ficheDetails.autre_prevu_bpr @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>@res.none</span>
+                        }
+                    </td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.ecart_autre_bpr))
+                    {
+                        <td colspan="2" rowspan="2" valign="top" style="border-left: 1px solid black; padding-left: 8px;">Model.ficheDetails.ecart_autre_bpr</td>
+                    }
+
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.feesFin {$f.autre_nom_bpr}</span>
+                    <td>
+                        {if $f.autre_final_bpr}
+                        @if (!string.IsNullOrEmpty(Model.ficheDetails.autre_final_bpr))
+                        {
+                            <div>
+                                @Model.ficheDetails.autre_final_bpr @res.devise HT
+                            </div>
+                        }
+                        else
+                        {
+                            <span>@res.none</span>
+                        }
+                    </td>
+                </tr>
+
+                <tr><td colspan="3">&nbsp;</td></tr>
+
+                <tr>
+                    <td class="title" valign="top" colspan="3" style="width: 100%;">@res.ecoEnergie</td>
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.ecoEnerg</span></td>
+                    <td>
+                        <strong>@res.prevues</strong>:
+                        @if (Model.ficheDetails.eco_energie_prevu.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.eco_energie_prevu MJ
+                            </div>
+
+                        }
+                        else
+                        {
+                            <i>0.00 MJ</i>
+                        }
+                    </td>
+                    <td>
+                        <strong>@res.reelles</strong>:
+                        @if (Model.ficheDetails.eco_energie_reel.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.eco_energie_reel MJ
+                            </div>
+
+                        }
+                        else
+                        {
+                            <i>0.00 MJ</i>
+                        }
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.ecoMonet</span></td>
+                    <td>
+                        <strong>@res.prevues</strong>:
+                        @if (Model.ficheDetails.eco_monetaire_prevu.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.eco_monetaire_prevu $
+                            </div>
+
+                        }
+                        else
+                        {
+                            <i>0,00 $</i>
+                        }
+                    </td>
+                    <td>
+                        <strong>@res.reelles</strong>:
+                        @if (Model.ficheDetails.eco_monetaire_reel.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.eco_monetaire_reel MJ
+                            </div>
+
+                        }
+                        else
+                        {
+                            <i>0,00 $</i>
+                        }
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.pri</span></td>
+                    <td>
+                        <strong>@res.prevues</strong>:
+                        @if (Model.ficheDetails.pri_prevu.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.pri_prevu $
+                            </div>
+
+                        }
+                        else
+                        {
+                            <i>0,00 $</i>
+                        }
+                    </td>
+                    <td>
+                        <strong>@res.reelles</strong>:
+                        @if (Model.ficheDetails.pri_reel.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.pri_reel $
+                            </div>
+
+                        }
+                        else
+                        {
+                            <i>0,00 $</i>
+                        }
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="title" valign="top"><span style="margin-left: 10px;">@res.consoBat</span></td>
+                    <td>
+                        <strong>@res.travauxAvant</strong>:
+                        @if (Model.ficheDetails.conso_prevu.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.conso_prevu  MJE/m²
+                            </div>
+
+                        }
+                        else
+                        {
+                            <i>
+                                0.00 MJE/m²
+                            </i>
+                        }
+                    </td>
+                    <td>
+                        <strong>@res.travauxApres</strong>:
+                        @if (Model.ficheDetails.conso_reel.GetValueOrDefault() != 0)
+                        {
+                            <div>
+                                @Model.ficheDetails.conso_reel MJE/m²
+                            </div>
+
+                        }
+                        else
+                        {
+                            <i>
+                                0.00 MJE/m²
+                            </i>
+                        }
+                    </td>
+
+                </tr>
+
+                <tr><td>&nbsp;</td></tr>
+
+                <tr>
+                    <td class="title" valign="top" colspan="3">@res.mesurageEco</td>
+                </tr>
+                <tr>
+
+                    <td colspan="3">
+                        @if (!string.IsNullOrEmpty(Model.ficheDetails.mesurage_eco))
+                        {
+                            <div>
+                                @Model.ficheDetails.mesurage_eco
+                            </div>
+                        }
+                        else
+                        {
+                            <i> @res.none </i>
+                        }
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+
+                if (!string.IsNullOrEmpty(Model.ficheDetails.appui_financier_organisme) && !string.IsNullOrEmpty(Model.ficheDetails.appui_financier_organisme2) && !string.IsNullOrEmpty(Model.ficheDetails.appui_financier_organisme3))
+                {
+                    <tr>
+                        <td class="title" valign="top">@res.appui</td>
+                        <td colspan="3">
+                            <table>
+                                <tr>
+                                    <td valign="top" style="width: 200px; font-weight: bold;">@res.organisme</td>
+                                    <td valign="top" style="width: 200px; font-weight: bold;">@res.appuiPrevu</td>
+                                    <td valign="top" style="width: 200px; font-weight: bold;">@res.appuiReel</td>
+                                </tr>
+                                @if (!string.IsNullOrEmpty(Model.ficheDetails.appui_financier_organisme))
+                                {
+                                    <tr>
+                                        <td>@Model.ficheDetails.appui_financier_organisme}</td>
+                                        <td>@Model.ficheDetails.appui_financier_prevu @res.devise</td>
+                                        <td>@Model.ficheDetails.appui_financier_reel @res.devise</td>
+                                    </tr>
+
+                                }
+
+
+                                @if (!string.IsNullOrEmpty(Model.ficheDetails.appui_financier_organisme2))
+                                {
+                                    <tr>
+                                        <td>@Model.ficheDetails.appui_financier_organisme2}</td>
+                                        <td>@Model.ficheDetails.appui_financier_prevu2 @res.devise</td>
+                                        <td>@Model.ficheDetails.appui_financier_reel2 @res.devise</td>
+                                    </tr>
+
+                                }
+
+
+                                @if (!string.IsNullOrEmpty(Model.ficheDetails.appui_financier_organisme3))
+                                {
+                                    <tr>
+                                        <td>@Model.ficheDetails.appui_financier_organisme3}</td>
+                                        <td>@Model.ficheDetails.appui_financier_prevu3 @res.devise</td>
+                                        <td>@Model.ficheDetails.appui_financier_reel3 @res.devise</td>
+                                    </tr>
+
+                                }
+
+                            </table>
+                        </td>
+                    </tr>
+
+                }
+
+                else
+                {
+                    <tr>
+                        <td class="title" valign="top">@res.appui</td>
+                        <td class="title" valign="top">@res.organisme</td>
+                        <td class="title" valign="top">@res.appuiPrevu @res.devise</td>
+                        <td class="title" valign="top" width="170">@res.appuiReel @res.devise</td>
+                    </tr>
+
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td><i>@res.none</i></td>
+                        <td><i>@res.none</i></td>
+                        <td><i>@res.none</i></td>
+                    </tr>
+
+                }
+
+
+            }
+
+
+            <tr><td>&nbsp;</td></tr>
+
+            <tr>
+                <td colspan="4" style="text-align: center; font-weight: bold; background-color: #EFEFEF;">@res.client</td>
+            </tr>
+            <tr>
+                <td class="title" valign="top">@res.client:</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.client_nom))
+                    {
+                        <div>
+                            @Model.ficheDetails.client_nom
+                        </div>
+                        if (!string.IsNullOrEmpty(Model.ficheDetails.client_adresse))
+                        {
+                            <br />
+                            <div>
+                                @Model.ficheDetails.client_adresse
+                            </div>
+                        }
+                        if (!string.IsNullOrEmpty(Model.ficheDetails.client_telephone))
+                        {
+                            <br />
+                            <div>
+                                @Model.ficheDetails.client_telephone
+                            </div>
+                        }
+                        if (!string.IsNullOrEmpty(Model.ficheDetails.client_mail))
+                        {
+                            <br />
+                            <div>
+                                @Model.ficheDetails.client_mail
+                            </div>
+                        }
+
+                    }
+                    else
+                    {
+                        <i> @res.none </i>
+                    }
+
+                </td>
+            </tr>
+            <tr>
+                <td class="title" valign="top">@res.nomContact</td>
+                <td>
+                    <i>@res.none</i>
+                    {/if}
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.contact_nom))
+                    {
+                        <div>
+                            @Model.ficheDetails.contact_nom
+                        </div>
+                    }
+                    else
+                    {
+                        <i> @res.none </i>
+                    }
+
+                </td>
+            </tr>
+
+            <tr>
+                <td class="title" valign="top">@res.typeClient:</td>
+                <td>
+
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.type_client))
+                    {
+                        <div>
+                            @Model.ficheDetails.type_client
+                        </div>
+                    }
+                    else
+                    {
+                        <i> @res.none </i>
+                    }
+
+                </td>
+            </tr>
+
+            <tr>
+                <td class="title" valign="top">@res.numRef</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.num_ref))
+                    {
+                        <div>
+                            @Model.ficheDetails.num_ref
+                        </div>
+                    }
+                    else
+                    {
+                        <i> @res.none </i>
+                    }
+                </td>
+            </tr>
+
+            <tr><td>&nbsp;</td></tr>
+
+            <tr>
+                <td colspan="4" style="text-align: center; font-weight: bold; background-color: #EFEFEF;">@res.theTeam</td>
+            </tr>
+
+            <tr>
+                <td class="title" valign="top">@res.chargeAff:</td>
+                <td colspan="3">
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.id_charge_affaire))
+                    {
+                        <div>
+                            @Model.ficheDetails.id_charge_affaire
+                        </div>
+                    }
+                    else
+                    {
+                        <i> @res.none </i>
+                    }
+                </td>
+            </tr>
+
+            <tr>
+                <td class="title" valign="top">@res.equipeInterne:</td>
+                <td colspan="3">
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.equipe_interne))
+                    {
+                        <div>
+                            @foreach(string item in Model.equipeList)
+                            {
+                                <p class="equipe">@item</p>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <i> @res.none </i>
+                    }
+                </td>
+
+            </tr>
+
+            <tr>
+                <td class="title" valign="top">@res.others:</td>
+                <td colspan="3">
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.equipe))
+                    {
+                        <div>
+                            @Model.ficheDetails.equipe
+                        </div>
+                    }
+                    else
+                    {
+                        <i> @res.none </i>
+                    }
+                </td>
+            </tr>
+
+            <tr>
+                <td class="title" valign="top">@res.archi:</td>
+                <td colspan="3">
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.architecte))
+                    {
+                        <div>
+                            @Model.ficheDetails.architecte
+                        </div>
+                    }
+                    else
+                    {
+                        <i> @res.none </i>
+                    }
+                </td>
+            </tr>
+
+            <tr>
+                <td class="title" valign="top">@res.conducteur:</td>
+                <td colspan="3">
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.conducteur_operation))
+                    {
+                        <div>
+                            @Model.ficheDetails.conducteur_operation
+                        </div>
+                    }
+                    else
+                    {
+                        <i> @res.none </i>
+                    }
+                </td>
+
+            </tr>
+
+            <tr><td>&nbsp;</td></tr>
+
+            <tr>
+                <td colspan="4" style="text-align: center; font-weight: bold; background-color: #EFEFEF;">@res.infoInterne</td>
+            </tr>
+
+            <tr>
+                <td class="title" valign="top">@res.agence:</td>
+                <td colspan="3">
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.libelle_agence))
+                    {
+                        <div>
+                            @Model.ficheDetails.libelle_agence
+                        </div>
+                    }
+                    else
+                    {
+                        <i> @res.none </i>
+                    }
+                </td>
+
+            </tr>
+
+            <tr>
+                <td class="title" valign="top">@res.proprio</td>
+                <td colspan="3">
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.proprio))
+                    {
+                        <div>
+                            @Model.ficheDetails.proprio
+                        </div>
+                    }
+                    else
+                    {
+                        <i> @res.none </i>
+                    }
+                </td>
+
+
+            </tr>
+
+            <tr>
+                <td class="title" valign="top">@res.codeAff:</td>
+                <td colspan="3">
+                    @if (!string.IsNullOrEmpty(Model.ficheDetails.code_affaire))
+                    {
+                        <div>
+                            @Model.ficheDetails.code_affaire
+                        </div>
+                    }
+                    else
+                    {
+                        <i> @res.none </i>
+                    }
+                </td>
+
+            </tr>
+            @if (!string.IsNullOrEmpty(Model.ficheDetails.libelle_createur))
+            {
+                <tr>
+                    <td colspan="2" style="font-size: 10px;padding-top: 10px;">
+                        @{
+                            var createdTime = Model.ficheDetails.created_time == null ? "" : ((DateTime)Model.ficheDetails.created_time).ToString("dd/MM/yyyy");
+                        }
+                        @if (!string.IsNullOrEmpty(createdTime))
+                        {
+                            <div>
+                                @res.createThe createdTime
+                            </div>
+                        }
+                        else
+                        {
+                            <div style="float:left">
+                                @res.create
+                            </div>
+
+                        }
+                            <div style="float:left">
+                                &nbsp; @res.by @Model.ficheDetails.libelle_createur
+                            </div>
+                            <br />
+                            <div>
+                                @res.lastMod @Model.ficheDetails.lastmod_time @res.by @Model.ficheDetails.lastmod_user
+                            </div>
+                    </td>
+                </tr>
+
+            }
+        </table>
+
+
+        @*
+            ------------------------
+
+
+
+               <!-------------------------------------- FIN------------------------------------------------------------------------- -->
+
+
+                    </table>*@
+
+    }
+    <br />
+    <br />
+
+
+
+
+
+
+
+
+
+
+
+

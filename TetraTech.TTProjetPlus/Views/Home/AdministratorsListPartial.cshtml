@@ -1,0 +1,71 @@
+﻿@using TetraTech.TTProjetPlus.Models
+@using InfoResources = TetraTech.TTProjetPlus.Views.Home
+@using TetraTech.TTProjetPlus.Controllers
+
+@{
+    ViewBag.Title = "CustomersNumberNamePartial";
+}
+<meta charset="utf-8">
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<textarea id="textbox" style="width: 300px; height: 200px;" hidden>
+</textarea>
+<div class="panel pagination-grey clearfix m-b-0" style=" padding: 15px;">
+    <div id="data-table_wrapper3" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+        <table id="data_AdministratorsList" class="table table-bordered  data-table  dataTable">
+            <thead id="tableHeader">
+                <tr class="grey" role="row">
+
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending">
+                        @InfoResources.informations.Company
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.informations.AdministratorName
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        Email
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" hidden>
+                        id
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (structureItem item in HomeController.ListeAdministrators)
+                {
+
+                    <tr>
+                        <td style="text-align: left;">
+                            @item.Description
+                        </td>
+                        <td style="text-align:left ">
+                            @item.Name
+                        </td>
+                        <td title="Envoyer un courriel à cette personne." id="">
+                            <a href="mailto:@item.email?subject=Demande d'accès TTProjet+&body=Nom du requérant%0D%0A%0D%0A%0D%0ADate requise%0D%0A%0D%0A%0D%0ADemande d'accès"><i class="fa fa-envelope" aria-hidden="true" ></i></a>
+                        </td>
+                        <td style="text-align:left " hidden>
+                            @item.Value
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $('#data_AdministratorsList').DataTable({
+            "order": [[0, "asc"]],
+            "language": {
+                "url": '@Session["lang"].ToString()' == 'fr' ? "/Content/assets/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+            }
+        });
+        $('#data_AdministratorsList').DataTable().draw();
+    });
+</script>

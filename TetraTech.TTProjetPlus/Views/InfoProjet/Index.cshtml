@@ -1,0 +1,895 @@
+﻿@model TetraTech.TTProjetPlus.Models.SearchCriteriasModel
+@using Resources2 = TetraTech.TTProjetPlus.Views.ListeOffres
+@using Resources = TetraTech.TTProjetPlus.Views.InfoProjet
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Controllers
+@using TetraTech.TTProjetPlus.Security
+
+
+@{
+    ViewBag.Title = "Nouveau projet";
+
+    var currentUser = UserService.CurrentUser;
+
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
+<style>
+
+    /*
+        pour icon dans input:
+    */
+    .inner-addon .glyphicon {
+        position: absolute;
+        padding: 10px;
+        pointer-events: none;
+    }
+
+
+    /* add padding  */
+    .right-addon {
+        padding-right: 30px;
+    }
+
+    i {
+        background: white;
+        cursor: pointer;
+    }
+    /*fin */
+    .panel-body {
+        margin-left: 30px;
+        margin-right: 30px;
+        margin-bottom: -25px
+    }
+
+    .form-control {
+        border-radius: 0px;
+    }
+
+    .btn {
+        border-radius: 0px;
+    }
+
+    .input-group-addon {
+        border-radius: 0px;
+    }
+
+    /*label {
+        color: steelblue;
+        font-size: initial;
+    }*/
+
+
+    .redText {
+        color: red;
+    }
+
+    .inputWidth {
+        width: 100%;
+    }
+
+    .inputWidth2 {
+        width: 50%;
+        display: inline
+    }
+
+    table {
+        font-size: 1em;
+    }
+
+
+        table.dataTable,
+        table.dataTable th,
+        table.dataTable td {
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+        }
+
+
+
+    h6 {
+        color: white;
+    }
+    /* WebKit, Edge */
+    .darkBlue::-webkit-input-placeholder {
+        color: #183666;
+        font-family: 'Arial';
+        font-size: 16pt;
+    }
+    /* Firefox 4-18 */
+    .darkBlue:-moz-placeholder {
+        color: #183666;
+        font-family: 'Arial';
+        font-size: 14pt;
+    }
+    /* Firefox 19+ */
+    .darkBlue::-moz-placeholder {
+        color: #183666;
+        font-family: 'Arial';
+        font-size: 14pt;
+    }
+    /* IE 10-11 */
+    .darkBlue:-ms-input-placeholder {
+        color: #183666;
+        font-family: 'Arial';
+        font-size: 14pt;
+    }
+    /* Edge */
+    .darkBlue:-ms-input-placeholder {
+        color: #183666;
+        font-family: 'Arial';
+        font-size: 14pt;
+    }
+    /* MODERN BROWSER */
+    .darkBlue::-webkit-input-placeholder {
+        color: #183666;
+        font-family: 'Arial';
+        font-size: 14pt;
+        font-weight: bold
+    }
+
+    /* WebKit, Edge */
+    .lightBlue::-webkit-input-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+    }
+    /* Firefox 4-18 */
+    .lightBlue:-moz-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+    }
+    /* Firefox 19+ */
+    .lightBlue::-moz-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+    }
+    /* IE 10-11 */
+    .lightBlue:-ms-input-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+    }
+    /* Edge */
+    .lightBlue:-ms-input-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+    }
+    /* MODERN BROWSER */
+    .lightBlue::-webkit-input-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+    }
+
+    .formControl1 {
+        padding: 20px;
+    }
+
+    .formControl2 {
+        padding: 20px;
+    }
+
+
+    .fade {
+        opacity: 0;
+        -webkit-transition: opacity .3s linear;
+        transition: opacity .3s linear
+    }
+
+    .lightBlueSelect {
+        color: #5482ab;
+    }
+
+    .greySelect {
+        color: #e8e8e8;
+    }
+
+    .bootstrap-select > .dropdown-toggle.bs-placeholder {
+    }
+
+    textarea {
+        width: 100%;
+    }
+
+
+
+    input100 {
+        width: 100%;
+    }
+
+    .bootstrap-select > .dropdown-toggle.bs-placeholder {
+        padding-bottom: 11px;
+        font-size: 12pt;
+        color: #5482ab;
+        font-family: 'Arial';
+    }
+
+    .bootstrap-select > .dropdown-toggle {
+        padding-bottom: 12px;
+    }
+
+    .multiselect-selected-text {
+        float: left;
+    }
+
+    .btn .caret {
+        margin-left: 310px;
+    }
+
+    .input-group-addon {
+        display: none;
+    }
+
+    .multiselect-selected-text {
+        color: #5482ab;
+    }
+
+    /*button {
+        height: 42px;
+    }
+
+    .multiselect-search {
+        height: 42px;
+    }*/
+
+    .multiselect-container, gris {
+        color: deeppink;
+    }
+
+    .checkbox {
+        color: #333;
+        font-size: 13px
+    }
+
+    .whiteC {
+        color: white;
+    }
+    ul {
+        margin-bottom: 19px;
+    }
+</style>
+<script type="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js">
+</script>
+<body style="overflow-y: hidden!important">
+    <div class="form-horizontal">
+        <div id="top"></div>
+
+        <div class="container " style="height: 200vh; width: 100%">
+            <div class="main">
+                @if (ViewBag.MenuVisible == "true")
+                {
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-lg-3" style="padding-top:-49px;">
+                                <div class="panel" style="border-radius: 10px; width: 106%;">
+                                    <div class="panel-body">
+                                        <ul class="list-inline">
+                                            <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                            <li><a style=" color:#183666; font-weight: bold" href="@Url.Action("Index", "Home")">@Resources2.ListeProjetsRessources.InfoProject</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="">
+                                    <div class="panel" style="border-radius: 10px; ">
+                                        <div class="panel-body">
+                                            <ul class="list-inline">
+                                                <li>
+                                                    &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "Home")">@Resources2.ListeProjetsRessources.GenerateProjectNumber</a>
+
+                                                </li>
+
+                                                <li>
+                                                    &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "ListeOffres")">@Resources2.ListeProjetsRessources.OffersList</a>
+
+                                                </li>
+                                                <li>
+                                                    &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("IndexProjet", "ListeOffres")">@Resources2.ListeProjetsRessources.ProjectsList</a>
+
+                                                </li>
+                                                <li>
+                                                    &bull;&nbsp;<a style="color:#183666;font-weight: bold;" href="@Url.Action("Index", "InfoProjet")">@Resources2.ListeProjetsRessources.InfoProject</a>
+
+                                                </li>
+                                                <li>
+                                                    &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "ProjectToClose")">@Resources2.ListeProjetsRessources.ProjectToCloseTitle</a>
+                                                </li>
+                                                @*<li>
+                                                    &nbsp;&nbsp;&bull;
+                                                    <a style="color:#183666;" href="@System.Configuration.ConfigurationManager.AppSettings["TTIndexUrl"]" target="_blank">@Resources2.ListeProjetsRessources.TTIndex</a>
+                                                </li>*@
+                                                <li>
+                                                    &bull;&nbsp;
+                                                    <a style="color:#183666;" href="@System.Configuration.ConfigurationManager.AppSettings["BoomerangUrl"]" target="_blank">.Boomerang</a>
+                                                </li>
+                                                @*<li>
+            &bull;&nbsp;
+            <a style="color:#183666;cursor:pointer" onclick="OPMOdal()">@Resources2.ListeProjetsRessources.ProjectOpening</a>
+        </li>
+        <li>
+            &bull;&nbsp;
+            <a style="color:#183666;" href="@Url.Action("Home", "Boomerang")">@Resources2.ListeProjetsRessources.projectSheet</a>
+        </li>*@
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                }
+
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-primary" style="border-radius: 10px;margin-top: -10px;margin-bottom:10px">
+                                <div style="">
+                                    <div class="row">
+                                        <div class=" col-lg-6">
+                                            <div class=" col-lg-4">
+                                                <h6 style="margin-left: 25px; float:left ; ">
+                                                    <a style="color: #5482ab; font-family: 'Arial Bold'; font-size: 18pt;" data-toggle="collapse" href="#collapseCriteres"><b>@Resources.InfoProjectRessources.searchCriteria</b></a>
+                                                </h6>
+                                            </div>
+                                            <div class=" col-lg-8">
+                                                <p style="margin-left: -41px; margin-top: 14px;float:left ; ">@Resources.InfoProjectRessources.click</p>
+                                            </div>
+                                        </div>
+                                        <div class=" col-lg-2">
+
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="row">
+                                                <p></p>
+                                                <div class="col-lg-10" style="color:steelblue;text-align:right;font-size:initial">
+                                                    <b>@Resources.InfoProjectRessources.includeClosed</b>
+                                                </div>
+                                                <div class="col-lg-2" style="color:steelblue; text-align:left;font-size:small">
+                                                    <input type="checkbox" id="searchCheckbox" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapseCriteres">
+                                    <hr width="100%" style="margin-top:0px; margin-bottom:0px" />
+                                    <div class="panel-body">
+                                        <div class="row form-group">
+                                            <div class="col-lg-3">
+                                                <input type="text" class="form-control formControl2" id="numeroProjet" placeholder="@Resources.InfoProjectRessources.projectNumber" style="padding-left: 10px">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="text" class="form-control formControl2" id="descriptionProjet" placeholder="@Resources.InfoProjectRessources.Descritption" style="padding-left: 10px">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="text" class="form-control formControl2" id="numeroClient" placeholder="@Resources.InfoProjectRessources.ClientNumber" style="padding-left: 10px">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="text" class="form-control formControl2" id="nomClient" placeholder="@Resources.InfoProjectRessources.ClientName" style="padding-left: 10px">
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-lg-3">
+                                                <input type="text" class="form-control formControl2" id="clientFinal" placeholder="@Resources.InfoProjectRessources.FinalClient" style="padding-left: 10px">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div>
+                                                    <select multiple="multiple" data-live-search="true" class="form-control selectpickerM" id="organisation" title="@Resources.InfoProjectRessources.ORG" data-size="15" data-selected-text-format="count" data-none-selected-text="" >
+                                                        @*<option value="" style="font-size:14px;" hidden></option>*@
+                                                        @foreach (structureItem item in Model.listeAcctCenterID)
+                                                        {
+                                                            if (item.Name.Contains("INACTIF"))
+                                                            {
+                                                                var opt = item.Name.Replace("*INACTIF", "") + ".";
+                                                                <option value="@item.Value" class="gris">@opt</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@item.Value">@item.Name</option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="text" class="form-control formControl2" id="initiePar" placeholder="@Resources.InfoProjectRessources.InitiatedBy" style="padding-left: 10px">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="text" class="form-control formControl2" id="gestionnaireProgram" placeholder="@Resources.InfoProjectRessources.ProgramManager" style="padding-left: 10px">
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-lg-3">
+                                                @*  *@
+                                                <input type="text" class="form-control formControl2" id="chargeProject" placeholder="@Resources.InfoProjectRessources.ProjectManager " style="padding-left: 10px">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="text" class="form-control formControl2" id="agentFacturation" placeholder="@Resources.InfoProjectRessources.BillingAgent" style="padding-left: 10px">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <input type="text" name=""datefilter class="form-control formControl2" id="dateSoumission" placeholder="@Resources.InfoProjectRessources.submittedDate" maxlength="10" style="padding-left: 10px" />
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <input type="text" name="datefilter" class="form-control formControl2" id="dateArchivage" placeholder="@Resources.InfoProjectRessources.archiveDate" style="padding-left: 10px">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <input type="text" name="datefilter" class="form-control formControl2" id="docPostponedDate" placeholder="@Resources.InfoProjectRessources.reportDate" style="padding-left: 10px">
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-lg-9">
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <select data-live-search="true" class="form-control selectpicker" id="statut" data-size="15">
+                                                            <option value="" selected style="font-size:14px">@Resources.InfoProjectRessources.Status</option>
+                                                            @foreach (structureItem item in Model.listeStatusID)
+                                                            {
+                                                                <option value="@item.Value">@item.Name</option>
+
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <select data-live-search="true" class="form-control selectpicker" id="Documentation" data-size="15">
+                                                            <option value="" selected style="font-size:14px">@Resources.InfoProjectRessources.doc</option>
+                                                            @foreach (structureItem item in Model.listeDocStatutID)
+                                                            {
+                                                                <option value="@item.Value">@item.Name</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <input type="text" class="form-control formControl2" id="commentaires" placeholder="@Resources.InfoProjectRessources.comment " style="padding-left: 10px">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <button class="specialB" type="reset" value="Cancel" onclick="reinitialize()" style="padding-bottom: 12px;">@Resources.InfoProjectRessources.reinitialize</button>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <button class="specialB submitButton" type="submit" value="Submit" onclick="submitForm()" style="padding-bottom: 12px;float: right;">@Resources.InfoProjectRessources.search</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+
+                            <div class="panel panel-primary" style="border-radius: 10px">
+                                <div style="margin:15px;">
+                                    <div>
+                                        <h6 style="margin-left: 25px; float:left ; color: #5482ab; font-family: 'Arial Bold'; font-size: 18pt;">
+                                            <b>@Resources.InfoProjectRessources.searchResults</b>
+
+                                        </h6>
+
+                                    </div>
+                                    <div class="col-lg-10 alert alert-info" id="tips" hidden="hidden" style="float:right">
+                                        <button type="button" class="close" data-hide="alert">&times;</button>
+                                        <strong>@Resources.InfoProjectRessources.Tips</strong>&nbsp;&nbsp;&nbsp;&nbsp; <u>@Resources.InfoProjectRessources.CopyPath3</u>
+                                        @Resources.InfoProjectRessources.CopyPath4
+                                    </div>
+                                </div>
+                                <hr width="100%" />
+                                <div class="panel-body">
+                                    <div class="row form-group">
+                                        <div id="searchResults">
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<div class="modal fade" id="alertSearch" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:850px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelGP">@Resources.InfoProjectRessources.alert</h4>
+            </div>
+            <div class="modal-body" id="contentProjectsList">
+                @Resources.InfoProjectRessources.alertMessage
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="specialB" data-dismiss="modal">@Resources.InfoProjectRessources.Cancel</button>
+                <button type="button" class="specialB" onclick="continueSearchProcess()">@Resources.InfoProjectRessources.continueA</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="alertSearchInfo" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:850px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelGP">@Resources.InfoProjectRessources.alert</h4>
+            </div>
+            <div class="modal-body" id="contentProjectsListInfo">
+                @Resources.InfoProjectRessources.alertMessage3<br /><br />
+                @Resources.InfoProjectRessources.alertMessage4                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="specialB" data-dismiss="modal">OK</button>                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var continueSearch = "";
+    //var tipsShowed = false;
+    $(document).ready(function () {
+     
+        $('.selectpickerM').multiselect({
+            nonSelectedText: '@Session["lang"].ToString()' == 'fr' ? 'Organisation (grisée si inactive dans TLX)' : 'Organization (value grayed out if inactive in TLX)' ,
+                allSelectedText: '@Session["lang"].ToString()' == 'fr'? 'Toutes les options sont sélectionnée':'All the options are selected',
+                numberDisplayed: 1,
+                buttonWidth: '100%',
+                includeSelectAllOption: true,
+                selectAllText: '@Session["lang"].ToString()' == 'fr' ? 'Tout sélectionner' : 'Select all',
+                nSelectedText : '@Session["lang"].ToString()' == 'fr' ? 'Sélectionnés' : 'Selected',
+                enableCaseInsensitiveFiltering: true,
+                maxHeight: 400,
+                filterPlaceholder: '@Session["lang"].ToString()' == 'fr'? 'Recherche':'Search'
+        });
+        $(".checkbox").each(function (index) {
+            if ($(this).text().search('\\.') > 0)
+            {
+                $(this).css('color', '#A0A0A0')
+                $(this).css('font-style', 'italic')
+            }
+        });
+        $('.selectpicker').selectpicker(
+
+            {
+                countSelectedText: '{0} '+'@Resources.InfoProjectRessources.optionChoosen' // by this default 'Nothing selected' -->will change to Please Select
+            }
+        );
+
+        $('.formControl2').addClass('lightBlue');
+        $(".form-control").val('');
+        $(".selectpicker").selectpicker('refresh');
+        $("#collapseCriteres").collapse('show');
+
+    });
+
+        $('input').keypress(function (e) {
+            if (e.which == 13) {
+                submitForm();
+               // return false;    //<---- Add this line
+            }
+        });
+
+    $('#statut').on('change', function () {
+        if ($('#statut').val() != null) {
+            if ($('#statut').val() == 11) {
+
+                document.getElementById("organisation").disabled = true;
+                $('[data-id=organisation]').css('background-color', '#e6e6e6');
+                $('[data-id=organisation]').css('color', '#183666');
+                document.getElementById("organisation").selectedIndex = 0;
+
+                $('.selectpicker').selectpicker('deselectAll');
+
+                document.getElementById("Documentation").disabled = true;
+                $('[data-id=Documentation]').css('background-color', '#e6e6e6');
+                $('[data-id=Documentation]').css('color', '#183666');
+                document.getElementById("Documentation").selectedIndex = 0;
+
+                $(".selectpicker2").selectpicker('refresh');
+
+                $('#clientFinal').val('');
+                document.getElementById("clientFinal").disabled = true;
+
+                $('#initiePar').val('');
+                document.getElementById("initiePar").disabled = true;
+
+                $('#docPostponedDate').val('');
+                document.getElementById("docPostponedDate").disabled = true;
+
+                $('#commentaires').val('');
+                document.getElementById("commentaires").disabled = true;
+            }
+            else {
+                document.getElementById("organisation").disabled = false;
+                $('[data-id=organisation]').css('background-color', '');
+                $('[data-id=organisation]').css('color', '');
+                document.getElementById("Documentation").disabled = false;
+                $('[data-id=Documentation]').css('background-color', '');
+                $('[data-id=Documentation]').css('color', '');
+                $(".selectpicker2").selectpicker('refresh');
+
+                document.getElementById("clientFinal").disabled = false;
+                document.getElementById("organisation").disabled = false;
+                document.getElementById("initiePar").disabled = false;
+                document.getElementById("docPostponedDate").disabled = false;
+                document.getElementById("commentaires").disabled = false;
+            }
+        }
+    });
+
+    function submitForm() {
+        if (
+            ($('#numeroProjet').val().trim()=="" || $('#numeroProjet').val() == "") &&
+            ($('#descriptionProjet').val().trim()=="" || $('#descriptionProjet').val() == "") &&
+            ($('#numeroClient').val().trim()=="" || $('#numeroClient').val() == "") &&
+            ($('#nomClient').val().trim () =="" || $('#nomClient').val() == "") &&
+            ($('#clientFinal').val().trim() == "" || $('#clientFinal').val() == "") &&
+            $('#organisation').val() == "" &&
+            ($('#initiePar').val().trim () =="" || $('#initiePar').val() == "") &&
+            ($('#gestionnaireProgram').val().trim()=="" || $('#gestionnaireProgram').val() == "") &&
+            ($('#chargeProject').val().trim()=="" || $('#chargeProject').val() == "") &&
+            ($('#agentFacturation').val().trim()=="" || $('#agentFacturation').val() == "") &&
+            $('#statut').val() == "" &&
+            $('#dateSoumission').val() == "" &&
+            $('#dateArchivage').val() == "" &&
+            $('#docPostponedDate').val() == "" &&
+             $('#Documentation').val() == "" &&
+            ($('#commentaires').val().trim()=="" || $('#commentaires').val() == "") && (continueSearch == "")
+            )
+
+        {
+            $("#contentProjectsList").html("@Resources.InfoProjectRessources.alertMessage");
+            $('#alertSearch').modal('show');
+        }
+        else if (
+            ($('#numeroProjet').val().trim() == "" || $('#numeroProjet').val() == "") &&
+            ($('#descriptionProjet').val().trim() == "" || $('#descriptionProjet').val() == "") &&
+            ($('#numeroClient').val().trim() == "" || $('#numeroClient').val() == "") &&
+            ($('#nomClient').val().trim() == "" || $('#nomClient').val() == "") &&
+            ($('#clientFinal').val().trim() == "" || $('#clientFinal').val() == "") &&
+            $('#organisation').val() == "" &&
+            ($('#initiePar').val().trim() == "" || $('#initiePar').val() == "") &&
+            ($('#gestionnaireProgram').val().trim() == "" || $('#gestionnaireProgram').val() == "") &&
+            ($('#chargeProject').val().trim() == "" || $('#chargeProject').val() == "") &&
+            ($('#agentFacturation').val().trim() == "" || $('#agentFacturation').val() == "") &&
+            $('#statut').val() == "11" &&
+            $("#searchCheckbox").is(':checked') == true &&
+            $('#dateSoumission').val() == "" &&
+            $('#dateArchivage').val() == "" &&
+            $('#docPostponedDate').val() == "" &&
+            $('#Documentation').val() == "" &&
+            ($('#commentaires').val().trim() == "" || $('#commentaires').val() == "") && (continueSearch == "")
+        ) {
+            $("#contentProjectsList").html("@Resources.InfoProjectRessources.alertMessage2");
+            $('#alertSearch').modal('show');
+        }
+        else {
+            var strOrganisation = '';
+            var x = document.getElementById("organisation");
+            for (var i = 0; i < x.options.length; i++) {
+                if (x.options[i].selected == true) {
+                    if (strOrganisation.length > 0) {
+                        strOrganisation = strOrganisation.concat(';');
+                    }
+                    strOrganisation = strOrganisation.concat(x.options[i].value);
+                }
+            }
+
+        $('#loading').show();
+        $('#searchResults').html("")
+             $.ajax({
+                 type: 'GET',
+                    url: '@Url.Action("submitSearch", "InfoProjet")',
+                 dataType: "html",
+                 data:
+                 {
+                     ProjectNumbers: $('#numeroProjet').val(),
+                     ProjectDescription: $('#descriptionProjet').val(),
+                     CustomersNumber: $('#numeroClient').val(),
+                     CustomersName: $('#nomClient').val(),
+                     FinalClient: $('#clientFinal').val(),
+                     AcctCenterId: strOrganisation,
+                     InitiatedBy: $('#initiePar').val(),
+                     ProgramMgrNumber: $('#gestionnaireProgram').val(),
+                     ProjectMgrNumber: $('#chargeProject').val(),
+                     BillSpecialistNumber: $('#agentFacturation').val(),
+                     StatusID: $('#statut').val(),
+                     SubmittedDate: $('#dateSoumission').val(),
+                     Archivedate: $('#dateArchivage').val(),
+                     DocPostponedDate: $('#docPostponedDate').val(),
+                     DocStatutID: $('#Documentation').val(),
+                     archiveParam: $("#searchCheckbox").is(':checked') == true ? "yes" : "no",
+                     comments: $('#commentaires').val()
+                 },
+                 success: function (response) {
+                     continueSearch = "";
+
+                     $('#searchResults').html(response);
+                     if ($('#data_searchProjectsList tr').length > 2) {
+                         $('#collapseCriteres').collapse('toggle');
+                         //if (!tipsShowed) {
+                         //    $("#tips").show();
+                         //}
+                     }
+
+                     $('#loading').hide();
+                    },
+                    error: function () {
+
+                 }
+             });
+        }
+
+    }
+
+    function continueSearchProcess() {
+        continueSearch = "yes"
+        $('#alertSearch').modal('hide');
+        submitForm();
+    }
+
+    function reinitialize() {
+        document.getElementById("clientFinal").disabled = false;
+        document.getElementById("organisation").disabled = false;
+        $('[data-id=organisation]').css('background-color', '');
+        $('[data-id=organisation]').css('color', '');
+
+        document.getElementById("initiePar").disabled = false;
+        document.getElementById("docPostponedDate").disabled = false;
+
+        document.getElementById("Documentation").disabled = false;
+        $('[data-id=Documentation]').css('background-color', '');
+        $('[data-id=Documentation]').css('color', '');
+
+        document.getElementById("commentaires").disabled = false;
+
+        $(".form-control").val('');
+        $(".selectpicker").selectpicker('refresh');
+        $('#searchResults').html("");
+
+
+        //pour le multiselect
+        multiselect_deselectAll($('.selectpickerM'));
+    }
+    function multiselect_deselectAll($el) {
+        $('option', $el).each(function (element) {
+            $el.multiselect('deselect', $(this).val());
+        });
+        $('.multiselect-clear-filter').click();
+        $('.selectpickerM').val([]).multiselect('refresh')
+    }
+
+    function unselectOrganisation() {
+        var elements = document.getElementById("organisation").options;
+        elements[0].selected = false;
+    }
+
+    $(function () {
+        if ('@Session["lang"].ToString()' == 'fr') {
+            $('input[name="datefilter"]').daterangepicker({
+                "autoUpdateInput": false,
+                "locale": {
+                    "format": "YYYY-MM-DD",
+                    "separator": " - ",
+                    "applyLabel": "Appliquer",
+                    "cancelLabel": "Annuler",
+                    "fromLabel": "De",
+                    "toLabel": "A",
+                    "customRangeLabel": "Personnalisé",
+                    "daysOfWeek": [
+                        "Dim",
+                        "Lun",
+                        "Mar",
+                        "Mer",
+                        "Jeu",
+                        "Ven",
+                        "Sam"
+                    ],
+                    "monthNames": [
+                        "Janvier",
+                        "Février",
+                        "Mars",
+                        "Avril",
+                        "Mai",
+                        "Juin",
+                        "Juillet",
+                        "Août",
+                        "Septembre",
+                        "Octobre",
+                        "Novembre",
+                        "Décembre"
+                    ],
+                    "firstDay": "0"
+                },
+                ranges: {
+                    'Aujourd\'hui': [moment(), moment()],
+                    'Hier': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    '7 derniers jours': [moment().subtract(6, 'days'), moment()],
+                    '30 derniers jours': [moment().subtract(29, 'days'), moment()],
+                    'Ce mois-ci': [moment().startOf('month'), moment().endOf('month')],
+                    'Le mois dernier': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                "alwaysShowCalendars": false
+
+            });
+        }
+        else {
+            $('input[name="datefilter"]').daterangepicker(
+                {
+                    "autoUpdateInput": false,
+                    "locale": {
+                        "format": "YYYY-MM-DD",
+                        "separator": " - ",
+                        "applyLabel": "Apply",
+                        "cancelLabel": "Cancel",
+                        "fromLabel": "From",
+                        "toLabel": "To",
+                        "customRangeLabel": "Customized",
+
+
+                        "firstDay": "0"
+                    },
+                    ranges: {
+                        'Today': [moment(), moment()],
+                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        '7 last days': [moment().subtract(6, 'days'), moment()],
+                        '30 last days': [moment().subtract(29, 'days'), moment()],
+                        'This month': [moment().startOf('month'), moment().endOf('month')],
+                        'Last month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    },
+                    "alwaysShowCalendars": false
+
+                });
+        }
+
+        $('input[name="datefilter"]').on('apply.daterangepicker', function (ev, picker) {
+            $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+        });
+
+        $('input[name="datefilter"]').on('cancel.daterangepicker', function (ev, picker) {
+            $(this).val('');
+        });
+
+    });
+
+    $(".close").click(function () {
+        //tipsShowed = true;
+        $(".alert").hide();
+    });
+
+    $(".checkbox").click(function () {
+        $(this).toggleClass("whiteC");
+    });
+
+
+</script>

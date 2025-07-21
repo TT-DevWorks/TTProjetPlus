@@ -1,0 +1,246 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.Disciplines.Discipline
+@using TetraTech.TTProjetPlus.Models;
+@model TetraTech.TTProjetPlus.Models.CommonModelGestionProjetSecuriser
+
+@if (!string.IsNullOrEmpty(Model.SelectedGestionProjetSecuriser))
+{
+    <div class="panel pagination-grey clearfix m-b-0; col-sm-8" style="padding: 10px; width:100%;">
+        @Html.HiddenFor(model => model.SelectedGestionProjetSecuriser)
+        <div id="group-members" class="row">
+            @if (Model != null && Model.GestionProjetSecuriserGroupMembersList.Count() > 0)
+            {                                
+                <div class="panel pagination-grey clearfix m-b-0">
+                    <div id="table-memberslist" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+                        <table id="data_Members" class="table table-bordered  data-table  dataTable" style="width: 50%">
+                            <thead id="tableHeaderGP">
+                                <tr class="grey" role="row">
+                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width: 0%">
+                                        GestionProjetSecuriserGroupID
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width: 0%">
+                                        GestionProjetSecuriserGroup
+                                    </th>
+                                    <th class="sorting" tabindex="1" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width: 0%">
+                                        Number
+                                    </th>
+                                    <th class="sorting" tabindex="2" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width: 70%">
+                                        @Resources.Name
+                                    </th>
+                                    <th style="width: 30%">
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (GestionProjetSecuriserMember item in Model.GestionProjetSecuriserGroupMembersList)
+                                {
+                                <tr>
+                                    <td style="text-align: left;width: 0%">
+                                        @item.GestionProjetSecuriserGroupID
+                                    </td>
+                                    <td style="text-align: left;width: 0%">
+                                        @item.GestionProjetSecuriserGroup
+                                    </td>
+                                    <td style="text-align: left;width: 0%">
+                                        @item.Employee.EmployeeId
+                                    </td>
+                                    <td style="text-align: left;width: 70%">@item.Employee.DisplayName</td>
+                                    <td style="text-align: left;width: 30%">
+                                        <a href="" class="btn btn-default editor_remove"> <span class="k-icon k-i-close"></span> @Resources.Delete</a>
+                                    </td>
+                                </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+            else
+            {
+                if (Model == null)
+                {
+                    @Html.Partial("Error")
+                }
+                else
+                {
+                    <div class="alert alert-warning" role="alert">
+                        <span>@Resources.MessageNoMembersInGroup.</span>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+}
+@*else if (!string.IsNullOrEmpty(Model.SelectedDocProj))
+{
+
+    <div class="panel pagination-grey clearfix m-b-0; col-sm-8" style="padding: 10px; width:100%;">
+        @Html.HiddenFor(model => model.SelectedDocProj)
+        <div id="group-members" class="row">
+            @if (Model != null && Model.DocProjGroupMembersList.Count() > 0)
+            {
+                <div class="panel pagination-grey clearfix m-b-0">
+                    <div id="table-memberslist" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+                        <table id="data_Members" class="table table-bordered  data-table  dataTable" style="width: 50%">
+                            <thead id="tableHeaderGP">
+                                <tr class="grey" role="row">
+                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width: 0%">
+                                        DocProjGroupID
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width: 0%">
+                                        DocProjGroup
+                                    </th>
+                                    <th class="sorting" tabindex="1" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width: 0%">
+                                        Number
+                                    </th>
+                                    <th class="sorting" tabindex="2" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width: 70%">
+                                        @Resources.Name
+                                    </th>
+                                    <th style="width: 30%">
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (DocProjMember item in Model.DocProjGroupMembersList)
+                                {
+                                <tr>
+                                    <td style="width: 0%">
+                                        @item.DocProjGroupID
+                                    </td>
+                                    <td style="width: 0%">
+                                        @item.DocProjGroup
+                                    </td>
+                                    <td style="width: 0%">
+                                        @item.EmployeeD.EmployeeId
+                                    </td>
+                                    <td style="width: 70%">@item.EmployeeD.DisplayName</td>
+                                    <td style="width: 30%">
+                                        <a href="" class="btn btn-default editor_remove"> <span class="k-icon k-i-close"></span> @Resources.Delete</a>
+                                    </td>
+                                </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+            else
+            {
+                if (Model == null)
+                {
+                    @Html.Partial("Error")
+                }
+                else
+                {
+                    <div class="alert alert-warning" role="alert">
+                        <span>@Resources.MessageNoMembersInGroup.</span>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+}*@
+@*else
+{
+<div class="alert alert-warning" role="alert">
+    <span>@Resources.MessageSelectEmployee</span>
+    
+</div>
+}*@
+
+<div class="modal fade" id="FolderSecuritySavingAlert" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:850px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelGP">@Resources.Alert</h4>
+            </div>
+            <div class="modal-body" id="modalDeleteMessage">
+                @Resources.DeleteAccess
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="specialB" data-dismiss="modal">@Resources.Cancel</button>
+                <button type="button" class="specialB" onclick="deleteAccess()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var SelectedGroup = "";
+    var SelectedEmployeeNumber = "";
+    var SelectedEmployeeName = "";
+    var data_MembersTable;
+
+    $(document).ready(function () {
+        data_MembersTable = $('#data_Members').DataTable({
+            "order": [[3, "asc"]],
+            "columnDefs": [ { "targets": [ 4 ],  "orderable": false } , { "targets": [ 0,1,2 ],  "visible": false } ],
+            "scrollY": "40vh",
+            "scrollCollapse": false,
+            "language": {
+                "url": '@Session["lang"].ToString()' == 'fr' ? "/Content/assets/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+            }
+        });
+    });
+
+
+$('#data_Members').on('click', 'a.editor_remove', function (e) {
+    e.preventDefault();
+    var row =$(this).closest('tr');
+    var item=$('#data_Members').dataTable().fnGetData(row);
+
+    SelectedGroupID = item[0];
+    SelectedGroupToRemove = item[1];
+    SelectedEmployeeNumber = item[2];
+    SelectedEmployeeName = item[3];
+
+    document.getElementById("modalDeleteMessage").innerText = "@Html.Raw(@Resources.DeleteAccess)" + "« " + SelectedEmployeeName + " »" + ' ?';
+
+    $('#FolderSecuritySavingAlert').modal('show');
+});
+
+    function deleteAccess() {
+
+        var groupSelected = "";
+
+        @*if (@Model.DocProjGroupMembersList.Count() > 0) {
+            groupSelected = "DocProj";
+        }
+        else {*@
+            groupSelected = "Discipline";
+        /*}*/
+
+        $('#FolderSecuritySavingAlert').modal('hide');
+        $.ajax({
+                type: "POST",
+                url: '@Url.Action("RemoveEmployeeFromGroup", "Disciplines")',
+                async: false,
+                cache: false,
+                data: {
+                    SelectedGroup: groupSelected,
+                    SelectedGroupToRemove: SelectedGroupToRemove,
+                    SelectedEmployeeNumber: SelectedEmployeeNumber,
+                    DiscOrDocProjID: SelectedGroupID
+                },
+                success: function (result) {
+                    refreshDetailsGroupMembersSection();
+                    if (result.result == 'Success') {
+                        $(".details-messages.alert-success span").text(result.details);
+                        $(".details-messages.alert-success").show().delay(8000).slideUp(300);
+                    }
+                }
+            });
+    }
+
+</script>
+

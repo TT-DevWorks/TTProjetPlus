@@ -1,0 +1,298 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.ModeleSelection
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Controllers
+@model TetraTech.TTProjetPlus.Models.NewSelectionModele
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+}
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+@* searchable *@
+@*<script type="text/javascript" src="~/Content/Searchable/jquery.searchabledropdown-1.0.8.min.js"></script>*@
+
+<style type="text/css">
+
+    #main-container {
+        width: 600px;
+        margin: 150px auto;
+    }
+
+    .inputWidth3 {
+        width: 60%;
+        display: inline
+    }
+
+    #tree-container label.hover {
+        color: red;
+    }
+
+    .redText {
+        color: red;
+    }
+</style>
+
+
+<div id="loading">
+    <img id="loadingGIF2" src="~/Content/assets/img/ajax-loader.gif" alt="Loading..." />
+</div>
+<div class="">
+
+    <div style="">
+
+        <div class="panel panel-primary">
+            <div class="panel-body" style="margin:15px;">
+                <div class="row">
+                    <div class="">
+                        <div class="alert alert-warning" id="warningDel" hidden="hidden">
+                            <button type="button" class="close" data-hide="alert">&times;</button>
+                            <strong>@Resources.ModeleSelectionManagementRessources.message1</strong>
+                        </div>
+                        <div class="alert alert-warning" id="warningDeleteSpecialModele" hidden="hidden">
+                            <button type="button" class="close" data-hide="alert">&times;</button>
+                            <strong>@Resources.ModeleSelectionManagementRessources.message9</strong>
+                        </div>
+
+
+                        <div class="alert alert-success" id="successDel" hidden="hidden">
+                            <button type="button" class="close" data-hide="alert">&times;</button>
+                            <strong>@Resources.ModeleSelectionManagementRessources.message10!</strong>
+                        </div>
+
+                        <div class="alert alert-danger" id="failedDel" hidden="hidden">
+                            <button type="button" class="close" data-hideactionCancelled="alert">&times;</button>
+                            <strong>@Resources.ModeleSelectionManagementRessources.message11</strong>
+                            <button data-toggle="collapse" data-target="#detailsFailDel">@Resources.ModeleSelectionManagementRessources.Details</button>
+                            <div id="detailsFailDel" class="collapse">
+                            </div>
+                        </div>
+                        <div class="alert alert-info" id="ConfirmDel" hidden="hidden">
+                            <strong>@Resources.ModeleSelectionManagementRessources.message12</strong>
+                            <button class="btn btn-default" id="delButton" onclick="confirmDel()">@Resources.ModeleSelectionManagementRessources.Confirm</button>
+                            <button class="btn btn-default" id="cancelButton" onclick="cancelDel()">@Resources.ModeleSelectionManagementRessources.Abort</button>
+                        </div>
+                        <div class="alert alert-info" id="actionCancelled" hidden="hidden">
+                            <strong>@Resources.ModeleSelectionManagementRessources.message13</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4 style="margin-top: 0px; color:#183666; font-family: 'Arial Bold'; font-size: 18pt;"><b>@Resources.ModeleSelectionManagementRessources.DeleteModele</b></h4>
+                    </div>
+                </div>
+                <br />
+                <div class="row" style="color:steelblue; font-size:initial">
+                    <div>
+                        <div class="form-group" style="padding-top: 20px">
+                            <div class="col-sm-5">
+                                <div>
+                                    <div style="float:left;width:100%">
+                                        @Html.DropDownListFor(m => m.modeleSelectionNameToDelete, new SelectList(" "), "", new { @class = "form-control select-modele3 select1" })
+                                    </div>
+                                </div>
+                                @Html.ValidationMessageFor(m => m.modeleSelectionNameToDelete, "", new { @class = "redText" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <br />
+                <div style="text-align:right">
+                    <button class="specialB" value="Submit" onclick="confirmDelete()">@Resources.ModeleSelectionManagementRessources.Delete</button>&nbsp;
+                    @*@if (ViewBag.displayRetour == "true")
+                        {
+                            <button class="btn btn-info retour" type="reset" value="Cancel" onclick="returntoMenu()">@Resources.Cancel</button>
+                        }*@
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="delButtonConfimation" hidden></div>
+
+
+
+<script>
+
+    $(document).ready(function () {
+      $(".select-modele3").prepend("<option value='' disabled selected style='color:#ccc'>"+"@Resources.ModeleSelectionManagementRessources.ModeleNametoModify"+"*"+"</option>");
+        $('#divForTreeMod').hide();
+
+        $("#tree").text("")
+$.ajax({
+    url: '@Url.Action("returnModeleSelectionToDelete", "ModeleSelection")',
+     type: 'GET',
+
+    success:function(data)
+    {
+        $("#modeleSelectionNameToDelete").empty();
+        $("#modeleSelectionNameToDelete").append('<option value="">'+'@Resources.ModeleSelectionManagementRessources.ChooseASelectionModel'+'</option >');
+
+        $.each(data, function (index, row) {
+            $("#modeleSelectionNameToDelete").append('<option value="'
+                + row.Value + '">'
+                + row.Name + '</option>');
+        });
+    }
+ });
+ });
+
+    function confirmDel() {
+        $("#delButtonConfimation").html("");
+        $("#delButtonConfimation").html("delete");
+        $("#ConfirmDel").hide();
+        SubmitFormDelete()
+    }
+
+    function cancelDel() {
+        $("#delButtonConfimation").html("");
+        $("#delButtonConfimation").html("cancel");
+        $("#ConfirmDel").hide();
+        SubmitFormDelete()
+    }
+
+    function confirmDelete()
+    {
+        if ($('#modeleSelectionNameToDelete').val() != "") {
+            $("#ConfirmDel").show();
+        }
+        else {
+            $("#warningDel").show();
+            setTimeout(function () {
+                $('#warningDel').fadeOut('slow');
+            }, 60000
+            )
+        }
+
+    }
+
+    function SubmitFormDelete() {
+        $("#ConfirmDel").hide();
+
+        if ($('#modeleSelectionNameToDelete').val() == "")
+        {
+            $("#warningDel").show();
+            setTimeout(function () {
+                $('#warningDel').fadeOut('slow');
+            }, 60000
+            )
+        }
+
+        else
+        {
+            if ($("#delButtonConfimation").html() == "delete")
+            {
+
+                $.ajax({
+                    url: '@Url.Action("submitActionForModeleSelectionDelete", "ModeleSelection")',
+                    type: 'GET',
+                    dataType: 'json',
+                    traditional: true,
+                    data: {
+                        modeleSelectionNameToDelete: $("#modeleSelectionNameToDelete").val(),
+                    },
+                    success: function (data) {
+                        // remettre a jour ici les liste de modele de selectuon de toutes les pages
+                        if (data.result == "specialModele") {
+                            $("#warningDeleteSpecialModele").show();
+                            setTimeout(function () {
+                                $('#warningDeleteSpecialModele').fadeOut('slow');
+                            }, 60000
+                            );
+                        }
+                        else {
+
+
+                            $.ajax({
+                                url: '@Url.Action("returnModeleSelectionToDelete", "ModeleSelection")',
+                                type: 'GET',
+                                dataType: 'json',
+                                cache: false,
+
+                                success: function (data12) {
+                                    //1. mise a jour de la liste des modeles selection pour la page modification:
+
+                                    $("#modeleSelectionNameTomodify").empty();
+                                    $("#modeleSelectionNameTomodify").append('<option value="">'+'@Resources.ModeleSelectionManagementRessources.ChooseASelectionModel'+'</option >');
+
+                                    $.each(data12, function (index, row) {
+                                        $("#modeleSelectionNameTomodify").append('<option value="'
+                                            + row.Value + '">'
+                                            + row.Name + '</option>');
+                                    });
+
+                                    //2. mise a jour de la liste des modeles selection pour la page delete:
+                                    $("#modeleSelectionNameToDelete").empty();
+                                    $("#modeleSelectionNameToDelete").append('<option value="">'+'@Resources.ModeleSelectionManagementRessources.ChooseASelectionModel'+'</option >');
+
+                                    $.each(data12, function (index, row) {
+                                        $("#modeleSelectionNameToDelete").append('<option value="'
+                                            + row.Value + '">'
+                                            + row.Name + '</option>');
+                                    });
+
+                                    //3. mise a jour de la liste des modeles selection pour la page ajout:
+
+                                }
+                            });
+
+
+                            if (data.result == "successDel") {
+                                $("#successDel").show();
+                                setTimeout(function () {
+                                    $('#successDel').fadeOut('slow');
+                                }, 60000
+                                );
+
+                            }
+                            else if (data.result == "failedDel") {
+                                $("#failedDel").show();
+                                $('#detailsFailDel').html("");
+                                $('#detailsFailDel').html(data.details);
+                                setTimeout(function () {
+                                    $('#failedDel').fadeOut('slow');
+                                }, 60000
+                                );
+
+
+                            }
+                        }
+
+
+                    }
+                });
+            }
+            else
+            {
+                $("#modeleSelectionNameToDelete").val('')
+                $("#actionCancelled").show();
+                setTimeout(function () {
+                    $('#actionCancelled').fadeOut('slow');
+                }, 2000
+                );
+
+            }
+        }
+
+     }
+
+
+     function returntoMenu()
+    {
+        window.location.href = "@Url.Action("Index", "TTProjet")";
+    }
+
+    $(".close").click(function () {
+        $(".alert").hide();
+
+    });
+
+</script>

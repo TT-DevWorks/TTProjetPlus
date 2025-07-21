@@ -1,0 +1,107 @@
+﻿@model List<TetraTech.TTProjetPlus.Models.ProjectManagerItem>
+@using InfoResources = TetraTech.TTProjetPlus.Views.Home
+@{
+    ViewBag.Title = "EmployeePartial";
+}
+
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="panel pagination-grey clearfix m-b-0">
+        <div id="data-table_wrapper2" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+            <table id="data_projectManagerName" class="table table-bordered  data-table  dataTable" style="width: 100%">
+                <thead id="tableHeaderGP">
+                    <tr class="grey" role="row">
+
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width: 25%">
+                            @InfoResources.informations.Name
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 25%">
+                            @InfoResources.informations.ORG
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 25%">
+                            @InfoResources.informations.Office
+                        </th>
+
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 25%">
+                            @InfoResources.informations.email
+                        </th>
+
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="display: none;">
+                            EmployeeNumberrrr
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+                    <tr>
+                        <td style="text-align: left;width: 25%">
+                            @item.Full_Name
+                        </td>
+                        <td style="text-align: left;width: 25%">
+                            @item.Org
+                        </td>
+                        <td style="text-align: left;width: 25%">
+                            @item.Office
+                        </td>
+                        <td style="text-align: left;width: 25%">
+                            @item.email
+                        </td>
+
+                        <td style="display: none;">
+                            @item.Employee_Number
+                        </td>
+
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+else
+{
+    if (Model == null)
+    {
+        @Html.Partial("Error")
+    }
+    else
+    {
+        <span>  @InfoResources.informations.mp_null</span>
+    }
+}
+<script>
+    $(document).ready(function () {
+
+        $('#data_projectManagerName').DataTable({
+            "order": [[0, "asc"]],
+            "language": {
+                "url": '@Session["lang"].ToString()' == 'fr' ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+            }
+        });
+
+    });
+
+
+    $('#data_projectManagerName tbody tr  td').on('click', function () {
+
+        $('#data_projectManagerName tr').removeClass('selected');
+        $(this).closest('tr').addClass('selected');
+
+        employeeDisplayName = ($(this).closest('tr').children()[0].textContent).trim();
+        employeeNumber = ($(this).closest('tr').children()[4].textContent).trim();
+    });
+
+    $('#cancelProjectMgr').click(function () {
+        ($('input[type=search]')[0]).value = "";
+        $('#data_projectManagerName tr').removeClass('selected');
+        $('#data_projectManagerName').DataTable().search('').draw();
+
+    });
+</script>
+

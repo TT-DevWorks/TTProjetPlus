@@ -1,0 +1,465 @@
+﻿
+@{
+    ViewBag.Title = "Accueil";
+}
+@model TetraTech.TTProjetPlus.Models.BoomerangHomeModel
+@using TetraTech.TTProjetPlus.Data
+@using Resources2 = TetraTech.TTProjetPlus.Views.ListeOffres
+@using ResourcesB = TetraTech.TTProjetPlus.Views.Boomerang.searchCriteria
+@using ResourcesF = TetraTech.TTProjetPlus.Views.Boomerang.fiche
+
+@using TetraTech.TTProjetPlus.Security
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+
+<style>
+    /*ol, ul {
+        margin-top: -5px;
+        margin-bottom: -6px;
+        padding-bottom: 4px;
+    }*/
+    .multiselect-selected-text {
+        float: left;
+    }
+
+    .btn .caret {
+        margin-left: 145px;
+    }
+
+    .input-group-addon {
+        display: none;
+    }
+
+    ul {
+        margin-bottom: -4px;
+    }
+
+    .dropdown-menu {
+        width: 600px;
+    }
+
+    .datepicker-dropdown {
+        width: 200px;
+    }
+
+    .multiselect-selected-text {
+        color: #999;
+    }
+
+    table {
+        font-size: 1em;
+    }
+
+   tr {
+        min-height: 35px; /* or whatever height you need to make them all consistent */
+       
+    }
+
+    div.dataTables_wrapper {
+        margin: 0 auto;
+    }
+        table.dataTable,
+        table.dataTable th,
+        table.dataTable td {
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+        }
+
+    .boom {
+        margin-bottom: 0px;
+        background-color: cyan;
+    }
+
+    fieldset.boomerang-border {
+        border: 1px groove cyan !important;
+        padding: 0 1.4em 1.4em 1.4em !important;
+        margin: 0 0 1.5em 0 !important;
+        -webkit-box-shadow: 0px 0px 0px 0px #000;
+        box-shadow: 0px 0px 0px 0px #000;
+    }
+
+    legend.boomerang-border {
+        font-size: 1.2em !important;
+        font-weight: bold !important;
+        text-align: left !important;
+        width: auto;
+        padding: 0 10px;
+        border-bottom: none;
+    }
+
+    legend {
+        cursor: pointer
+    }
+    btn {
+        padding: 0px 20px;
+    }
+    thead input {
+        width: 100%;
+    }
+</style>
+<body style="">
+    <div class="form-horizontal">
+        <div id="top"></div>
+
+        <div class="container " style="height: 200vh; width: 100%">
+            <div class="main">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="panel" style="border-radius: 10px; width: 106%;">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                        <li><a style=" color:#183666; font-weight: bold" href="@Url.Action("Index", "Home")">@Resources2.ListeProjetsRessources.InfoProject</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="">
+                                <div class="panel" style="border-radius: 10px; ">
+                                    <div class="panel-body">
+                                        <ul class="list-inline">
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "Home")">@Resources2.ListeProjetsRessources.GenerateProjectNumber</a>
+
+                                            </li>
+
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "ListeOffres")">@Resources2.ListeProjetsRessources.OffersList</a>
+
+                                            </li>
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("IndexProjet", "ListeOffres")">@Resources2.ListeProjetsRessources.ProjectsList</a>
+
+                                            </li>
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666;a" href="@Url.Action("Index", "InfoProjet")">@Resources2.ListeProjetsRessources.InfoProject</a>
+
+                                            </li>
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "ProjectToClose")">@Resources2.ListeProjetsRessources.ProjectToCloseTitle</a>
+                                            </li>
+                                            @*<li>
+                                                &nbsp;&nbsp;&bull;
+                                                <a style="color:#183666;" href="@System.Configuration.ConfigurationManager.AppSettings["TTIndexUrl"]" target="_blank">@Resources2.ListeProjetsRessources.TTIndex</a>
+                                            </li>*@
+                                        <li>
+                                            &bull;&nbsp;
+                                            @*<a style="color:#183666;font-weight: bold;" href="@Url.Action("Home", "Boomerang")">@ResourcesF.projectSheet</a>*@
+                                            <a style="color:#183666;font-weight: bold;" href="@Url.Action("Home", "Boomerang")">Boomerang</a>
+                                        </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="panel boom" style="border-radius: 1px;border:none; border-top-right-radius:10px;border-top-left-radius:10px; ">
+                        <div class="panel-body">
+                            <ul class="list-inline">
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666;font-weight: bold;" href="@Url.Action("Home", "Boomerang")">@ResourcesF.accueil</a>
+
+                                </li>
+
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "Boomerang")">@ResourcesF.recherche</a>
+
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("CreateFactSheet", "Boomerang")">@ResourcesF.creation_fiche</a>
+
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666;" href="@Url.Action("Carts", "Boomerang")">@ResourcesF.paniers</a>
+
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Library", "Boomerang")">@ResourcesF.phototheque</a>
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666" href="@Url.Action("HelpPage", "Boomerang")">@ResourcesF.aide</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-primary" style="border-radius: 1px;border:none; border-bottom-right-radius:10px;border-bottom-left-radius:10px; ">
+                                <div class="panel-body" style="">
+                                    <div class="row form-group">
+
+                                        <div class="col-lg-12">
+                                            <fieldset class="boomerang-border">
+                                                <legend class="boomerang-border togvis">Information</legend>
+                                                <div class="row form-group">
+                                                    <div class="col-lg-3">
+                                                        <b>@UserService.CurrentUser</b> , @DateTime.Now.ToString(ViewBag.Date1, System.Globalization.CultureInfo.CreateSpecificCulture(ViewBag.Date2))
+
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="col-lg-4">
+                                                        <select data-live-search="true" class="form-control selectpicker" id="panierList" data-size="15">
+                                                            <option value="" selected style="font-size:14px">@ResourcesB.SelectCart</option>
+                                                            <option value="-1">Créer un nouveau panier</option>
+                                                            @foreach (panier item in Model.listePanier)
+                                                            {
+                                                                <option value="@item.id_panier">@item.libelle</option>
+                                                            }
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <fieldset class="boomerang-border">
+                                                <legend class="boomerang-border"><img src="~/Content/images/Nouveau.png" width="100" /></legend>
+                                                <div class="row form-group">
+                                                    <div class="col-lg-12" style="color: #003D82;">
+                                                        <div style="border-left: 4px dashed #FBCB99;padding-left: 10px;">
+                                                            @Html.Raw(@ResourcesF.newOnBoomerang)
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <fieldset class="boomerang-border">
+                                                <legend class="boomerang-border togvis">@ResourcesF.myDrafts</legend>
+                                                <div class="row form-group">
+                                                    <div class="col-lg-12">
+                                                        <div class="panel pagination-grey">
+
+                                                            <div id="data-table_wrapper2" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+                                                                <table id="data_fichesDrafts" class=" table table-bordered  data-table  dataTable display" style="margin-top:-50px ;width:100%; font-size:12px">
+                                                                    <thead id="tableHeaderGP">
+                                                                    <tr style="font-style:italic; ">
+                                                            </tr>
+                                                            <tr class="grey" role="row">
+
+                                                                <th>
+                                                                    @ResourcesB.UA
+                                                                </th>
+                                                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                    @ResourcesB.Agence
+                                                                </th>
+                                                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                    @ResourcesB.activity
+                                                                </th>
+                                                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                    @ResourcesB.Location
+                                                                </th>
+                                                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                    @ResourcesB.Label
+                                                                </th>
+                                                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                    @ResourcesB.state
+                                                                </th>
+                                                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                    @ResourcesB.draft_validated
+                                                                </th>
+                                                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                    @ResourcesB.createThe
+                                                                </th>
+                                                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                    @ResourcesB.by
+                                                                </th>
+
+                                                                <th tabindex="0" aria-controls="data-table" rowspan="1" colspan="1">
+                                                                    Action
+                                                                </th>
+
+
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @for (var i = 0; i<Model.listeFichesDrafts.Count(); i++)
+                                                                                                                                        {
+
+                                                                <tr>
+                                                                    <td style="text-align: left;">
+                                                                        @Model.listeFichesDrafts[i].libelle
+                                                                    </td>
+                                                                    <td style="text-align: left;">
+                                                                        @Model.listeFichesDrafts[i].agence
+                                                                    </td>
+                                                                    <td style="text-align: left;">
+                                                                        @Model.listeFichesDrafts[i].expertise
+                                                                    </td>
+                                                                    <td style="text-align: left;">
+                                                                        @Model.listeFichesDrafts[i].localisation
+                                                                    </td>
+                                                                    <td style="text-align: left;">
+                                                                        @Model.listeFichesDrafts[i].intitule_court
+                                                                    </td>
+                                                                    <td style="text-align: left;">
+                                                                        @if (Model.listeFichesDrafts[i].etat == "DRAFT")
+                                                                                                                                                            {
+
+                                                                        <p><span style="color:red">@ResourcesB.Draft</span>: @ResourcesB.modifyThe &nbsp; @Model.listeFichesDrafts[i].lastmod_time.Value.ToString(ViewBag.Date1, System.Globalization.CultureInfo.CreateSpecificCulture(ViewBag.Date2)) @ResourcesB.by @Model.listeFichesDrafts[i].lastmod_user</p>
+
+                                                                                                                                                            }
+                                                                                                                                                            else if (Model.listeFichesDrafts[i].etat == "WAITING_DA")
+                                                                                                                                                            {
+                                                                        <p> <span style="color:green">@ResourcesB.validationWait</span>: @Model.listeFichesDrafts[i].lastmod_time.Value.ToString(ViewBag.Date1, System.Globalization.CultureInfo.CreateSpecificCulture(ViewBag.Date2))</p>
+
+                                                                                                                                                            }
+                                                                    </td>
+                                                                    <td style="text-align: left;">
+                                                                        @Model.listeFichesDrafts[i].created_time.Value.ToString(ViewBag.Date1, System.Globalization.CultureInfo.CreateSpecificCulture(ViewBag.Date2))
+                                                                    </td>
+                                                                    <td style="text-align: left;">
+                                                                        @Model.listeFichesDrafts[i].created_time.Value.ToString(ViewBag.Date1, System.Globalization.CultureInfo.CreateSpecificCulture(ViewBag.Date2))
+                                                                    </td>
+
+                                                                    <td style="text-align: left;">
+                                                                        @Model.listeFichesDrafts[i].createur
+                                                                    </td>
+                                                                    <td style="text-align: left;">
+                                                                        @if (Model.listeFichesDrafts[i].etat == "DRAFT")
+                                                                                                                                                            {
+                                                                        <div class="btn-toolbar" style="">
+                                                                            <button type="button" id="btnSubmit" class="btn btn-primary btn-sm " style=" padding: 0px 15px;" onclick="openModelTransfer('@Model.listeFichesDrafts[i].intitule_court')"><span class="glyphicon glyphicon-share-alt"></span></button>
+                                                                            <button type="button" id="btnCancel" class="btn btn-danger btn-sm " style=" padding: 0px 15px;"><span class="glyphicon glyphicon-remove"></span></button>
+                                                                        </div>
+                                                                                                                                                            }
+                                                                    </td>
+                                                                </tr>
+                                                                                                                                        }
+
+                                                            </tbody>
+                                                            </table>
+                                                        </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </fieldset>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalTransfer" role="dialog">
+        <div class="modal-dialog" style="width: 50%;">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="ficheIdDetails"></h4>
+                </div>
+                <div class="modal-body" id="modalContent">
+                    <div class="row form-group">
+                        <div class="col-lg-6">
+                            <span>@ResourcesB.transferDraft</span>&nbsp;<b><span id="draftName"> </span></b>&nbsp;<span>@ResourcesB.to  :</span>
+                        </div>
+                        <div class="col-lg-6">
+                            <select data-live-search="true" class="form-control selectpicker" id="panierList" data-size="15">
+                                <option value="" selected style="font-size:14px">@ResourcesB.chooseResp</option>
+                                @foreach (utilisateur item in Model.listeResp)
+                                {
+                                <option value="@item.id_utilisateur">@item.nom &nbsp;@item.prenom</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script>    
+    $(document).ready(function () {
+        $('#data_fichesDrafts').DataTable({
+            //"scrollX": true,
+            "columnDefs": [
+                { width: "7%", targets: 0 },
+                { width: "7%", targets: 1 },
+                { width: "7%", targets: 3 },
+                { width: "10%", targets: 4 },
+                { width: "8%", targets: 6 },
+                { width: "8%", targets: 7 },
+                { width: "8%", targets: 8 },
+                { width: "8%", targets: 9 }
+            ],
+            dom:
+                "<'row'<'col-lg-2'l><'col-lg-7 text-center'B><'col-lg-2'f>>" +
+                "<'row'<'col-lg-12'tr>>" +
+                "<'row'<'col-lg-5'i><'col-lg-7'p>>",
+                buttons: [
+                { extend: 'excel', text: '@Session["lang"].ToString()' == 'fr' ?'Exporter vers Excel' : 'Export to Excel' },
+                { extend: 'selectAll', text: '@Session["lang"].ToString()' == 'fr' ?'Tout sélectionner' : 'Select all' },
+                { extend: 'selectNone', text: '@Session["lang"].ToString()' == 'fr' ?'Tout désélectionner' : 'Deselect all' },
+                ],
+            language: {
+                "url": '@Session["lang"].ToString()' == 'fr' ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+            }
+        });
+    });
+    $('#data_fichesDrafts thead').on('keyup', ".column_search", function () {
+
+        $('#data_fichesDrafts').DataTable()
+            .column($(this).parent().index())
+            .search(this.value)
+            .draw();
+    });
+    $(function () {
+
+        $('legend.togvis').click(function () {
+            $(this).parents("fieldset").find("*:not('legend')").toggle();
+            return false;
+        });
+
+    });
+
+
+$('#panierList').change(function () {
+    var id = $(this).val();
+        location.href = "@Url.Action("Carts","Boomerang")?id_panier="+id;
+   
+});
+
+    function openModelTransfer(draftName)
+    {
+        $('#draftName').html("")
+        $('#draftName').html(draftName)
+        $('#modalTransfer').modal('show');
+    }
+</script>

@@ -1,0 +1,636 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Alphabetic" xml:space="preserve">
+    <value>Alphabétique</value>
+  </data>
+  <data name="ApproximateAmount" xml:space="preserve">
+    <value>Montant approximatif</value>
+  </data>
+  <data name="BusinessUnit" xml:space="preserve">
+    <value>Unité d’affaires</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="ClienNumber" xml:space="preserve">
+    <value>Numéro de client</value>
+  </data>
+  <data name="ClientName" xml:space="preserve">
+    <value>Nom du client</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Compagnie</value>
+  </data>
+  <data name="ContactClient" xml:space="preserve">
+    <value>Contact client</value>
+  </data>
+  <data name="CreateFolderStrucutre" xml:space="preserve">
+    <value>Créer une structure de projet</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Détails</value>
+  </data>
+  <data name="FinalClient" xml:space="preserve">
+    <value>Client Final</value>
+  </data>
+  <data name="FolderStructure" xml:space="preserve">
+    <value>Configuration des répertoires</value>
+  </data>
+  <data name="GeneralInformation" xml:space="preserve">
+    <value>Informations générales</value>
+  </data>
+  <data name="MandatoryField" xml:space="preserve">
+    <value>Champ obligatoire</value>
+  </data>
+  <data name="Model" xml:space="preserve">
+    <value>Modèle</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Suivant</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="NoMasterProject" xml:space="preserve">
+    <value>No du projet maître</value>
+  </data>
+  <data name="Numeric" xml:space="preserve">
+    <value>Numérique</value>
+  </data>
+  <data name="NumeroProjetGeneration" xml:space="preserve">
+    <value>Génération de numéro de projet</value>
+  </data>
+  <data name="ORG" xml:space="preserve">
+    <value>Organisation</value>
+  </data>
+  <data name="ProjectMgr" xml:space="preserve">
+    <value>Gestionnaire de projet</value>
+  </data>
+  <data name="RefAndComments" xml:space="preserve">
+    <value>Références et commentaires</value>
+  </data>
+  <data name="SecurityModel" xml:space="preserve">
+    <value>Modèle de sécurité</value>
+  </data>
+  <data name="SelectionModel" xml:space="preserve">
+    <value>Modèle de sélection</value>
+  </data>
+  <data name="SelectPhaseCode" xml:space="preserve">
+    <value>Sélectionner le code de la phase</value>
+  </data>
+  <data name="Server" xml:space="preserve">
+    <value>Serveur</value>
+  </data>
+  <data name="TextField" xml:space="preserve">
+    <value>Champ texte de maximum 5 caractères</value>
+  </data>
+  <data name="TitleOS" xml:space="preserve">
+    <value>Titre du projet</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Oui</value>
+  </data>
+  <data name="BusinessUnitError" xml:space="preserve">
+    <value>Veuillez préciser l'unité d’affaires.</value>
+  </data>
+  <data name="ClientNameError" xml:space="preserve">
+    <value>Veuillez fournir un nom de client.</value>
+  </data>
+  <data name="ClientNumberError" xml:space="preserve">
+    <value>Veuillez fournir un numéro de client.</value>
+  </data>
+  <data name="CompanyError" xml:space="preserve">
+    <value>Veuillez préciser la compagnie.</value>
+  </data>
+  <data name="HasAMasterProjectError" xml:space="preserve">
+    <value>Veuillez préciser la liaison à un projet maître.</value>
+  </data>
+  <data name="IsItLinkedToMasterProject" xml:space="preserve">
+    <value>Est-ce un projet lié à un projet maître</value>
+  </data>
+  <data name="ProjectMgrError" xml:space="preserve">
+    <value>Veuillez fournir un nom pour le gestionnaire de projet.</value>
+  </data>
+  <data name="projectnumberCreation" xml:space="preserve">
+    <value>Génération d’un numéro de projet</value>
+  </data>
+  <data name="SecurityModelError" xml:space="preserve">
+    <value>Veuillez preciser quel est le modèle de sécurité</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Veuillez fournir un nom de serveur.</value>
+  </data>
+  <data name="ServerModelError" xml:space="preserve">
+    <value>Veuillez préciser quel est le modèle </value>
+  </data>
+  <data name="TitleError" xml:space="preserve">
+    <value>Veuillez fournir un titre de projet.</value>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Accepter</value>
+  </data>
+  <data name="CodeOfPhase" xml:space="preserve">
+    <value>Code de phase</value>
+  </data>
+  <data name="InitiatedBy" xml:space="preserve">
+    <value>Initié par</value>
+  </data>
+  <data name="Masterproject" xml:space="preserve">
+    <value>Projet maître</value>
+  </data>
+  <data name="MasterProjectNumber" xml:space="preserve">
+    <value>Veuillez fournir les détails du projet maître et le code la phase voulue</value>
+  </data>
+  <data name="NewProject" xml:space="preserve">
+    <value>Création du numéro de projet</value>
+  </data>
+  <data name="NumberGenerated" xml:space="preserve">
+    <value>Numéro généré</value>
+  </data>
+  <data name="NumberNameClient" xml:space="preserve">
+    <value>No de client / Nom de client</value>
+  </data>
+  <data name="Precedent" xml:space="preserve">
+    <value>Précédent</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>Résumé</value>
+  </data>
+  <data name="TTProject" xml:space="preserve">
+    <value>TT Projet + </value>
+  </data>
+  <data name="TypeOfProject" xml:space="preserve">
+    <value>Type de projet</value>
+  </data>
+  <data name="YourNumberIs" xml:space="preserve">
+    <value>Votre numéro est:</value>
+  </data>
+  <data name="ORGError" xml:space="preserve">
+    <value>Veuillez préciser quelle est l'organisation</value>
+  </data>
+  <data name="ListOfOffers" xml:space="preserve">
+    <value>Liste des offres de services</value>
+  </data>
+  <data name="ListOfProjects" xml:space="preserve">
+    <value>Liste des projets</value>
+  </data>
+  <data name="OffersAndProjects" xml:space="preserve">
+    <value>Offres et projets</value>
+  </data>
+  <data name="PeriodWeekDate" xml:space="preserve">
+    <value>Dernière mise à jour des données</value>
+  </data>
+  <data name="PeriodWeekDate1" xml:space="preserve">
+    <value>Dernière mise à jour des données</value>
+  </data>
+  <data name="ProjectNumberError" xml:space="preserve">
+    <value>Veuillez fournir un numéro de projet</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>Texte</value>
+  </data>
+  <data name="NewProjectBC" xml:space="preserve">
+    <value>Nouveau # Projet</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="ProgramMgr" xml:space="preserve">
+    <value>Gestionnaire de programme</value>
+  </data>
+  <data name="AdministratorName" xml:space="preserve">
+    <value>Nom de l'administrateur</value>
+  </data>
+  <data name="projectReponsible" xml:space="preserve">
+    <value>Nom du responsable de projet</value>
+  </data>
+  <data name="alreadyExistingTitleError" xml:space="preserve">
+    <value>Le titre choisi est déjà attribué à un autre projet. Veuillez le modifier.</value>
+  </data>
+  <data name="masterProjectNameError" xml:space="preserve">
+    <value>Veuillez spécifier le nom du projet maître.</value>
+  </data>
+  <data name="message1" xml:space="preserve">
+    <value>Merci de bien vouloir remplir ou modifier le(s) champ(s) suivant(s):</value>
+  </data>
+  <data name="modelError" xml:space="preserve">
+    <value>Veuillez spécifier le modèle.</value>
+  </data>
+  <data name="notExistingMP" xml:space="preserve">
+    <value>Ce projet maître n'existe pas.</value>
+  </data>
+  <data name="phaseError" xml:space="preserve">
+    <value>Veuillez spécifier la phase.</value>
+  </data>
+  <data name="projectNameError" xml:space="preserve">
+    <value>Veuillez spécifier le nom du projet.</value>
+  </data>
+  <data name="BasicSecurity" xml:space="preserve">
+    <value>Sécurité de base</value>
+  </data>
+  <data name="chooseModel" xml:space="preserve">
+    <value>Veuillez choisir un modèle</value>
+  </data>
+  <data name="chooseSelectionModel" xml:space="preserve">
+    <value>Choisir un modèle de sélection (optionnel)...</value>
+  </data>
+  <data name="noModelForThisServer" xml:space="preserve">
+    <value>Il n y a pas de modèle de sélection pour ce modèle de serveur</value>
+  </data>
+  <data name="notExistingClient" xml:space="preserve">
+    <value>Ce client n'existe pas</value>
+  </data>
+  <data name="add" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="address" xml:space="preserve">
+    <value>Adresse</value>
+  </data>
+  <data name="city" xml:space="preserve">
+    <value>Ville</value>
+  </data>
+  <data name="clientList" xml:space="preserve">
+    <value>Liste des clients</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="internalOrg" xml:space="preserve">
+    <value>Organisation interne</value>
+  </data>
+  <data name="MPNumber" xml:space="preserve">
+    <value>Numéro du projet maître</value>
+  </data>
+  <data name="MPSearch" xml:space="preserve">
+    <value>Recherche de projet maitre</value>
+  </data>
+  <data name="mp_client" xml:space="preserve">
+    <value>Client</value>
+  </data>
+  <data name="mp_message1" xml:space="preserve">
+    <value>Veuillez sélectionner un projet maître ou cliquez sur le bouton "Annuler"</value>
+  </data>
+  <data name="mp_message2" xml:space="preserve">
+    <value>Suivant...</value>
+  </data>
+  <data name="mp_null" xml:space="preserve">
+    <value>Aucun résultat pour cette requête...</value>
+  </data>
+  <data name="mp_number" xml:space="preserve">
+    <value>Numéro de Projet</value>
+  </data>
+  <data name="mp_org" xml:space="preserve">
+    <value>Organisation</value>
+  </data>
+  <data name="mp_search" xml:space="preserve">
+    <value>Critère de recherche...</value>
+  </data>
+  <data name="mp_title" xml:space="preserve">
+    <value>Titre de projet</value>
+  </data>
+  <data name="newClient" xml:space="preserve">
+    <value>Ajout d'un nouveau client</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="phone" xml:space="preserve">
+    <value>Téléphone</value>
+  </data>
+  <data name="projectList" xml:space="preserve">
+    <value>Liste des projets</value>
+  </data>
+  <data name="projectManList" xml:space="preserve">
+    <value>Liste des gestionnaires de projets</value>
+  </data>
+  <data name="restricted" xml:space="preserve">
+    <value>Accès restreint. Veuillez adresser une demande d'autorisation à l'un des administrateurs suivants en cliquant sur l'icône présentant une enveloppe vis-à-vis la compagnie et l'unité d'affaire vous concernant.</value>
+  </data>
+  <data name="state" xml:space="preserve">
+    <value>Province,état</value>
+  </data>
+  <data name="the_client" xml:space="preserve">
+    <value>Le Client</value>
+  </data>
+  <data name="zip" xml:space="preserve">
+    <value>Code postal</value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>Courriel</value>
+  </data>
+  <data name="existingChild" xml:space="preserve">
+    <value>Un projet enfant associé à ce projet maître, à cette phase et cette compagnie existe déjà. Veuillez modifier ces paramètres.</value>
+  </data>
+  <data name="failedCreation" xml:space="preserve">
+    <value>La création de projet a échoué!</value>
+  </data>
+  <data name="IDProject" xml:space="preserve">
+    <value>ID du projet</value>
+  </data>
+  <data name="Office" xml:space="preserve">
+    <value>Bureau</value>
+  </data>
+  <data name="problemExcecution" xml:space="preserve">
+    <value>L’exécution de votre requête a rencontré un ou des problèmes!</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Chemin de la structure de répertoires</value>
+  </data>
+  <data name="successCreation" xml:space="preserve">
+    <value>La création de projet a réussi!</value>
+  </data>
+  <data name="successTree" xml:space="preserve">
+    <value>Le processus de création d'arborescence sur le serveur a réussi!</value>
+  </data>
+  <data name="copyPath" xml:space="preserve">
+    <value>Copier le chemin du répertoire de projet</value>
+  </data>
+  <data name="message1a" xml:space="preserve">
+    <value>L'arborescence du projet n'a pas pu être insérée dans la base de données.</value>
+  </data>
+  <data name="message2a" xml:space="preserve">
+    <value>Les fichiers demandés pour le projet n'ont pas pu être ajoutés.</value>
+  </data>
+  <data name="message3a" xml:space="preserve">
+    <value>Les sécurités n'ont pas pu être appliquées aux dossiers de projet sur le serveur demandé.</value>
+  </data>
+  <data name="openStruct" xml:space="preserve">
+    <value>Ouvrir:</value>
+  </data>
+  <data name="sendMail" xml:space="preserve">
+    <value>Envoyer l'information par courriel</value>
+  </data>
+  <data name="structPath" xml:space="preserve">
+    <value>Chemin de la structure de répertoires</value>
+  </data>
+  <data name="LinkedProject" xml:space="preserve">
+    <value>Projet lié</value>
+  </data>
+  <data name="archivingDate" xml:space="preserve">
+    <value>Date d'archivage</value>
+  </data>
+  <data name="created" xml:space="preserve">
+    <value>Projet créé le</value>
+  </data>
+  <data name="DF_message1" xml:space="preserve">
+    <value>Merci de bien vouloir remplir le(s) champ(s) suivant(s)</value>
+  </data>
+  <data name="DF_message2" xml:space="preserve">
+    <value>Veuillez spécifier le titre de l'offre.</value>
+  </data>
+  <data name="DF_message3" xml:space="preserve">
+    <value>Veuillez spécifier le numéro du client.</value>
+  </data>
+  <data name="DF_message4" xml:space="preserve">
+    <value>Veuillez spécifier le nom du client.</value>
+  </data>
+  <data name="DF_message5" xml:space="preserve">
+    <value>Veuillez spécifier la compagnie.</value>
+  </data>
+  <data name="DF_message6" xml:space="preserve">
+    <value>Veuillez spécifier l'unité d'affaires.</value>
+  </data>
+  <data name="DF_message7" xml:space="preserve">
+    <value>Veuillez spécifier l'organisation.</value>
+  </data>
+  <data name="DF_message8" xml:space="preserve">
+    <value>Veuillez spécifier le gestionnaire de projet.</value>
+  </data>
+  <data name="DF_message9" xml:space="preserve">
+    <value>La mise à jour du projet a réussi! Merci de laisser la page principale se recharger afin de montrer vos  modifications.</value>
+  </data>
+  <data name="DF_op1" xml:space="preserve">
+    <value>Choisir une des trois options...</value>
+  </data>
+  <data name="DF_op1a" xml:space="preserve">
+    <value>Choisir une des deux options...</value>
+  </data>
+  <data name="DF_op2" xml:space="preserve">
+    <value>Documentation active</value>
+  </data>
+  <data name="DF_op3" xml:space="preserve">
+    <value>En attente de l'archivage</value>
+  </data>
+  <data name="DF_op4" xml:space="preserve">
+    <value>Report de l'archivage de la documentation</value>
+  </data>
+  <data name="DF_op5" xml:space="preserve">
+    <value>Aucune documentation</value>
+  </data>
+  <data name="DF_op6" xml:space="preserve">
+    <value>Documentation archivée</value>
+  </data>
+  <data name="docStatus" xml:space="preserve">
+    <value>Statut de la documentation</value>
+  </data>
+  <data name="lastModif" xml:space="preserve">
+    <value>Dernière modification le</value>
+  </data>
+  <data name="noResult2" xml:space="preserve">
+    <value>Aucune valeur</value>
+  </data>
+  <data name="postponeDate" xml:space="preserve">
+    <value>Date de report de l'archivage</value>
+  </data>
+  <data name="projectDescription" xml:space="preserve">
+    <value>Description du projet</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
+  <data name="status" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="By" xml:space="preserve">
+    <value>par</value>
+  </data>
+  <data name="emailLang" xml:space="preserve">
+    <value>Dans quelle langue voulez vous envoyer le courriel automatique?</value>
+  </data>
+  <data name="en" xml:space="preserve">
+    <value>EN</value>
+  </data>
+  <data name="fr" xml:space="preserve">
+    <value>FR</value>
+  </data>
+  <data name="TQEEmailAddressesList" xml:space="preserve">
+    <value>Un courriel résumant les informations du numéro de projet a été envoyé aux adresses courriels suivantes</value>
+  </data>
+  <data name="Return" xml:space="preserve">
+    <value>Retour</value>
+  </data>
+  <data name="message4a" xml:space="preserve">
+    <value>Une structure de répertoires portant ce numéro existe déjà. Veuillez contacter le CSTI. </value>
+  </data>
+  <data name="CopyPath3" xml:space="preserve">
+    <value>Pour ouvrir un répertoire de projet</value>
+  </data>
+  <data name="CopyPath4" xml:space="preserve">
+    <value>Cliquez sur ce bouton, puis sur la touche Windows + E de votre clavier et coller le contenu du presse-papier dans la barre d'adresse</value>
+  </data>
+  <data name="Tips" xml:space="preserve">
+    <value>Astuces</value>
+  </data>
+  <data name="DF_message10" xml:space="preserve">
+    <value>Veuillez spécifier une date de report de l'archivage</value>
+  </data>
+  <data name="MsgArchived" xml:space="preserve">
+    <value>La documentation est déjà archivée. Si vous avez besoin que la structure soit désarchivée, veuillez communiquer avec le CSTI via courriel à SRA@tetratech.com, par le portail via l’Intranet ou par téléphone au 1-866-208-5234.</value>
+  </data>
+  <data name="notExistingProgramManager" xml:space="preserve">
+    <value>Ce gestionnaire de programme n'existe pas</value>
+  </data>
+  <data name="notExistingProjectManager" xml:space="preserve">
+    <value>Ce gestionnaire de projet n'existe pas</value>
+  </data>
+  <data name="Treatement" xml:space="preserve">
+    <value>Votre demande est en traitement...</value>
+  </data>
+  <data name="ConvertToProject" xml:space="preserve">
+    <value>Convertir en projet</value>
+  </data>
+  <data name="ProjectOpening" xml:space="preserve">
+    <value>Project opening</value>
+  </data>
+  <data name="ProjectNumberAnticipated" xml:space="preserve">
+    <value>Aperçu de numéro</value>
+  </data>
+  <data name="additionalInfo" xml:space="preserve">
+    <value>Un tiret (-) sera ajouté automatiquement à la création du numéro de projet si vous choisissez l'option Numérique ou Champ texte (ex: 12345-001 ou 12345-2022).</value>
+  </data>
+  <data name="ProjectManagerCourriel" xml:space="preserve">
+    <value>Courriel du chargé de projet</value>
+  </data>
+  <data name="ProjectManagerName" xml:space="preserve">
+    <value>Nom du chargé de projet client</value>
+  </data>
+  <data name="ProjectMangerReg" xml:space="preserve">
+    <value> (Requis pour la satisfaction client)</value>
+  </data>
+  <data name="EnvDiligente" xml:space="preserve">
+    <value>Est-ce que c'est un projet en vérification diligente?</value>
+  </data>
+  <data name="MissingCourriel" xml:space="preserve">
+    <value>Veuillez fournir le courriel du chargé de projet client.</value>
+  </data>
+</root>

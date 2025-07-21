@@ -1,0 +1,740 @@
+﻿
+@model TetraTech.TTProjetPlus.Models.shortNumberGenerationModel
+@using Resources = TetraTech.TTProjetPlus.Views.TTProjet
+@using TetraTech.TTProjetPlus.Controllers
+@{
+    /**/
+
+    ViewBag.Title = "Création de structure";
+}
+@*<link href="~/Content/css/select2.css" rel="stylesheet" />
+    <script src="~/Scripts/select2.js"></script>*@
+
+<style>
+
+
+    #main-container {
+        width: 600px;
+        margin: 150px auto;
+    }
+
+    .inputWidth {
+        width: 100%;
+    }
+
+    .inputWidth2 {
+        width: 50%;
+        display: inline
+    }
+
+    .inputWidth3 {
+        width: 60%;
+        display: inline
+    }
+
+    .redText {
+        color: red;
+    }
+
+    #loading {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        display: block;
+        opacity: 0.7;
+        background-color: #fff;
+        z-index: 99;
+        text-align: center;
+        display: none;
+    }
+
+    #loadingGIF2 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 100;
+    }
+
+    .select2-results span[onlyslave="True"] {
+        color: #000080;
+        font-weight: bold;
+        width: 100% !important;
+    }
+
+        .select2-results span[onlyslave="True"] .special {
+            color: cyan;
+            font-weight: bold;
+            width: 100% !important;
+        }
+
+
+    .select2-container--default .select2-results > .select2-results__options {
+        max-height: 260px;
+        overflow-y: auto;
+        width: 100% !important;
+    }
+
+    .select2-container--default {
+        width: 100% !important;
+    }
+
+    .select1 {
+        width: 100% !important;
+    }
+
+    .select2-container {
+        min-width: 100% !important;
+    }
+</style>
+<div id="numeroProjet" hidden></div>
+
+<div id="loading">
+    <img id="loadingGIF2" src="~/Content/assets/img/ajax-loader.gif" alt="Loading..." />
+</div>
+<div class="container " style="height: 200vh; width: 100%">
+    <div class="main">
+        @if (ViewBag.MenuVisible == "true")
+        {
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-3" style="padding-top: -49px; ">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 75px">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                    <li style="color:white ; font-weight: bold"><a href="@Url.Action("Index", "Customer")"> @Resources.TTProjet.Advanced</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 75px">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666" href="@Url.Action("Index", "Customer")">@Resources.TTProjet.AddCustomer</a>
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666 ; font-weight: bold" href="@Url.Action("TTProjetFolderStructure", "TTProjet")">@Resources.TTProjet.CreateFolderStructure</a>
+                                        </li>
+
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        <!-- ------------------------------------------------------------------>
+        <div class="row">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary" style="border-radius: 10px; margin-top: -10px; margin-left: -10px; height: 550px;">
+                        <div class="panel-body" style="margin:15px;">
+                            <div class="row">
+                                <div class="alert alert-warning" id="MissingFieldsSDRAdd" hidden="hidden">
+                                    <button type="button" class="close" data-hide="alert">&times;</button>
+                                    <strong>@Resources.TTProjet.message7</strong>
+                                </div>
+                                <div class="alert alert-danger" id="failedCreationOnServer" hidden="hidden">
+                                    <button type="button" class="close" data-hide="alert">&times;</button>
+                                    <strong>@Resources.TTProjet.message8</strong>
+                                    <button data-toggle="collapse" data-target="#detailsFailedCreationOnServer">Détails</button>
+                                    <div id="detailsFailedCreationOnServer" class="collapse">
+                                    </div>
+                                </div>
+                                <div class="alert alert-success" id="successCreationOnServer" hidden="hidden">
+                                    <button type="button" class="close" data-hide="alert">&times;</button>
+                                    <strong>@Resources.TTProjet.message9</strong>
+                                </div>
+                                <div class="alert alert-warning" id="inputLengthNormal" hidden="hidden">
+                                    <button type="button" class="close" data-hide="alert">&times;</button>
+                                    <strong>@Resources.TTProjet.message10</strong>
+                                </div>
+                            </div>
+
+                            @*<div class="row">
+                                <div class="col-sm-12">
+                                    <h4 style="margin-top: 0px; color:#183666; font-family: 'Arial Bold'; font-size: 18pt;">
+                                        <b>@Resources.TTProjet.CreateFolderStructure</b>
+                                    </h4>
+                                </div>
+
+                            </div>*@
+                            @*<br />*@
+
+                            <div class="row">
+
+                                <div class="form-group">
+                                    <div class="col-sm-12 ">
+                                        <h4 style="font-weight: bold">@Resources.TTProjet.msgStructure</h4>
+
+                                        <h4>@Resources.TTProjet.msgAcces1</h4>
+
+                                        <h4>@Resources.TTProjet.msgAcces2</h4>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if (ViewBag.isAllowedAdvanced == true)
+                            {
+                                <div class="row" style="color:steelblue; font-size:initial">
+                                    <div class="form-group">
+                                        <div class="col-sm-3">
+                                            <label>@Resources.TTProjet.ProjectType:</label>
+                                        </div>
+                                        <div class="col-sm-5" id="projectTypeChoice">
+                                            <label class="custom-control-label" for="projectType2">@Resources.TTProjet.Proposal</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                @*pour une proposition :*@
+                                <br />
+                                <div class="row" style="color:steelblue; font-size:initial" id="displayProposal" hidden>
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <div style="float:left;width:100%">
+                                                <input class="form-control " style=" width : 100%" type="text" value="" id="projectName" placeholder="@Resources.TTProjet.Number" maxlength="14">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-0" style="color:red">
+                                            <h3 class="pull-left" style="margin-top: 2px;">*</h3>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row" style="color:steelblue; font-size:initial">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <div style="float:left;width:100%">
+                                                <select class="form-control select2select select1" style=" width : 100%" id="Server"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-0" style="color:red">
+                                            <h3 class="pull-left" style="margin-top: 2px;">*</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row" style="color:steelblue; font-size:initial">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <div style="float:left;width:100%">
+                                                @Html.DropDownListFor(m => m.ServerModel, new SelectList(" "), "", new { @class = "form-control select1", @size = "6" })
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-0" style="color:red">
+                                            <h3 class="pull-left" style="margin-top: 2px;">*</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row" style="color:steelblue; font-size:initial">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <div style="float:left;width:100%">
+                                                @Html.DropDownListFor(m => m.SecurityModel, new SelectList(" "), "", new { @class = "form-control select1" })
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-0" style="color:red">
+                                            <h3 class="pull-left" style="margin-top: 2px;">*</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row" style="color:steelblue; font-size:initial">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <div style="float:left;width:100%">
+                                                @Html.DropDownListFor(m => m.SelectionModel, new SelectList(" "), "", new { @class = "form-control select1" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+
+                                <br />
+                                <div class="col-sm-5" style="margin-top: -25px;">
+                                    <div style="text-align: right;">
+                                        <button class="specialB" id="submit" onclick="SubmitFormAddSDR()">@Resources.TTProjet.Save </button>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row" style="color:red; font-size:initial">
+
+                                    <div class="form-group">
+                                        <div class="col-sm-12 ">
+                                            <h4>@Resources.TTProjet.RestrictedAcces</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var num = "";
+        $("#numeroProjet").html("");
+         $.ajax({
+    url: '@Url.Action("returnListServerFromTTProjetFolderStructureView", "TTProjet")',
+     type: 'GET',
+    success:function(data)
+    {
+        $("#Server").empty();
+        $("#Server").append('<option style="color:#999" value="">'+'@Resources.TTProjet.ChooseAServer'+'</option >');
+        $.each(data, function (index, row) {
+            $("#Server").append('<option value="'
+                + row.Value + '">'
+                + row.Name + '</option>');
+        });
+    }
+  });
+        $.ajax({
+    url: '@Url.Action("returnListProjet", "TTProjet")',
+     type: 'GET',
+
+    success:function(data)
+    {
+        $("#projetcNumber").empty();
+        $("#projetcNumber").append('<option value="" selected>'+'@Resources.TTProjet.ChooseAProject'+'</option >');
+
+        $.each(data, function (index, row) {
+            $("#projetcNumber").append(
+                '<option  onlyslave="True" value="' + row.Value + '">'
+                + row.Name + ' - ' + '<p>'+row.Description+'</p>'
+                + '</option>'
+
+                );
+        });
+            }
+        });
+
+
+
+        $("#projetcNumber").select2(
+            {
+                templateResult: formatState
+            });
+
+        $('#Server').select2({
+
+            });
+
+        $("#ServerModel").select2({
+            maximumSelectionLength: 7
+        });
+        $("#SecurityModel").select2();
+        $("#SelectionModel").select2();
+
+        $('#displayRegularProject').hide();
+        $('#displayProposal').show();
+
+    });
+
+    function closeAlert() {
+        setTimeout(function () {
+            $('#successAttention').fadeOut('slow');
+        }, 60000)
+
+    }
+
+
+    function formatState(state) {
+        if (!state.element) return;
+        var os = $(state.element).attr('onlyslave');
+        return $('<span onlyslave="' + os + '">' + state.text + '</span>');
+    }
+
+
+    //on change type de projet radio button:
+    $('input[type=radio][name=projectTypeRadios]').change(function () {
+        $('#projectName').val("");
+                $.ajax({
+    url: '@Url.Action("returnListProjet", "TTProjet")',
+     type: 'GET',
+
+    success:function(data)
+    {
+        $("#projetcNumber").empty();
+        $("#projetcNumber").append('<option value="" selected>'+'@Resources.TTProjet.ChooseAProject'+'</option >');
+
+        $.each(data, function (index, row) {
+            $("#projetcNumber").append(
+                '<option  onlyslave="True" value="' + row.Value + '">'
+                + row.Name + ' - ' + '<p>' + row.Description + '</p>'
+                + '</option>'
+
+            );
+        });
+    } });
+
+        if (this.value == 'pr') {
+            $('#displayRegularProject').show();
+            $('#displayProposal').hide();
+
+        }
+        else if (this.value == 'prop') {
+            $('#displayRegularProject').hide();
+            $('#displayProposal').show();
+        }
+    });
+
+
+//on change server: choose a serverModel
+    $('#Server').on('change', function () {
+
+
+                    if ($('#Server').val() != null)
+        {
+
+ $.ajax({
+    url: '@Url.Action("returnListServerModelFromTTProjetFolderStructureView", "TTProjet")',
+     type: 'GET',
+    success:function(data)
+    {
+        $("#ServerModel").empty();
+        $("#ServerModel").append('<option value="">'+'@Resources.TTProjet.ChooseAModel'+'</option >');
+        $.each(data, function (index, row) {
+            $("#ServerModel").append('<option value="'
+                + row.Value + '">'
+                + row.Name + '</option>');
+        });
+    }
+  });
+ }
+
+
+ });
+
+//
+
+
+    $('#ServerModel').on('change', function () {
+if ($('#ServerModel').val() != null) {
+ $.ajax({
+    url: '@Url.Action("returnModeleSecurite", "TTProjet")',
+     type: 'GET',
+   data: {
+
+       modelId: $('#ServerModel').val()
+    },
+
+    success:function(data)
+    {
+        $("#SecurityModel").empty();
+        $("#SecurityModel").append('<option value="">'+'@Resources.TTProjet.ChooseAsecurityModel'+'</option >');
+        $.each(data, function (index, row) {
+            $("#SecurityModel").append('<option value="'
+                + row.Value + '">'
+                + row.Name + '</option>');
+        });
+    }
+  });
+ }
+ });
+
+    //2. selection  model (optionel)
+$('#SecurityModel').on('change', function () {
+        if ($('#SecurityModel').val() != null) {
+ $.ajax({
+    url: '@Url.Action("returnModeleSelection", "TTProjet")',
+     type: 'GET',
+   data: {
+
+       modelId: $('#ServerModel').val()
+    },
+
+    success:function(data)
+    {
+
+        if (data == null || data == "") {
+            $("#SelectionModel").empty();
+            $("#SelectionModel").append('<option value="">'+'@Resources.TTProjet.message1'+'</option >');
+
+        }
+        else
+        {
+            $("#SelectionModel").empty();
+            $("#SelectionModel").append('<option value="">'+'@Resources.TTProjet.message2'+'</option >');
+            $.each(data, function (index, row) {
+
+                $("#SelectionModel").append('<option value="'
+                    + row.Value + '">'
+                    + row.Name + '</option>');
+            });
+            if ($('#projetcNumber').val() != null && $('#Server').val() != null &&
+                $('#ServerModel').val() != null && $('#SecurityModel').val() != null) {
+                $('#submit').removeAttr("disabled");
+            }
+
+
+        }
+    }
+  });
+ }
+ });
+
+
+//soumission de la requete
+    //version de la fonction qui prend en charge un nom ou un numero
+    function SubmitFormAddSDR2()
+    {
+
+      // var num = $("#projetcNumber").val() == "" ? $("#projectName").val() : $("#projetcNumber").val();
+        if (($('#projectName').val() == "") || ($('#Server').val() == "") || ($('#SecurityModel').val() == ""))
+        {
+            $("#MissingFieldsSDRAdd").show();
+            setTimeout(function () {
+                $('#MissingFieldsSDRAdd').fadeOut('slow');
+            }, 60000
+            )
+        }
+        else {
+
+            $.ajax({
+                url: '@Url.Action("SubmitFormAddSDR", "TTProjet")',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    projetNumber: $("#projetcNumber").val() == "" ? $("#projectName").val() : $("#projetcNumber").val(),
+                    serverName: $("#Server").val(),
+                    modID: $("#ServerModel").val(),
+                    modeleSecurite: $("#SecurityModel").val(),
+                    modeleSelection: $("#SelectionModel").val(),
+                    customername: $("#ClientName").val(),
+                    proposal: $("#projectName").val()=="" ?false : true
+                },
+                success: function (data) {
+                    $("#projetcNumber").val() == "" ? $("#projectName").val("") : $("#projetcNumber").val("")
+                    $("#projectName").val("")
+                    $('#Server').val("")
+                    $('#ServerModel').val("")
+                    $('#SecurityModel').val("")
+                    $('#SelectionModel').val("")
+
+                    updateLists();
+
+                    if (data.result == "success")
+                    {
+                            $("#successSDRAdd").show();
+                            setTimeout(function () {
+                                $('#successSDRAdd').fadeOut('slow');
+                            }, 60000
+                            );
+                        //}
+
+
+                    }
+
+                    else if (data.result == "successAttention" )
+                    {
+                        $("#successAttention").show();
+                    }
+                    else if (data.result == "fail") {
+
+                        $("#projetcNumber").empty();
+                        $("#projetcNumber").append('<option value="">'+'@Resources.TTProjet.message2'+'*'+'</option >');
+                        $.each(data, function (index, row) {
+                            $("#projetcNumber").append('<option value="'
+                                + row.Value + '">'
+                                + row.Name + '</option>');
+                        });
+
+                        $('#Server').empty();
+                        $('#ServerModel').empty();
+                        $('#SecurityModel').empty();
+                        $('#SelectionModel').empty();
+
+                        $("#failedSDRAdd").show();
+                        setTimeout(function () {
+                            $('#failedSDRAdd').fadeOut('slow');
+                        }, 60000
+                        )
+                    }
+
+                }
+            });
+        }
+    }
+
+
+//version de la fonction pour le seul champ nom
+        function SubmitFormAddSDR()
+    {
+          var  num = $("#projectName").val();
+            if (($('#projectName').val() == "") || ($('#Server').val() == "") || ($('#SecurityModel').val() == ""))
+            {
+            $("#MissingFieldsSDRAdd").show();
+            setTimeout(function () {
+                $('#MissingFieldsSDRAdd').fadeOut('slow');
+            }, 60000
+            )
+        }
+            else
+            {
+                //validation du nom de projet (11 ou 13 caractéres selon le serveur)
+                var inputVal = $("#Server").val();
+                if (inputVal != "59" && $("#projectName").val().length > 13) {
+                    $("#inputLengthNormal").show();
+                    setTimeout(function () {
+                        $('#inputLengthNormal').fadeOut('slow');
+                    }, 5000
+                    );
+                }
+
+                else
+                {
+                $.ajax({
+                url: '@Url.Action("SubmitFormAddSDR", "TTProjet")',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    projetNumber:  $("#projectName").val() ,
+                    serverName: $("#Server").val(),
+                    modID: $("#ServerModel").val(),
+                    modeleSecurite: $("#SecurityModel").val(),
+                    modeleSelection: $("#SelectionModel").val(),
+                    proposal: $("#projectName").val()=="" ?false : true
+                },
+                success: function (data) {
+                    $("#projectName").val("")
+                    $('#Server').val("")
+                    $('#ServerModel').val("")
+                    $('#SecurityModel').val("")
+                    $('#SelectionModel').val("")
+                    $("#projectName").val("")
+                    $('#Server').empty();
+                    $('#ServerModel').empty();
+                    $('#SecurityModel').empty();
+                    $('#SelectionModel').empty();
+
+                    updateLists();
+
+                    if (data.result == "successfullProcess") {
+                        $("#successCreationOnServer").show();
+                        setTimeout(function () {
+                            $('#successCreationOnServer').fadeOut('slow');
+                        }, 6000
+                        );
+
+                    }
+                    else if (data.result == "fail" || data.result == "failedIsertionInBPR" || data.result == "failedAdditionFolder" || data.result== "failedApplySecurity" || data.result == "alreadyExistingProject") {
+                        $('#detailsFailedCreationOnServer').html("");
+                        $("#failedCreationOnServer").show();
+
+                        if (data.result == "failedIsertionInBPR") {
+                            $('#detailsFailedCreationOnServer').html(" @Resources.TTProjet.message3");
+                        }
+                        if (data.result == "failedAdditionFolder") {
+                            $('#detailsFailedCreationOnServer').html("@Resources.TTProjet.message4");
+                        }
+
+                        if (data.result == "failedApplySecurity") {
+                            $('#detailsFailedCreationOnServer').html("@Resources.TTProjet.message5");
+                        }
+
+                        if (data.result == "alreadyExistingProject") {
+                            $('#detailsFailedCreationOnServer').html("@Resources.TTProjet.message6");
+                        }
+                        //setTimeout(function () {
+                        //    $('#detailsFailedCreationOnServer').fadeOut('slow');
+                        //}, 6000
+                        //);
+                    }
+
+                }
+            });
+                }
+
+        }
+    }
+
+    $("input[type='text']").change(function () {
+
+        $('#failedCreationOnServer').hide();
+        $('#MissingFieldsSDRAdd').hide();
+
+    });
+
+
+
+    $(".select1").change(function () {
+
+        $('#failedCreationOnServer').hide();
+        $('#MissingFieldsSDRAdd').hide();
+
+    });
+
+
+    function returntoMenu()
+    {
+        window.location.href = "@Url.Action("Index", "TTProjet")";
+        }
+
+        $(".close").click(function () {
+            $(".alert").hide();
+
+        });
+    function updateLists() {
+                                  //remettre a jour ls liste des projets:
+                           $.ajax ({
+                            url: '@Url.Action("returnListProjet", "TTProjet")',
+                             type: 'GET',
+                            success:function(data)
+                            {
+                                $("#projetcNumber").empty();
+                                $("#projetcNumber").append('<option value="">'+'@Resources.TTProjet.ChooseAProject'+'*'+'</option >');
+                                $.each(data, function (index, row) {
+                                    $("#projetcNumber").append('<option value="'
+                                        + row.Value + '">'
+                                        + row.Name + '</option>');
+                                });
+
+                            }
+                           });
+                         //remettre a jour la liste des serveur
+                       $.ajax({
+                        url: '@Url.Action("returnListServerFromTTProjetFolderStructureView", "TTProjet")',
+                         type: 'GET',
+                        success:function(data)
+                        {
+                            $("#Server").empty();
+                            $("#Server").append('<option value="">'+'@Resources.TTProjet.ChooseAServer'+'*'+'</option >');
+                            $.each(data, function (index, row) {
+                                $("#Server").append('<option value="'
+                                    + row.Value + '">'
+                                    + row.Name + '</option>');
+                            });
+                        }
+                       });
+
+                    $('#ServerModel').empty();
+                    $('#SecurityModel').empty();
+                    $('#SelectionModel').empty();
+                    $('#displayProposal').val("");
+
+
+
+    }
+</script>

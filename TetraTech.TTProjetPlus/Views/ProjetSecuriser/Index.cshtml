@@ -1,0 +1,821 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.TTProjet
+@using Resources1 = TetraTech.TTProjetPlus.Views.Customer
+@using Resources2 = TetraTech.TTProjetPlus.Views.FolderStructure
+@model TetraTech.TTProjetPlus.Models.ProjetSecuriserModel
+@using TetraTech.TTProjetPlus.Security
+@using TetraTech.TTProjetPlus.Models
+
+
+@{
+    var currentUser = UserService.CurrentUser;
+
+}
+
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/select/1.3.4/js/dataTables.select.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
+@*<script type="text/javascript" src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js"></script>*@
+<link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" media="screen">
+<link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet" media="screen">
+<link href="https://cdn.datatables.net/select/1.3.4/css/select.dataTables.min.css" rel="stylesheet" media="screen">
+<link href="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css" rel="stylesheet" media="screen">
+<link href="https://editor.datatables.net/extensions/Editor/css/editor.dataTables.min.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
+
+
+<style>
+    #data_ProjetSecuriser {
+        width: 100% !important;
+    }
+
+        #data_ProjetSecuriser td {
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        #data_ProjetSecuriser th {
+            white-space: normal;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+    .multiselect-selected-text {
+        color: #5482ab;
+    }
+
+
+    .multiselect-container, gris {
+        color: deeppink;
+    }
+
+    button.multiselect {
+        height: 46px;
+    }
+
+    .multiselect {
+        text-align: left; /* Aligner le texte du bouton à gauche */
+    }
+
+        .multiselect .multiselect-selected-text {
+            text-align: left; /* Aligner également le texte sélectionné */
+        }
+          
+
+</style>
+
+
+
+<div class="container " style="height: 200vh;width: 100%;">
+    <div class="main">
+        @if (ViewBag.MenuVisible == "true")
+        {
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-4" style="padding-top: -49px;">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 140px;">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet" )">TT Projet +  /</a></li>
+                                    <li><a style="color:#183666; font-weight: bold" href="@Url.Action("Index", "TTProjet", new { selectedPanel = "collapse8" })">@Resources.TTProjet.TITools</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 140px; ">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;<a style="color: #183666" href="@Url.Action("IndexActiverProjet", "TTProjet")">@Resources.TTProjet.ActiverProjet</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;<a style="color: #183666; " href="@Url.Action("IndexAdmin", "Admin")">@Resources.TTProjet.cancelProjectClosing</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;<a style="color: #183666" href="@Url.Action("Index2", "FolderStructure")">Changement de serveur</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "SecurityProjectEquivalence")">Équivalence des projets</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "Litige")">@Resources.TTProjet.LitigeManagement</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 140px; ">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;<a style="color: #183666; font-weight: bold " href="@Url.Action("Index", "ProjetSecuriser")">Gestion des projets sécurisés</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;<a style="color: #183666;" href="@Url.Action("Index", "GestionGroupeAD")">Gestion Groupe AD</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "LocalBPR")">@Resources.TTProjet.EmployeeInfos</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;<a style="color: #183666" href="@Url.Action("Index3", "FolderStructure")">@Resources.TTProjet.Security60Conf</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        }
+
+        <div class="row" style="color: steelblue; font-size: initial">
+            <div class="row form-group">
+                <div class="col-sm-12">
+                    <div class="panel pagination-grey" style="border-radius: 10px; margin-left: -10px; margin-top: -10px; height: 1500px; ">
+                        <div class="row">
+                            <div class="">
+                                <div class="alert alert-warning" id="FieldsMissing" hidden="hidden" style="margin:30px;">
+                                    <button type="button" class="close" data-hide="alert">&times;</button>
+                                    <strong>Veuillez compléter les champs obligatoires</strong>
+                                </div>
+
+                                <div class="alert alert-success" id="successAdd" hidden="hidden" style="margin:30px;">
+                                    <button type="button" class="close" data-hide="alert">&times;</button>
+                                    <strong>@Resources1.Customer.InsertSuccess</strong>
+                                </div>
+
+                                <div class="alert alert-success" id="successModify" hidden="hidden" style="margin:30px;">
+                                    <button type="button" class="close" data-hide="alert">&times;</button>
+                                    <strong>@Resources.TTProjet.ModifySuccess</strong>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h4 style="margin-top: 0px; color: #183666; font-family: 'Arial Bold'; font-size: 18pt; margin-left: 30px;">
+                                    <b>Étape 1 - Ajouter un projet sécurisé</b>
+                                </h4>
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="row">
+
+                            <div class="form-group">
+                                <div class="col-sm-12 ">                                    
+                                    <h4 style="margin-top: 0px; color: black; font-family: 'Arial Bold'; font-size: 14pt; margin-left: 30px;">
+                                        <b>Assurez-vous de créer les groupes AD de sécurité sous "tt.local/TTGroups/TTProject".</b>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="color:steelblue; font-size:initial">
+                            <div class="col-sm-5" style="margin-top: 15px; margin-left: 20px">
+                                <label>Projet: </label>
+                            </div>
+                            <div class="col-sm-2" style="float: left; margin-top: 10px;margin-left: -620px; width: 34%; ">
+                                <input type="text" class="form-control formControl2 inputWidth2 text-box single-line lightBlue" id="Projet" value="">
+                            </div>    
+                            <div class="col-sm-0" style="color: red; margin-top: 10px;">
+                                <h3 class="pull-left" style="margin-top: 2px;">*</h3>
+                            </div>
+                            <div class="col-sm-1" style="margin-top: 15px; margin-left: 100px;">
+                                <label>Répertoire: </label>
+                            </div>
+                            <div class="col-sm-2" style="float: left; margin-top: 10px;  width: 34%; color: black">
+                                <input type="text" class="form-control formControl2 inputWidth2 text-box single-line lightBlue" id="Repertoire" value="">
+                            </div>
+                        </div>
+
+                        <div class="row" style="color:steelblue; font-size:initial">
+                            <div class="col-sm-5" style="margin-top: 15px; margin-left: 20px">
+                                <label>Groupe AD: </label>
+                            </div>
+                            <div class="col-sm-2" style="float: left; margin-top: 10px;margin-left: -620px; width: 34%; ">
+                                <input type="text" class="form-control formControl2 inputWidth2 text-box single-line lightBlue" id="GroupeAD" value="">
+                            </div>
+                            <div class="col-sm-0" style="color: red; margin-top: 10px;">
+                                <h3 class="pull-left" style="margin-top: 2px;">*</h3>
+                            </div>
+                            <div class="col-sm-1" style="margin-top: 15px; margin-left: 100px;">
+                                <label>Chemin: </label>
+                            </div>
+                            <div class="col-sm-2" style="float: left; margin-top: 10px;  width: 34%; color: black">
+                                <input type="text" class="form-control formControl2 inputWidth2 text-box single-line lightBlue" id="Chemin" value="">
+                            </div>
+                        </div>
+
+                        <div class="row" style="color:steelblue; font-size:initial; display: flex; align-items: center;">
+                            <div class="col-sm-5" style="margin-top: 15px; margin-left: 20px">
+                                <label>Qui donne les accès: </label>
+                            </div>
+                            <div class="col-sm-2" style="margin-left: -620px; margin-top: 10px; width: 34%; ">
+                                <select multiple="multiple" data-live-search="true" class="form-control selectpickerM" id="Employee" data-size="15" data-selected-text-format="count" data-none-selected-text="" data-done-button="true">
+                                    @foreach (structureItem item in Model.listeEmployeeActif_Inactive)
+                                    {
+                                        <option value="@item.Value">@item.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-sm-0" style="color: red; margin-top: 10px;">
+                                <h3 class="pull-left" style="margin-top: 2px;">*</h3>
+                            </div>
+                            <div class="col-sm-1" style="margin-top: 15px; margin-left: 100px;">
+                                <label>Sélection: </label>
+                            </div>
+                            <div class="col-sm-3" style="margin-left: 20px; margin-top: 10px; max-width: 500px; word-wrap: break-word;">
+                                <div id="selectedItems" style="display: inline; color: black;"></div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-sm-5" style="text-align: right; margin-right: -2px; margin-top: 10px;">
+                                <button class="specialB" onclick="AddProject()">Ajouter</button>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h4 style="margin-top: 0px; color: #183666; font-family: 'Arial Bold'; font-size: 18pt; margin-left: 30px;">
+                                    <b>Étape 2 - Modifier le statut d'un projet sécurisé</b>
+                                </h4>
+                            </div>
+                            <div class="col-sm-12" style="margin-left: 30px; margin-top: 10px;">
+                                <p>@Resources.TTProjet.ModifyMessageSecuriser</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4" style="margin-left: 40px; margin-top: 10px;">
+                                    <select data-live-search="true" class="form-control selectpicker" id="projectsList" data-size="15">
+                                        <option value="" selected style="font-size:14px">@Resources.TTProjet.ChooseAProject</option>
+                                        @foreach (var projet in Model.listProjetASecuriserStatut.Select(p => p.PRO_Id).Distinct())
+                                        {
+                                            <option value="@projet">@projet</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-lg-2" style="margin-top: 10px;">
+                                    <button class="btn btn-primary" id="cancelButton" onclick="ChangeProjectStatut()">Modifier le statut</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <br />
+
+
+                        <hr />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h4 style="margin-top: 0px; color: #183666; font-family: 'Arial Bold'; font-size: 18pt; margin-left: 30px;">
+                                    <b>Liste des projets sécurisés</b>
+                                </h4>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div style="border-radius: 10px">
+                                    <div class="panel pagination-grey clearfix m-b-0">
+                                        <div id="data-table_wrapper1" class="dataTables_wrapper form-inline dt-bootstrap no-footer" style=" margin-right: 10px; margin-left: 10px">
+                                            <table id="data_ProjetSecuriser" class=" table table-bordered  data-table  dataTable display" style="margin-top: -50px; width: 100%; font-size: 12px;">
+                                                <thead id="tableHeaderGP">
+                                                    <tr style="font-style:italic; "></tr>
+                                                    <tr class="grey" role="row">
+
+                                                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                            <a>Projet</a>
+                                                        </th>
+                                                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                            <a>Repertoire</a>
+                                                        </th>
+                                                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                            <a>GroupAD</a>
+                                                        </th>
+                                                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                            <a>Chemin</a>
+                                                        </th>
+                                                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                            <a>Qui donne les accès</a>
+                                                        </th>
+                                                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                            <a>Modification</a>
+                                                        </th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (TetraTech.TTProjetPlus.Data.usp_get_ProjetSecuriserList_Result item in Model.listProjetSecuriser)
+                                                    {
+                                                    <tr>
+                                                        <td style="text-align: left;">
+                                                            @item.Projet
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            @item.Repertoire
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            @item.GroupAD
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            @item.Chemin
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            @item.emp
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            <div class="btn-toolbar" style="">
+                                                                <button type="button" id="btnSubmit" class="btn btn-primary btn-sm"
+                                                                        style="padding: 0px 15px;"                                                                       
+                                                                        onclick="openEditModelSecuriser('@item.id', '@item.Projet', '@item.Repertoire', '@item.GroupAD', '@Html.Raw(HttpUtility.JavaScriptStringEncode(item.Chemin))', '@item.empNum')">
+                                                                    <span class="glyphicon glyphicon-edit"></span>
+                                                                </button>
+
+
+
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="ModifyModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modification</h4>
+                <button type="button" class="close" data-dismiss="modal" onclick="">&times;</button>
+            </div>
+
+            <div class="row">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="alert alert-warning" id="errorModal" hidden="hidden">
+                        <button type="button" class="close" data-hide="alert">&times;</button>
+                        <strong id="errorModal"> </strong>
+                    </div>
+                    <div class="alert alert-success" id="successModal" hidden="hidden">
+                        <button type="button" class="close" data-hide="alert">&times;</button>
+                        <strong id="@Resources.TTProjet.ModifySuccess"> </strong>
+                    </div>                   
+
+                    <div class="container">
+                        <h3 id="insertNew"></h3>
+                        <div class="col-sm-8">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-sm-3" style="margin-top: 10px; margin-left: 100px;">
+                                        <label class="control-label col-sm-3" style="margin-left: -25px; white-space: nowrap;">Id</label>
+                                    </div>
+                                    <div class="col-sm-2" style="float: left; margin-top: 10px; margin-left: -120px; width: 70%; ">
+                                        <input type="text" class="form-control formControl2 inputWidth2 text-box single-line lightBlue" id="projectIdModal" value="">
+                                    </div>
+                                </div>
+                                <div class="form-group">                                   
+                                    <div class="col-sm-3" style="margin-top: 10px; margin-left: 100px;">
+                                        <label class="control-label col-sm-3" style="margin-left: -25px; white-space: nowrap;">Projet</label>
+                                    </div>
+                                    <div class="col-sm-2" style="float: left; margin-top: 10px; margin-left: -120px; width: 70%; ">
+                                        <input type="text" class="form-control formControl2 inputWidth2 text-box single-line lightBlue" id="projectNumberModal" value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-3" style="margin-top: 10px; margin-left: 100px;">
+                                        <label class="control-label col-sm-3" style="margin-left: -25px; white-space: nowrap;" >Répertoire</label>
+                                    </div>
+                                    <div class="col-sm-2" style="float: left; margin-top: 10px; margin-left: -120px; width: 70%; ">
+                                        <input type="text" class="form-control formControl2 inputWidth2 text-box single-line lightBlue" id="RepertoireModal" value="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-3" style="margin-left: 100px; display: flex; align-items: center; margin-top: 10px;">
+                                        <label class="control-label" style="margin-left: -10px; white-space: nowrap;">Groupe AD</label> 
+                                    </div>
+                                        <div class="col-sm-2" style="float: left; margin-top: 10px; margin-left: -120px; width: 70%; ">
+                                            <input type="text" class="form-control formControl2 inputWidth2 text-box single-line lightBlue" id="GroupeADModal" value="">
+                                        </div>
+                                        <div class="col-sm-0" style="color: red; margin-top: 10px;">
+                                            <h3 class="pull-left" style="margin-top: 2px;">*</h3>
+                                        </div>
+                                 </div>
+                                <div class="form-group">                                     
+                                    <div class="col-sm-3" style="margin-top: 10px; margin-left: 100px;">
+                                        <label class="control-label col-sm-3" style="margin-left: -25px; white-space: nowrap;">Chemin</label>
+                                    </div>
+                                    <div class="col-sm-2" style="float: left; margin-top: 10px; margin-left: -120px; width: 70%; ">
+                                        <input type="text" class="form-control formControl2 inputWidth2 text-box single-line lightBlue" id="CheminModal" value="">
+                                    </div>
+                                </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-3" style="margin-left: 100px; display: flex; align-items: center; margin-top: 10px;">
+                                            <label class="control-label" style="margin-left: -75px; white-space: nowrap;">Qui donne les accès</label> 
+                                        </div>
+                                        <div class="col-sm-2" style="float: left; margin-top: 10px; margin-left: -120px; width: 70%; ">
+                                            <select id="AccesModal" class="form-control" multiple="multiple" data-live-search="true">
+                                                @foreach (structureItem item in Model.listeEmployeeActif_Inactive)
+                                                {
+                                                    <option value="@item.Value">@item.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-0" style="color: red; margin-top: 10px;">
+                                            <h3 class="pull-left" style="margin-top: 2px;">*</h3>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3" style="margin-top: 10px;" for="AccesModal">Résultat des sélections</label>                                        
+                                        <div class=" input-group col-sm-6">
+                                            <div id="selectedItemsModal" style="color: black; margin-top: 18px;"></div>
+                                        </div>
+                                    </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" id="SaveModal" class="btn btn-info" onclick="SaveModalButton()"></button>
+                <button type="button" id="" class="btn btn-info" data-dismiss="modal" onclick="cancelModal()">Annuler</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+
+        $('#data_ProjetSecuriser').DataTable({
+            pageResize: true,
+            pageLength: 10,
+            select: true,
+            scrollX: true,
+            scrollY: $(window).height() <= 722 ? $(window).height() / 3.5 : $(window).height() / 2,
+            scrollCollapse: true,
+            language: {
+                "url": '@Session["lang"].ToString()' == 'fr' ? "/Content/assets/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json",
+                select: {
+                    rows: '@Session["lang"].ToString()' == 'fr' ? '' : ''
+                }
+            },
+        });
+        //$('#data_ProjetSecuriser').DataTable().draw();
+
+        $('#Employee').multiselect({
+            nonSelectedText: '@Session["lang"].ToString()' == 'fr' ? 'Liste Employé' : 'Customer List' ,
+                allSelectedText: '@Session["lang"].ToString()' == 'fr'? 'Toutes les options sont sélectionnée':'All the options are selected',
+                numberDisplayed: 1,
+                buttonWidth: '100%',
+                includeSelectAllOption: true,
+                selectAllText: '@Session["lang"].ToString()' == 'fr' ? 'Tout sélectionner' : 'Select all',
+                nSelectedText : '@Session["lang"].ToString()' == 'fr' ? 'Sélectionnés' : 'Selected',
+                enableCaseInsensitiveFiltering: true,
+                maxHeight: 400,
+               filterPlaceholder: '@Session["lang"].ToString()' == 'fr' ? 'Recherche' : 'Search',
+
+               // Gestion des modifications
+               onChange: function () {
+                   updateSelection('#Employee', '#selectedItems');
+               },
+
+               // Gestion du "Tout sélectionner"
+               onSelectAll: function () {
+                   updateSelection('#Employee', '#selectedItems');
+               },
+
+               // Gestion de "Désélectionner tout"
+               onDeselectAll: function () {
+                   updateSelection('#Employee', '#selectedItems');
+               }
+
+
+        });
+
+        $('#AccesModal').multiselect({
+            nonSelectedText: '@Session["lang"].ToString()' == 'fr' ? 'Liste Employé Modal' : 'Customer List' ,
+                allSelectedText: '@Session["lang"].ToString()' == 'fr'? 'Toutes les options sont sélectionnée':'All the options are selected',
+                numberDisplayed: 1,
+                buttonWidth: '100%',
+                includeSelectAllOption: true,
+                selectAllText: '@Session["lang"].ToString()' == 'fr' ? 'Tout sélectionner' : 'Select all',
+                nSelectedText : '@Session["lang"].ToString()' == 'fr' ? 'Sélectionnés' : 'Selected',
+                enableCaseInsensitiveFiltering: true,
+                maxHeight: 400,
+               filterPlaceholder: '@Session["lang"].ToString()' == 'fr' ? 'Recherche dans le modal' : 'Search',
+
+               // Gestion des modifications
+               onChange: function () {
+                   updateSelection('#AccesModal', '#selectedItemsModal');
+               },
+
+               // Gestion du "Tout sélectionner"
+               onSelectAll: function () {
+                   updateSelection('#AccesModal', '#selectedItemsModal');
+               },
+
+               // Gestion de "Désélectionner tout"
+               onDeselectAll: function () {
+                   updateSelection('#AccesModal', '#selectedItemsModal');
+               }
+
+
+           });
+
+        $(".form-control").val('');
+
+    });
+
+    $('#data_ProjetSecuriser thead').on('keyup', ".column_search", function () {
+
+        $('#data_ProjetSecuriser').DataTable()
+            .column($(this).parent().index())
+            .search(this.value)
+            .draw();
+    });
+
+     function updateSelection(selector, targetElement) {
+        const selectedNames = [];
+
+        // Parcourir uniquement les options sélectionnées dans le sélecteur spécifié
+        $(`${selector} option:selected`).each(function () {
+            const fullText = $(this).text(); // Récupérer le texte de l'option
+            const cleanText = fullText.split('(')[0].trim(); // Nettoyer ce qui est après '('
+            selectedNames.push(cleanText);
+        });
+
+        // Mettre à jour l'élément HTML cible avec les noms sélectionnés
+        $(targetElement).html(selectedNames.join(', '));
+    }
+
+
+    function AddProject()
+    {
+        var projet1 = $('#Projet').val();
+        var repertoire1 = $('#Repertoire').val();
+        var groupeAD1 = $('#GroupeAD').val();
+        var chemin1 = $('#Chemin').val();
+
+        const selectedOptions = [];
+        const selectedValues = [];
+        const selectedNames = [];
+
+        $('#Employee option:selected').each(function () {
+            const value = $(this).val(); // Récupère la valeur de l'option
+            const fullText = $(this).text(); // Récupère le texte complet de l'option
+            const cleanText = fullText.split('(')[0].trim(); // Prend tout avant '(' et supprime les espaces inutiles
+
+
+            selectedOptions.push({ value: value, name: cleanText }); // Ajoute un objet contenant la valeur et le texte nettoyé
+            selectedValues.push(value); // Ajoute uniquement la valeur
+            selectedNames.push(cleanText); // Ajoute uniquement le nom
+        });
+
+        // Convertir les listes en chaînes séparées par des virgules
+        const listeUsers = selectedValues.join(',');
+        const listeUsersNames = selectedNames.join(',');
+
+        if (projet1 !== '' && groupeAD1 !== '' && selectedValues.length > 0) {
+            $.ajax({
+                    type: 'GET',
+                    cache: false,
+                    async: false,
+                    dataType: "JSON",
+                    data: {
+                        Projet: projet1,
+                        Repertoire: repertoire1,
+                        GroupeAD: groupeAD1,
+                        Chemin: chemin1,
+                        ListeUsers: listeUsers,
+                        ListeUsersNames: listeUsersNames
+                        },
+                    url: '@Url.Action("InsertProject", "ProjetSecuriser")',
+                    success: function (response) {
+                        if (response.result == "success")
+                        {
+                            $("#successAdd").show();
+                            setTimeout(function () {
+                                $('#successAdd').fadeOut('slow');
+                            }, 1000
+                            );
+                            location.reload(true);
+                        }
+                        else {
+                            alert(response.details1 + " / " + response.details2)
+                        }
+                    },
+                    error: function () {
+                    }
+        });
+
+        }
+        else
+        {
+            $("#FieldsMissing").show();
+                setTimeout(function () {
+                    $('#FieldsMissing').fadeOut('slow');
+                }, 1000
+                );
+        }
+
+
+
+    }
+
+    function ChangeProjectStatut() {
+                $.ajax({
+                url: '@Url.Action("submitModifierStatutProjectASecuriser", "ProjetSecuriser")',
+                type: 'GET',
+                data: {
+                    Projet: $('#projectsList').val()
+                },
+                success: function (response) {
+                        if (response.result == "success") {
+                            $("#successModify").show();
+                            setTimeout(function () {
+                                $('#successModify').fadeOut('slow');
+                            }, 1000
+                            );
+                            location.reload(true);
+                        }
+                        else {
+                            alert(response.details1 + " / " + response.details2)
+                        }
+                },
+                error: function () {
+                }
+
+
+
+            });
+    }
+
+
+
+    $(".close").click(function () {
+        $(".alert").hide();
+
+    });
+
+    function cancelModal() {
+        $('#ModifyModal').modal('hide');
+
+    }
+
+    function openEditModelSecuriser(id, Projet, Repertoire, GroupAD, Chemin, empNum) {
+
+        $('#projectIdModal').val(id);
+        $('#projectNumberModal').val(Projet);
+        $('#RepertoireModal').val(Repertoire);
+        $('#GroupeADModal').val(GroupAD);
+        $('#CheminModal').val(Chemin);
+
+        const selectedEmployees = empNum.split(',');
+        $('#AccesModal').val(selectedEmployees);
+        $('#AccesModal').val(selectedEmployees).multiselect('refresh');
+
+        updateSelection('#AccesModal', '#selectedItemsModal');
+
+        $('#projectIdModal').prop('disabled', true);
+        $('#projectNumberModal').prop('disabled', true);
+        $('#SaveModal').text('Sauvegarder');
+        $("#errorModal").hide();
+        $('#ModifyModal').modal('show');
+
+    }
+
+    function SaveModalButton()
+    {
+        var id1 = $('#projectIdModal').val();;
+        var projet1 = $('#projectNumberModal').val();
+        var repertoire1 = $('#RepertoireModal').val();
+        var groupeAD1 = $('#GroupeADModal').val();
+        var chemin1 = $('#CheminModal').val();
+
+        const selectedOptions = [];
+        const selectedValues = [];
+        const selectedNames = [];
+
+        $('#AccesModal option:selected').each(function () {
+            const value = $(this).val(); // Récupère la valeur de l'option
+            const fullText = $(this).text(); // Récupère le texte complet de l'option
+            const cleanText = fullText.split('(')[0].trim(); // Prend tout avant '(' et supprime les espaces inutiles
+
+
+            selectedOptions.push({ value: value, name: cleanText }); // Ajoute un objet contenant la valeur et le texte nettoyé
+            selectedValues.push(value); // Ajoute uniquement la valeur
+            selectedNames.push(cleanText); // Ajoute uniquement le nom
+        });
+
+        // Convertir les listes en chaînes séparées par des virgules
+        const listeUsers = selectedValues.join(',');
+        const listeUsersNames = selectedNames.join(',');
+
+
+        if (projet1 !== '' && groupeAD1 !== '' && selectedValues.length > 0)
+        {
+
+        $.ajax({
+            url: '@Url.Action("UpdateProject", "ProjetSecuriser")',
+            type: 'GET',
+            cache: false,
+            async: false,
+            data: {
+                id: id1,
+                Projet: projet1,
+                Repertoire: repertoire1,
+                GroupeAD: groupeAD1,
+                Chemin: chemin1,
+                ListeUsers: listeUsers,
+                ListeUsersNames: listeUsersNames
+            },
+            success: function (response) {
+                if (response.result == "success") {
+                             $("#successModal").html('@Resources.TTProjet.ModifySuccess');
+                             $("#successModal").show();
+                            setTimeout(function () {
+                                $('#successModal').fadeOut('slow');
+                            }, 1000
+                            );
+                            location.reload(true);
+                        }
+                        else {
+                            alert(response.details1 + " / " + response.details2)
+                        }
+                },
+                error: function () {
+                }
+
+        });
+
+        }
+        else {
+            $("#errorModal").html('Veuillez compléter les champs obligatoires');
+            $("#errorModal").show();
+            setTimeout(function () {
+                $('#errorModal').fadeOut('slow');
+            }, 1000
+            );
+        }
+
+    }
+
+
+
+
+
+</script>

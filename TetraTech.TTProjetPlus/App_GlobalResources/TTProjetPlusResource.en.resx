@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessDenied" xml:space="preserve">
+    <value>Unauthorized access.</value>
+  </data>
+  <data name="AdvancedOptions" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>To cancel</value>
+  </data>
+  <data name="CancelDisplayName" xml:space="preserve">
+    <value>To cancel</value>
+  </data>
+  <data name="CommandCanceled" xml:space="preserve">
+    <value>Operation canceled.</value>
+  </data>
+  <data name="contains" xml:space="preserve">
+    <value>Contains</value>
+  </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>yyyy-mm-dd</value>
+  </data>
+  <data name="DateValidatorMessage" xml:space="preserve">
+    <value>Invalid format for the date (yyyy-mm-dd)</value>
+  </data>
+  <data name="DisplayActiveProjectsOnly" xml:space="preserve">
+    <value>Hide closed projects.</value>
+  </data>
+  <data name="DocStatusId1" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="DocStatusId2" xml:space="preserve">
+    <value>Archived</value>
+  </data>
+  <data name="DocStatusId3" xml:space="preserve">
+    <value>Postponement of documentation archiving</value>
+  </data>
+  <data name="DocStatusId4" xml:space="preserve">
+    <value>Awaiting archiving</value>
+  </data>
+  <data name="DocStatusId5" xml:space="preserve">
+    <value>No documentation</value>
+  </data>
+  <data name="doesnotcontain" xml:space="preserve">
+    <value>Does not contain</value>
+  </data>
+  <data name="endswith" xml:space="preserve">
+    <value>To end by</value>
+  </data>
+  <data name="eq" xml:space="preserve">
+    <value>Is equal to</value>
+  </data>
+  <data name="ErrorMessageOther" xml:space="preserve">
+    <value>Error: The call failed, please try again!</value>
+  </data>
+  <data name="errorMsg" xml:space="preserve">
+    <value>Fault:</value>
+  </data>
+  <data name="GeneralErrorMessage" xml:space="preserve">
+    <value>Your request generated an error. For more information, please contact CSTI.</value>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="InvalidDateFormat" xml:space="preserve">
+    <value>{0} is not a date.</value>
+  </data>
+  <data name="ManageColumns" xml:space="preserve">
+    <value>Column management</value>
+  </data>
+  <data name="NA" xml:space="preserve">
+    <value>N / A</value>
+  </data>
+  <data name="neq" xml:space="preserve">
+    <value>Is not equal to</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>Your search did not match any record</value>
+  </data>
+  <data name="NoResultsForProjectNumber" xml:space="preserve">
+    <value>Project number {0} does not match any record</value>
+  </data>
+  <data name="OS" xml:space="preserve">
+    <value>Service offer</value>
+  </data>
+  <data name="PeriodWeekDate" xml:space="preserve">
+    <value>Data as of:</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="RAFMenuPageTitle" xml:space="preserve">
+    <value>Project management</value>
+  </data>
+  <data name="RAFPageTitle" xml:space="preserve">
+    <value>Project monitoring</value>
+  </data>
+  <data name="ResetGrid" xml:space="preserve">
+    <value>Reset grid</value>
+  </data>
+  <data name="ResourceItemSelect" xml:space="preserve">
+    <value>Choose a date from the list</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SavedSuccessfully" xml:space="preserve">
+    <value>The backup was successful.</value>
+  </data>
+  <data name="SearchLabel2Chars" xml:space="preserve">
+    <value>Enter at least 2 characters to initiate the search</value>
+  </data>
+  <data name="SearchLabel2Charshtml" xml:space="preserve">
+    <value>&lt;span class = 'smallInfoText'&gt; Enter at least 2 characters to initiate the search &lt;/span&gt;</value>
+  </data>
+  <data name="SearchMaxResults" xml:space="preserve">
+    <value>Maximum 100 records displayed</value>
+  </data>
+  <data name="SendMailErrorMessage" xml:space="preserve">
+    <value>Sending email generated an error. For more information, please contact CSTI.</value>
+  </data>
+  <data name="startswith" xml:space="preserve">
+    <value>Starts with</value>
+  </data>
+  <data name="TitleApplication" xml:space="preserve">
+    <value>TT Projet +</value>
+  </data>
+  <data name="UpdatedByLabel" xml:space="preserve">
+    <value>Updated by</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="ProjectType" xml:space="preserve">
+    <value>Project type:</value>
+  </data>
+</root>

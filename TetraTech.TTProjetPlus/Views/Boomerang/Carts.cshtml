@@ -1,0 +1,445 @@
+﻿
+@{
+    ViewBag.Title = "Accueil";
+}
+@model TetraTech.TTProjetPlus.Models.BoomerangHomeModel
+@using TetraTech.TTProjetPlus.Data
+@using Resources2 = TetraTech.TTProjetPlus.Views.ListeOffres
+@using ResourcesB = TetraTech.TTProjetPlus.Views.Boomerang.searchCriteria
+@using ResourcesF = TetraTech.TTProjetPlus.Views.Boomerang.fiche
+@using Resources = TetraTech.TTProjetPlus.Views.Boomerang
+@using TetraTech.TTProjetPlus.Security
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+
+<style>
+    /*ol, ul {
+        margin-top: -5px;
+        margin-bottom: -6px;
+        padding-bottom: 4px;
+    }*/
+    .multiselect-selected-text {
+        float: left;
+    }
+
+    .btn .caret {
+        margin-left: 145px;
+    }
+
+    .input-group-addon {
+        display: none;
+    }
+
+    ul {
+        margin-bottom: -4px;
+    }
+
+    .dropdown-menu {
+        width: 600px;
+    }
+
+    .datepicker-dropdown {
+        width: 200px;
+    }
+
+    .multiselect-selected-text {
+        color: #999;
+    }
+
+    table {
+        font-size: 1em;
+    }
+
+
+        table.dataTable,
+        table.dataTable th,
+        table.dataTable td {
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+        }
+
+    .boom {
+        margin-bottom: 0px;
+        background-color: cyan;
+    }
+
+    fieldset.boomerang-border {
+        border: 1px groove cyan !important;
+        padding: 0 1.4em 1.4em 1.4em !important;
+        margin: 0 0 1.5em 0 !important;
+        -webkit-box-shadow: 0px 0px 0px 0px #000;
+        box-shadow: 0px 0px 0px 0px #000;
+    }
+
+    legend.boomerang-border {
+        font-size: 1.2em !important;
+        font-weight: bold !important;
+        text-align: left !important;
+        width: auto;
+        padding: 0 10px;
+        border-bottom: none;
+    }
+
+    legend {
+        cursor: pointer
+    }
+</style>
+<body style="overflow-y: hidden!important">
+    <div class="form-horizontal">
+        <div id="top"></div>
+
+        <div class="container " style="height: 200vh; width: 100%">
+            <div class="main">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="panel" style="border-radius: 10px; width: 106%;">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                        <li><a style=" color:#183666; font-weight: bold" href="@Url.Action("Index", "Home")">@Resources2.ListeProjetsRessources.InfoProject</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="">
+                                <div class="panel" style="border-radius: 10px; ">
+                                    <div class="panel-body">
+                                        <ul class="list-inline">
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "Home")">@Resources2.ListeProjetsRessources.GenerateProjectNumber</a>
+
+                                            </li>
+
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "ListeOffres")">@Resources2.ListeProjetsRessources.OffersList</a>
+
+                                            </li>
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("IndexProjet", "ListeOffres")">@Resources2.ListeProjetsRessources.ProjectsList</a>
+
+                                            </li>
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666;font-weight: bold;" href="@Url.Action("Index", "InfoProjet")">@Resources2.ListeProjetsRessources.InfoProject</a>
+
+                                            </li>
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "ProjectToClose")">@Resources2.ListeProjetsRessources.ProjectToCloseTitle</a>
+                                            </li>
+                                            @*<li>
+                                                &nbsp;&nbsp;&bull;
+                                                <a style="color:#183666;" href="@System.Configuration.ConfigurationManager.AppSettings["TTIndexUrl"]" target="_blank">@Resources2.ListeProjetsRessources.TTIndex</a>
+                                            </li>*@
+                                        <li>
+                                            &bull;&nbsp;
+                                            @*<a style="color:#183666;" href="@Url.Action("Home", "Boomerang")">@ResourcesF.projectSheet</a>*@
+                                            <a style="color: #183666; font-weight: bold;" href="@Url.Action("Home", "Boomerang")">Boomerang</a>
+                                        </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="panel boom" style="border-radius: 1px;border:none; border-top-right-radius:10px;border-top-left-radius:10px; ">
+                        <div class="panel-body">
+                            <ul class="list-inline">
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666;" href="@Url.Action("Home", "Boomerang")">@ResourcesF.accueil</a>
+
+                                </li>
+
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "Boomerang")">@ResourcesF.recherche</a>
+
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("CreateFactSheet", "Boomerang")">@ResourcesF.creation_fiche</a>
+
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666;font-weight: bold;" href="@Url.Action("Carts", "Boomerang")">@ResourcesF.paniers</a>
+
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Library", "Boomerang")">@ResourcesF.phototheque</a>
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666" href="@Url.Action("HelpPage", "Boomerang")">@ResourcesF.aide</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-primary" style="border-radius: 1px;border:none; border-bottom-right-radius:10px;border-bottom-left-radius:10px; ">
+                                <div class="panel-body" style="">
+                                    <div class="row form-group">
+
+                                        <div class="col-lg-12">
+                                            <fieldset class="boomerang-border">
+                                                <legend class="boomerang-border togvis">Information</legend>
+                                                <div class="row form-group">
+                                                    <div class="col-lg-5">
+                                                        <select data-live-search="true" class="form-control selectpicker" id="panierList" data-size="15">
+                                                            <option value="" selected style="font-size:14px">@ResourcesB.SelectCart</option>
+                                                            <option value="-1">Créer un nouveau panier</option>
+                                                            @foreach (panier item in Model.listePanier)
+                                                            {
+                                                                <option value="@item.id_panier">@item.libelle</option>
+                                                            }
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="col-lg-5">
+                                                        <div class="btn-toolbar">
+                                                            <button type="button" id="btnSubmit" class="btn btn-success btn-sm">Nouveau panier</button>
+                                                            <button type="button" id="btnCancel" class="btn btn-primary btn-sm">Renommer le pannier</button>
+                                                            <button type="button" id="btnCancel" class="btn btn-danger btn-sm">Supprimer le panier</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-12">
+
+                            <div class="panel panel-primary" style="border-radius: 10px">
+
+                                <div class="panel-body">
+                                    <div class="row form-group">
+                                        <div id="cartContent" style="margin:10px">
+
+                                            @if (Model.listeFiches != null)
+                                            {
+                                                <div class="panel pagination-grey">
+
+                                                    <div id="data-table_wrapper2" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+                                                        <table id="data_searchFichesListInCart" class=" table table-bordered  data-table  dataTable display" style="margin-top:-50px ;width:100%; font-size:12px">
+                                                            <thead id="tableHeaderGP">
+                                                                <tr style="font-style:italic; ">
+
+                                                                    <th>
+                                                                        <input type="text" placeholder=" @Resources.searchCriteria.Location" class="column_search" />
+                                                                    </th>
+                                                                    <th>
+                                                                        <input type="text" placeholder=" @Resources.searchCriteria.EndYear" class="column_search" />
+                                                                    </th>
+                                                                    <th>
+                                                                        <input type="text" placeholder="@Resources.searchCriteria.Label" class="column_search" style="width: 300px;" />
+                                                                    </th>
+                                                                    <th>
+                                                                        <input type="text" placeholder="@Resources.searchCriteria.state" class="column_search" style="width: 300px;" />
+                                                                    </th>
+
+
+                                                                </tr>
+
+                                                                <tr class="grey" role="row">
+
+                                                                    <th>
+                                                                        @Resources.searchCriteria.Location
+                                                                    </th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                        @Resources.searchCriteria.EndYear
+                                                                    </th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                        @Resources.searchCriteria.Label
+                                                                    </th>
+
+                                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                        @Resources.searchCriteria.state
+                                                                    </th>
+
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @for (var i = 0; i < Model.listeFiches.Count(); i++)
+                                                                {
+
+                                                                    <tr>
+                                                                        <td style="text-align: left;">
+                                                                            @Model.listeFiches[i].localisation
+                                                                        </td>
+                                                                        <td style="text-align: left;">
+                                                                            @Model.listeFiches[i].endYear
+                                                                        </td>
+
+                                                                        <td style="text-align: left;">
+                                                                            <a href="#" style="background: none;" onclick="ViewFicheInfos(@Model.listeFiches[i].id_fiche)" title="Apercu">
+                                                                                <img src="~/content/16/preview.gif" alt="" />
+                                                                            </a>
+                                                                            &nbsp;
+                                                                            <a href="#" onclick="ViewFicheInfos(@Model.listeFiches[i].id_fiche)">
+                                                                                @Model.listeFiches[i].intitutle_court
+                                                                            </a>
+                                                                            @if (Model.listeFiches[i].status == "FORBIDDEN")
+                                                                            {
+                                                                                <img src="~/content/16/security.gif" />
+                                                                            }
+                                                                        </td>
+                                                                        <td style="text-align: right;">
+                                                                            @if (Model.listeFiches[i].status == "ONLINE")
+                                                                            {
+                                                                                if (Session["current_panier"].ToString() == "0")
+                                                                                {
+                                                                                    <a href="#" style="background: none;" onclick="TogglePanier({@Model.listeFiches[i].id_fiche);return false;">
+                                                                                        <img src="~/content/16/cart-rem.gif" alt="" title="@Resources.searchCriteria.AddRemoveSheetFact" />
+                                                                                    </a>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <a href="#" style="background: none;" onclick="TogglePanier(@Model.listeFiches[i].id_fiche);return false;">
+                                                                                        <img src="~/content/16/cart-add.gif" alt="" title="@Resources.searchCriteria.AddRemoveSheetFact" />
+                                                                                    </a>
+                                                                                }
+
+                                                                                if (Model.listeFiches[i].nom_award != null && Model.listeFiches[i].nom_award != "")
+                                                                                {
+
+                                                                                    <a href="#" style="background: none;">
+                                                                                        <img src="~/content/16/award.gif" alt="" title="@Resources.searchCriteria.Award" />
+                                                                                    </a>
+
+                                                                                }
+                                                                                if (Model.listeFiches[i].lastmod_opqibi != null && Model.listeFiches[i].lastmod_opqibi != "" && Model.listeFiches[i].lastmod_opqibi != "0000-00-00 00:00:00")
+                                                                                {
+
+                                                                                    <a href="#" style="background: none;">
+                                                                                        <img src="~/content/16/ref.gif" alt="" title="@Resources.searchCriteria.RefLetter" />
+                                                                                    </a>
+
+                                                                                }
+
+
+
+                                                                                <a href="#" style="background: none;" id="pdf_lang_@Model.listeFiches[i].id_fiche"><img src="~/content/16/pdf.gif" alt="" onclick="openModalPDF('@Model.listeFiches[i].id_fiche', '@Model.listeFiches[i].existInEn', @i, '@Model.listeFiches[i].hasArgumentaire')" /></a>
+
+
+                                                                            }
+
+                                                                            @{
+                                                                                var id = "etat_" + Model.listeFiches[i].id_fiche;
+                                                                            }
+
+
+                                                                        </td>
+
+                                                                    </tr>
+                                                                }
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            else
+                                            {
+                                                if (Model == null)
+                                                {
+                                                    @Html.Partial("Error")
+                                                }
+                                                else
+                                                {
+                                                    <span>  @Resources.searchCriteria.noResultForThisQuery</span>
+                                                }
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+
+        $(document).ready(function () {
+
+        $("#pdfDownloader").click(function () {
+
+            var doc = new jsPDF('p', 'pt',  'letter');
+            doc.canvas.height = 72 * 11;
+            doc.canvas.width = 72 * 8.5;
+            doc.fromHTML($('#renderMe').get(0), 15, 15, {
+                'width': 500
+            }, function (dispose) {
+                doc.save('thisMotion.pdf');
+            });
+        });
+
+
+
+        $('#data_searchFichesListInCart').DataTable({
+            dom:
+                "<'row'<'col-lg-2'l><'col-lg-7 text-center'B><'col-lg-2'f>>" +
+                "<'row'<'col-lg-12'tr>>" +
+                "<'row'<'col-lg-5'i><'col-lg-7'p>>",
+                buttons: [
+                { extend: 'excel', text: '@Session["lang"].ToString()' == 'fr' ?'Exporter vers Excel' : 'Export to Excel' },
+                { extend: 'selectAll', text: '@Session["lang"].ToString()' == 'fr' ?'Tout sélectionner' : 'Select all' },
+                { extend: 'selectNone', text: '@Session["lang"].ToString()' == 'fr' ?'Tout désélectionner' : 'Deselect all' },
+                ],
+            language: {
+                "url": '@Session["lang"].ToString()' == 'fr' ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+            }
+        });
+    });
+
+    $('#data_searchFichesListInCart thead').on('keyup', ".column_search", function () {
+
+        $('#data_searchFichesListInCart').DataTable()
+            .column($(this).parent().index())
+            .search(this.value)
+            .draw();
+    });
+
+
+
+    $(function () {
+
+        $('legend.togvis').click(function () {
+            $(this).parents("fieldset").find("*:not('legend')").toggle();
+            return false;
+        });
+
+    });
+
+</script>

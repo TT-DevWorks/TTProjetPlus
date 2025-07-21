@@ -1,0 +1,243 @@
+﻿
+@using Resources = TetraTech.TTProjetPlus.Views.ListeOffres
+@using TetraTech.TTProjetPlus.Security
+
+
+@{
+    ViewBag.Title = "Liste des offres";
+
+    var currentUser = UserService.CurrentUser;
+
+}
+<style>
+    .panel-body {
+        /*margin-top: -25px;*/
+        margin-left: 30px;
+        margin-right: 30px;
+        margin-bottom: -25px
+    }
+
+    .form-control {
+        border-radius: 0px;
+    }
+
+    @@media (min-width: 768px) {
+        .modal-xl {
+            width: 90%;
+            max-width: 1200px;
+        }
+    }
+    ul {
+        margin-bottom: 19px;
+    }
+</style>
+<div id="top"></div>
+<body style="overflow-y: hidden!important">
+    <div class="form-horizontal">
+
+        <div class="container " style="height: 100%; width: 100%">
+
+            <div class="main">
+                @if (ViewBag.MenuVisible == "true")
+                {
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-lg-3" style="padding-top: -49px;">
+                                <div class="panel" style="border-radius: 10px; width: 106%;">
+                                    <div class="panel-body">
+                                        <ul class="list-inline">
+                                            <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                            <li><a style=" color:#183666; font-weight: bold" href="@Url.Action("Index", "Home")">@Resources.ListeProjetsRessources.ListProjet</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="">
+                                    <div class="panel" style="border-radius: 10px; ">
+                                        <div class="panel-body">
+                                            <ul class="list-inline">
+                                                <li>
+                                                    &bull;&nbsp;<a style="color:#183666 ; " href="@Url.Action("Index", "Home")">@Resources.ListeProjetsRessources.GenerateProjectNumber</a>
+
+                                                </li>
+
+                                                <li>
+                                                    &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "ListeOffres")">@Resources.ListeProjetsRessources.OffersList</a>
+
+                                                </li>
+                                                <li>
+                                                    &bull;&nbsp;<a style="color:#183666 ; font-weight: bold;" href="@Url.Action("IndexProjet", "ListeOffres")">@Resources.ListeProjetsRessources.ProjectsList</a>
+
+                                                </li>
+                                                <li>
+                                                    &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "InfoProjet")">@Resources.ListeProjetsRessources.InfoProject</a>
+
+                                                </li>
+                                                <li>
+                                                    &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "ProjectToClose")">@Resources.ListeProjetsRessources.ProjectToCloseTitle</a>
+                                                </li>
+                                                @*<li>
+                                                    &nbsp;&nbsp;&bull;
+                                                    <a style="color:#183666;" href="@System.Configuration.ConfigurationManager.AppSettings["TTIndexUrl"]" target="_blank">@Resources.ListeProjetsRessources.TTIndex</a>
+                                                </li>*@
+                                                <li>
+                                                    &bull;&nbsp;
+                                                    <a style="color:#183666;" href="@System.Configuration.ConfigurationManager.AppSettings["BoomerangUrl"]" target="_blank">@Resources.ListeProjetsRessources.Boomerang</a>
+                                                </li>
+                                                @*<li>
+                                                    &bull;&nbsp;
+                                                    <a style="color:#183666;cursor:pointer" onclick="OPMOdal()">@Resources.ListeProjetsRessources.ProjectOpening</a>
+                                                </li>*@
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="panel panel-primary" style="border-radius: 10px;margin-top: -10px;">
+                                @*<div class="row">
+                                        <div class="col-lg-3">
+                                            <h6 style="margin-left: 25px; float:left ; color: #5482ab; font-family: 'Arial Bold'; font-size: 18pt;">
+                                                <b>@Resources.MyProjectsList</b>
+                                            </h6>
+                                        </div>
+                                    </div>*@
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <label class="checkbox-inline" style="margin-left: 25px;"><input id="projectCheckbox" class="" type="checkbox" value="" checked>@Resources.ListeProjetsRessources.maskInactiveProjects</label>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row form-group">
+                                        <div class="row">
+                                            <div id="listeProjects">
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<div class="modal fade in" id="directoryDontExist" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content" style="width: 850px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelGP">@Resources.ListeProjetsRessources.warning</h4>
+            </div>
+            <div id="topUpdate"></div>
+            <div class="modal-body" id="contentDirectory" style="width:100%;">
+                @Resources.ListeProjetsRessources.notExistingAnyMore<br /><br />@Resources.ListeProjetsRessources.notExistingAnyMore2
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="specialB" data-dismiss="modal">@Resources.ListeProjetsRessources.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade in" id="modal_ProjectList" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content" style="width:100%;">
+            <div class="modal-header" style="width:100%;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelGP"></h4>
+            </div>
+            <div class="modal-body" id="contentProject" style="width:100%;">
+            </div>
+            @*<div class="modal-footer" style="width:100%;">
+                    <button type="button" class="specialB" data-dismiss="modal" id="cancelProjectMgr">Annuler</button>
+                    <button type="button" class="specialB" onclick="applyChangesForProject()">OK</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var projectIdForUpdate = "";
+    $(document).ready(function () {
+//affichage du tableau des liste de projets
+          $.ajax({
+             type: 'GET',
+             dataType: 'html',
+              cache: false,
+              data: {
+                  userId: '@UserService.CurrentUser.EmployeeId',
+                  type: "project"
+              },
+             url: '@Url.Action("returnOffersList", "ListeOffres")',
+              success: function (result) {
+                  $("#listeProjects").html("");
+                  $("#listeProjects").html(result);
+              }
+          });
+
+    });
+
+    //pour montrer les projets inactifs:
+    $("#projectCheckbox").click(function () {
+        var activeParam = $("#projectCheckbox").is(':checked')==true ? "yes" : "no"
+            $.ajax({
+                url: '@Url.Action("returnOffersList", "ListeOffres")',
+                type: 'GET',
+                cache: false,
+                data: {
+                    userId: '@UserService.CurrentUser.EmployeeId',
+                    type: "project",
+                    active: activeParam
+                },
+                success: function (result) {
+                    $('#listeProjects').html("")
+                    $("#listeProjects").html(result);
+
+                }
+            });
+
+    });
+        function openProjectModal(projectId, projectNumber) {
+        projectIdForUpdate = projectId;
+        $('#contentProject').html("")
+          $.ajax({
+                url: '@Url.Action("returnDetailsForProjetInModal", "ListeOffres")',
+                type: 'GET',
+                cache: false,
+              data: {
+                  Id: projectId,
+                },
+                success: function (result) {
+
+                    $('#contentProject').html(result);
+                    $('#modalLabelGP').html("<h4 style='font-weight:bold;color: #5482ab'>" +'@Resources.ListeProjetsRessources.projectDetails ' + projectNumber +"</h4>");
+                    $('#modal_ProjectList').modal('show');
+
+                }
+            });
+    }
+
+
+</script>
+
+
+

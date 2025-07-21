@@ -1,0 +1,234 @@
+﻿@model TetraTech.TTProjetPlus.Models.ResultModel
+<style>
+    #data_searchList {
+        width: 100% !important;
+    }
+
+        #data_searchList td {
+            width: auto !important;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        #data_searchList th {
+            width: auto !important;
+            white-space: normal;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+  
+
+    #myUL {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+   
+
+    .caret2 {
+        cursor: pointer;
+        -webkit-user-select: none; /* Safari 3.1+ */
+        -moz-user-select: none; /* Firefox 2+ */
+        -ms-user-select: none; /* IE 10+ */
+        user-select: none;
+    }
+
+        .caret2::before {
+            content: "\25B6";
+            color: black;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+    .caret2-down::before {
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Safari */
+        transform: rotate(90deg);
+    }
+
+    .nested {
+        display: none;
+    }
+
+    .active {
+        display: block;
+    }
+</style>
+<p>
+    Elapsed time : @Model.elapsedTime seconds (@Model.itemsNumber files/folders scanned). Note: une validation d'accès sera exécutée lorsque vous voudrez consulter un fichier.
+</p>
+
+@if (Model != null)
+{
+
+<div class="panel pagination-grey" style="padding-top:40px">
+
+    <div id="data-table_wrapper2" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+        <table id="data_searchList" class=" table table-bordered  data-table  dataTable display" style="margin-top:-50px ;width:100%; font-size:12px">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>File</th>
+                    @*<th style="width:15%">Permission groups</th>*@
+                    <th>Path</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var index = 1;
+                }
+                @for (int i = 0; i < Model.result.Count() - 1; i++)
+                {
+                    if (Model.result[i] != "")
+                    {
+                        <tr>
+                            <td style="text-align: left;">
+                                @(index)
+                            </td>
+                            <td style="text-align: left;">
+                                @if (Model.result.ElementAtOrDefault(i) != null)
+                                {
+                                    @Model.result[i].Split(new[] { "|%|" }, StringSplitOptions.None)[1]
+                                }
+                            </td>
+                            <td style="text-align: left;">
+                                @{
+                                    var Href = (Model.result[i].Split(new[] { "|%|" }, StringSplitOptions.None)[0]).Trim();
+                                }
+                                <a href="#" id="path_@(index++)" onclick="checkPermission( this.id)">@Model.result[i].Split(new[] { "|%|" }, StringSplitOptions.None)[0]</a>
+                            </td>
+                            @*<td style="width:15%">
+                                <ul>
+                                    @foreach (string item in @Model.result[i].Split(new[] { "|#|" }, StringSplitOptions.None)[0].TrimEnd(';').Split(';'))
+                                    {
+                                        <li>
+                                            @item
+                                        </li>
+                                      }
+
+                                    </ul>
+
+
+
+                                </td>*@
+
+                        </tr>
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                    //if (Model.result[i] != "")
+                    //{
+                    //    <tr>
+                    //        <td style="text-align: left;">
+                    //            @(index++)
+                    //        </td>
+                    //        <td style="text-align: left;">
+                    //            @{
+                    //                var Href = (Model.result[i].Split(new[] { "|||" }, StringSplitOptions.None)[0]).Trim();
+                    //            }
+                    //            <a href="" onclick="OpenAnExternalFile('@Href')">@Model.result[i].Split(new[] { "|||" }, StringSplitOptions.None)[0]</a>
+                    //        </td>
+                    //        <td style="text-align: left;">
+                    //            @Model.result[i].Split(new[] { "|||" }, StringSplitOptions.None)[1]
+                    //        </td>
+                    //    </tr>
+                    //}
+                    //else
+                    //{
+                    //    continue;
+                    //}
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <div id="tree" style="height:300px; overflow:auto">
+
+    </div>
+    
+</div>
+    }
+
+else
+{
+
+    <span>Sorry...no resultsfor this query!</span>
+}
+<script>
+    $(document).ready(function () {
+        $('#data_searchList').DataTable();
+
+
+    });
+   
+  
+
+
+    $('#data_searchList thead').on('keyup', ".column_search", function () {
+
+        $('#data_searchList').DataTable()
+            .column($(this).parent().index())
+            .search(this.value)
+            .draw();
+    });
+
+
+ ////////////////////////////////////////
+    @*function OpenAnExternalFile(fileName) {
+                    window.location.href = '@Url.Action("createBatchFile", "TTIndex")?folderLocation=' + fileName;
+
+    }*@
+
+    function checkPermission(id) {
+        //com
+        $("#folderName").html("");
+        $("#tree").html('show');
+            $.ajax({
+            type: 'GET',
+            url: '@Url.Action("checkPermission", "TTIndex")',
+            dataType : "json",
+            data:
+            {
+                pathToCheck: $('#' + id).text(),
+
+            },
+                    success: function (response) {
+
+                        if (response.result == "false") {
+                            $("#folderName").html($('#' + id).text());
+                            $("#accessDeniedModal").modal('show');
+                        }
+                        else {
+                                      $.ajax({
+            type: 'GET',
+            url: '@Url.Action("returnTree", "TTIndex")',
+            dataType : "json",
+            data:
+            {
+                path: $('#' + id).text(),
+
+            },
+                                          success: function (response) {
+
+               $("#tree").html(response.result);
+            },
+            error: function () {
+
+            }
+        });
+                        }
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+   
+   
+</script>

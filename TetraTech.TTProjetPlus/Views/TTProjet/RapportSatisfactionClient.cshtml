@@ -1,0 +1,269 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.TTProjet
+
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Controllers
+@model TetraTech.TTProjetPlus.Models.ProjectToModifyModel
+@{
+    /**/
+
+    ViewBag.Title = "Rapport Satisfaction Client";
+}
+
+<style type="text/css">
+
+    #main-container {
+        width: 600px;
+        margin: 150px auto;
+    }
+
+    .inputWidth3 {
+        width: 60%;
+        display: inline
+    }
+
+    #tree-container label.hover {
+        color: red;
+    }
+
+    #loading {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        display: block;
+        opacity: 0.7;
+        background-color: #fff;
+        z-index: 99;
+        text-align: center;
+        display: none;
+    }
+</style>
+
+<div id="loadingf">
+    <img id="loadingGIF2" src="~/Content/assets/img/loading-image.gif" alt="en cours..." />
+</div>
+
+<div class="container " style="height: 200vh; width: 100%">
+    <div class="main">
+        @if (ViewBag.MenuVisible == "true")
+        {
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-3" style="padding-top: -49px;">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 100px; ">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                    <li style="color:#183666 ; font-weight: bold"><a href="@Url.Action("FolderStructureForProject", "TTProjet")"> @Resources.TTProjet.TTProjetRepport  </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 100px; ">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666" href="http://ttqcrapports.tetratech.com/ReportServer/Pages/ReportViewer.aspx?%2fTTProjet%2fTreeTTProjet&Mod_id=10&rs:Format=PDF">
+                                                <span> @Resources.TTProjet.FolderStructure10</span>
+                                            </a>
+                                        </li>
+                                        <br>
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666" href="http://ttqcrapports.tetratech.com/ReportServer/Pages/ReportViewer.aspx?%2fTTProjet%2fTreeTTProjet&Mod_id=11&rs:Format=PDF">
+                                                <span> @Resources.TTProjet.FolderStructure11</span>
+                                            </a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666 " href="http://ttqcrapports.tetratech.com/ReportServer/Pages/ReportViewer.aspx?%2fTTProjet%2fTreeTTProjet&Mod_id=20&rs:Format=PDF">
+                                                <span>
+                                                    @Resources.TTProjet.FolderStructure20
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 100px; ">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666 " href="http://ttqcrapports.tetratech.com/ReportServer/Pages/ReportViewer.aspx?%2fTTProjet%2fTreeTTProjet&Mod_id=30&rs:Format=PDF">
+                                                <span>
+                                                    @Resources.TTProjet.FolderStructure30
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666" href="@Url.Action("FolderStructureForProject", "TTProjet",  new { displayRetourP = ViewBag.displayRetourP, menuVisible = ViewBag.MenuVisible })">
+                                                <span>
+                                                    @Resources.TTProjet.FolderStructureForAProject
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666; font-weight: bold" href="@Url.Action("RapportSatisfactionClient", "TTProjet")">
+                                                <span>
+                                                    @Resources.TTProjet.RapportSatisfactionClient
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="row">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary " style="border-radius: 10px; margin-top: -15px; margin-left: -10px">
+                        <div class="panel-body" style="margin:15px;">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row" style="font-size:initial">
+                                        <div class="col-lg-3" style="padding-top: -49px; ">
+                                            <label> Date début : </label>
+                                        </div>
+                                        <div class="input-group" style=" width: 45%">
+                                            <input id="datedebut" type="text" class="form-control date-input" />
+                                            <label class="input-group-btn" for="datedebut">
+                                                <span class="btn btn-default">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row" style="font-size:initial">
+                                        <div class="col-lg-3" style="padding-top: -49px; ">
+                                            <label> Date fin : </label>
+                                        </div>
+                                        <div class="input-group" style=" width: 45%">
+                                            <input id="datefin" type="text" class="form-control date-input" />
+                                            <label class="input-group-btn" for="datefin">
+                                                <span class="btn btn-default">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <br />
+                                        <div style="text-align:right; margin-right:220px">
+                                            <button class="specialB" onclick="obtenirRapportSatisfactionClient()">Télécharger Rapport</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+
+
+          if ('@Session["lang"].ToString()' == 'fr') {
+            $.datepicker.regional['fr'] = {
+                closeText: "Fermer",
+                prevText: "Précédent",
+                nextText: "Suivant",
+                currentText: "Aujourd'hui",
+                monthNames: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+                    "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+                ],
+                monthNamesShort: ["Jan", "Fév", "Mar", "Avr", "Mai", "Jun",
+                    "Jul", "Aou", "Sept", "Oct", "Nov", "Déc"
+                ],
+                dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+                dayNamesShort: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+                dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+                weekHeader: "Sem.",
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ""
+            };
+            $.datepicker.setDefaults($.datepicker.regional['fr']);
+        }
+
+        $('#datedebut').datepicker({
+            dateFormat: "yy-mm-dd",
+             defaultDate: "+1w",
+            numberOfMonths: 2,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-10:+10',
+            maxDate: '+10Y'
+        });
+
+        $('#datefin').datepicker({
+            dateFormat: "yy-mm-dd",
+            defaultDate: "+1w",
+            numberOfMonths: 2,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-10:+10',
+            maxDate: '+10Y'
+        });
+    });
+
+    function obtenirRapportSatisfactionClient() {
+
+        var ProjectSartDate = "";
+        var ProjectEndDate = "";
+
+        if ($('#datedebut').val() == '') {
+            ProjectSartDate = "1900-01-01";
+
+        }
+        else {
+            ProjectSartDate = $('#datedebut').val();
+        }
+
+        if ($('#datefin').val() == '') {
+            ProjectEndDate = "2070-01-01";
+
+        }
+        else {
+            ProjectEndDate = $('#datefin').val();
+        }
+                
+
+        var url = "";        
+        var url1 = "http://ttqcrapports.tetratech.com/ReportServer/Pages/ReportViewer.aspx?%2fTTProjet%2fRapportSatisfactionClient&rs:Command=Render&ProjectSartDate="
+        var url2 = "&ProjectEndDate=";
+        var url3 = "&rs:Format=EXCEL&rs:ClearSession=true";
+
+        url = url1.concat(ProjectSartDate, url2, ProjectEndDate, url3)      
+        window.location.href = url;
+
+    }
+</script>

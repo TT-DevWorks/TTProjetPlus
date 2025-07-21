@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "test";
+}
+
+<table id="myTable"></table>
+<script>
+        var url = 'http://jsonplaceholder.typicode.com/posts';
+        var currentEditedIndex = -1;
+        $(document).ready(function () {
+            $.getJSON(url, function (json) {
+                var tr;
+                tr = $('<tr/>');
+                tr.append("<td>ID</td>");
+                tr.append("<td>userId</td>");
+                tr.append("<td>title</td>");
+                tr.append("<td>body</td>");
+                tr.append("<td>edit</td>");
+                $('#myTable').append(tr);
+
+                for (var i = 0; i < json.length; i++) {
+                    tr = $('<tr/>');
+                    tr.append("<td>" + json[i].id + "</td>");
+                    tr.append("<td>" + json[i].userId + "</td>");
+                    tr.append("<td>" + json[i].title + "</td>");
+                    tr.append("<td>" + json[i].body + "</td>");
+                    tr.append("<td><input type='button' value='edit' id='edit' onclick='myfunc(" + i + ")' /></td>");
+                    $('#myTable').append(tr);
+                }
+            });
+
+
+        });
+
+
+        function myfunc(rowindex) {
+
+            rowindex++;
+            console.log(currentEditedIndex)
+            if (currentEditedIndex != -1) {  //not first time to click
+                cancelClick(rowindex)
+            }
+            else {
+                cancelClick(currentEditedIndex)
+            }
+
+            currentEditedIndex = rowindex; //update the global variable to current edit location
+
+            //get cells values
+            var cell1 = ($("#myTable tr:eq(" + (rowindex) + ") td:eq(0)").text());
+            var cell2 = ($("#myTable tr:eq(" + (rowindex) + ") td:eq(1)").text());
+            var cell3 = ($("#myTable tr:eq(" + (rowindex) + ") td:eq(2)").text());
+            var cell4 = ($("#myTable tr:eq(" + (rowindex) + ") td:eq(3)").text());
+
+            //remove text from previous click
+
+
+            //add a cancel button
+            $("#myTable tr:eq(" + (rowindex) + ") td:eq(4)").append(" <input type='button' onclick='cancelClick("+rowindex+")' id='cancelBtn' value='Cancel'  />");
+            $("#myTable tr:eq(" + (rowindex) + ") td:eq(4)").css("width", "200");
+
+            //make it a text box
+            $("#myTable tr:eq(" + (rowindex) + ") td:eq(0)").html(" <input type='text' id='mycustomid' value='" + cell1 + "' style='width:30px' />");
+            $("#myTable tr:eq(" + (rowindex) + ") td:eq(1)").html(" <input type='text' id='mycustomuserId' value='" + cell2 + "' style='width:30px' />");
+            $("#myTable tr:eq(" + (rowindex) + ") td:eq(2)").html(" <input type='text' id='mycustomtitle' value='" + cell3 + "' style='width:130px' />");
+            $("#myTable tr:eq(" + (rowindex) + ") td:eq(3)").html(" <input type='text' id='mycustomedit' value='" + cell4 + "' style='width:400px' />");
+
+        }
+
+        //on cancel, remove the controls and remove the cancel btn
+        function cancelClick(indx)
+        {
+
+            //console.log('edit is at row>> rowindex:' + currentEditedIndex);
+            indx = currentEditedIndex;
+
+            var cell1 = ($("#myTable #mycustomid").val());
+            var cell2 = ($("#myTable #mycustomuserId").val());
+            var cell3 = ($("#myTable #mycustomtitle").val());
+            var cell4 = ($("#myTable #mycustomedit").val());
+
+            $("#myTable tr:eq(" + (indx) + ") td:eq(0)").html(cell1);
+            $("#myTable tr:eq(" + (indx) + ") td:eq(1)").html(cell2);
+            $("#myTable tr:eq(" + (indx) + ") td:eq(2)").html(cell3);
+            $("#myTable tr:eq(" + (indx) + ") td:eq(3)").html(cell4);
+            $("#myTable tr:eq(" + (indx) + ") td:eq(4)").find('#cancelBtn').remove();
+        }
+
+
+
+</script>
+

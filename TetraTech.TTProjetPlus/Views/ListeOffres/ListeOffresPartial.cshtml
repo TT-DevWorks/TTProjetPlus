@@ -1,0 +1,336 @@
+﻿@using InfoResources = TetraTech.TTProjetPlus.Views.InfoProjet
+@using InfoResourcesTT = TetraTech.TTProjetPlus.Views.ListeOffres.InfoProjectRessourcesTT
+@using Resources = TetraTech.TTProjetPlus.Views.ListeOffres
+@using TetraTech.TTProjetPlus.Security
+@model TetraTech.TTProjetPlus.Models.ListOfOffers
+<style>
+
+
+    .selectForEdit {
+        cursor: pointer;
+    }
+
+    td {
+        width: 11%;
+    }
+
+    .copyButton {
+        display: inline-block;
+        /**other codes**/
+    }
+</style>
+
+<div class=" ">
+    <div class="pagination-grey clearfix m-b-0">
+        <div id="data-table_wrapper1" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+            <table id="data_table_OfferList2" data-page-length='10' class="table table-bordered  data-table  dataTable display " style="width:100%; font-size: 12px">
+                <thead>
+                    <tr style="font-style:italic; ">
+                        @if (ViewBag.MenuVisible == "true")
+                        {
+                            <th>
+                            </th>
+
+                        }
+                        @{
+                            var ClientName = ViewBag.MenuVisible == "true" ? InfoResources.InfoProjectRessources.ClientName : InfoResourcesTT.ClientName;
+
+                            var DocPostponedDate = ViewBag.MenuVisible == "true" ? InfoResources.InfoProjectRessources.DocPostponedDate : InfoResourcesTT.DocPostponedDate;
+                            var InitiatedByOS = ViewBag.MenuVisible == "true" ? InfoResources.InfoProjectRessources.InitiatedByOS : InfoResourcesTT.InitiatedByOS;
+                            var ORG = ViewBag.MenuVisible == "true" ? InfoResources.InfoProjectRessources.ORG : InfoResourcesTT.ORG;
+                            var Path = ViewBag.MenuVisible == "true" ? InfoResources.InfoProjectRessources.Path : InfoResourcesTT.Path;
+                            var ProgramManager = ViewBag.MenuVisible == "true" ? InfoResources.InfoProjectRessources.ProgramManager : InfoResourcesTT.ProgramManager;
+                            var ProjectManager = ViewBag.MenuVisible == "true" ? InfoResources.InfoProjectRessources.ProjectManager : InfoResourcesTT.ProjectManager;
+                            var projectNumber = ViewBag.MenuVisible == "true" ? InfoResources.InfoProjectRessources.projectNumber : InfoResourcesTT.projectNumber;
+                            var sendMailFR = ViewBag.MenuVisible == "true" ? InfoResources.InfoProjectRessources.sendMailFR : InfoResourcesTT.sendMailFR;
+                            var sendMailEN = ViewBag.MenuVisible == "true" ? InfoResources.InfoProjectRessources.sendMailEN : InfoResourcesTT.sendMailEN;
+                            var Status = ViewBag.MenuVisible == "true" ? InfoResources.InfoProjectRessources.Status : InfoResourcesTT.Status;
+                            var StatusDoc = ViewBag.MenuVisible == "true" ? InfoResources.InfoProjectRessources.StatusDoc : InfoResourcesTT.StatusDoc;
+                            var submittedDate = ViewBag.MenuVisible == "true" ? InfoResources.InfoProjectRessources.submittedDate : InfoResourcesTT.submittedDate;
+                            var TitleOS = ViewBag.MenuVisible == "true" ? InfoResources.InfoProjectRessources.TitleOS : InfoResourcesTT.TitleOS;
+
+
+                        }
+                        <th>
+                            <input type="text" placeholder=" @projectNumber" class="column_search" />
+                        </th>
+
+                        <th>
+                            <input type="text" placeholder=" @TitleOS" class="column_search" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder=" @Path" class="column_search" style="width: 300px" />
+                        </th>
+
+                        <th>
+                            <input type="text" placeholder=" @ClientName" class="column_search" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder=" @InfoResources.InfoProjectRessources.ORGList" class="column_search" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder=" @ProjectManager" class="column_search" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder=" @ProgramManager" class="column_search" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder=" @InitiatedByOS" class="column_search" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder="@submittedDate" class="column_search" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder=" @Status" class="column_search" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder=" @StatusDoc" class="column_search" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder=" @DocPostponedDate" class="column_search" />
+                        </th>
+
+                    </tr>
+
+                    <tr class="grey" role="row">
+                        @if (ViewBag.MenuVisible == "true")
+                        {
+
+                            <th>
+                                @InfoResources.InfoProjectRessources.DetailsE
+                            </th>
+                        }
+                        <th>
+                            @projectNumber
+                        </th>
+
+                        <th>
+                            @TitleOS
+                        </th>
+                        <th>
+                            @Path
+                        </th>
+
+
+                        <th>
+                            @ClientName
+                        </th>
+                        <th>
+                            @InfoResources.InfoProjectRessources.ORGList
+                        </th>
+                        <th>
+                            @ProjectManager
+                        </th>
+                        <th>
+                            @ProgramManager
+                        </th>
+
+                        <th>
+                            @InitiatedByOS
+                        </th>
+                        <th>
+                            @submittedDate
+                        </th>
+                        <th>
+                            @Status
+                        </th>
+                        <th>
+                            @StatusDoc
+                        </th>
+                        <th>
+                            @DocPostponedDate
+                        </th>
+
+                        <th>
+                            @sendMailFR
+                        </th>
+
+                        <th>
+                            @sendMailEN
+                        </th>
+
+                    </tr>
+
+                </thead>
+                <tbody>
+
+                    @for (var i = 0; i < Model.OffersList.Count(); i++)
+                    {
+
+                    <tr>
+                        @if (ViewBag.MenuVisible == "true")
+                        {
+
+                            <td class="selectForEdit" id="@Model.OffersList[i].Project_Number" onclick="openOffreModal('@Model.OffersList[i].OS_Project_ID','@Model.OffersList[i].Project_Number')">
+                                @InfoResources.InfoProjectRessources.Edit
+                            </td>
+                        }
+                        <td>
+                            @Model.OffersList[i].Project_Number
+                        </td>
+
+                        <td>
+                            @Model.OffersList[i].Project_Description
+                        </td>
+                        <td>
+                            <div style="width: 500px">
+                                <span style="float:left" id="path_@i">
+                                    @Model.OffersList[i].path
+                                </span>
+                                @if (Model.OffersList[i].path != "")
+                                {
+                                    <div style="float: right">
+                                        <button class="copyButton" style="margin-right: 5px;" onclick="copyFunction2('path_@i')" title="@Resources.ListeProjetsRessources.OpenPath @Model.OffersList[i].path">
+                                            <i class="fa fa-folder-open" aria-hidden="true"></i>
+                                        </button>
+                                        <button class="copyButton" style="margin-right: 5px;" onclick="copyFunction('path_@i')" title="@Resources.ListeProjetsRessources.CopyPath @Model.OffersList[i].path
+@Resources.ListeProjetsRessources.CopyPath2">   <i class="fa fa-copy"></i></button>
+                                    </div>
+
+                                }
+
+                            </div>
+                        </td>
+
+                        <td>
+                            @Model.OffersList[i].Customer_Name
+                        </td>
+
+                        <td>
+                            @Model.OffersList[i].Organisation
+                        </td>
+                        <td>
+                            @Model.OffersList[i].GestionnaireProjet
+                        </td>
+                        <td>
+                            @Model.OffersList[i].Program_Mgr_Name
+                        </td>
+
+                        <td>
+                            @Model.OffersList[i].Initiated_By_Name
+                        </td>
+                        <td>
+                            @Model.OffersList[i].submittedDate
+                        </td>
+                        <td>
+                            @Model.OffersList[i].StatusName
+                        </td>
+                        <td>
+                            @Model.OffersList[i].StatusDocName
+                        </td>
+                        <td>
+                            @Model.OffersList[i].Doc_PostponedDate
+                        </td>
+                        <td>
+                            <i style=" color:#5482ab;  visibility: visible;text-align: center;" class="fa fa-envelope" onclick='DownloadEmail("@Model.OffersList[i].Project_Number","fr")'></i>
+                        </td>
+                        <td>
+                            <i style=" color:#5482ab;  visibility: visible;text-align: center;" class="fa fa-envelope" onclick='DownloadEmail("@Model.OffersList[i].Project_Number","en")'></i>
+                        </td>
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#loadingL').css('display', 'none')
+        $('#data_table_OfferList2').DataTable({
+
+            order: [[1, "desc"]],
+            pageResize: true,
+            dom:
+                "<'row'<'col-lg-2'l><'col-lg-7 text-center'B><'col-lg-2'f>>" +
+                "<'row'<'col-lg-12'tr>>" +
+                "<'row'<'col-lg-5'i><'col-lg-7'p>>",
+            buttons: [
+                { extend: 'excel', text: '@ViewBag.MenuVisible' == "true" ? ('@Session["lang"].ToString()' == 'fr' ? 'Exporter vers Excel' : 'Export to Excel') : 'Exporter vers Excel'  },
+                { extend: 'selectAll', text: '@ViewBag.MenuVisible' == "true" ? ('@Session["lang"].ToString()' == 'fr' ? 'Tout sélectionner' : 'Select all') : 'Tout sélectionner'},
+               { extend: 'selectNone', text: '@ViewBag.MenuVisible' == "true" ? ( '@Session["lang"].ToString()' == 'fr' ? 'Tout désélectionner' : 'Deselect all' ) : 'Tout désélectionner'},
+
+            ],
+
+            pageLength: 10,
+            select: true,
+            scrollX: true,
+            scrollY: $(window).height() <= 722 ? $(window).height() / 2.25 : $(window).height() / 1.75,
+            scrollCollapse: true,
+            language: {
+                "url": '@ViewBag.MenuVisible' == "true" ? ('@Session["lang"].ToString()' == 'fr' ? "/Content/assets/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json") : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+            }
+        });
+    });
+
+    $('#data_table_OfferList2 thead').on('keyup', ".column_search", function () {
+
+        $('#data_table_OfferList2').DataTable()
+            .column($(this).parent().index())
+            .search(this.value)
+            .draw();
+    });
+
+    function copyFunction(itemId) {
+            $.ajax({
+            url: '@Url.Action("checkIfDirectoryOnDisk", "ListeOffres")',
+                type: 'GET',
+            dataType :'JSON',
+            data: {
+                path: $("#" + itemId).text().trim()
+            },
+
+            success:function(result)
+            {
+                if (result.exist == "yes") {
+                    copyToClipboard($("#" + itemId).text().trim());
+                }
+                else {
+                    $('#directoryDontExist').modal('show');
+                    copyToClipboard($("#" + itemId).text().trim());
+                }
+            }
+           });
+    }
+
+    @*function copyFunction2(itemId) {
+        window.location.href = '@Url.Action("createBatchFile", "ListeOffres")?folderLocation=' + $("#" + itemId).text().trim();
+    }*@
+
+    function copyFunction2(itemId) {
+            $.ajax({
+            url: '@Url.Action("checkIfDirectoryOnDisk", "ListeOffres")',
+                type: 'GET',
+            dataType :'JSON',
+            data: {
+                path: $("#" + itemId).text().trim()
+            },
+
+            success:function(result)
+            {
+                if (result.exist == "yes") {                    
+                    window.location.href = '@Url.Action("createBatchFile", "ListeOffres")?folderLocation=' + $("#" + itemId).text().trim();
+                }
+                else {
+                    $('#directoryDontExist').modal('show');
+                }
+            }
+           });
+    }
+
+    function copyToClipboard(text) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val(text).select();
+        document.execCommand("copy");
+        $temp.remove();
+    }
+
+
+    function DownloadEmail(Project_Number, lang)
+    {
+        window.location.href = '@Url.Action("DownloadEmail2", "ListeOffres")?Project_Number=' + Project_Number + '&lang=' + lang;
+    }
+</script>
+

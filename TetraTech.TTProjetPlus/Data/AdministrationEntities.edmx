@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AdministrationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Administration.dbo.ListeNominative_liste' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ListeNominative_liste">
+          <Key>
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="," />
+            <PropertyRef Name="Organisation" />
+            <PropertyRef Name="Code décret" />
+          </Key>
+          <Property Name="Description" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="," Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Nom, Prénom" Type="nvarchar" MaxLength="301" />
+          <Property Name="Numéro d'employé" Type="bigint" />
+          <Property Name="Prénom" Type="nvarchar" MaxLength="150" />
+          <Property Name="Nom" Type="nvarchar" MaxLength="150" />
+          <Property Name="Division de marché" Type="varchar" MaxLength="13" />
+          <Property Name="Organisation" Type="nvarchar" MaxLength="240" Nullable="false" />
+          <Property Name="Code décret" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Nom de la classe" Type="nvarchar" MaxLength="30" />
+          <Property Name="Titre d'emploie RH" Type="nvarchar" MaxLength="700" />
+          <Property Name="Base horaire" Type="float" />
+          <Property Name="Taux horaire de base" Type="float" />
+          <Property Name="rn" Type="bigint" />
+          <Property Name="nombre d'année d'expérience " Type="int" />
+          <Property Name="Snapshot" Type="date" />
+        </EntityType>
+        <EntityContainer Name="AdministrationModelStoreContainer">
+          <EntitySet Name="ListeNominative_liste" EntityType="Self.ListeNominative_liste" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ListeNominative_liste].[Description] AS [Description], 
+    [ListeNominative_liste].[,] AS [,], 
+    [ListeNominative_liste].[Nom, Prénom] AS [Nom, Prénom], 
+    [ListeNominative_liste].[Numéro d'employé] AS [Numéro d'employé], 
+    [ListeNominative_liste].[Prénom] AS [Prénom], 
+    [ListeNominative_liste].[Nom] AS [Nom], 
+    [ListeNominative_liste].[Division de marché] AS [Division de marché], 
+    [ListeNominative_liste].[Organisation] AS [Organisation], 
+    [ListeNominative_liste].[Code décret] AS [Code décret], 
+    [ListeNominative_liste].[Nom de la classe] AS [Nom de la classe], 
+    [ListeNominative_liste].[Titre d'emploie RH] AS [Titre d'emploie RH], 
+    [ListeNominative_liste].[Base horaire] AS [Base horaire], 
+    [ListeNominative_liste].[Taux horaire de base] AS [Taux horaire de base], 
+    [ListeNominative_liste].[rn] AS [rn], 
+    [ListeNominative_liste].[nombre d'année d'expérience ] AS [nombre d'année d'expérience ], 
+    [ListeNominative_liste].[Snapshot] AS [Snapshot]
+    FROM [dbo].[ListeNominative_liste] AS [ListeNominative_liste]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AdministrationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ListeNominative_liste">
+          <Key>
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="C_" />
+            <PropertyRef Name="Organisation" />
+            <PropertyRef Name="Code_décret" />
+          </Key>
+          <Property Name="Description" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="C_" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nom__Prénom" Type="String" MaxLength="301" FixedLength="false" Unicode="true" />
+          <Property Name="Numéro_d_employé" Type="Int64" />
+          <Property Name="Prénom" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Nom" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Division_de_marché" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="Organisation" Type="String" MaxLength="240" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code_décret" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nom_de_la_classe" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Titre_d_emploie_RH" Type="String" MaxLength="700" FixedLength="false" Unicode="true" />
+          <Property Name="Base_horaire" Type="Double" />
+          <Property Name="Taux_horaire_de_base" Type="Double" />
+          <Property Name="rn" Type="Int64" />
+          <Property Name="nombre_d_année_d_expérience_" Type="Int32" />
+          <Property Name="Snapshot" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityContainer Name="AdministrationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ListeNominative_liste" EntityType="Self.ListeNominative_liste" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AdministrationModelStoreContainer" CdmEntityContainer="AdministrationEntities">
+          <EntitySetMapping Name="ListeNominative_liste">
+            <EntityTypeMapping TypeName="AdministrationModel.ListeNominative_liste">
+              <MappingFragment StoreEntitySet="ListeNominative_liste">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="C_" ColumnName="," />
+                <ScalarProperty Name="Nom__Prénom" ColumnName="Nom, Prénom" />
+                <ScalarProperty Name="Numéro_d_employé" ColumnName="Numéro d'employé" />
+                <ScalarProperty Name="Prénom" ColumnName="Prénom" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Division_de_marché" ColumnName="Division de marché" />
+                <ScalarProperty Name="Organisation" ColumnName="Organisation" />
+                <ScalarProperty Name="Code_décret" ColumnName="Code décret" />
+                <ScalarProperty Name="Nom_de_la_classe" ColumnName="Nom de la classe" />
+                <ScalarProperty Name="Titre_d_emploie_RH" ColumnName="Titre d'emploie RH" />
+                <ScalarProperty Name="Base_horaire" ColumnName="Base horaire" />
+                <ScalarProperty Name="Taux_horaire_de_base" ColumnName="Taux horaire de base" />
+                <ScalarProperty Name="rn" ColumnName="rn" />
+                <ScalarProperty Name="nombre_d_année_d_expérience_" ColumnName="nombre d'année d'expérience " />
+                <ScalarProperty Name="Snapshot" ColumnName="Snapshot" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

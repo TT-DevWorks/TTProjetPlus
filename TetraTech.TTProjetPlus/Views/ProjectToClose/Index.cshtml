@@ -1,0 +1,302 @@
+﻿@model TetraTech.TTProjetPlus.Models.ProjectToCloseViewModel
+@using Resources = TetraTech.TTProjetPlus.Views.ProjectToClose
+@using Resources2 = TetraTech.TTProjetPlus.Views.ListeOffres
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Controllers
+@using GlobalResources = Resources.TTProjetPlusResource
+
+
+@{
+    ViewBag.Title = Resources.ProjectToCloseRessources.ProjectToCloseTitle;
+}
+
+@if (ViewBag.ProjectNumberCalled == "true" && ViewBag.MenuVisible == "false")
+{
+    //adjust styles for iframe
+    <style>
+        body {
+            overflow-x: hidden;
+            background: transparent;
+        }
+
+        .container-project {
+            height: 100%;
+            width: 100%;
+            padding: 0;
+        }
+
+    </style>
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+
+<div class="container-fluid container-project">
+
+    <div class="main" id="ProjectToCloseMain" style="margin-top:8px;">
+        @if (ViewBag.MenuVisible == "true")
+        {
+            @*@Html.Partial("~/Views/Shared/Components/_TTProjetBreadcrumbf.cshtml", Model)*@
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-3" style="padding-top:-49px;">
+                        <div class="panel" style="border-radius: 10px; width: 106%;">
+                            <div class="panel-body">
+                                <ul class="list-inline" style="margin-bottom: -5px;">
+                                    <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                    <li><a style=" color:#183666; font-weight: bold" href="@Url.Action("Index", "Home")">@Resources.ProjectToCloseRessources.ProjectToCloseTitle</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; ">
+                                <div class="panel-body">
+                                    <ul class="list-inline" style="margin-bottom: -5px;">
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "Home")">@Resources2.ListeProjetsRessources.GenerateProjectNumber</a>
+
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "ListeOffres")">@Resources2.ListeProjetsRessources.OffersList</a>
+
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("IndexProjet", "ListeOffres")">@Resources2.ListeProjetsRessources.ProjectsList</a>
+
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666;" href="@Url.Action("Index", "InfoProjet")">@Resources2.ListeProjetsRessources.InfoProject</a>
+
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666;font-weight: bold" href="@Url.Action("Index", "ProjectToClose")">@Resources2.ListeProjetsRessources.ProjectToCloseTitle</a>
+                                        </li>
+                                        @*<li>
+                                            &nbsp;&nbsp;&bull;
+                                            <a style="color:#183666;" href="@System.Configuration.ConfigurationManager.AppSettings["TTIndexUrl"]" target="_blank">@Resources2.ListeProjetsRessources.TTIndex</a>
+                                        </li>*@
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666;" href="@System.Configuration.ConfigurationManager.AppSettings["BoomerangUrl"]" target="_blank">@Resources2.ListeProjetsRessources.Boomerang</a>
+                                        </li>
+                                        @*<li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666;cursor:pointer" onclick="OPMOdal()">@Resources2.ListeProjetsRessources.ProjectOpening</a>
+                                        </li>*@
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary" style="border-radius: 10px; margin-top: -11px;">
+                        <div id="SelectProjectOS" class="panel-heading elementhide-@ViewBag.ProjectNumberCalled" style="background-color: #f5f5f5; border-color: #ddd;">
+                            <div class="row">
+                                <label class="col-sm-12  tt-lightblue"> @Resources.ProjectToCloseRessources.InformationMessage</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                        <select data-live-search="true" class="form-control selectpicker small userInput" id="ddlnumeroProjet" data-width="100%" data-size="15" title="@Resources.ProjectToCloseRessources.chooseProjectMum">                                            
+                                            @foreach (SelectItem item in ProjectToCloseController.ListeProjectForUser)
+                                            {
+                                                if (item.Color == "#ffffff")
+                                                {
+                                                    <option class="@item.displayClass" value="@item.Value" style="color:black;background-color:@item.Color">@item.Text</option>
+                                                }
+                                                else
+                                                {
+                                                    <option class="@item.displayClass" value="@item.Value" style="background-color:@item.Color">@item.Text</option>
+                                                }
+                                            }
+                                        </select>
+                                    }
+                             </div>
+                                <div class="col-sm-4">
+                                    <div style="color:#5482ab">
+                                        <span style="color:#5482ab">@Resources.ProjectToCloseRessources.Legend:</span>
+                                        &nbsp<span id="activeP" class="inner " style="color:black;background-color:white;font-size:small; padding:2px; border:ridge; cursor: pointer" onclick="displayCategory(this.id)">  @Resources.ProjectToCloseRessources.Active  </span> @*blanc*@
+                                        &nbsp<span id="closingProcessP" class="inner " style="color: black; background-color: #32CD32; font-size: small; padding: 2px; border: ridge; cursor: pointer" onclick="displayCategory(this.id)">  @Resources.ProjectToCloseRessources.InClosingProcess  </span> @*vert*@
+                                        &nbsp<span id="postponedP" class="inner " style="color: black; background-color: #FFA500; font-size: small; padding: 2px; border: ridge; cursor: pointer" onclick="displayCategory(this.id)">  @Resources.ProjectToCloseRessources.Report  </span> @*jaune*@
+                                        &nbsp<span id="closedP" class="inner " style="color: black; background-color: #aaa; font-size: small; padding: 2px; border: ridge; cursor: pointer" onclick="displayCategory(this.id)">  @Resources.ProjectToCloseRessources.Closed </span> @*gris*@
+                                        &nbsp<span id="toCloseP" class="inner " style="color: black; background-color: #ff6666; font-size: small; padding: 2px; border: ridge; cursor: pointer" onclick="displayCategory(this.id)">  @Resources.ProjectToCloseRessources.Afermer </span> @*rouge*@
+                                        &nbsp<span id="AllP" class="inner " style="color: black; background-color: cyan; font-size: small; padding: 2px; border: ridge; cursor: pointer" onclick="displayCategory(this.id)">  @Resources.ProjectToCloseRessources.AllP </span> @*rouge*@
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div style="color: #5482ab; ">
+                                        <input id="closedProjectsCheckbox" style="cursor: pointer" class="" type="checkbox" value="" checked>
+                                        @Resources.ProjectToCloseRessources.hide
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="ptcmessage" class="alert alert-warning" role="alert" style="display:none;">
+                            @Html.Raw(Model.Details.AccessMessage)
+                        </div>
+                        <div id="project-details-section" class="panel-body" style="min-height:70vh;">
+                            @if (@Model.Details.HasAccess)
+                            {
+                                @Html.Partial("_ProjectDetails", Model.Details)
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var selectedColor =""
+    $(document).ready(function () {
+    if ("@ViewBag.ProjectNumberCalled" != "true") {
+        @*var ddl=$("#ddlnumeroProjet").kendoDropDownList(kendo_ddlOptions).data("kendoDropDownList");
+        ddl.value("@Model.Details.OSProjectID");*@
+        $('.selectpicker').selectpicker(
+            {
+                noneSelectedText: "@Resources.ProjectToCloseRessources.noResults"               
+            }
+        );
+
+        $(".selectpicker").find(".selected").removeClass('active');
+        $("#ddlnumeroProjet").val("@Model.Details.OSProjectID")
+    }
+    if("@Model.Details.AccessMessage" != "")  $("#ptcmessage").show();
+
+
+    $("#ddlnumeroProjet").change(function () {
+        var color = $("#ddlnumeroProjet option:selected").css("background-color");
+        $(".filter-option-inner-inner").css('backgroundColor', color);
+        RefreshDetails()
+        });
+    });
+
+    function displayCategory(id) {
+        var categ = "";
+        switch (id) {
+            case "activeP":
+                categ = "blanc";
+                selectedColor = "blanc";
+                break;
+            case "closingProcessP":
+                categ = "vert";
+                selectedColor = "vert";
+                break;
+            case "postponedP":
+                categ = "jaune";
+                selectedColor = "jaune";
+                break;
+            case "closedP":
+                categ = "gris";
+                selectedColor = "gris";
+                break;
+            case "toCloseP":
+                categ = "rouge";
+                selectedColor = "rouge";
+                break;
+            case "AllP":
+                categ = "";
+                selectedColor = "";
+                break;
+
+        }
+
+    $.ajax ({
+    url: '@Url.Action("GetProjectToCloseForUseByCategory", "ProjectToClose")',
+        type: 'GET',
+     dataType : 'json',
+     data: {
+         active: $("#closedProjectsCheckbox").is(':checked') == true ? "yes" : "no",
+         category: categ
+     },
+        success: function (result)
+    {
+                    $('#ddlnumeroProjet').empty();
+                    $("#ddlnumeroProjet").append('<option value="" style="color:#5482ab">'+'@Resources.ProjectToCloseRessources.chooseNumber'+'</option>');
+                    $.each(result, function (index, row) {
+                         if (row.Color == "#ffffff")
+                        {
+                        $("#ddlnumeroProjet").append('<option value="' + row.Value  +'"  style="color:black;background-color:'+row.Color+'"'+'>' + row.Text + '</option>');
+                        }
+                        else
+                        {
+                        $("#ddlnumeroProjet").append('<option value="' + row.Value  +'"  style="background-color:'+row.Color+'"'+'>' + row.Text + '</option>');
+                        }
+
+                    });
+
+                    $('#ddlnumeroProjet').selectpicker('refresh');
+    }
+  });
+        }
+
+
+    function RefreshDetails(osProjectID) {
+
+        if (osProjectID == "" || osProjectID == null) {
+            osProjectID = $("#ddlnumeroProjet").val();
+        }
+        $.post('@Url.Action("ProjectDetails", "ProjectToClose")', { osProjectID: parseInt(osProjectID), menuvisible: '@ViewBag.MenuVisible'}, function (result) {
+        if (result.notaproject)
+        {
+            if (result.message.length > 0) {
+                $("#ptcmessage").text(result.message);
+                $("#ptcmessage").show();
+            }
+            $("#project-details-section").html('');
+        }
+        else
+        {
+            $("#project-details-section").html(result);
+        }
+
+    });
+    };
+
+    $("#closedProjectsCheckbox").click(function () {
+        var activeParam = $("#closedProjectsCheckbox").is(':checked')==true ? "yes" : "no"
+        loadUpdatedList(activeParam)
+    });
+
+    function loadUpdatedList(activeParam) {
+                    $.ajax({
+                url: '@Url.Action("GetProjectToCloseForUser3", "ProjectToClose")',
+                type: 'GET',
+                        cache: false,
+                async:false,
+                data: {
+                    active: activeParam,
+                    category : selectedColor
+                },
+                success: function (result)
+                {
+                    $('#ddlnumeroProjet').empty();
+                    $("#ddlnumeroProjet").append('<option value="" style="color:#5482ab">'+'@Resources.ProjectToCloseRessources.chooseNumber'+'</option>');
+                    $.each(result, function (index, row) {
+                         if (row.Color == "#ffffff")
+                        {
+                        $("#ddlnumeroProjet").append('<option value="' + row.Value  +'"  style="color:black;background-color:'+row.Color+'"'+'>' + row.Text + '</option>');
+                        }
+                        else
+                        {
+                        $("#ddlnumeroProjet").append('<option value="' + row.Value  +'"  style="background-color:'+row.Color+'"'+'>' + row.Text + '</option>');
+                        }
+
+                    });
+
+                    $('#ddlnumeroProjet').selectpicker('refresh');
+
+
+                }
+            });
+    }
+</script>
+
+

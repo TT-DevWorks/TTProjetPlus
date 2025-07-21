@@ -1,0 +1,147 @@
+﻿@model TetraTech.TTProjetPlus.Models.searchModelForMasterProject
+@using Resources = TetraTech.TTProjetPlus.Views.Home
+
+
+@if (Model.listOfItems != null && Model.listOfItems.Count() > 0)
+{
+
+    <div class="panel pagination-grey clearfix m-b-0">
+        <div class="panel-body">
+            <div class="row">
+                <div class="">
+                    <div class="alert alert-warning" id="unselected" hidden="hidden">
+                        <button type="button" class="close" data-hide="alert">&times;</button>
+                        <strong>@Resources.informations.mp_message1</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="input-group col-sm-11 form-group">
+                    <input id="MasterProjectNumber2" type="text" class="form-control" name="msg" placeholder="@Resources.informations.mp_search">
+                    <span class="input-group-addon" onclick="displayNextResult2()">@Resources.informations.mp_message2</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 form-group">
+                <div id="internalContainer">
+                    <div id="data-table_wrapper2" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+                        <table id="data_SearchMasterProjectTable" class="SearchMasterProject table table-bordered  data-table  dataTable" style="width: 100%">
+                            <thead id="tableHeader">
+                                <tr class="grey" role="row">
+
+                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending">
+                                        @Resources.informations.mp_title
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                        @Resources.informations.mp_number
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending">
+                                        @Resources.informations.mp_client
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                        @Resources.informations.mp_org
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.listOfItems)
+                                {
+
+                                    <tr>
+                                        <td style="text-align: left;">
+                                            @item.Name
+                                        </td>
+                                        <td style="text-align: left;">
+                                            @item.ProjectNumber
+                                        </td>
+                                        <td style="text-align: left;">
+                                            @item.ClientName
+                                        </td>
+                                        <td style="text-align: left;">
+                                            @item.Org
+                                        </td>
+
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+}
+
+else
+{
+    if (Model == null)
+    {
+        @Html.Partial("Error")
+    }
+    else
+    {
+    <span>@Resources.informations.mp_null</span>
+    }
+}
+<script>
+    $(document).ready(function () {
+
+        $('#MasterProjectNumber2').val("@Html.Raw(Model.searchTerm)")
+        $('#data_SearchMasterProjectTable').DataTable({
+            "order": [[0, "asc"]],
+            "language": {
+                "url": '@Session["lang"].ToString()' == 'fr' ? "/Content/assets/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+            }
+        });
+
+    });
+
+
+    $('#data_SearchMasterProjectTable tbody tr  td').on('click', function () {
+
+        $('#data_SearchMasterProjectTable tr').removeClass('selected');
+        $(this).closest('tr').addClass('selected');
+
+        projectNumber = ($(this).closest('tr').children()[1].textContent).trim();
+
+
+    });
+
+
+    function displayNextResult2() {
+        $('#internalContainer').html("");
+        $.ajax({
+            url: '@Url.Action("displayNextResults2", "Home")',
+                    type: 'GET',
+                    dataType: 'html',
+            data: {
+                searchTerm_internal: $('#MasterProjectNumber2').val()
+            },
+            success:function(data)
+            {
+                $('#internalContainer').html(data)
+
+            }
+          });
+    }
+
+
+    $(".close").click(function () {
+        $(".alert").hide();
+
+    });
+</script>
+
+

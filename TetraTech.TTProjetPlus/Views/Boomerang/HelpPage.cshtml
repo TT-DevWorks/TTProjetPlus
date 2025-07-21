@@ -1,0 +1,728 @@
+﻿
+@{
+    ViewBag.Title = "Accueil";
+}
+@model TetraTech.TTProjetPlus.Models.BoomerangHomeModel
+@using TetraTech.TTProjetPlus.Data
+@using Resources2 = TetraTech.TTProjetPlus.Views.ListeOffres
+@using ResourcesB = TetraTech.TTProjetPlus.Views.Boomerang.searchCriteria
+@using ResourcesF = TetraTech.TTProjetPlus.Views.Boomerang.fiche
+
+@using TetraTech.TTProjetPlus.Security
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+
+<style>
+
+
+    .boom {
+        margin-bottom: 0px;
+        background-color: cyan;
+    }
+
+    fieldset.boomerang-border {
+        border: 1px groove cyan !important;
+        padding: 0 1.4em 1.4em 1.4em !important;
+        margin: 0 0 1.5em 0 !important;
+        -webkit-box-shadow: 0px 0px 0px 0px #000;
+        box-shadow: 0px 0px 0px 0px #000;
+    }
+
+    legend.boomerang-border {
+        font-size: 1.2em !important;
+        font-weight: bold !important;
+        text-align: left !important;
+        width: auto;
+        padding: 0 10px;
+        border-bottom: none;
+    }
+
+    legend {
+        cursor: pointer
+    }
+    h1 {
+        background-repeat: no-repeat;
+        background-position: 5 50%;
+        background-color: #FBEFE1;
+        border-bottom: 1px solid #E0E0E0;
+        border-top: 1px solid #E0E0E0;
+        line-height: 24px;
+        margin-bottom: 10px;
+        margin-top: 15px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        padding-left: 40px;
+        vertical-align: middle;
+        color: #FB8506;
+        font-size: 18px;
+        font-weight: 400;
+    }
+    h2 {
+        background-repeat: no-repeat;
+        border-bottom: 1px solid #FB8506;
+        line-height: 26px;
+        margin-bottom: 15px;
+        margin-top: 10px;
+        vertical-align: middle;
+        font-size: 14px;
+        color: #FB8506;
+    }
+</style>
+<body style="">
+    <div class="form-horizontal">
+        <div id="top"></div>
+
+        <div class="container " style="height: 200vh; width: 100%">
+            <div class="main">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="panel" style="border-radius: 10px; width: 106%;">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                        <li><a style=" color:#183666; font-weight: bold" href="@Url.Action("Index", "Home")">@Resources2.ListeProjetsRessources.InfoProject</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="">
+                                <div class="panel" style="border-radius: 10px; ">
+                                    <div class="panel-body">
+                                        <ul class="list-inline">
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "Home")">@Resources2.ListeProjetsRessources.GenerateProjectNumber</a>
+
+                                            </li>
+
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "ListeOffres")">@Resources2.ListeProjetsRessources.OffersList</a>
+
+                                            </li>
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("IndexProjet", "ListeOffres")">@Resources2.ListeProjetsRessources.ProjectsList</a>
+
+                                            </li>
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666;a" href="@Url.Action("Index", "InfoProjet")">@Resources2.ListeProjetsRessources.InfoProject</a>
+
+                                            </li>
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "ProjectToClose")">@Resources2.ListeProjetsRessources.ProjectToCloseTitle</a>
+                                            </li>
+                                            @*<li>
+                                                &nbsp;&nbsp;&bull;
+                                                <a style="color:#183666;" href="@System.Configuration.ConfigurationManager.AppSettings["TTIndexUrl"]" target="_blank">@Resources2.ListeProjetsRessources.TTIndex</a>
+                                            </li>*@
+                                        <li>
+                                            &bull;&nbsp;
+                                            @*<a style="color:#183666;font-weight: bold;" href="@Url.Action("Home", "Boomerang")">@ResourcesF.projectSheet</a>*@
+                                            <a style="color: #183666; font-weight: bold;" href="@Url.Action("Home", "Boomerang")">Boomerang</a>
+                                        </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="panel boom" style="border-radius: 1px;border:none; border-top-right-radius:10px;border-top-left-radius:10px; ">
+                        <div class="panel-body">
+                            <ul class="list-inline">
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666;font-weight: bold;" href="@Url.Action("Home", "Boomerang")">@ResourcesF.accueil</a>
+
+                                </li>
+
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "Boomerang")">@ResourcesF.recherche</a>
+
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("CreateFactSheet", "Boomerang")">@ResourcesF.creation_fiche</a>
+
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666;" href="@Url.Action("Carts", "Boomerang")">@ResourcesF.paniers</a>
+
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Library", "Boomerang")">@ResourcesF.phototheque</a>
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Help", "Boomerang")">@ResourcesF.aide</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-primary" style="border-radius: 1px;border:none; border-bottom-right-radius:10px;border-bottom-left-radius:10px; ">
+                                <div class="panel-body" style="">
+                                    <div class="row form-group">
+
+                                        <div class="col-lg-12">
+                                            <fieldset class="boomerang-border">
+                                                <legend class="boomerang-border togvis">@ResourcesF.help</legend>
+                                                <div class="row form-group" style="color: #003D82;">
+                                                    <div class="col-lg-12" style=" padding-left: 50px;padding-right: 50px;">
+                                                        <p>[cette page doit etre adaptée a la nouvelle version]</p>
+                                                        Pour contribuer à  notre <strong>force de frappe commerciale</strong>, nous devons :<br /><br />
+                                                        -  <strong>alimenter la base de données dès qu'un projet est gagné</strong>,
+                                                        car nous avons facilement 90% de l'information à  l'ouverture du projet ;<br />
+                                                        -  <strong>bonifier la fiche</strong> lorsque le projet est terminé <u>
+                                                            en décrivant
+                                                            comment le chargé de projet et les ressources concernées se sont démarqués tout au
+                                                            long du mandat
+                                                        </u>. <strong>
+                                                            C'est ce qui rend un projet intéressant aux yeux des
+                                                            clients
+                                                        </strong> ; et<br />
+                                                        -  prendre de <u>belles photos</u> qui rendront <strong>attirants</strong> nos documents de
+                                                        vente.<br /><br />
+                                                        Boomerang est facile d'utilisation. Les quatre fonctionnalités de Boomerang sont accessibles en
+                                                        cliquant sur les onglets correspondants : <strong>
+                                                            Rechercher, Créer une fiche, Mes paniers,
+                                                            Photothèque.
+                                                        </strong>
+                                                        </p>
+
+                                                        <br />
+
+                                                        <h1 style="padding-left: 10px;">> Accueil</h1>
+                                                        <p>
+                                                            Cette page s'affiche à  l'ouverture de l'application.<br />
+                                                            La navigation peut se faire en français (par défaut) ou en anglais (en cliquant sur le drapeau
+                                                            Anglais <img src="~/Content/images/icons/16/en.gif" title="Drapeau anglais" alt="Drapeau anglais" />).<br />
+                                                            L'utilisateur retrouve aussi sur cette page les fiches en mode Brouillon qu'il a lui-même
+                                                            créées. Il n'a qu'à cliquer sur le titre du projet pour retourner au masque de
+                                                            saisie et compléter la fiche (se référer à  <i>Créer une fiche</i>
+                                                            pour plus d'explications).
+                                                        </p>
+
+                                                        <h2>Pour sortir de l'application</h2>
+                                                        <p>
+                                                            Pour éviter de se reconnecter à  la prochaine utilisation, fermer l'application en
+                                                            cliquant sur la croix en haut à  droite.
+                                                        </p>
+
+                                                        <h2>Appel aux administrateurs</h2>
+                                                        <p>
+                                                            Pour apporter une modification à  une fiche en ligne (information erronée,
+                                                            complément d'information, mise en ligne de la version anglaise ou espagnole de la fiche, ajout
+                                                            de photos dans la photothèque, etc.) ou pour toute précision dans l'utilisation de
+                                                            l'outil, merci de contacter l'administrateur responsable de votre unité d'affaires :<br />
+                                                            -  BPR-Bâtiment : <a href="mailto:chantal.doucet@brp.ca">Chantal Doucet</a><br />
+                                                            -  BPR-CSO : <a href="mailto:marie-andree.leonard@brp-cso.com">Marie-Andrée Léonard</a><br />
+                                                            -  BPR-énergie : <a href="mailto:virginie.barbeau@brp.ca">Virginie Barbeau</a><br />
+                                                            -  BPR-Industriel : <a href="mailto:joane.turcotte@brp-bechtel.com">Joane Turcotte</a><br />
+                                                            -  BPR-Infrastructure : <a href="mailto:marie-andree.lachapelle@tetratech.com">Marie-Andrée Lachapelle</a><br />
+                                                            -  Corporatif : <a href="mailto:marie-andree.lachapelle@tetratech.com">Marie-Andrée Lachapelle</a>
+                                                        </p>
+                                                        <p>
+                                                            Il existe d'autres administrateurs que ceux  indiqués dans cette liste. Ces personnes sauront vous indiquer qui est  l'administrateur de votre groupe.<br />
+
+                                                        </p>
+                                                        <h1 style="padding-left: 10px;">> Rechercher</h1>
+                                                        <p>
+                                                            En cliquant sur cet onglet, la page Paramètres de recherche s'affiche.<br />
+                                                            Le bouton bleu <span style="background-color: blue; color: white;">&nbsp;RECHERCHER&nbsp;</span> permet de lancer une recherche.<br />
+                                                            Si une recherche est lancée en ayant sélectionné «  Toutes les expertises » du
+                                                            menu déroulant (par défaut), toutes les fiches de projet dans la base de données vont
+                                                            s'afficher sous forme de liste (10 projets par page).
+                                                        </p>
+
+                                                        <h2>Sélectionner une unité d'affaires ou une expertise pour filtrer les résultats</h2>
+                                                        <p>
+                                                            <u>En sélectionnant une unité d'affaires</u> du menu déroulant, seules les fiches
+                                                            de projet associées à  cette unité d'affaires vont s'afficher. De la même
+                                                            façon, <u>en sélectionnant une expertise propre à  une unité d'affaires</u>
+                                                            du menu déroulant, seules les fiches de projet associées à  cette expertise vont
+                                                            apparaitre.
+                                                        </p>
+
+                                                        <h2>Mot clés</h2>
+                                                        <p>
+                                                            Un mot clé permet de préciser une recherche. Il est possible de mettre plus d'un mot
+                                                            clé. Seules les fiches de projet contenant tous ces mots clés s'afficheront.
+                                                            La recherche se fait dans tous les champs du  formulaire de saisie, incluant l’argumentaire commercial.
+                                                        </p>
+                                                        <h2>Recherche avancée</h2>
+                                                        <p>
+                                                            Le bouton vert <span style="background-color: #00C; color: white;">
+                                                                &nbsp;PARAMÉTRES
+                                                                AVANCÉS&nbsp;
+                                                            </span> permet de préciser une recherche avec les paramètres
+                                                            suivants :<br />
+                                                            -  <u>Numéro de projet</u>. Saisir le numéro de projet sans trait d'union ou d'espace.
+                                                            Une liste de numéros de projet correspondants à  ce qui a déjà
+                                                            été saisi est proposée (saisie intuitive).<br />
+                                                            -  <u>Période de réalisation</u>. Sélectionner une date de fin de réalisation pour filtrer les résultats.<br />
+                                                            - , <u>Bureaux</u>. Sélectionner le bureau où le projet a été
+                                                            réalisé pour filtrer les résultats.<br />
+                                                            -  <u>Type de services</u>. Cocher le(s) type(s) de services désiré(s) pour filtrer
+                                                            les résultats. Seules les fiches de projet contenant tous les types de services cochés
+                                                            s'afficheront.<br />
+                                                            -  <u>Coût global du projet</u>. Choisir supérieur ou inférieur et saisir un
+
+                                                            montant pour filtrer les résultats. Saisir le montant sans espace.<br />
+                                                            -  <u>Langue</u>. Choisir une langue (anglais ou espagnol) pour rechercher uniquement dans les
+                                                            fiches de la langue sélectionnée.
+                                                        </p>
+
+                                                        <h2>Résultats de la recherche</h2>
+                                                        <p>
+                                                            Les fiches de projet qui répondent à  la recherche lancée vont s'afficher sous
+                                                            forme de liste (10 projets par page).<br />
+                                                            La première colonne correspond à  la localisation de réalisation du projet. Les
+                                                            projets sont présentés par ordre alphabétique de localisation.<br />
+                                                            Cliquer sur la loupe <img src="~/Content/images/icons/16/preview.gif" /> pour visualiser rapidement le haut de la
+                                                            fiche (expertise, localisation, titre, photo et description).<br />
+                                                            Cliquer sur le titre pour visualiser l'ensemble des informations saisies pour ce projet, à
+                                                            l'exception de l'argumentaire commercial (l'argumentaire commercial est accessible par l'entremise de
+                                                            l'icône <img src="~/Content/images/icons/16/pdf.gif" /> ; pour plus de détails sur l'argumentaire
+                                                            commercial, se référer au bloc <i>Informations internes</i> de la section <i>
+                                                                Créer
+                                                                une fiche
+                                                            </i>).<br />
+                                                            L'icône du personnage <img src="~/Content/images/icons/16/award.gif" /> signale que ce projet a reçu
+                                                            un prix.<br />
+                                                            L'icône de la lettre <img src="~/Content/images/icons/16/ref.gif" /> signale qu'il existe une lettre de
+                                                            référence du client.<br />
+                                                            L’icône du drapeau anglais <img src="~/Content/images/icons/16/en.gif" /> indique que la fiche est aussi
+                                                            disponible en anglais.<br />
+                                                            L’icône du drapeau espagnol <img src="~/Content/images/icons/16/esp.gif" /> indique que la fiche est aussi
+                                                            disponible en espagnol.<br />
+                                                            L’icône<img src="~/Content/images/icons/16/en-esp.gif" /> indique que la fiche est aussi disponible en
+                                                            anglais et en espagnol.<br />
+                                                            Cliquer sur le «  panier plus » <img src="~/Content/images/icons/16/cart-add.gif" /> pour ajouter le projet en
+                                                            question au panier en cours ou sur le «  panier moins » <img src="~/Content/images/icons/16/cart-rem.gif" /> pour
+                                                            le retirer du panier (se référer à  la section <i>Mes paniers</i> pour la
+                                                            création de panier).<br />
+                                                            Cliquer sur la photo <img src="~/Content/images/icons/16/phototheque.gif" /> pour accéder à  la
+                                                            photothèque du projet en question. Si L’icône n’apparaît pas pour un projet, c'est qu'il
+                                                            n'y a pas de photo sauvegardée autre que celle qui apparaît sur la fiche de sortie PDF.<br />
+                                                            Cliquer sur <img src="~/Content/images/icons/16/pdf.gif" /> pour accéder à  :<br />
+                                                            -  la version française de la fiche en format PDF ;<br />
+                                                            -  la version anglaise de la fiche en format PDF, si elle existe ;<br />
+                                                            -  la version espagnole de la fiche en PDF, si elle existe ;<br />
+                                                            -  la version française de l'argumentaire commercial en PDF, si elle existe ;<br />
+                                                            -  la version anglaise de l'argumentaire commercial en PDF, si elle existe ;<br />
+                                                            -  la version espagnole de l'argumentaire commercial en PDF, si elle existe.
+                                                        </p>
+
+                                                        <h2>Logos apparaissant sur la fiche au format PDF</h2>
+                                                        <p>
+                                                            Par défaut, le logo <img src="~/Content/images/logo_bpr_fr_thumb.gif" height="30" /> apparait sur les fiches en format
+                                                            PDF. Pour choisir le logo de BPR CSO <img src="~/Content/images/logo_cso_fr_thumb.gif" height="30" /> ou de BPR-Bechtel
+                                                            <img src="~/Content/images/logo_bechtel_thumb.gif" height="30" /> ou de BPR-Triax <img src="~/Content/images/logo_triax_thumb.gif" height="30" />, se référer à la section Mes paniers.
+                                                        </p>
+
+                                                        <br />
+
+                                                        <h1 style="padding-left: 10px;">> Créer une fiche</h1>
+                                                        <p>
+                                                            En cliquant sur cet onglet, la page <i>Création d'une fiche de projet</i> s'affiche. Il est
+                                                            alors possible pour tout utilisateur de créer une fiche de projet <u>en français</u>.<br />
+                                                            Pour ce faire, sélectionner d'abord l'unité d'affaires relative à  la fiche de
+                                                            projetà  créer. Cliquer ensuite sur l'expertise associée au projet en question
+                                                            pour faire apparaitre le formulaire de saisie d'informations correspondant.<br />
+                                                            Le masque de saisie est divisé en blocs : <strong>
+                                                                La fiche, Les services, Les chiffres,
+                                                                Le client, L’équipe, Informations internes, Documents
+                                                            </strong>. On retrouve au bas du masque de
+                                                            saisie, les boutons <span style="background-color: #00C; color: white;">
+                                                                &nbsp;SAUVEGARDER LE
+                                                                BROUILLON&nbsp;
+                                                            </span> et <span style="background-color: #00C; color: white;">
+                                                                &nbsp;ENREGISTRER
+                                                                &nbsp;
+                                                            </span>.
+                                                        </p>
+
+                                                        <h2>Sauvegarder le brouillon / Quitter l'application avant d'avoir compléter la fiche</h2>
+                                                        <p>
+                                                            Cliquer sur <span style="background-color: #00C; color: white;">
+                                                                &nbsp;SAUVEGARDER LE
+                                                                BROUILLON&nbsp;
+                                                            </span> pour enregistrer les données saisies en mode Brouillon. Il est possible de
+                                                            quitter l'application et de revenir compléter l'information plus tard. La fiche en mode Brouillon
+                                                            n'est accessible que par la personne qui l'a créée et par l'administrateur.<br />
+                                                            Un utilisateur accède aux fiches en mode Brouillon qu'il a créées <strong>
+                                                                sur la
+                                                                page Accueil
+                                                            </strong>.
+                                                        </p>
+
+                                                        <h2>Enregistrer la fiche de projet</h2>
+                                                        <p>
+                                                            Les champs obligatoires à  remplir sont signalés par une étoile rouge
+                                                            <span style="color: red">*</span>.<br />
+                                                            Lorsque toutes les informations liées à  une fiche sont saisies (incluant la photo, la
+                                                            lettre de référence du client et le prix), cliquer sur
+                                                            <span style="background-color: #00C; color: white;">&nbsp;ENREGISTRER&nbsp;</span> pour que la fiche
+                                                            soit envoyée pour validation. Une fois validée, la fiche de projet se retrouve en ligne et
+                                                            devient accessible à  tous les utilisateurs.<br />
+                                                            Une fois la fiche en ligne, seuls les administrateurs peuvent y apporter des modifications, ajouter
+                                                            des informations, ajouter des photos dans la photothèque et ajouter une lettre de
+                                                            référence.
+                                                        </p>
+
+                                                        <h2>Création des versions anglaises et espagnoles d'une fiche</h2>
+                                                        <p>
+                                                            Une fiche de projet doit d'abord exister en français avant de pouvoir être
+                                                            créée en version anglaise et espagnole. <strong>
+                                                                La création d'une fiche de projet
+                                                                en anglais ou en espagnole se fait uniquement par un administrateur.
+                                                            </strong> Merci de communiquer
+                                                            avec l'administrateur de votre unité d'affaire pour mettre en ligne la version anglaise ou
+                                                            espagnole de la fiche.
+                                                        </p>
+
+                                                        <h2>La fiche</h2>
+                                                        <p>
+                                                            -  <u>Numéro de projet</u>. Saisir le numéro de projet sans trait d'union ou espace.
+                                                            S'il y a plus d'un numéro de projet, les séparer par une virgule et un espace (exemple :
+                                                            xxxx, 1234). S'il s'agit d'un vieux projet pour lequel le numéro est inconnu, saisir
+                                                            «  Inconnu ».<br />
+                                                            -  <u>Unités d'affaires/Expertises</u><span style="color: red" ;>*</span> (champ obligatoire).
+                                                            La sélection faite à  l'ouverture de la page <i>Créer une fiche</i> s'affiche
+                                                            automatiquement. Il est possible de modifier la sélection à  l'aide du menu déroulant.<br />
+                                                            -  <u>Localisation</u><span style="color: red" ;>*</span> (champ obligatoire). Saisir la ville de
+                                                            réalisation du projet. Une liste des villes du Québec correspondantes aux premières
+                                                            lettres saisies par l'utilisateur est proposée (saisie intuitive).
+                                                        </p>
+                                                        <p>
+                                                            S&rsquo;il y a plusieurs  localisations, les énumérer (« Montréal, Longueuil et Laval », par  exemple; ne pas utiliser de barre oblique «/ » ou de tiret « -»,  question d’uniformité). S’il y a beaucoup trop de municipalités, indiquer &laquo;&nbsp;Diverses  municipalités&nbsp;&raquo; et les énumérer dans la description du projet.<br />
+                                                            -  <u>Province, état</u>. Sélectionner à  l'aide du menu déroulant la
+                                                            province ou le territoire de réalisation du projet s'il a été réalisé
+                                                            au Canada, ou encore l'état si le projet a été réalisé aux
+                                                            états-Unis. Pour un projet réalisé ailleurs qu'au Canada ou aux états-Unis,
+                                                            il est possible de saisir un territoire, une province, un département ou autre dans le champ
+                                                            sous le menu déroulant.<br />
+                                                            -  <u>Pays</u><span style="color: red" ;>*</span> (champ obligatoire). Sélectionner le pays
+                                                            dans lequel a lieu le projet à  l'aide du menu déroulant.<br />
+                                                            -  <u>Titre du projet</u><span style="color: red" ;>*</span> (champ obligatoire). On le retrouve sur le fichier de sortie PDF et sur les listes de projet.  Le titre doit être le plus descriptif possible&nbsp;: &laquo;&nbsp;Aménagement de&hellip;&nbsp;&raquo;,  &laquo;&nbsp;Construction de&hellip;&nbsp;&raquo;, &laquo;&nbsp;Réhabilitation de&hellip;&nbsp;&raquo;. <br />
+                                                            -  <u>Titre court du projet</u><span style="color: red" ;>*</span> (champ obligatoire). Une version
+                                                            courte du titre est nécessaire pour la page des résultats de recherche (se
+                                                            Référer à  la section <i>Rechercher</i>). Maximum de 50 caractères, espaces
+                                                            compris. Bien que court, le titre doit décrire le mieux possible le projet.<br />
+                                                            -  <u>Description du projet</u><span style="color: red" ;>*</span> (champ obligatoire).
+                                                            Décrire de façon technique et précise le projet. éviter de lister les
+                                                            services offerts, car une autre section est prévue à  cet effet. Faire attention à
+                                                            la mise en page, elle apparaitra tel quel à  l'impression. Maximum 2 000 caractères.
+                                                        </p>
+                                                        <p>
+
+
+                                                            Certaines fiches existantes ont une description très succincte avec des  phrases sans sujet, verbe et complément. Question d’homogénéité dans BOOMERANG,
+                                                            il est préférable d’ajouter des bouts de phrase tels que : « Tetra Tech a été  mandatée pour effectuer/réaliser… », « (client) a mandaté BPR pour… »,  « Le mandat consistait en la reconstruction/&hellip;&nbsp;&raquo;, etc.<br />
+                                                            Faire les sauts de paragraphes, car le système ne les fait pas  automatiquement.<br />
+                                                            Si vous faites des énumérations, utilisez comme puce le tiret « – ». <br />
+
+                                                            Pour le carré (exemple : m2), utiliser le code ASCII ALT-253; pour le cube (exemple : m3), utiliser le code ALT-252.
+
+
+                                                        </p>
+                                                        <h2>Les services</h2>
+                                                        <p>
+                                                            -  <u>Services</u><span style="color: red" ;>*</span> (champ obligatoire). Cocher le(s) type(s) de
+                                                            services offert(s) parmi la liste.<br />
+                                                            -  <u>Disciplines</u>. Lister les disciplines du projet ou préciser les services offerts
+                                                            (exemple : «  Mécanique-électricité, civil et structure » ou «  Analyse de
+                                                            modélisation, réduction des débordements unitaires, stratégie de
+                                                            contrôle en temps réel, automatisation » ou «  Sécurité des barrages, plan de
+                                                            gestion des eaux, sécurité structurale et fonctionnelle », etc.)
+                                                            -  <u>Particularités du projet</u>. Mettre en évidence une nouveauté ou une technique de pointe utilisée dans ce projet, ou décrire comment l’équipe s’est démarquée. Maximum de trois lignes.
+                                                            C’est ici qu’on doit rendre un projet intéressant aux yeux du client. Les détails techniques peuvent se retrouver dans la description où
+                                                            dans l’argumentaire commercial (pour plus de détails sur l’.argumentaire commercial, se référer au bloc Informations internes de la section Créer une fiche).
+                                                        </p>
+
+                                                        <h2>Les chiffres (pour BPR-CSO, BPR-énergie, BPR-Industriel et BPR-Infrastructure)</h2>
+                                                        <p>
+                                                            -  <u>Période de réalisation</u><span style="color: red" ;>*</span> (champ
+                                                            obligatoire). Sélectionner les moisà  l'aide des menus déroulants et saisir les
+                                                            années de début et de fin du projet.<br />
+                                                            -  <u>Durée du projet</u>. Indiquer, en mois, la durée du projet. Doit correspondre
+                                                            au nombre de mois de la période de réalisation, sauf s'il y a eu un arrêt durant le
+                                                            projet.<br />
+                                                            -  <u>Unité de mesure principale</u>. Sélectionner la catégorie d'unité
+                                                            à  l'aide du menu déroulant en portant attention à  l'unité choisie, puis
+                                                            saisir la valeur de l'unité à  référencer. Contacter l'administrateur si la
+                                                            catégorie d'unité souhaitée n'est pas dans le menu déroulant. Exemple
+                                                            d'unités de mesure : le nombre de kilomètres d'un réseau, le nombre d'hectares d'un
+                                                            bassin, le nombre d'éoliennes, la hauteur de chute d'un barrage, la puissance installée,
+                                                            le nombre de nœuds de modélisation, etc.<br />
+                                                            -  <u>Unité de mesure secondaire</u>. Même chose que pour l'unité de mesure
+                                                            principale.<br />
+                                                            -  <u>Coût global du projet</u><span style="color: red" ;>*</span> (champ obligatoire). Saisir
+                                                            le montant global en dollars canadiens avant taxes.<br />
+                                                            -  <u>Honoraires de l'équipe</u>. Saisir le montant des honoraires en dollars canadiens
+                                                            avant taxes uniquement si le projet a été réalisé en partenariat avec
+                                                            d'autres partenaires (consortium, sous-traitants, etc.)<br />
+                                                            -  <u>Honoraires BPR</u>. Saisir le montant des honoraires de BPR en dollars canadiens avant taxes
+                                                            tel que le projet a été facturé.
+                                                        </p>
+
+                                                        <h2>Les chiffres (pour BPR-B&acirc;timent)</h2>
+                                                        <p>
+                                                            Le masque de saisie de l'unité d'affaires BPR-Bâtiment est plus détaillé,
+                                                            notamment pour les coûts et les honoraires. Le volet économie d'énergie y figure
+                                                            également. Ces informations sont nécessaires dans la préparation des offres de
+                                                            service, car <strong>elles sont demandées par certains clients</strong>.<br />
+                                                            -  <u>Période de réalisation</u><span style="color: red" ;>*</span> (champ
+                                                            obligatoire). Sélectionner les mois à  l'aide des menus déroulants et saisir les
+                                                            années de début et de fin du projet.<br />
+                                                            -  <u>échéancier (Dates prévues et dates finales)</u>. Sélectionner
+                                                            les mois à  l'aide des menus déroulants et saisir les années de début et de
+                                                            fin de chacune des étapes : conception, plans et devis, construction. Expliquer les raisons des
+                                                            écarts, s'il y a lieu.<br />
+                                                            -  <u>Durée du projet</u>. Indiquer, en mois, la durée du projet. Doit correspondre
+                                                            au nombre de mois dans la période de réalisation, sauf s'il y a eu un arrêt durant
+                                                            le projet.<br />
+                                                            -  <u>Unité de mesure principale</u>. Sélectionner la catégorie
+                                                            d'unitéà  l'aide du menu déroulant en portant attention à  l'unité
+                                                            choisie, puis saisir la valeur de l'unité à  référencer. Contacter
+                                                            l'administrateur si la catégorie d'unité souhaitée n'est pas dans le menu
+                                                            déroulant. Exemple d'unités de mesure : le nombre d'étages d'un nouvel immeuble
+                                                            ou d'un stationnement, la superficie d'un agrandissement, les économies d'énergie, etc.<br />
+                                                            -  <u>Unité de mesure secondaire</u>. Même chose que pour l'unité de mesure
+                                                            principale.<br />
+                                                            -  <u>Coût global du projet</u><span style="color: red" ;>*</span> (champ obligatoire).
+                                                            Saisir le montant global en dollars canadiens avant taxes.<br />
+                                                            -  <u>Coût estimé du projet</u>, Montant de la soumission, coût final. Saisir
+                                                            les montants en dollars canadiens avant taxes. Expliquer les raisons des écarts, s'il y a
+                                                            lieu.<br />
+                                                            -  <u>Changements par BPR</u>. Saisir le nombre de changements demandés par BPR et le
+                                                            montant associé en dollars canadiens avant taxes. Expliquer la nature et les causes de ces
+                                                            changements.<br />
+                                                            -  <u>Changements par le client</u>. Saisir le nombre de changements demandés par le client
+                                                            et le montant associé en dollars canadiens avant taxes. Expliquer la nature et les causes de
+                                                            ces changements.<br />
+                                                            -  <u> Coût (prévu et final)</u>. Saisir le coût prévu et le coût
+                                                            final en dollars canadiens avant taxes pour les disciplines concernées dans ce projet :
+                                                            structure, aménagements extérieurs, mécanique, électricité,
+                                                            infrastructure, gestion de projet. Ajouter une autre discipline au besoin. Expliquer les raisons des
+                                                            écarts, s'il y a lieu.<br />
+                                                            -  <u>Honoraires de l'équipe</u>. Saisir le montant des honoraires en dollars canadiens
+                                                            avant taxes uniquement si le projet a été réalisé en partenariat avec
+                                                            d'autres partenaires (consortium, sous-traitants, etc.)<br />
+                                                            -  <u>Honoraires BPR</u>. Saisir le montant des honoraires de BPR en dollars canadiens avant taxes
+                                                            tel que le projet a été facturé.<br />
+                                                            -  <u>Honoraires (prévus et finaux)</u>. Saisir les honoraires prévus et finaux en
+                                                            dollars canadiens avant taxes pour les disciplines concernées dans ce projet : structure,
+                                                            aménagements extérieurs, mécanique, électricité, infrastructure,
+                                                            gestion de projet. Ajouter une autre discipline au besoin. Expliquer les raisons des écarts,
+                                                            s'il y a lieu.<br />
+                                                            -  <u>économies d'énergie et période de retour sur investissement</u>. Saisir
+                                                            les économies d'énergies prévues et réelles en mégajoule (MJ) et
+                                                            les économies monétaires associées en dollars canadiens avant taxes. Saisir la
+                                                            période de retour sur investissement prévue et réelle en années, ainsi que
+                                                            la consommation unitaire du bâtiment avant les travaux et après les travaux en
+                                                            mégajoule équivalent par mètre carré (MJE/m2).<br />
+                                                            -  <u>Plan de mesurage des économies</u>. Préciser si le projet à  un plan de
+                                                            mesurage des économies et le décrire le cas échéant.<br />
+                                                            -  <u>Respect des appuis financiers</u>. Saisir l'organisme fournissant un appui financier, ainsi
+                                                            que le montant prévu et le montant réel de l'appui financier.
+                                                        </p>
+
+                                                        <h2>Le client</h2>
+                                                        <p>
+                                                            -  <u>Type de client</u>. Choisir entre public, privé ou parapublic.<br />
+                                                            -  <u>Nom du client</u><span style="color: red" ;>*</span> (champ obligatoire). Saisir le nom de
+                                                            compagnie du client.<br />
+                                                            -  <u>Adresse</u>. Saisir l'adresse complète du client, incluant le code postal. Sur deux
+                                                            lignes.<br />
+                                                            -  <u>Numéro de téléphone</u>. Saisir le numéro de
+                                                            téléphone du client, incluant le code régional.<br />
+                                                            -  <u>Nom du contact</u>. Saisir le nom de la personne de référence du client.<br />
+                                                            -  <u>Courriel</u>. Saisir l'adresse de courriel de la personne de référence du
+                                                            client.<br />
+                                                            -  <u>Numéro de référence projet</u>. Saisir le numéro de
+                                                            référence projet du client. S'il y a plus d'un numéro de projet, les
+                                                            séparer par une virgule et un espace (exemple : xxxx, 1234).
+                                                        </p>
+
+                                                        <h2>L'équipe</h2>
+                                                        <p>
+                                                            -  <u>Chargé de projet</u>. Saisir le prénom et le nom du chargé de projet
+                                                            de BPR.<br />
+                                                            -  <u>équipe de projet BPR</u>. Nom, discipline et fonction des membres de l'équipe
+                                                            principale BPR (autre que le chargé de projet).<br />
+                                                            -  <u>Autre(s) partenaires(s)</u>. Noms et coordonnées des autres membres du consortium
+                                                            et/ou des sous-traitants.<br />
+                                                            -  <u>Architecte(s)</u>. Saisir le nom de l'architecte, si pertinent.<br />
+                                                            -  <u>Opérateur</u>. Saisir le nom de la compagnie qui assure le fonctionnement de
+                                                            l'ouvrage (d'un barrage, par exemple), si pertinent.<br />
+
+                                                        </p>
+
+                                                        <h2>Informations internes</h2>
+                                                        <p>
+                                                            -  <u>Bureaux</u><span style="color: red" ;>*</span> (champ obligatoire). Sélectionner
+                                                            à  l'aide du menu déroulant le bureau qui a réalisé le projet.<br />
+                                                            -  <u>Propriétaire de l'ouvrage</u>. Saisir le nom du propriétaire de l'ouvrage, si
+                                                            pertinent.<br />
+                                                            -  <u>Argumentaire commercial</u>. Insérer toute information supplémentaire
+                                                            Pertinente à  ce projet et qui a un intérêt commercial, pour les offres de service
+                                                            notamment. Pour accéder à  l'information contenue dans l'argumentaire commercial relatif
+                                                            à  un projet, cliquer sur <img src="~/Content/images/icons/16/pdf.gif" /> dans la page des résultats
+                                                            de recherche.
+                                                        </p>
+
+                                                        <h2>Documents</h2>
+                                                        <p>
+                                                            -  <u>Image du projet</u>. Sélectionner une image qui correspond au mieux au projet et
+                                                            <strong>qui rend la fiche de projet attirante pour le client</strong>. Cette image devra être
+                                                            dans le format JPG. La taille maximale du fichier est de 5 Mo. Ses dimensions minimales doivent
+                                                            être de 400 x 250 pixels.<br />
+                                                            Le brouillon de la fiche doit d'abord être sauvegardé avant de pouvoir y ajouter une
+                                                            image.<br />
+                                                            Il est possible de recadrer l'image en maintenant la touche «  Majuscule » et en faisant glisser le
+                                                            coin inférieur droit du cadre.<br />
+                                                            -  <u>Prix</u>. <strong>
+                                                                Si le projet a reçu un prix, il est important de l'indiquer, car c'est un
+                                                                élément de vente très précieux
+                                                            </strong>. Saisir le nom du prix dans le
+                                                            champ prévu. S'il existe un certificat associé à  ce prix, le joindre en format
+                                                            PDF en cochant la case <i>Attacher le PDF du prix</i>. Une fiche de projet avec un prix associé
+                                                            est identifiée par L’icône du personnage <img src="~/Content/images/icons/16/award.gif" /> dans les
+                                                            résultats de recherche.<br />
+                                                            -  <u>Appréciation du client</u>. <strong>
+                                                                S'il existe une lettre de référence
+                                                                positive du client, il est important de la joindre, car certains appels d'offres demandent de
+                                                                présenter des projets ayant des lettres de référence
+                                                            </strong>. Ce document devra
+                                                            être dans le format PDF. La taille maximale du fichier est de 5 Mo. Une fiche de projet avec une
+                                                            lettre associée est identifiée par L’icône de la lettre
+                                                            <img src="~/Content/images/icons/16/ref.gif" /> dans les résultats de recherche.
+                                                        </p>
+
+                                                        <br />
+
+                                                        <h1 style="padding-left: 10px;">> Mes paniers</h1>
+                                                        <p>
+                                                            Un panier est un ensemble de fiches de projet sélectionnées par un utilisateur. Chaque
+                                                            utilisateur peut créer ses propres paniers, les sauvegarder et les mettre à  jour. Il
+                                                            peut en créer autant qu'il le souhaite.
+                                                        </p>
+
+                                                        <h2>Création d'un panier / Renommer un panier</h2>
+                                                        <p>
+                                                            La création d'un panier se fait à  la page <i>Mes paniers</i>à  l'aide du bouton
+                                                            <span style="background-color: #00C; color: white;">&nbsp;NOUVEAU PANIER&nbsp;</span>. L'utilisateur
+                                                            doit préciser la langue du nouveau panier (français, anglais ou espagnol) et seules des
+                                                            fiches de la langue correspondante peuvent aller dans ce panier.<br />
+                                                            Il est possible de renommer un panier à  l'aide du bouton
+                                                            <span style="background-color: #00C; color: white;">&nbsp;RENOMMER LE PANIER&nbsp;</span>. Le panier
+                                                            à  renommer doit d'abord être sélectionné. Il est possible de
+                                                            sélectionner un panier en haut de chaque page de l'application à  l'aide du menu
+                                                            déroulant (ou aussi à  la page <i>Mes paniers</i>). Seuls apparaitront dans cette
+                                                            liste les paniers que vous avez préalablement créés à  l'aide du bouton
+                                                            <span style="background-color: #00C; color: white;">&nbsp;NOUVEAU PANIER&nbsp;</span>. Une fois
+                                                            sélectionné, le panier en cours s'affiche en haut de chaque page de l'application.
+                                                        </p>
+
+                                                        <h2>Comment ajouter des projets dans un panier sélectionné ou en enlever</h2>
+                                                        <p>
+                                                            Pour mettre un projet dans un panier sélectionné (ou en cours), cliquer sur L’icône
+                                                            «  panier plus » <img src="~/Content/images/icons/16/cart-add.gif" /> apparaissant dans les résultats de
+                                                            recherche. On peut voir à  la page <i>Mes paniers</i> la liste des projets contenus dans le
+                                                            panier en cours.<br />
+                                                            Pour retirer un projet du panier sélectionné (ou en cours), cliquer sur L’icône
+                                                            «  panier moins » <img src="~/Content/images/icons/16/cart-rem.gif" />, soit dans les résultats de
+                                                            recherche ou à  la page <i>Mes paniers</i>.
+                                                        </p>
+
+                                                        <h2>Exporter le panier en PDF</h2>
+                                                        <p>
+                                                            En cliquant sur le lien <i>Exporter le panier en PDF</i>, la page <i>Paramètres d'exportation</i>
+                                                            s'affiche.<br />
+                                                            -  <u>Format</u>. Choisir à  l'aide du menu déroulant le format souhaité, sous
+                                                            forme de fiches (1 projet par page) ou sous forme de listes (5 projets par page).<br />
+                                                            -  <u>Choix du logo</u>. Choisir entre BPR (par défaut), BPR-Bechtel, BPR&nbsp;CSO ou BPR-Triax.<br />
+                                                            -  <u>Page de garde</u>. Choisir une page de garde, si désiré.<br />
+                                                            Le PDF est généré en cliquant sur le bouton
+                                                            <span style="background-color: blue; color: white;">&nbsp;GÉNÉRER&nbsp;</span>.
+                                                        </p>
+                                                        <h2>Modifier les informations contenues dans la fiche sans affecter la base de données</h2>
+                                                        <p>
+                                                            Il est possible de modifier certaines informations de la fiche de projet pour ensuite
+                                                            générer un PDF modifié. Seule la fiche contenue dans le panier d'un utilisateur
+                                                            sera modifiée, laissant intactes les informations de la fiche en ligne accessible
+                                                            à  tous.<br />
+                                                            Dans <i>Mes paniers</i>, cliquer sur L’icône<img src="~/Content/images/icons/16/edit2.gif" /> de la fiche
+                                                            de projet à  modifier. Après avoir fait la modification dans le formulaire, cliquer sur
+                                                            le bouton <span style="background-color: blue; color: white;">
+                                                                &nbsp;ENREGISTRER DANS VOTRE
+                                                                PANIER&nbsp;
+                                                            </span>. Cette fiche modifiée ne sera pas validée, car seul l'utilisateur
+                                                            qui l'aura créée pourra y avoir accès à  sa page <i>Mes paniers</i>.
+                                                        </p>
+
+                                                        <br />
+
+                                                        <h1 style="padding-left: 10px;">> Photothèque</h1>
+                                                        <p>
+                                                            Pour rendre attrayants nos offres de service ou autres documents promotionnels, il est utile d'avoir
+                                                            plusieurs belles photographies pour un projet donné.<br />
+                                                            En cliquant sur cet onglet, il est possible de faire une recherche de photos par mot(s) clé(s).
+                                                            Les photos peuvent être récupérées et sauvegardées sur votre poste.<br />
+                                                            Une fiche de projet pour laquelle une photothèque a été créée est
+                                                            identifiée par L’icône de la photo <img src="~/Content/images/icons/16/phototheque.gif" /> dans les
+                                                            résultats de recherche. Si L’icône n’ apparaît pas pour un projet, c'est qu'il n'y a
+                                                            pas de photos sauvegardées autre que celle qui apparaît sur la fiche de sortie PDF.
+                                                        </p>
+
+                                                        <h2>Pour créer une photothéque pour un projet</h2>
+                                                        <p>
+                                                            <strong>L'ajout de photos dans la photothèque se fait uniquement par un administrateur</strong>.
+                                                            Merci de communiquer avec l'administrateur de votre unité d'affaire pour mettre en ligne
+                                                            d'autres belles photos associées à votre projet.
+                                                        </p>
+
+                                                        <br />
+
+                                                        <h1 style="padding-left: 10px;">> Aide</h1>
+                                                        <p>
+                                                            N'hésitez pas à  communiquer avec l'administrateur de votre unité d'affaires pour
+                                                            tout complément d'informations.
+                                                        </p>
+                                                    </div>
+
+                                                    </div>
+
+
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+
+</script>
+

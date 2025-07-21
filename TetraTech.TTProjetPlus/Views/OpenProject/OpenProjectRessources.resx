@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Close" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continuer</value>
+  </data>
+  <data name="convertOSToProject" xml:space="preserve">
+    <value>Convertir une offre en projet</value>
+  </data>
+  <data name="createNewVersion" xml:space="preserve">
+    <value>Créer une nouvelle version</value>
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>Pas de résultat</value>
+  </data>
+  <data name="OSList" xml:space="preserve">
+    <value>Listes des offres de service</value>
+  </data>
+  <data name="PRlist" xml:space="preserve">
+    <value>Liste des projets</value>
+  </data>
+  <data name="versionsList" xml:space="preserve">
+    <value>Liste des versions</value>
+  </data>
+  <data name="billingAddress" xml:space="preserve">
+    <value>Adresse de facturation</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Veuillez choisir une option:</value>
+  </data>
+  <data name="clientIdentification" xml:space="preserve">
+    <value>Identification du client</value>
+  </data>
+  <data name="clientList" xml:space="preserve">
+    <value>Liste des clients</value>
+  </data>
+  <data name="customerName" xml:space="preserve">
+    <value>Nom du client</value>
+  </data>
+  <data name="customerNumber" xml:space="preserve">
+    <value># du client</value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>Adresse courriel</value>
+  </data>
+  <data name="finalClient" xml:space="preserve">
+    <value>Client final</value>
+  </data>
+  <data name="MustAppearOnBill" xml:space="preserve">
+    <value>Doit apparaître sur la facture</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="refCustomer" xml:space="preserve">
+    <value>Références(s) client (bon de commande, contrat, avenant, etc.)</value>
+  </data>
+  <data name="responsibleName" xml:space="preserve">
+    <value>Nom de la personne responsable</value>
+  </data>
+  <data name="responsiblePhone" xml:space="preserve">
+    <value>Téléphone de la personne responsable</value>
+  </data>
+  <data name="shippingAddress" xml:space="preserve">
+    <value>Adresse d'expedition (lieu des travaux)</value>
+  </data>
+  <data name="askedBy" xml:space="preserve">
+    <value>Demandé par</value>
+  </data>
+  <data name="billingAgent" xml:space="preserve">
+    <value>Agent de facturation</value>
+  </data>
+  <data name="date" xml:space="preserve">
+    <value>Date (AAAA-MM-JJ)</value>
+  </data>
+  <data name="dirProject" xml:space="preserve">
+    <value>Gestionnaire de programme (Dir. de projet)</value>
+  </data>
+  <data name="gestProjet" xml:space="preserve">
+    <value>Gestionnaire du projet (chargé de projet)</value>
+  </data>
+  <data name="langagesCom" xml:space="preserve">
+    <value>Langues des communcations</value>
+  </data>
+  <data name="longTitle" xml:space="preserve">
+    <value>Titre complet</value>
+  </data>
+  <data name="otherGest" xml:space="preserve">
+    <value>Autre gestionnaire (si nécessaire)</value>
+  </data>
+  <data name="preferedCom" xml:space="preserve">
+    <value>Préférences des communications</value>
+  </data>
+  <data name="projectIdentification" xml:space="preserve">
+    <value>Identification du projet et des membres clés</value>
+  </data>
+  <data name="shortTitle" xml:space="preserve">
+    <value>Titre abrégé (unique)</value>
+  </data>
+  <data name="budegtCost" xml:space="preserve">
+    <value>Budget de coûts</value>
+  </data>
+  <data name="classification" xml:space="preserve">
+    <value>Classification</value>
+  </data>
+  <data name="classificationContract" xml:space="preserve">
+    <value>Classification à ajouter selon le contrat et spécifications du contrat</value>
+  </data>
+  <data name="contractType" xml:space="preserve">
+    <value>Type de contrat</value>
+  </data>
+  <data name="currency" xml:space="preserve">
+    <value>Devise</value>
+  </data>
+  <data name="electronic" xml:space="preserve">
+    <value>Électronique</value>
+  </data>
+  <data name="endDate" xml:space="preserve">
+    <value>Date de fin du projet estimée</value>
+  </data>
+  <data name="expenses" xml:space="preserve">
+    <value>Rapport de frais</value>
+  </data>
+  <data name="incomeCalculationMet" xml:space="preserve">
+    <value>Méthode de calcul de revenu</value>
+  </data>
+  <data name="invoiceSuppliers" xml:space="preserve">
+    <value>Facture fournisseurs</value>
+  </data>
+  <data name="mandatLocalisation" xml:space="preserve">
+    <value>Localisation du mandat</value>
+  </data>
+  <data name="officeAddress" xml:space="preserve">
+    <value>Adresse de bureau (apparaîtra sur le contrat)</value>
+  </data>
+  <data name="openDate" xml:space="preserve">
+    <value>Date d'ouverture Tlinx</value>
+  </data>
+  <data name="Org_income" xml:space="preserve">
+    <value>Organisation (revenu)</value>
+  </data>
+  <data name="otherKM1" xml:space="preserve">
+    <value>Autre membre clé  No 1</value>
+  </data>
+  <data name="otherKM2" xml:space="preserve">
+    <value>Autre membre clé  No 2</value>
+  </data>
+  <data name="paper" xml:space="preserve">
+    <value>Papier</value>
+  </data>
+  <data name="programType" xml:space="preserve">
+    <value>Programme (type de projet)</value>
+  </data>
+  <data name="timeSheet" xml:space="preserve">
+    <value>Feuille de temps</value>
+  </data>
+  <data name="timeSheetComments" xml:space="preserve">
+    <value>Commentaires obligatoires à la feuille de temps</value>
+  </data>
+  <data name="workType" xml:space="preserve">
+    <value>Catégorie du travail</value>
+  </data>
+  <data name="addToBill" xml:space="preserve">
+    <value>Joindre à la facture</value>
+  </data>
+  <data name="clientApproval" xml:space="preserve">
+    <value>Approbation du client</value>
+  </data>
+  <data name="consortium" xml:space="preserve">
+    <value>Consortium</value>
+  </data>
+  <data name="createNewClient" xml:space="preserve">
+    <value>Créer un autre client</value>
+  </data>
+  <data name="ExpenseReportOriginal" xml:space="preserve">
+    <value>Rapport de dépenses original</value>
+  </data>
+  <data name="interCompany" xml:space="preserve">
+    <value>Inter-compagnie</value>
+  </data>
+  <data name="InvoiceSupplierOriginal" xml:space="preserve">
+    <value>Facture fournisseur originale</value>
+  </data>
+  <data name="MandatoryTimesheetComment" xml:space="preserve">
+    <value>Commentaire obligatoire sur la feuille de temps</value>
+  </data>
+  <data name="miscellaneous" xml:space="preserve">
+    <value>Divers</value>
+  </data>
+  <data name="multipleClient" xml:space="preserve">
+    <value>Multiple clients</value>
+  </data>
+  <data name="multipleOrder" xml:space="preserve">
+    <value>Multiple bons de commande</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="none" xml:space="preserve">
+    <value>Aucune (un TAR est exigé)</value>
+  </data>
+  <data name="projectOpening" xml:space="preserve">
+    <value>Ouverture du projet</value>
+  </data>
+  <data name="TAR" xml:space="preserve">
+    <value>TAR</value>
+  </data>
+  <data name="verbal" xml:space="preserve">
+    <value>Verbale (un TAR est exigé)</value>
+  </data>
+  <data name="written" xml:space="preserve">
+    <value>Écrite</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Oui</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Ajouter une tâche</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Rapetisser</value>
+  </data>
+  <data name="Expand" xml:space="preserve">
+    <value>Étendre</value>
+  </data>
+  <data name="ProjectNumber" xml:space="preserve">
+    <value>Numéro de projet</value>
+  </data>
+  <data name="submit" xml:space="preserve">
+    <value>Soumettre</value>
+  </data>
+</root>

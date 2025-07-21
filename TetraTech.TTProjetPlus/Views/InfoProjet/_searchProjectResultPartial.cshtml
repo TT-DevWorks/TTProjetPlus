@@ -1,0 +1,401 @@
+﻿@model List<TetraTech.TTProjetPlus.Models.searchModel>
+@using InfoResources = TetraTech.TTProjetPlus.Views.InfoProjet
+@using Resources = TetraTech.TTProjetPlus.Views.InfoProjet
+@{
+    ViewBag.Title = "Recherche de projet";
+}
+
+<style>
+    #data_searchProjectsList {
+        width: 100% !important;
+    }
+
+        #data_searchProjectsList td {
+            width: auto !important;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        #data_searchProjectsList th {
+            width: auto !important;
+            white-space: normal;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+    .custom-tooltip {
+        display: inline-block;
+        margin: 10px 20px;
+        opacity: 1;
+        position: relative;
+    }
+</style>
+
+
+@if (Model != null)
+{
+<div class="panel pagination-grey">    
+
+    <div id="data-table_wrapper2" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+        <table id="data_searchProjectsList" class=" table table-bordered  data-table  dataTable display" style="margin-top:-50px ;width:100%; font-size:12px">
+            <thead id="tableHeaderGP">
+                <tr style="font-style:italic; ">
+
+                    <th>
+                        <input type="text" placeholder=" @InfoResources.InfoProjectRessources.projectNumber" class="column_search" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder=" @InfoResources.InfoProjectRessources.Descritption" class="column_search" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder="@InfoResources.InfoProjectRessources.Path" class="column_search" style="width: 300px;" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder="@InfoResources.InfoProjectRessources.Model" class="column_search" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder="@InfoResources.InfoProjectRessources.ClientNumber" class="column_search" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder="@InfoResources.InfoProjectRessources.ClientName" class="column_search" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder="@InfoResources.InfoProjectRessources.FinalClient" class="column_search" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder="@InfoResources.InfoProjectRessources.OldClientNumberGP" class="column_search" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder="@InfoResources.InfoProjectRessources.OldClientNameGP" class="column_search" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder="@InfoResources.InfoProjectRessources.ORGList" class="column_search" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder=" @InfoResources.InfoProjectRessources.InitiatedBy" class="column_search" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder="@InfoResources.InfoProjectRessources.ProgramManager" class="column_search" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder="@InfoResources.InfoProjectRessources.ProjectManager" class="column_search" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder="@InfoResources.InfoProjectRessources.BillingAgent" class="column_search" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder="@InfoResources.InfoProjectRessources.Status" class="column_search" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder="@InfoResources.InfoProjectRessources.submittedDate" class="column_search" />
+                    </th>
+
+                    <th>
+                        <input type="text" placeholder="@InfoResources.InfoProjectRessources.ProjectStartDate" class="column_search" />
+                    </th>
+
+                    <th>
+                        <input type="text" placeholder="@InfoResources.InfoProjectRessources.ProjectEndDate" class="column_search" />
+                    </th>
+
+                    <th>
+                        <input type="text" placeholder="@InfoResources.InfoProjectRessources.archiveDate" class="column_search" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder="@InfoResources.InfoProjectRessources.Documentation" class="column_search" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder="@InfoResources.InfoProjectRessources.DocPostponedDate" class="column_search" />
+                    </th>
+
+                </tr>
+
+                <tr class="grey" role="row">
+
+                    <th>
+                        @InfoResources.InfoProjectRessources.projectNumber
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.InfoProjectRessources.Descritption
+                    </th>
+                    <th id="UnPath" class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" data-toggle="tooltip" title='@InfoResources.InfoProjectRessources.CopyPath3
+@InfoResources.InfoProjectRessources.CopyPath4
+@InfoResources.InfoProjectRessources.CopyPath5'>
+                        @InfoResources.InfoProjectRessources.Path
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.InfoProjectRessources.Model
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.InfoProjectRessources.ClientNumber
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.InfoProjectRessources.ClientName
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.InfoProjectRessources.FinalClient
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.InfoProjectRessources.OldClientNumberGP
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.InfoProjectRessources.OldClientNameGP
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.InfoProjectRessources.ORGList
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.InfoProjectRessources.InitiatedBy
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.InfoProjectRessources.ProgramManager
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.InfoProjectRessources.ProjectManager
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.InfoProjectRessources.BillingAgent
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.InfoProjectRessources.Status
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.InfoProjectRessources.submittedDate
+                    </th>
+
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.InfoProjectRessources.ProjectStartDate
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.InfoProjectRessources.ProjectEndDate
+                    </th>
+
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.InfoProjectRessources.archiveDate
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.InfoProjectRessources.Documentation
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @InfoResources.InfoProjectRessources.DocPostponedDate
+                    </th>
+                </tr>                      
+            </thead>
+            <tbody>
+                @for (var i = 0; i < Model.Count(); i++)
+                {
+
+                <tr>
+                    <td style="text-align: left;">
+                        @Model[i].ProjectNumbers
+                    </td>
+                    <td style="text-align: left;">
+                        <div style="width: 300px">
+                            @Model[i].ProjectDescription
+                        </div>
+                    </td>
+                    <td style="text-align: left;">
+                        <div style="width: 300px">
+                            <span style="float:left" id="path_@i">
+                                @Model[i].sharePath
+                            </span>
+                            @if (Model[i].sharePath != "")
+                            {
+                                <div style="float: right">
+                                    <button class="copyButton" style="margin-right: 5px;" onclick="copyFunction2('path_@i')" title="@Resources.InfoProjectRessources.OpenPath @Model[i].sharePath">
+                                        <i class="fa fa-folder-open" aria-hidden="true"></i>
+                                    </button>
+                                    <button class="copyButton" style="margin-right: 5px;" onclick="copyFunction('path_@i')"
+                                            title="@Resources.InfoProjectRessources.CopyPath @Model[i].sharePath
+@Resources.InfoProjectRessources.CopyPath2">
+                                        <i class="fa fa-copy"></i>
+                                    </button>
+                                </div>
+                            }
+                        </div>
+
+                    </td>
+                    <td style="text-align: left;">
+                        @Model[i].Model
+                    </td>
+                    <td style="text-align: left;">
+                        @Model[i].CustomersNumber
+                    </td>
+                    <td style="text-align: left;">
+                        @Model[i].CustomersName
+                    </td>
+                    <td style="text-align: left;">
+                        @Model[i].FinalClient
+                    </td>
+                    <td style="text-align: left;">
+                        @Model[i].OldCustomersGPNumber
+                    </td>
+                    <td style="text-align: left;">
+                        @Model[i].OldCustomersGPName
+                    </td>
+                    <td style="text-align: left;">
+                        @Model[i].AcctCenterName
+                    </td>
+                    <td style="text-align: left;">
+                        @Model[i].InitiatedBy
+                    </td>
+                    <td style="text-align: left;">
+                        @Model[i].ProgramMgrNumber
+                    </td>
+                    <td style="text-align: left;">
+                        @Model[i].ProjectMgrNumber
+                    </td>
+                    <td style="text-align: left;">
+                        @Model[i].BillSpecialistNumber
+                    </td>
+                    <td style="text-align: left;">
+                        @Model[i].StatusID
+                    </td>
+
+                    <td style="text-align: left;">
+                        @Model[i].SubmittedDateq
+                    </td>
+
+                    <td style="text-align: left;">
+                        @Model[i].project_start_date
+                    </td>
+
+                    <td style="text-align: left;">
+                        @Model[i].project_end_date
+                    </td>
+
+                    <td style="text-align: left;">
+                        @Model[i].Archivedateq
+                    </td>
+                    <td style="text-align: left;">
+                        @Model[i].DocStatutID
+                    </td>
+
+                    <td style="text-align: left;">
+                        @Model[i].DocPostponedDateq
+                    </td>
+
+                </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+}
+
+else
+{
+    if (Model == null)
+    {
+        @Html.Partial("Error")
+    }
+    else
+    {
+        <span> @InfoResources.InfoProjectRessources.noResultForThisQuery</span>
+    }
+}
+<script>
+    $(document).ready(function () {
+
+        $('#data_searchProjectsList').DataTable({
+            pageResize: true,
+            dom:
+                "<'row'<'col-lg-2'l><'col-lg-7 text-center'B><'col-lg-2'f>>" +
+                "<'row'<'col-lg-12'tr>>" +
+                "<'row'<'col-lg-5'i><'col-lg-7'p>>",
+                buttons: [
+                { extend: 'excel', text: '@Session["lang"].ToString()' == 'fr' ?'Exporter vers Excel' : 'Export to Excel' },
+                { extend: 'selectAll', text: '@Session["lang"].ToString()' == 'fr' ?'Tout sélectionner' : 'Select all' },
+                { extend: 'selectNone', text: '@Session["lang"].ToString()' == 'fr' ?'Tout désélectionner' : 'Deselect all' },
+
+                ],
+
+                pageLength: 10,
+            select: true,
+            scrollX: true,
+            scrollY: $(window).height() <= 722 ? $(window).height() / 3.5 : $(window).height() / 2,
+            scrollCollapse: true,
+            language: {                
+                "url": '@Session["lang"].ToString()' == 'fr' ? "/Content/assets/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json",
+                select: {
+                    rows: '@Session["lang"].ToString()' == 'fr' ? '%d ligne(s) sélectionnée(s)' : '%d rows selected'
+                }
+            },
+        });
+
+    });
+
+
+
+    $('#data_searchProjectsList thead').on('keyup', ".column_search", function () {
+
+        $('#data_searchProjectsList').DataTable()
+            .column($(this).parent().index())
+            .search(this.value)
+            .draw();
+    });
+
+    function copyFunction(itemId) {
+        $.ajax({
+            url: '@Url.Action("isFolderExists", "InfoProjet")',
+            type: 'GET',
+            dataType: 'json',
+            traditional: true,
+            data: {
+                folderLocation: $("#" + itemId).text().trim()
+            },
+            success: function (data1)
+            {
+                if (data1.result == true) {
+                    copyToClipboard($("#" + itemId).text().trim());
+                }
+                else {
+                    $('#alertSearchInfo').modal('show');
+                    copyToClipboard($("#" + itemId).text().trim());
+                }
+            },
+            error: function () {
+                $('#alertSearchInfo').modal('show');
+            }
+        });
+    }
+
+ function copyFunction2(itemId) {
+
+        $.ajax({
+            url: '@Url.Action("isFolderExists", "InfoProjet")',
+            type: 'GET',
+            dataType: 'json',
+            traditional: true,
+            data: {
+                folderLocation: $("#" + itemId).text().trim()
+            },
+            success: function (data1)
+            {
+                if (data1.result == true) {
+                    window.location.href = '@Url.Action("createBatchFile", "InfoProjet")?folderLocation=' + $("#" + itemId).text().trim();
+                }
+                else {
+                    $('#alertSearchInfo').modal('show');
+                }
+            },
+            error: function () {
+                $('#alertSearchInfo').modal('show');
+            }
+        });
+    }
+
+    function copyToClipboard(text) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val(text).select();
+        document.execCommand("copy");
+        $temp.remove();
+    }
+
+</script>
+
+

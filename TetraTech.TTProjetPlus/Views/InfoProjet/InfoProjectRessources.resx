@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Accepter</value>
+  </data>
+  <data name="alert" xml:space="preserve">
+    <value>Alerte</value>
+  </data>
+  <data name="alertMessage" xml:space="preserve">
+    <value>Vous n'avez pas indiqué de critères de recherche, donc la recherche pourrait prendre un certain délai.  Pour confirmer, cliquez "Poursuivre".</value>
+  </data>
+  <data name="ApproximateAmount" xml:space="preserve">
+    <value>Montant approximatif</value>
+  </data>
+  <data name="archiveDate" xml:space="preserve">
+    <value>Date d'archivage GP</value>
+  </data>
+  <data name="BillingAgent" xml:space="preserve">
+    <value>Agent de facturation</value>
+  </data>
+  <data name="btnConfirmLeave" xml:space="preserve">
+    <value>Vous avez des modifications en cours. Si vous quittez la page le modifications ne seront pas enregistrées.</value>
+  </data>
+  <data name="BusinessUnit" xml:space="preserve">
+    <value>Unité d'affaires</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="click" xml:space="preserve">
+    <value>Cliquez sur "Critères de recherche" pour diminuer ou visualiser cette section</value>
+  </data>
+  <data name="ClientName" xml:space="preserve">
+    <value>Nom du client</value>
+  </data>
+  <data name="ClientNumber" xml:space="preserve">
+    <value>Numéro du client</value>
+  </data>
+  <data name="CodePhase" xml:space="preserve">
+    <value>Code de Phase</value>
+  </data>
+  <data name="comment" xml:space="preserve">
+    <value>Commentaires</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Compagnie</value>
+  </data>
+  <data name="ContactClient" xml:space="preserve">
+    <value>Contact client</value>
+  </data>
+  <data name="continueA" xml:space="preserve">
+    <value>Poursuivre</value>
+  </data>
+  <data name="ContractAdministratorLabel" xml:space="preserve">
+    <value>Controleur de coût</value>
+  </data>
+  <data name="ContractNumber" xml:space="preserve">
+    <value>No de contrat / bon de commande</value>
+  </data>
+  <data name="ContractType" xml:space="preserve">
+    <value>Type de contrat</value>
+  </data>
+  <data name="ConvertToProject" xml:space="preserve">
+    <value>Convertir en projet</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Devise</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Descritption" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Détails</value>
+  </data>
+  <data name="DetailsE" xml:space="preserve">
+    <value>Détails/Édition</value>
+  </data>
+  <data name="doc" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="DocPostponedDate" xml:space="preserve">
+    <value>Date de report de documentation</value>
+  </data>
+  <data name="Documentation" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Éditer</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Adresse courriel</value>
+  </data>
+  <data name="EmailAdressIf" xml:space="preserve">
+    <value>Adresse courriel d'envoie de la facture (si envoie électronique)</value>
+  </data>
+  <data name="ExcelDocRequest" xml:space="preserve">
+    <value>Voulez-vous le document Excel d'overture de projet</value>
+  </data>
+  <data name="FacturationAddress" xml:space="preserve">
+    <value>Adresse de facturation</value>
+  </data>
+  <data name="FacturationAgent" xml:space="preserve">
+    <value>Agente de facturation</value>
+  </data>
+  <data name="FinalClient" xml:space="preserve">
+    <value>Client final</value>
+  </data>
+  <data name="generalInfotmation" xml:space="preserve">
+    <value>Informations générales</value>
+  </data>
+  <data name="includeClosed" xml:space="preserve">
+    <value>Inclure les projets fermés</value>
+  </data>
+  <data name="InfoProjet" xml:space="preserve">
+    <value>Info-Projet</value>
+  </data>
+  <data name="InitiatedBy" xml:space="preserve">
+    <value>Initié par</value>
+  </data>
+  <data name="InitiatedByOS" xml:space="preserve">
+    <value>Initié par (OS)</value>
+  </data>
+  <data name="InitiatedByProject" xml:space="preserve">
+    <value>Initié par (projet)</value>
+  </data>
+  <data name="ItemsPerPage" xml:space="preserve">
+    <value>projets par page</value>
+  </data>
+  <data name="MasterOrlinkedProject" xml:space="preserve">
+    <value>Projet lié ou projet maitre</value>
+  </data>
+  <data name="MasterProject" xml:space="preserve">
+    <value>Projet maitre</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="NoRecords" xml:space="preserve">
+    <value>Aucun projet n'est rattaché à votre numéro d'employé.</value>
+  </data>
+  <data name="noResultForThisQuery" xml:space="preserve">
+    <value>Aucun résultat pour cette requête...</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Numéro</value>
+  </data>
+  <data name="Office" xml:space="preserve">
+    <value>Bureau</value>
+  </data>
+  <data name="OfficeAddress" xml:space="preserve">
+    <value>Adresse du bureau (facture)</value>
+  </data>
+  <data name="OpeningDate" xml:space="preserve">
+    <value>Date d'ouverture du projet</value>
+  </data>
+  <data name="ORG" xml:space="preserve">
+    <value>Organisation (valeur grisée si inactive dans TLX)</value>
+  </data>
+  <data name="PageableDisplay" xml:space="preserve">
+    <value>{0} - {1} de {2} projets</value>
+  </data>
+  <data name="Path" xml:space="preserve">
+    <value>Chemin du répertoire de projet</value>
+  </data>
+  <data name="PeriodWeekDate" xml:space="preserve">
+    <value>Derniére mise à jour des données</value>
+  </data>
+  <data name="Program" xml:space="preserve">
+    <value>Programme</value>
+  </data>
+  <data name="ProgramManager" xml:space="preserve">
+    <value>Gestionnaire de programme</value>
+  </data>
+  <data name="ProgramMgrLabel" xml:space="preserve">
+    <value>Directeur de projet</value>
+  </data>
+  <data name="ProjectManager" xml:space="preserve">
+    <value>Gestionnaire de projet</value>
+  </data>
+  <data name="ProjectMgrLabel" xml:space="preserve">
+    <value>Gestionnaire de projet</value>
+  </data>
+  <data name="projectNumber" xml:space="preserve">
+    <value>Numéro de projet</value>
+  </data>
+  <data name="RAFAction" xml:space="preserve">
+    <value>Gestion de Projet</value>
+  </data>
+  <data name="RefAndComments" xml:space="preserve">
+    <value>Réferences et commentaires</value>
+  </data>
+  <data name="reinitialize" xml:space="preserve">
+    <value>Réinitialiser</value>
+  </data>
+  <data name="reportDate" xml:space="preserve">
+    <value>Date de report</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="search" xml:space="preserve">
+    <value>Rechercher</value>
+  </data>
+  <data name="searchCriteria" xml:space="preserve">
+    <value>Critères de recherche</value>
+  </data>
+  <data name="SearchIn" xml:space="preserve">
+    <value>Chercher dans</value>
+  </data>
+  <data name="searchResults" xml:space="preserve">
+    <value>Résultats de la recherche</value>
+  </data>
+  <data name="sendMailFR" xml:space="preserve">
+    <value>Courriel FR</value>
+  </data>
+  <data name="sharePath" xml:space="preserve">
+    <value>Chemin de partage</value>
+  </data>
+  <data name="ShippingAddress" xml:space="preserve">
+    <value>Adresse d'expedition</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="StatusDoc" xml:space="preserve">
+    <value>Statut de la documentation</value>
+  </data>
+  <data name="submittedDate" xml:space="preserve">
+    <value>Numéro attribué le</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Projets</value>
+  </data>
+  <data name="TitleOS" xml:space="preserve">
+    <value>Titre du projet</value>
+  </data>
+  <data name="TitlePlanification" xml:space="preserve">
+    <value>Planification - Analyse mandat</value>
+  </data>
+  <data name="TitleProjet" xml:space="preserve">
+    <value>Titre abrégé du projet</value>
+  </data>
+  <data name="WorkCategory" xml:space="preserve">
+    <value>Catégorie de travail(SF330)</value>
+  </data>
+  <data name="CopyPath" xml:space="preserve">
+    <value>Copie le chemin du répertoire de projet</value>
+  </data>
+  <data name="OpenPath" xml:space="preserve">
+    <value>Ouvrir:</value>
+  </data>
+  <data name="sendMailEN" xml:space="preserve">
+    <value>Courriel EN</value>
+  </data>
+  <data name="OldClientNameGP" xml:space="preserve">
+    <value>Ancien nom du client GP</value>
+  </data>
+  <data name="alertMessage2" xml:space="preserve">
+    <value>La recherche de projets ayant le statut "Ancien projet Great Plains" pourrait prendre un certain délai. Il est conseillé d'ajouter un autre critère de recherche tel que: Numéro de projet Description No client Nom client Numéro attribué le &lt;br&gt;Pour confirmer, cliquez "Poursuivre".</value>
+  </data>
+  <data name="OldClientNumberGP" xml:space="preserve">
+    <value>Ancien numéro du client GP</value>
+  </data>
+  <data name="CopyPath2" xml:space="preserve">
+    <value>Cliquez sur ce bouton, puis sur la touche Windows + E de votre clavier et coller le contenu du presse-papier dans la barre d'adresse</value>
+  </data>
+  <data name="CopyPath3" xml:space="preserve">
+    <value>Pour ouvrir un répertoire de projet</value>
+  </data>
+  <data name="CopyPath4" xml:space="preserve">
+    <value>Cliquez sur le bouton qui se retrouve dans la colonne "Chemin du répertoire de projet" puis sur la touche Windows + E de votre clavier et coller le contenu du presse-papier dans la barre d'adresse</value>
+  </data>
+  <data name="CopyPath5" xml:space="preserve">
+    <value>et coller le contenu du presse-papier dans la barre d'adresse</value>
+  </data>
+  <data name="Tips" xml:space="preserve">
+    <value>Astuces</value>
+  </data>
+  <data name="optionChoosen" xml:space="preserve">
+    <value>options choisies</value>
+  </data>
+  <data name="ORGList" xml:space="preserve">
+    <value>Organisation</value>
+  </data>
+  <data name="Model" xml:space="preserve">
+    <value>Modèle du répertoire de projet</value>
+  </data>
+  <data name="ProjectEndDate" xml:space="preserve">
+    <value>Date de fin du projet</value>
+  </data>
+  <data name="ProjectStartDate" xml:space="preserve">
+    <value>Date de début du projet</value>
+  </data>
+  <data name="alertMessage3" xml:space="preserve">
+    <value>La structure de répertoires du projet n'est plus sur le réseau.</value>
+  </data>
+  <data name="alertMessage4" xml:space="preserve">
+    <value>Veuillez consulter le site web des archives "TT Index (Archives)": http://archivestqc.tetratech.com:1100</value>
+  </data>
+  <data name="alertMessage5" xml:space="preserve">
+    <value>http://archivestqc.tetratech.com:1100</value>
+  </data>
+</root>

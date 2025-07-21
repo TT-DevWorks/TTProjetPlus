@@ -1,0 +1,82 @@
+﻿@model List<TetraTech.TTProjetPlus.Models.structureItem>
+@using Resources = TetraTech.TTProjetPlus.Views.Home
+@{
+    ViewBag.Title = "CustomersNumberNamePartial";
+}
+
+<style>
+    /*tr:hover {
+        background-color: lightyellow;
+    }*/
+</style>
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="panel pagination-grey clearfix m-b-0">
+        <div id="data-table_wrapper2" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+            <table id="data_projectsList" class="table table-bordered  data-table  dataTable" style="width: 100%; margin-top:-50px ">
+                <thead id="tableHeaderGP">
+                    <tr class="grey" role="row">
+                    <tr class="grey" role="row">
+
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width: 50%">
+                            @Resources.informations.IDProject
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 50%">
+                            @Resources.informations.mp_title
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+
+                        <tr>
+                            <td style="text-align: left;width: 50%">
+                                @item.Value
+                            </td>
+                            <td style="text-align: left;width: 50%">
+                                @item.Name
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+else
+{
+    if (Model == null)
+    {
+        @Html.Partial("Error")
+    }
+    else
+    {
+    <span> @Resources.informations.mp_null</span>
+    }
+}
+<script>
+    $(document).ready(function () {
+        //   $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+
+        $('#data_projectsList').DataTable({
+            "order": [[1, "asc"]],
+            "language": {
+                "url": '@Session["lang"].ToString()' == 'fr' ? "/Content/assets/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+            }
+        });
+        //   $('#data_projectManagerName').DataTable().draw();
+
+    });
+    $('#data_projectsList tbody tr  td').on('click', function () {
+        $("#MasterProjectNumber").val(($(this).closest('tr').children()[0].textContent).trim());
+    });
+
+
+</script>
+
+

@@ -1,0 +1,267 @@
+﻿@model TetraTech.TTProjetPlus.Models.ResultModel
+<style>
+    #data_searchList {
+        width: 100% !important;
+    }
+
+        #data_searchList td {
+            width: auto !important;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        #data_searchList th {
+            width: auto !important;
+            white-space: normal;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+  
+
+</style>
+
+<p>
+    Elapsed time : @Model.elapsedTime seconds . Note: une validation d'accès sera exécutée lorsque vous voudrez consulter un fichier.
+</p>
+
+@if (Model != null)
+{
+
+<div class="panel pagination-grey" style="padding-top:40px">
+    <div id="data-table_wrapper2" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+        <table id="data_searchList" class=" table table-bordered  data-table  dataTable display" style="margin-top:-50px ;width:100%; font-size:12px">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Path</th>
+                    <th>File</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var index = 1;
+                }
+                @for (int i = 0; i < Model.result2.Count() ; i++)
+                {
+                <tr>
+                    <td style="text-align: left;">
+                        
+                        @(index)
+                    </td>
+                    <td style="text-align: left;">
+                        @if (Model.result2[i].fileName == "sansObjet")
+                        {
+                        <span>
+
+                            <i class="fa fa-folder"></i>&nbsp;&nbsp;<a href="#" id="path_@(index++)" onclick="checkPermission( this.id)">@Model.result2[i].parentFolder</a>
+                        </span>
+
+                        }
+                        else
+                        {
+                            
+                            
+                        <span>
+
+                            <i class="fa fa-file"></i>&nbsp;&nbsp;<a href="#" id="path_@(index++)" onclick="checkPermission( this.id)">@Model.result2[i].parentFolder</a>
+                        </span>
+
+
+                                }
+</td>
+                    <td style="text-align: left;">
+
+                        @Model.result2[i].fileName
+
+                    </td>
+
+                </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <span id="path"></span>
+    <div style="display:none" id="levelUp">
+        <button onclick="levelUp()">One level up</button>
+    </div>
+    <div id="tree" style="height:300px; overflow:auto">
+
+    </div>
+    
+</div>
+    }
+
+else
+{
+
+    <span>Sorry...no resultsfor this query!</span>
+}
+<script>
+    var currentPath = "";
+    $(document).ready(function () {
+        $('#data_searchList').DataTable();
+
+
+    });
+   
+  
+
+
+    $('#data_searchList thead').on('keyup', ".column_search", function () {
+
+        $('#data_searchList').DataTable()
+            .column($(this).parent().index())
+            .search(this.value)
+            .draw();
+    });
+
+
+ ////////////////////////////////////////
+    @*function OpenAnExternalFile(fileName) {
+                    window.location.href = '@Url.Action("createBatchFile", "TTIndex")?folderLocation=' + fileName;
+
+    }*@
+
+    function checkPermission(id) {
+        currentPath = $('#' + id).text();
+        $("#levelUp").hide();
+        $("#folderName").html("");
+        $("#tree").html('');
+            $.ajax({
+            type: 'GET',
+            url: '@Url.Action("checkPermission", "TTIndex")',
+            dataType : "json",
+            data:
+            {
+                pathToCheck: $('#' + id).text(),
+                levelUp: false
+
+            },
+                    success: function (response) {
+
+                        if (response.result == "false") {
+                            $("#folderName").html($('#' + id).text());
+                            $("#accessDeniedModal").modal('show');
+                        }
+                        else {
+                                      $.ajax({
+            type: 'GET',
+            url: '@Url.Action("returnTree", "TTIndex")',
+            dataType : "json",
+            data:
+            {
+                path: $('#' + id).text(),
+                levelUp: false
+
+            },
+                                          success: function (response) {
+                                             
+                                              $("#levelUp").show();
+                                              $("#path").html("")
+                                              $("#tree").html(response.result);
+                                              $("#path").html("Displaying content of folder: " + $('#' + id).text())
+            },
+            error: function () {
+
+            }
+        });
+                        }
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+    function levelUp() {
+
+            $.ajax({
+            type: 'GET',
+            url: '@Url.Action("returnTree", "TTIndex")',
+                dataType: "json",
+                timeout: 10000000,
+            data:
+            {
+                path: currentPath,
+                levelUp : true
+
+            },
+                success: function (response) {
+              currentPath = response.newPath;
+              $("#levelUp").show();
+                    $("#tree").html("");
+                    $("#tree").html(response.result);
+                    $("#path").html("Displaying content of folder: " + currentPath)
+            },
+                error: function (response) {
+                    alert(response.status + " " + response.statusText);
+                }
+        });
+    }
+
+    function displaySubDirContent(id)
+    {
+            $.ajax({
+            type: 'GET',
+            url: '@Url.Action("returnTree", "TTIndex")',
+                dataType: "json",
+                timeout: 10000000,
+            data:
+            {
+                path: id,
+                levelUp : false
+
+            },
+                success: function (response) {
+              currentPath = response.newPath;
+                    $("#levelUp").show();
+                    $("#path").html("");
+                    $("#tree").html("");
+                   
+                    $("#tree").html(response.result);
+                    $("#path").html("Displaying content of folder: " + id)
+            },
+                error: function (response) {
+                    alert(response.status + " " + response.statusText);
+                }
+        });
+    }
+
+
+
+    function displayDoc(currentPath) {
+        var arrayT = currentPath.split('|');
+        var finalPath = '';
+        for (let i = 0; i < arrayT.length; i++) {
+            if (arrayT[i] == 'Projets') arrayT[i] = ''
+            if (arrayT[i] == 'E$') arrayT[i] = 'Projets'
+            else if (arrayT[i] == 'F$') arrayT[i] = 'Projets1'
+            else if (arrayT[i] == 'I$') arrayT[i] = 'Projets2'
+                finalPath += arrayT[i] + "\\";
+        }
+        alert(finalPath.substring(0, finalPath.length - 1))
+                $.ajax({
+            type: 'GET',
+            url: '@Url.Action("downloadDoc", "TTIndex")',
+            traditional: true,
+            dataType: "json",
+            data:
+            {
+                path: finalPath.substring(0, finalPath.length - 1)
+            },
+                    success: function (response) {
+                        if (response.result == "success")
+                            alert("success!")
+                        else {
+                            alert("failed!")
+                        }
+            },
+            error: function () {
+
+            }
+        });
+    }
+   
+</script>

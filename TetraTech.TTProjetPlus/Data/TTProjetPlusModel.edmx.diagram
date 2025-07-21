@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6ee0d01c53dd4166a2724ea23e2f7709" Name="Diagram1">
+        <EntityTypeShape EntityType="TTProjetPlusModel.Acct_Group" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Client_Billing_Shipping_Address" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Company" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Contract_Type" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Currency" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Customer" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Doc_Status" Width="1.5" PointX="2.875" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Office_Address" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Phase_Code_Type" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Program" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Status" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.TTProjetPlus_Error_Log" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.TTProjetSecurity" Width="1.5" PointX="6.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Work_Type" Width="1.5" PointX="8.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.C__initiatedBy" Width="1.5" PointX="10.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.C__LastModifUser" Width="1.5" PointX="10.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.C__SMprojet" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.C__Vprojet" Width="1.5" PointX="6.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.OS_Project_2020_05_25" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Program_old" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.OS_Project" Width="1.5" PointX="3.375" PointY="9.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.ProjectsToClose" Width="1.5" PointX="15.375" PointY="3.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.EmployeeActif_Inactive" Width="1.5" PointX="15.375" PointY="7.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Acct_Center" Width="1.5" PointX="9.375" PointY="15.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Acct_Group_Center_Email" Width="1.5" PointX="15.375" PointY="12.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.activite" Width="1.5" PointX="15.75" PointY="15.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.agence" Width="1.5" PointX="17.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.droit" Width="1.5" PointX="17.75" PointY="3.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.panier_fiche" Width="1.5" PointX="21.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.pay" Width="1.5" PointX="21.75" PointY="3.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.phototheque" Width="1.5" PointX="21.75" PointY="6.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.pole" Width="1.5" PointX="21.75" PointY="9.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.province" Width="1.5" PointX="21.75" PointY="12.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.type_mission" Width="1.5" PointX="21.75" PointY="15.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.type_unite" Width="1.5" PointX="21.75" PointY="18.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.utilisateur" Width="1.5" PointX="0.75" PointY="22.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.ville" Width="1.5" PointX="2.75" PointY="22.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.TTIndex_Trees_Doc_Proj" Width="1.5" PointX="14.375" PointY="22.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.TTIndex_FilesExtensions" Width="1.5" PointX="9.375" PointY="3.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.TTIndex_FilesListDetails_auto" Width="1.5" PointX="24.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.TTIndex_FilesListDetails_auto_withSecurity" Width="1.5" PointX="22.375" PointY="22.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.OpeningProject" Width="1.5" PointX="24.375" PointY="4.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Distribution_Rule" Width="1.5" PointX="24.375" PointY="15.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Work_Location" Width="1.5" PointX="24.375" PointY="18.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.fiche" Width="1.5" PointX="5.375" PointY="18.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.fiche_en_forcart" Width="1.5" PointX="18.375" PointY="6.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.fiche_esp_forcart" Width="1.5" PointX="7.375" PointY="18.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.fiche_forcart" Width="1.5" PointX="9.375" PointY="18.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Boomerang_tempFicheLang" Width="1.5" PointX="11.375" PointY="22.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Discipline" Width="1.5" PointX="24.75" PointY="21.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Discipline_ADGroup" Width="1.5" PointX="24.75" PointY="24.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Discipline_Admin" Width="1.5" PointX="0.75" PointY="25.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Discipline_Logs" Width="1.5" PointX="2.75" PointY="25.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.DocProj" Width="1.5" PointX="13.75" PointY="25.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.DocProj_ADGroup" Width="1.5" PointX="15.75" PointY="25.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.DocProj_Admin" Width="1.5" PointX="26.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.panier" Width="1.5" PointX="15.375" PointY="18.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Projets_Litige" Width="1.5" PointX="11.375" PointY="19.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.C_____Emp_all_BPR" Width="1.5" PointX="26.75" PointY="3.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.C_____Emp_all_BPRFinal" Width="1.5" PointX="26.75" PointY="8.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.C__BUP" Width="1.5" PointX="26.75" PointY="11.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.C_From_GP" Width="1.5" PointX="26.75" PointY="14.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.AssClient" Width="1.5" PointX="20.75" PointY="26.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.ExpenditureMethod" Width="1.5" PointX="27.75" PointY="19.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.FeesMethod" Width="1.5" PointX="27.75" PointY="22.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.fiche_en_forcart_old" Width="1.5" PointX="22.75" PointY="27.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.fiche_en_old" Width="1.5" PointX="24.75" PointY="27.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.fiche_esp_forcart_old" Width="1.5" PointX="27.75" PointY="25.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.fiche_esp_old" Width="1.5" PointX="13.75" PointY="28.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.fiche_forcart_old" Width="1.5" PointX="15.75" PointY="28.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.fiche_old" Width="1.5" PointX="29.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.myProjFinal" Width="1.5" PointX="0.75" PointY="29.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.OpeningProject_InfoClient" Width="1.5" PointX="2.75" PointY="29.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.OpeningProject_Task" Width="1.5" PointX="31.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.OS_Project_old" Width="1.5" PointX="31.75" PointY="6.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.User_ADGroup" Width="1.5" PointX="31.75" PointY="16.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.C__initiatedByFinal" Width="1.5" PointX="31.75" PointY="19.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.C__Job00111" Width="1.5" PointX="31.75" PointY="24.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.C__LastModifUserFinal" Width="1.5" PointX="31.75" PointY="28.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.C__SubmitByFinal" Width="1.5" PointX="33.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.OS_Project_GP" Width="1.5" PointX="33.75" PointY="3.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.OS_Project2_BK_2020_09_02" Width="1.5" PointX="33.75" PointY="8.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.OS_Project2_BK_2020_09_03" Width="1.5" PointX="33.75" PointY="18.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.TTIndex_ElasticSearch" Width="1.5" PointX="33.75" PointY="28.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.TTIndex_FilesListDetails" Width="1.5" PointX="29.75" PointY="33.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.TTIndex_FilesListDetailsTest" Width="1.5" PointX="33.75" PointY="31.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.TTIndex_FilesListDetailsTest2" Width="1.5" PointX="2.75" PointY="34.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.TT_EmployeesPermissions" Width="1.5" PointX="32.375" PointY="34.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Gestion10Conf" Width="1.5" PointX="34.375" PointY="34.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Gestion10Conf_ADGroup" Width="1.5" PointX="36.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Gestion10Conf_Admin" Width="1.5" PointX="36.375" PointY="3.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.OS_Project_Env" Width="1.5" PointX="36.375" PointY="6.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Gestion10ConfTQE" Width="1.5" PointX="36.375" PointY="9.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Gestion10ConfTQE_ADGroup" Width="1.5" PointX="36.375" PointY="12.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.Gestion10ConfTQE_Admin" Width="1.5" PointX="36.375" PointY="15.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.GestionGroupeAD" Width="1.5" PointX="36.375" PointY="18.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.GestionGroupeAD_ADGroup" Width="1.5" PointX="36.375" PointY="21.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.GestionGroupeAD_Admin" Width="1.5" PointX="36.375" PointY="24.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.SatisfactionClient" Width="1.5" PointX="36.375" PointY="27.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.tbl_Excel_SatisfactionClient" Width="1.5" PointX="36.375" PointY="33.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.SatisfactionClient_TQE" Width="1.5" PointX="36.75" PointY="36.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.tbl_Excel_SatisfactionClient_TQE" Width="1.5" PointX="0.75" PointY="37.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.ProjetSecuriser_GroupAD" Width="1.5" PointX="30.375" PointY="37.75" />
+        <EntityTypeShape EntityType="TTProjetPlusModel.ProjetSecuriser_Manager" Width="1.5" PointX="32.375" PointY="37.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

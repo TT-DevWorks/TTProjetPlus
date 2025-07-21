@@ -1,0 +1,55 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.ManageADGroupMembers.ManageADRessources 
+@using GlobalResources = Resources.TTProjetPlusResource
+@using TetraTech.TTProjetPlus.Models 
+@model EmployeeADGroup
+@{ 
+    var ee = ViewData.ModelState;
+}
+@if (!string.IsNullOrEmpty(Model.SelectedGroup))
+{    
+<div class="panel panel-default">
+<div class="panel-heading tt-h3-darkblue"> @Resources.AddEmployee </div>
+<div class="panel-body">
+    @using (Html.BeginForm("AddEmployeeToADGroup", "ManageADGroupMembers", FormMethod.Post, new { @id = "form-AddEmployeeToGroup" }))
+    { 
+        <div class="row">
+        <div class=" col-sm-9">
+              <div class="input-group "> 
+               @Html.EditorFor(model => model.SelectedEmployeeName, new { htmlAttributes = new {@id="txtEmployeeNameToAdd", @class = "form-control selected-employee" },placeholder="@Resources.Employee", @readonly="readonly" ,style="background-color:transparent;"})
+                <div id="btnOpenEmployeesForModalSearch" class="input-group-addon"> <i class="fa fa-search"></i>  </div>
+            </div>   
+        </div>
+
+         <div class=" col-sm-3"> <input type="submit" value="@Resources.Add" class="btn btn-primary btn-block" /></div>  
+        </div>
+         @Html.HiddenFor(model => model.SelectedGroup)
+         @Html.HiddenFor(model => model.SelectedEmployeeNumber, new { @id = "txtEmployeeNumberToAdd", @class="selected-employee" }) 
+         @Html.ValidationSummary() 
+    } 
+</div> 
+</div>   
+  
+
+ <script> 
+$(document).ready(function () {  
+    if("@Model.OperationStatus.Status"=="True") {  
+        refreshDetailsGroupMembersSection('@Model.SelectedGroup');
+        $(".details-messages.alert-success span").text("@Html.Raw(Model.OperationStatus.Message)");
+        $(".details-messages.alert-success").show().delay(2000).slideUp( 300 );  
+    }
+}); 
+$('#btnOpenEmployeesForModalSearch').click(function () {  
+    $("#form-AddEmployeeToGroup").resetValidation(); //site.js function
+    $(".selected-employee").val("");
+    OpenEmployeesForModalSearch();
+}); 
+
+$("#form-AddEmployeeToGroup").on('submit', function (e) {  
+    e.preventDefault(); 
+    var form =$(this); var action = form.attr("action"); var data = form.serialize();  
+    $.post(action, data, function (result) {   
+        $("#AddEmployeeToGroupSection").html(result);   
+    }); 
+})  
+</script>
+}

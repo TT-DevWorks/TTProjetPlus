@@ -1,0 +1,510 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.TTProjet
+@using Resources2 = TetraTech.TTProjetPlus.Views.FolderStructure
+@using TetraTech.TTProjetPlus.Services
+@using TetraTech.TTProjetPlus.Security
+
+
+
+@{
+    /**/
+
+    ViewBag.Title = "TTProjet";
+}
+@{
+    var currentUser = UserService.CurrentUser;
+    var employeeSatus = FileUploadService.IsEmplopyeeAdmin(currentUser.EmployeeId);
+}
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<style>
+    /* Style the list */
+
+</style>
+<div class="container " style="height: 200vh;">
+    <div class="main">
+        <div class="row">
+            <div style="padding:5px; float:right; color:white">
+                <a href="@Url.Action("ChangeLanguage", "TTProjet", new { lang = "en" })" style="color:white">En</a> |
+                <a href="@Url.Action("ChangeLanguage", "TTProjet", new { lang = "fr" })" style="color:white">Fr</a>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel-body">
+                        <span style="display:inline; "><a href="@Url.Action("Index", "TTProjet")" style="color:white ; font-weight: bold; font-size: 18px;">TT Projet +  </a></span>
+                        <span style="display:inline; float:right">
+                            @if (Session["lang"].ToString() == "fr")
+                            {
+                                <a href="http://ttprojetplus.tetratech.com/Guide_Utilisateur_TT_Projet_Plus_FR.pdf" style="color:white;font-weight: bold; font-size: 18px;" target="_blank">@Resources.TTProjet.UserGuide</a>
+                            }
+                            else
+                            {
+                                <a href="http://ttprojetplus.tetratech.com/Guide_Utilisateur_TT_Projet_Plus_EN.pdf" style="color:white;font-weight: bold; font-size: 18px;" target="_blank">@Resources.TTProjet.UserGuide</a>
+                            }
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                @if (ViewBag.IE == "true")
+
+                {
+                    <div class="col-sm-12">
+                        <div class="panel panel-primary" style="border-radius: 10px">
+                            <div class="panel-body" style="margin:15px;">
+                                <div class="row">
+                                    <p>
+                                        <strong>@Resources.TTProjet.IEUser</strong>
+                                    </p>
+                                    <p>
+                                        <strong>
+                                            @Resources.TTProjet.IEWarning
+                                        </strong>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                else
+                {
+                    <div class="col-sm-12">
+                        <div class="panel-body">
+                            <div class="">
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse1">@Resources.TTProjet.General</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse1" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("Index", "ModeleSelection")">
+                                                    <span>@Resources.TTProjet.SelectionModelManagement</span>
+                                                </a>
+
+                                            </div>
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("Index", "FolderStructure")">
+                                                    <span>@Resources.TTProjet.ModifyFolderStructure</span>
+                                                </a>
+                                            </div>
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("Index", "LecteurReseau")">
+                                                    <span>@Resources.TTProjet.ConnectDrive</span>
+                                                </a>
+                                            </div>
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("IndexSpecial", "LecteurReseau")">
+                                                    <span>@Resources.TTProjet.ConnecSpecialDrive</span>
+                                                </a>
+                                            </div>
+                                            @if (employeeSatus == 1)
+                                            {
+                                                <div class="panel-body">
+                                                    <a href="@Url.Action("Index", "FileUpload")">
+                                                        <span>@Resources.TTProjet.fileUpload</span>
+                                                    </a>
+                                                </div>
+                                            }
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse2">@Resources.TTProjet.Advanced</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse2" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("Index", "Customer")">
+                                                    <span>
+                                                        @Resources.TTProjet.AddCustomer
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("TTProjetFolderStructure", "TTProjet")">
+                                                    <span>@Resources.TTProjet.CreateFolderStructure</span>
+                                                </a>
+                                            </div>
+                                            @*<div class="panel-body">
+                        <a href="@Url.Action("Index", "ManageADGroupMembers")">
+                            <span>@Resources.TTProjet.ManageADGroupTitle</span>
+                        </a>
+                    </div>*@
+                                            @*<div class="panel-body">@Resources.TTProjet.TransferProposituon</div>*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse3">@Resources.TTProjet.Administration</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse3" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("index2", "ArchiveProjet")">
+                                                    <span>@Resources.TTProjet.ArchiveProject</span>
+                                                </a>
+                                            </div>
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("index", "ArchiveProjet")">
+                                                    <span>@Resources.TTProjet.ArchiveProject1</span>
+                                                </a>
+                                            </div>
+
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("Index", "Securite")">
+                                                    <span>
+                                                        @Resources.TTProjet.CreateNumberAccessManagement
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            @*<div class="panel-body">
+            <a href="@Url.Action("Index", "ManageDirectoryRights")">
+                <span>
+                    @Resources.TTProjet.ManageDirectoryRight
+                </span>
+            </a>
+        </div>*@
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("Index", "GestionProjetSecuriser")">
+                                                    <span>
+                                                        @Resources.TTProjet.MangeProjetSecuriser
+                                                    </span>
+                                                </a>
+                                            </div>
+
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("Index", "Gestion10ConfTQE")">
+                                                    <span>
+                                                        @Resources.TTProjet.Manage10ConfTQE
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("Index", "Gestion10Conf")">
+                                                    <span>
+                                                        @Resources.TTProjet.Manage10Conf
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("Index", "EnvVerifDiligente")">
+                                                    <span>
+                                                        @Resources.TTProjet.ListProjetEnvDiligente
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("SatisfactionClient", "TTProjet")">
+                                                    <span>
+                                                        @Resources.TTProjet.ProcessusSatisfactionClient
+                                                    </span>
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse4">@Resources.TTProjet.DisciplinesManagement</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse4" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("Index", "Disciplines")">
+                                                    <span> @Resources.TTProjet.DisciplinesUsersManagement</span>
+                                                </a>
+                                            </div>
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("ListeAdmin", "Disciplines")">
+                                                    <span>@Resources.TTProjet.DisciplinesAdminList</span>
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse5">@Resources.TTProjet.TTProjetRepport</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse5" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <a href="http://ttqcrapports.tetratech.com/ReportServer/Pages/ReportViewer.aspx?%2fTTProjet%2fTreeTTProjet&Mod_id=10&rs:Format=PDF">
+                                                    <span> @Resources.TTProjet.FolderStructure10</span>
+                                                </a>
+                                            </div>
+                                            <div class="panel-body">
+                                                <a href="http://ttqcrapports.tetratech.com/ReportServer/Pages/ReportViewer.aspx?%2fTTProjet%2fTreeTTProjet&Mod_id=11&rs:Format=PDF">
+                                                    <span>@Resources.TTProjet.FolderStructure11</span>
+                                                </a>
+                                            </div>                                         
+                                            <div class="panel-body">
+                                                <a href="http://ttqcrapports.tetratech.com/ReportServer/Pages/ReportViewer.aspx?%2fTTProjet%2fTreeTTProjet&Mod_id=20&rs:Format=PDF">
+                                                    <span>
+                                                        @Resources.TTProjet.FolderStructure20
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="panel-body">
+                                                <a href="http://ttqcrapports.tetratech.com/ReportServer/Pages/ReportViewer.aspx?%2fTTProjet%2fTreeTTProjet&Mod_id=30&rs:Format=PDF">
+                                                    <span>
+                                                        @Resources.TTProjet.FolderStructure30
+                                                    </span>
+                                                </a>
+                                            </div>
+
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("FolderStructureForProject", "TTProjet", new { displayRetourP = ViewBag.displayRetourP, menuVisible = ViewBag.MenuVisible })">
+                                                    <span>
+                                                        @Resources.TTProjet.FolderStructureForAProject
+                                                    </span>
+                                                </a>
+                                            </div>                                           
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("RapportSatisfactionClient", "TTProjet")">
+                                                    <span>
+                                                        @Resources.TTProjet.RapportSatisfactionClient
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse6">@Resources.TTProjet.Projects</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse6" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("Index", "Home")">
+                                                    <span> @Resources.TTProjet.GenerateProjectNumber</span>
+                                                </a>
+                                            </div>
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("Index", "ListeOffres")">
+                                                    <span> @Resources.TTProjet.OffersList</span>
+                                                </a>
+                                            </div>
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("IndexProjet", "ListeOffres")">
+                                                    <span>@Resources.TTProjet.ProjectsList</span>
+                                                </a>
+                                            </div>
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("Index", "InfoProjet")">
+                                                    <span>
+                                                        @Resources.TTProjet.InfoProject
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            @*<div class="panel-body">
+                        <a onclick="OPMOdal()">
+                            <span>
+                                @Resources.TTProjet.ProjectOpening
+                            </span>
+                        </a>
+                    </div>*@
+                                            <div class="panel-body">
+                                                <a href="@Url.Action("Index", "ProjectToClose")">
+                                                    <span>
+                                                        @Resources.TTProjet.ProjectToCloseTitle
+                                                    </span>
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                @*pas mis en qa/prod le 20 avril 2022 :*@
+                                @*<div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse7">@Resources.TTProjet.projectSheet</a>
+                    </h4>
+                </div>
+                <div id="collapse7" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <a href="@Url.Action("Home", "Boomerang")">
+                            <span> @Resources.TTProjet.sheetsManagement</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+                            @if (ViewBag.isAdminInfo == true)
+                            {
+
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapseInfo">@Resources.TTProjet.info</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseInfo" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <a href="@Url.Action("Index", "AdditionaInfo")">
+                                                <span>
+                                                    @*@Resources.TTProjet.Managers*@
+                                                    Liste des gestionnaires de projet et de programme
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="panel-body">
+                                            <a href="@Url.Action("Index", "TDT_PSWListe_BD")">
+                                                <span>
+                                                    Liste des mots de passe pour les tables de taux
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="panel-body">
+                                            <a href="@Url.Action("Index", "TDT_PSWPermission")">
+                                                <span>
+                                                    Liste des permissions pour les tables de taux
+                                                </span>
+                                            </a>
+                                        </div>
+
+                                        <div class="panel-body">
+                                            <a href="@Url.Action("Index", "SaisieTemporaire")">
+                                                <span>
+                                                    Saisies temporaires
+                                                </span>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            }
+
+
+
+
+                                @if (ViewBag.isAdminTI == true)
+                                {
+                                    <div class="panel-group">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" href="#collapse8">@Resources.TTProjet.TITools</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse8" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <a href="@Url.Action("IndexActiverProjet", "TTProjet")">
+                                                        <span>
+                                                            @Resources.TTProjet.ActiverProjet
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <a href="@Url.Action("IndexAdmin", "Admin")">
+                                                        <span> @Resources.TTProjet.cancelProjectClosing</span>
+                                                    </a>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <a href="@Url.Action("Index2", "FolderStructure")">
+                                                        <span>
+                                                            @Resources2.FoldStructRessource.ChangeServer
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <a href="@Url.Action("Index", "SecurityProjectEquivalence")">
+                                                        <span>
+                                                            @Resources.TTProjet.ProjectEquivalence
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <a href="@Url.Action("Index", "Litige")">
+                                                        <span>
+                                                            @Resources.TTProjet.LitigeManagement
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <a href="@Url.Action("Index", "ProjetSecuriser")">
+                                                        <span>
+                                                            @Resources.TTProjet.SecureProjetSecuriser
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <a href="@Url.Action("Index", "GestionGroupeAD")">
+                                                        <span>
+                                                            Gestion Groupe AD
+                                                        </span>
+                                                    </a>
+                                                </div>
+
+                                                <div class="panel-body">
+                                                    <a href="@Url.Action("Index", "LocalBPR")">
+                                                        <span>
+                                                            @Resources.TTProjet.EmployeeInfos
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <a href="@Url.Action("Index3", "FolderStructure")">
+                                                        <span>
+                                                            @Resources.TTProjet.Security60Conf
+                                                        </span>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+        $(document).ready(function () {
+            var selectedPanel = "@ViewBag.SelectedPanel";
+
+            if (selectedPanel) {
+                $("#" + selectedPanel).addClass("show");  
+                $("#" + selectedPanel).collapse("show");
+            }
+    });
+</script>
+
+
+
+
+

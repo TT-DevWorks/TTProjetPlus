@@ -1,0 +1,71 @@
+﻿@model  TetraTech.TTProjetPlus.Models.FicheModel
+@using res = TetraTech.TTProjetPlus.Views.Boomerang.fiche
+
+
+
+    <h3 class="importantDiv"> > @Model.ficheDetails.libelle_activite</h3>
+    <h3 class="importantDiv"><b> @Model.ficheDetails.intitule.ToUpper()</b></h3>
+
+    <p class="importantDiv lpp">@Model.ficheDetails.localisation - @Model.ficheDetails.libelle_province (@Model.ficheDetails.libelle_pays)</p>
+   
+    <div class="square">
+        <p >@Model.ficheDetails.client_nom</p>
+        <p >@Model.ficheDetails.mois_debut/@Model.ficheDetails.annee_debut - @Model.ficheDetails.mois_fin/@Model.ficheDetails.annee_fin</p>
+        <p >@Model.ficheDetails.montant_operation $</p>
+    </div>
+<div class="down">
+    <h4 >Description du projet</h4>
+    <div class="centuryGothic">
+        @Html.Raw(Model.texteDesc)
+    </div>
+
+    <h4>Particularités du projet</h4>
+    <div class="centuryGothic">
+        @Model.ficheDetails.particularite
+    </div>
+
+    <h4>Services</h4>
+    <div class="centuryGothic">
+        @Model.services
+    </div>
+
+    <h4>
+        Disciplines
+    </h4>
+    <div class="centuryGothic">
+        @Model.ficheDetails.mission
+    </div>
+
+    <h4>
+        Client
+    </h4>
+    <div class="centuryGothic">
+        @Model.ficheDetails.client_adresse
+    </div>
+
+    <h4>
+        Contact
+    </h4>
+    <div class="centuryGothic">
+        @Model.ficheDetails.contact_nom
+    </div>
+
+    <h4>
+        Architecte
+    </h4>
+    <div class="centuryGothic">
+        @Model.ficheDetails.architecte
+    </div>
+
+
+    <h4>
+        Conducteur d'opération
+    </h4>
+    <div class="centuryGothic">
+        @Model.ficheDetails.conducteur_operation
+    </div>
+
+
+
+
+</div>

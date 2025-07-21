@@ -1,0 +1,225 @@
+﻿@*@model TetraTech.TTProjetPlus.Models.ServeurInfo*@
+@model string[]
+@using Resources = TetraTech.TTProjetPlus.Views.LecteurReseau
+@using Resources2 = TetraTech.TTProjetPlus.Views.ModeleSelection
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Controllers
+@using TetraTech.TTProjetPlus.Services
+@using TetraTech.TTProjetPlus.Security
+
+
+@{
+    ViewBag.Title = "Lecteur réseau";
+}
+@{
+    var currentUser = UserService.CurrentUser;
+    var employeeSatus = FileUploadService.IsEmplopyeeAdmin(currentUser.EmployeeId);
+}
+
+
+<style>
+
+    #main-container {
+        width: 600px;
+        margin: 150px auto;
+    }
+
+    .inputWidth {
+        width: 100%;
+    }
+
+    .inputWidth2 {
+        width: 50%;
+        display: inline
+    }
+
+    .inputWidth3 {
+        width: 60%;
+        display: inline
+    }
+
+    .redText {
+        color: red;
+    }
+
+    #loading {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        display: block;
+        opacity: 0.7;
+        background-color: #fff;
+        z-index: 99;
+        text-align: center;
+        display: none;
+    }
+
+    #loadingGIF2 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 100;
+    }
+
+  
+
+</style>
+
+
+<div id="loading">
+    <img id="loadingGIF2" src="~/Content/assets/img/ajax-loader.gif" alt="Loading..." />
+</div>
+<div class="container " style="height: 200vh; width: 100%">
+    <div class="main">
+        @if (ViewBag.MenuVisible == "true")
+        {
+
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-3" style="padding-top: -49px; ">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 75px">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                    <li style="color:white ; font-weight: bold"><a href="@Url.Action("Index", "ModeleSelection")"> @Resources2.ModeleSelectionManagementRessources.General </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 75px">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666" href="@Url.Action("Index", "ModeleSelection", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.ModelSelectionMng</a>
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666" href="@Url.Action("Index", "FolderStructure", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.ModifyStrucFolder</a>
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666; font-weight: bold" href="@Url.Action("Index", "LecteurReseau", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.ConnectADrive</a>
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666" href="@Url.Action("IndexSpecial", "LecteurReseau" , new { displayRetourS = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.ConnectASpecialDrive</a>
+                                        </li>
+
+                                        @if (employeeSatus == 1)
+                                        {
+                                            <li>
+                                                &bull;&nbsp;
+                                                <a style="color:#183666; " href="@Url.Action("Index", "FileUpload", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.fileUpload</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+        <div class="row">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary" style="border-radius: 10px; margin-top: -15px; margin-left: -10px">
+                        <div class="panel-body" style="margin:15px;">
+                                                        
+                            <p>
+                                <b> @Resources.LecteurReseauRessources.msgListeServeurs1  <i class="fa fa-copy"></i> @Resources.LecteurReseauRessources.msgListeServeurs2 </b>
+</p>                            
+                            <ul>
+                                @foreach (var item in Model)
+                                {
+
+                                    // Supprimer l'extension ".lnk" du chemin
+                                    var displayPath = item.EndsWith(".lnk") ? item.Substring(0, item.Length - 4) : item;
+
+
+                                    // Remplacer un mot dans la chaîne
+                                    displayPath = displayPath.Replace("prj_reg", "");
+                                    displayPath = displayPath.Replace("Prj_Reg", "");
+                                    displayPath = displayPath.Replace("Prj_reg", "");
+                                                                                                         
+                                    var customTitle = @Resources.LecteurReseauRessources.strMessage1 + displayPath + '\n'+ @Resources.LecteurReseauRessources.strMessage2;
+
+                                    displayPath = displayPath.Replace(@"\\etss349arc1.tt.local\Trans\Raccourcis_Projets\", "");
+
+                                    <li>
+                                         <i id="copyIcon_@item.GetHashCode()" class="fa fa-copy copyable" data-path="@item" title="@customTitle"></i>&nbsp;&nbsp;<span>@displayPath</span>
+                                     </li>
+
+                                }
+                            </ul>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- ------------------------------------------------------------------>
+
+
+<script>
+    $(document).ready(function () {
+        $("i.copyable").click(function () {
+            var path = $(this).data("path");
+            var tempInput = document.createElement("input");
+            tempInput.value = path;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            alert("Chemin copié : " + path);
+        });        
+    });
+
+
+    function returntoMenu()
+    {
+        window.location.href = "@Url.Action("Index", "TTProjet")";
+        }
+
+
+
+    function SubmitServerForm()
+    {
+      if ($('#serverAddress').val() == "")
+        {
+                $("#warningLR").show();
+                setTimeout(function () {
+                    $('#warningLR').fadeOut('slow');
+                }, 60000
+                )
+        }
+        else
+        {
+          window.location.href = '@Url.Action("createBatchFile", "LecteurReseau")?serverAddress=' + $('#serverAddress').val();
+
+       }
+
+   }
+    $(".close").click(function () {
+        $(".alert").hide();
+
+    });
+
+
+</script>

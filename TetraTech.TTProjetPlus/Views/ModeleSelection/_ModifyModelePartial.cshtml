@@ -1,0 +1,309 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.ModeleSelection
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Controllers
+@model TetraTech.TTProjetPlus.Models.NewSelectionModele
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+}
+<script type="text/javascript" src="~/Content/folderStucture/js/highchecktree.js"></script>
+<link href="~/Content/css/select2.css" rel="stylesheet" />
+<link href="~/Content/folderStucture/css/highCheckTree.css" rel="stylesheet" type="text/css">
+<script src="~/Scripts/select2.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+@* searchable *@
+@*<script type="text/javascript" src="~/Content/Searchable/jquery.searchabledropdown-1.0.8.min.js"></script>*@
+
+<style type="text/css">
+
+    #main-container {
+        width: 600px;
+        margin: 150px auto;
+    }
+
+    .inputWidth3 {
+        width: 60%;
+        display: inline
+    }
+
+    #tree-container label.hover {
+        color: red;
+    }
+
+    .redText {
+        color: red;
+    }
+</style>
+
+
+@*@using (Html.BeginForm("", "", null, FormMethod.Post, new { @class = "form-horizontal", id = "formModeleSelection" }))
+    {
+        @Html.AntiForgeryToken()*@
+<div id="loading">
+    <img id="loadingGIF2" src="~/Content/assets/img/ajax-loader.gif" alt="Loading..." />
+</div>
+
+<div class="">
+
+    <div style="">
+
+        <div class="panel panel-primary">
+            <div class="panel-body" style="margin:15px;">
+                <div class="row">
+                    <div class="">
+                        <div class="alert alert-warning" id="warningModify" hidden="hidden">
+                            <button type="button" class="close" data-hide="alert">&times;</button>
+                            <strong>@Resources.ModeleSelectionManagementRessources.message1</strong>
+                        </div>
+                        <div class="alert alert-warning" id="warningModifySpecialModele" hidden="hidden">
+                            <button type="button" class="close" data-hide="alert">&times;</button>
+                            <p><strong>@Resources.ModeleSelectionManagementRessources.message8a</strong></p>
+                            <p>@Resources.ModeleSelectionManagementRessources.message8b</p>
+                        </div>
+
+                        <div class="alert alert-success" id="successModify" hidden="hidden">
+                            <button type="button" class="close" data-hide="alert">&times;</button>
+                            <strong>@Resources.ModeleSelectionManagementRessources.message6</strong>
+                        </div>
+
+                        <div class="alert alert-danger" id="failedModify" hidden="hidden">
+                            <button type="button" class="close" data-hide="alert">&times;</button>
+                            <strong>@Resources.ModeleSelectionManagementRessources.message7</strong>
+                            <button data-toggle="collapse" data-target="#detailsFailModif">@Resources.ModeleSelectionManagementRessources.Details</button>
+                            <div id="detailsFailModif" class="collapse">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4 style="margin-top: 0px; color:#183666; font-family: 'Arial Bold'; font-size: 18pt;"><b>@Resources.ModeleSelectionManagementRessources.ModifyModel</b></h4>
+                    </div>
+                </div>
+                <div class="row" style="color:steelblue; font-size:initial">
+                    <div>
+                        <div class="form-group">
+                            <div class="col-sm-5">
+                                <div>
+                                    <div style="float:left;width: 100%">
+                                        @Html.DropDownListFor(m => m.modeleSelectionNameTomodify, new SelectList(" "), new { @class = "form-control select-modele2 select1" })
+                                    </div>
+                                </div>
+                                @Html.ValidationMessageFor(m => m.modeleSelectionNameTomodify, "", new { @class = "redText" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div style="margin:15px;">
+                        <p style="color:steelblue; font-size:initial" id="tree"></p>
+                        <div class="row" style="color:steelblue; font-size:initial">
+                            <div class="form-group">
+                                <div class="col-sm-12" style="height:200px;  overflow:scroll;">
+                                    <div id="">
+                                        <div id="treeContainerModify"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*}*@
+
+<script>
+
+    $(document).ready(function () {
+            $(".select-modele2").prepend("<option value='' disabled selected style='color:#ccc'>"+"@Resources.ModeleSelectionManagementRessources.ModeleNametoModify"+"*"+"</option>");
+
+        $("#tree").text("");
+        $("#treeContainerModify").html("");
+$.ajax({
+    url: '@Url.Action("returnModeleSelectionAll", "ModeleSelection")',
+     type: 'GET',
+
+    success:function(data)
+    {
+        $("#modeleSelectionNameTomodify").empty();
+        $("#modeleSelectionNameTomodify").append('<option value="">'+'@Resources.ModeleSelectionManagementRessources.ChooseModel'+'</option >');
+
+        $.each(data.ListAll, function (index, row) {
+            $("#modeleSelectionNameTomodify").append('<option value="'
+                + row.Value + '">'
+                + row.Name + '</option>');
+        });
+    } });
+});
+
+
+    $(function () {
+        $("[data-hide]").on("click", function () {
+            $(this).closest("." + $(this).attr("data-hide")).hide();
+        });
+    });
+
+
+//on change project: choose a server
+    $('#modeleSelectionNameTomodify').on('change', function () {
+        $('#warningModifySpecialModele').hide();
+        if ($('#modeleSelectionNameTomodify').val() != null)
+    {
+       $.ajax({
+                     type: 'GET',
+                      dataType: 'JSON',
+                      data: {
+                          modeleSelection: $("#modeleSelectionNameTomodify").val(),
+                         // modeleSelection: $("#selectionModel").val()
+                      },
+                     cache: false,
+                     url: '@Url.Action("returnStructureForModeleSelection", "ModeleSelection")',
+                      success: function (result)
+                      {
+
+                          if (result.status == "specialModele")
+                          {
+                              $("#tree").text("");
+
+                              $('#treeContainerModify').highCheckTree
+                                  ({
+                                      data: result.tree
+                                  });
+                              //message permanent
+                              $("#warningModifySpecialModele").show();
+                              setTimeout(function () {
+                                  $('#warningModifySpecialModele').fadeOut('slow');
+                              }, 60000
+                              );
+                              $('#divForTreeMod').show();
+                          }
+                          else
+                          {
+                              if ('@Session["lang"].ToString()' == 'fr') {
+                                  $("#tree").text('Cochez ou décochez les répertoires que vous désirez voir dans la structure de répertoires dans la liste suivante: ');
+                              }
+                              else {
+                                  $("#tree").text('Check or uncheck the directories you want to see in the directory structure from the following list:');
+                              }
+
+                              $('#treeContainerModify').highCheckTree
+                                  ({
+                                      data: result
+                                  });
+                              $('#divForTreeMod').show();
+                          }
+
+                      }
+                 });
+ }
+});
+
+    function SubmitForm() {
+
+    if ($('#modeleSelectionNameTomodify').val() == "") {
+        $("#warningModify").show();
+        setTimeout(function () {
+            $('#warningModify').fadeOut('slow');
+        }, 60000
+        )
+    }
+
+        else
+       {
+  var checkedNodes = [];
+        $('.checked').each(function () {
+         checkedNodes.push($(this).parent().attr('rel') + "/" + $(this).parent().find('label').first().text());
+     });
+        $('.half_checked').each(function () {
+            checkedNodes.push($(this).parent().attr('rel') + "/" + $(this).parent().find('label').first().text());
+        });
+
+        var checkedNodesToDelete = [];
+        $('.updated').each(function () {
+            if (!$(this).find('.checkboxTree').first().hasClass('checked')
+                &&
+                !$(this).find('.checkboxTree').first().hasClass('half_checked')) {
+                checkedNodesToDelete.push($(this).attr('rel') + "/" + $(this).parent().find('label').first().text());
+            }
+        });
+        $.ajax({
+    url: '@Url.Action("submitActionForModeleSelectionModif", "ModeleSelection")',
+     type: 'GET',
+     dataType: 'json',
+     traditional: true,
+     data: {
+         selectionModel: $("#modeleSelectionNameTomodify").val(),
+         listOfNodes: checkedNodes,
+         listOfNodeToDelete: checkedNodesToDelete
+     },
+    success:function(data)
+    {
+        if (data.result == "specialModele") {
+            $("#tree").text("");
+            $('#treeContainerModify').text("");
+            $('[rel="1"]').find('ul').css("display", "none");
+            $("#warningModifySpecialModele").show();
+            setTimeout(function () {
+                $('#warningModifySpecialModele').fadeOut('slow');
+            }, 60000
+            );
+        }
+        if (data.result == "success")
+        {
+            $('[rel="1"]').find('ul').css("display", "none");
+            $("#successModify").show();
+            setTimeout(function () {
+                $('#successModify').fadeOut('slow');
+            }, 60000
+            );
+
+        }
+       if (data.result == "failed")
+        {
+            $('[rel="1"]').find('ul').css("display", "none");
+           $("#failedModify").show();
+           $('#detailsFailModif').html("");
+           $('#detailsFailModif').html(data.details);
+
+        }
+
+        if (data.result == "notSubmitted")
+        {
+             $('[rel="1"]').find('ul').css("display", "none");
+            $("#warningModify").show();
+            setTimeout(function () {
+                $('#warningModify').fadeOut('slow');
+            }, 60000
+            );
+
+        }
+
+        $("#treeContainerModify").html("");
+        $("#tree").text("");
+        $("#modeleSelectionNameTomodify").val("")
+        $('#divForTreeMod').hide();
+        $(document).scrollTop($("#top2").offset().top);
+
+    }
+  });
+        }
+
+    }
+
+
+     function returntoMenu()
+    {
+        window.location.href = "@Url.Action("Index", "TTProjet")";
+    }
+
+        $(".close").click(function () {
+        $(".alert").hide();
+
+    });
+
+</script>

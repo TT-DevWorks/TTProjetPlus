@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" enableLocalization="true">
+
+  <mvcSiteMapNode title="Dashboard" controller="Dashboard" action="Index" description=""> 
+    <mvcSiteMapNode title="Projet" controller="Projet" action="Index" RouteParameters="id">
+      <mvcSiteMapNode title="Details" controller="Details" action="Index"  preservedRouteParameters="id,version">
+      </mvcSiteMapNode>
+    </mvcSiteMapNode>  
+  </mvcSiteMapNode>
+
+</mvcSiteMap>

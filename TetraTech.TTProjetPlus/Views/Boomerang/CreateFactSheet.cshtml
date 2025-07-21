@@ -1,0 +1,2036 @@
+﻿
+@{
+    ViewBag.Title = "Recherche";
+}
+@model TetraTech.TTProjetPlus.Models.BoomerangSearchModel
+@using Resources = TetraTech.TTProjetPlus.Views.InfoProjet
+@using ResourcesC = TetraTech.TTProjetPlus.Views.Boomerang.Creation
+
+@using Resources2 = TetraTech.TTProjetPlus.Views.ListeOffres
+@using ResourcesB = TetraTech.TTProjetPlus.Views.Boomerang.searchCriteria
+@using ResourcesF = TetraTech.TTProjetPlus.Views.Boomerang.fiche
+
+@using TetraTech.TTProjetPlus.Data
+
+@using TetraTech.TTProjetPlus.Models
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
+
+<style>
+    /*ol, ul {
+        margin-top: -5px;
+        margin-bottom: -6px;
+        padding-bottom: 4px;
+    }*/
+    .multiselect-selected-text {
+        float: left;
+    }
+
+    .btn .caret {
+        margin-left: 145px;
+    }
+
+    .input-group-addon {
+        display: none;
+    }
+
+    ul {
+        margin-bottom: -4px;
+    }
+
+    .dropdown-menu {
+        width: 600px;
+    }
+
+    .datepicker-dropdown {
+        width: 200px;
+    }
+
+    .multiselect-selected-text {
+        color: #999;
+    }
+
+    table {
+        font-size: 1em;
+    }
+
+
+        table.dataTable,
+        table.dataTable th,
+        table.dataTable td {
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+        }
+
+    .boom {
+        margin-bottom: 0px;
+        background-color: cyan;
+    }
+
+    .multiselect-selected-text {
+        float: left;
+    }
+
+    .multiselect-selected-text {
+        color: #5482ab;
+    }
+
+    .multiselect-container, gris {
+        color: deeppink;
+    }
+
+    .caret {
+        display: none;
+    }
+
+    .datepicker {
+        text-align: left;
+    }
+
+    .transparent {
+        background-color: transparent !important;
+        box-shadow: inset 0px 1px 0 rgba(0,0,0,.075);
+    }
+
+    .left-border-none {
+        border-left: none !important;
+        box-shadow: inset 0px 1px 0 rgba(0,0,0,.075);
+    }
+
+    .unit {
+        position: relative;
+        float: left;
+    }
+
+        .unit:after {
+            position: absolute;
+            right: 6px;
+            top: 7px;
+            content: '$';
+        }
+
+    .unit2 {
+        position: relative;
+        float: left;
+    }
+
+        .unit2:after {
+            position: absolute;
+            right: 6px;
+            top: 7px;
+            content: 'Nb';
+        }
+
+    .unit3 {
+        position: relative;
+        float: left;
+    }
+
+        .unit3:after {
+            position: absolute;
+            right: 6px;
+            top: 7px;
+            content: '';
+        }
+
+    input[type=number] {
+        height: 30px;
+        line-height: 30px;
+        font-size: 16px;
+        padding-right: 30px;
+    }
+
+    .specialBAT {
+        outline: solid;
+        outline-offset: -6px;
+        outline-color: hotpink;
+        outline-width: thin;
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+    fieldset.boomerang-border {
+        border: 1px groove cyan !important;
+        padding: 0 1.4em 1.4em 1.4em !important;
+        margin: 0 0 1.5em 0 !important;
+        -webkit-box-shadow: 0px 0px 0px 0px #000;
+        box-shadow: 0px 0px 0px 0px #000;
+    }
+
+    legend.boomerang-border {
+        font-size: 1.2em !important;
+        font-weight: bold !important;
+        text-align: left !important;
+        width: auto;
+        padding: 0 10px;
+        border-bottom: none;
+    }
+</style>
+<body style="">
+    <div class="form-horizontal">
+        <div id="top"></div>
+
+        <div class="container " style="height: 200vh; width: 100%">
+            <div class="main">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="panel" style="border-radius: 10px; width: 106%;">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                        <li><a style=" color:#183666; font-weight: bold" href="@Url.Action("Index", "Home")">@Resources2.ListeProjetsRessources.InfoProject</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="">
+                                <div class="panel" style="border-radius: 10px; ">
+                                    <div class="panel-body">
+                                        <ul class="list-inline">
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "Home")">@Resources2.ListeProjetsRessources.GenerateProjectNumber</a>
+
+                                            </li>
+
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "ListeOffres")">@Resources2.ListeProjetsRessources.OffersList</a>
+
+                                            </li>
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("IndexProjet", "ListeOffres")">@Resources2.ListeProjetsRessources.ProjectsList</a>
+
+                                            </li>
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "InfoProjet")">@Resources2.ListeProjetsRessources.InfoProject</a>
+
+                                            </li>
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "ProjectToClose")">@Resources2.ListeProjetsRessources.ProjectToCloseTitle</a>
+                                            </li>
+                                            @*<li>
+                                                &nbsp;&nbsp;&bull;
+                                                <a style="color:#183666;" href="@System.Configuration.ConfigurationManager.AppSettings["TTIndexUrl"]" target="_blank">@Resources2.ListeProjetsRessources.TTIndex</a>
+                                            </li>*@
+                                            <li>
+                                                &bull;&nbsp;
+                                                <a style="color: #183666; font-weight: bold;" href="@Url.Action("Home", "Boomerang")">@Resources2.ListeProjetsRessources.Boomerang</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="panel boom" style="border-radius: 1px;border:none; border-top-right-radius:10px;border-top-left-radius:10px; ">
+                        <div class="panel-body">
+                            <ul class="list-inline">
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Home", "Boomerang")">@ResourcesF.accueil</a>
+
+                                </li>
+
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "Boomerang")">@ResourcesF.recherche</a>
+
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color: #183666; font-weight: bold; " href="@Url.Action("CreateFactSheet", "Boomerang")">@ResourcesF.creation_fiche</a>
+
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666;" href="@Url.Action("Carts", "Boomerang")">@ResourcesF.paniers</a>
+
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Library", "Boomerang")">@ResourcesF.phototheque</a>
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Help", "Boomerang")">@ResourcesF.aide</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div style="height: 700px;">
+
+                                    <div class="panel panel-primary" style="border-radius: 1px;border:none; border-bottom-right-radius:10px;border-bottom-left-radius:10px;">
+                                        <div class="panel-body" style="">
+                                            @*<div class="row form-group" style="margin-top: 10px;">
+                                                    <div class=" col-lg-4">
+                                                        <select data-live-search="true" class="form-control selectpicker" id="id_activite" data-size="15">
+                                                            <option value="" selected style="font-size:14px">Expertises</option>
+                                                            <option value="all" style="font-size:14px;background-color:#004B8C;color:white">@ResourcesB.allExpertise</option>
+
+                                                            @foreach (ComplexItem item in Model.listItems)
+                                                            {
+
+                                                                if (item.libelle.Contains('*') == true)
+                                                                {
+                                                                    <option value="@item.id" style="background-color:@item.color;color:white; font-weight:bold">@item.libelle.Substring(1)</option>
+                                                                }
+
+                                                                else
+                                                                {
+                                                                    <option value="@item.id" style="background-color:@item.color;color:white">&nbsp;&nbsp;&nbsp;&nbsp;@item.libelle</option>
+
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>*@
+
+                                            <div class="row form-group">
+
+                                                <div class="col-lg-12">
+                                                    <fieldset class="boomerang-border">
+                                                        <legend class="boomerang-border">@ResourcesC.theSheet</legend>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.code:</span>
+                                                            </div>
+                                                            <div class="col-lg-6">
+
+                                                                @{
+                                                                    var code = "";
+                                                                    if (Model.fiche.ficheDetails != null)
+                                                                    {
+                                                                        code = Model.fiche.ficheDetails.code_affaire == "" ? "" : Model.fiche.ficheDetails.code_affaire;
+
+                                                                    }
+
+                                                                }
+                                                                <input type="text" class="form-control" name="code_affaire" id="code_affaire" size="14" value="@code" placeholder=" @ResourcesC.helpCode" />
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.expertise:</span>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <select data-live-search="true" class="form-control selectpicker" id="id_activite" data-size="15">
+                                                                    <option value="" selected style="font-size:14px">Expertises</option>
+                                                                    <option value="all" style="font-size:14px;background-color:#004B8C;color:white">@ResourcesB.allExpertise</option>
+
+                                                                    @foreach (ComplexItem item in Model.listItems)
+                                                                    {
+
+                                                                        if (item.libelle.Contains('*') == true)
+                                                                        {
+
+                                                                            if (Model.fiche.ficheDetails != null && Model.fiche.ficheDetails.id_pole == item.id)
+                                                                            {
+                                                                                <option selected value="@item.id" style="background-color:@item.color;color:white; font-weight:bold">@item.libelle.Substring(1)</option>
+
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="@item.id" style="background-color:@item.color;color:white; font-weight:bold">@item.libelle.Substring(1)</option>
+
+                                                                            }
+                                                                        }
+
+
+
+                                                                        else
+                                                                        {
+                                                                            if (Model.fiche.ficheDetails != null && Model.fiche.ficheDetails.id_pole == item.id)
+                                                                            {
+                                                                                <option selected value="@item.id" style="background-color:@item.color;color:white">&nbsp;&nbsp;&nbsp;&nbsp;@item.libelle</option>
+
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="@item.id" style="background-color:@item.color;color:white">&nbsp;&nbsp;&nbsp;&nbsp;@item.libelle</option>
+
+                                                                            }
+
+                                                                        }
+                                                                    }
+                                                                </select>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.localisation:</span>
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                @{
+                                                                    var loc = "";
+                                                                    if (Model.fiche.ficheDetails != null)
+                                                                    {
+                                                                        loc = Model.fiche.ficheDetails.autre_lieu == "" ? "" : Model.fiche.ficheDetails.localisation;
+
+                                                                    }
+
+                                                                }
+                                                                <input type="text" class="form-control" name="localisation" id="localisation" value="@loc" placeholder="@ResourcesC.localisation" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.province:</span>
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                <select data-live-search="true" class="form-control selectpicker" id="id_province" data-size="15">
+                                                                    <option value="" selected style="font-size:14px">@ResourcesC.chooseOneProvince</option>
+                                                                    @foreach (province item in Model.listeProvinces)
+                                                                    {
+                                                                        if (Model.fiche.ficheDetails != null && !string.IsNullOrEmpty(Model.fiche.ficheDetails.id_province))
+                                                                        {
+                                                                            if (ViewBag.Lang == "fr" || ViewBag.Lang == "" && Model.fiche.ficheDetails.id_province == item.id_province.ToString())
+                                                                            {
+                                                                                <option value="@item.id_province">@item.libelle</option>
+
+                                                                            }
+                                                                            else if (ViewBag.Lang == "en" && Model.fiche.ficheDetails.id_province == item.id_province.ToString())
+                                                                            {
+                                                                                <option value="@item.id_province">@item.libelle_en</option>
+                                                                            }
+                                                                            else if (ViewBag.Lang == "esp" && Model.fiche.ficheDetails.id_province == item.id_province.ToString())
+                                                                            {
+                                                                                <option value="@item.id_province">@item.libelle_esp</option>
+                                                                            }
+
+
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            if (ViewBag.Lang == "fr" || ViewBag.Lang == "")
+                                                                            {
+                                                                                <option value="@item.id_province">@item.libelle</option>
+
+                                                                            }
+                                                                            else if (ViewBag.Lang == "en")
+                                                                            {
+                                                                                <option value="@item.id_province">@item.libelle_en</option>
+                                                                            }
+                                                                            else if (ViewBag.Lang == "esp")
+                                                                            {
+                                                                                <option value="@item.id_province">@item.libelle_esp</option>
+                                                                            }
+
+                                                                        }
+                                                                    }
+                                                                </select>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.country:</span>
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                <select data-live-search="true" class="form-control selectpicker" id="id_pays" data-size="15">
+                                                                    <option value="" selected style="font-size:14px">@ResourcesC.chooseOneCountry</option>
+                                                                    @foreach (pay item in Model.listePays)
+                                                                    {
+                                                                        if (Model.fiche.ficheDetails != null && !string.IsNullOrEmpty(Model.fiche.ficheDetails.id_pays))
+                                                                        {
+                                                                            if ((ViewBag.Lang == "fr" || ViewBag.Lang == "") && Model.fiche.ficheDetails.id_pays == item.id_pays)
+                                                                            {
+                                                                                <option selected value="@item.id_pays">@item.libelle</option>
+
+                                                                            }
+                                                                            else if (ViewBag.Lang == "en" && Model.fiche.ficheDetails.id_pays == item.id_pays)
+                                                                            {
+                                                                                <option selected value="@item.id_pays">@item.libelle_en</option>
+                                                                            }
+                                                                            else if (ViewBag.Lang == "esp" && Model.fiche.ficheDetails.id_pays == item.id_pays)
+                                                                            {
+                                                                                <option selected value="@item.id_pays">@item.libelle_esp</option>
+                                                                            }
+
+
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            if (ViewBag.Lang == "fr" || ViewBag.Lang == "")
+                                                                            {
+                                                                                <option value="@item.id_pays">@item.libelle</option>
+
+                                                                            }
+                                                                            else if (ViewBag.Lang == "en")
+                                                                            {
+                                                                                <option value="@item.id_pays">@item.libelle_en</option>
+                                                                            }
+                                                                            else if (ViewBag.Lang == "esp")
+                                                                            {
+                                                                                <option value="@item.id_pays">@item.libelle_esp</option>
+                                                                            }
+
+                                                                        }
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.otherPlace:</span>
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                @{
+                                                                    var autre_lieu = "";
+                                                                    if (Model.fiche.ficheDetails != null)
+                                                                    {
+                                                                        autre_lieu = Model.fiche.ficheDetails.autre_lieu == "" ? "" : Model.fiche.ficheDetails.autre_lieu;
+
+                                                                    }
+
+                                                                }
+
+                                                                <input type="text" class="form-control" name="autre_lieu" id="autre_lieu" value="@autre_lieu" placeholder="@ResourcesC.otherPlace" />
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.intitule:</span>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                @{
+                                                                    var intitule = "";
+                                                                    if (Model.fiche.ficheDetails != null)
+                                                                    {
+                                                                        intitule = Model.fiche.ficheDetails.autre_lieu == "" ? "" : Model.fiche.ficheDetails.intitule;
+
+                                                                    }
+
+                                                                }
+                                                                <input type="text" class="form-control" name="intitule" id="intitule" value="@intitule" maxlength="255" placeholder="@ResourcesC.intitule" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.intituleShort:</span>
+                                                            </div>
+
+                                                            <div class="col-lg-6">
+                                                                @{
+                                                                    var int_court = "";
+                                                                    if (Model.fiche.ficheDetails != null)
+                                                                    {
+                                                                        int_court = Model.fiche.ficheDetails.intitule_court == "" ? "" : Model.fiche.ficheDetails.intitule_court;
+
+                                                                    }
+
+                                                                }
+                                                                <input type="text" class="form-control" name="intitule_court" id="intitule_court" value="@int_court" maxlength="50" placeholder="@ResourcesC.intituleShort" />
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <div @*style="display: none;"*@>
+                                                                    <input type="button" value="@ResourcesC.checkExistingFiles" class="btn-info" onclick="RechercheLesFichesSemblables(1);" />&nbsp;&nbsp;
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @*<div class="col-lg-2">
+                                                            <div id="alert_fiches_semblables" style="display: none;">
+                                                            <div class="buttons">
+                                                            <input type="button" class="btn150r" value="cancel" onclick="Dialog.closeInfo();" />
+                                                            </div>
+                                                            </div>
+                                                            </div>
+
+                                                            <div class="col-lg-3">
+                                                            <div id="liste-fiche" style="display: none;"></div>
+                                                            </div>*@
+                                                        <div class="row form-group" style="display: none;">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.numeroStructure:</span>
+                                                            </div>
+
+                                                            <div class="col-lg-3">
+                                                                @{
+                                                                    var numStruc = "";
+                                                                    if (Model.fiche.ficheDetails != null)
+                                                                    {
+                                                                        numStruc = Model.fiche.ficheDetails.numero_structure == "" ? "" : Model.fiche.ficheDetails.numero_structure;
+
+                                                                    }
+                                                                }
+                                                                <div d="ServicesTransport">
+                                                                    <input type="text" class="form-control" name="numero_structure" id="numero_structure" value="@numStruc" maxlength="255" placeholder="@ResourcesC.numeroStructure" />
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.descr (Max: 2000)</span>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                @{
+                                                                    var descrition = "";
+                                                                    if (Model.fiche.ficheDetails != null)
+                                                                    {
+                                                                        descrition = Model.fiche.ficheDetails.description == "" ? "" : Model.fiche.ficheDetails.description;
+
+                                                                    }
+                                                                }
+                                                                <textarea class="textareaDesc form-control" name="description" id="description" onkeydown="CheckMaxLength(this, 2000, 'count_description');" onkeyup="CheckMaxLength(this, 2000, 'count_description');" placeholder="" maxlength="2000"></textarea>
+                                                                <div id="">
+                                                                    <span id="count_description">0</span>
+                                                                    <span id="maximum">/ 2000</span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.numeroTetraLinx:</span>
+                                                            </div>
+
+                                                            <div class=" col-lg-6">
+                                                                @{
+                                                                    var TLinxProjectNumber = "";
+                                                                    if (Model.fiche.ficheDetails != null)
+                                                                    {
+                                                                        TLinxProjectNumber = Model.fiche.ficheDetails.TLinxProjectNumber == "" ? "" : Model.fiche.ficheDetails.TLinxProjectNumber;
+
+                                                                    }
+                                                                }
+                                                                <input type="text" class="form-control" name="TLinxProjectNumber" id="TLinxProjectNumber" value="@TLinxProjectNumber" placeholder="@ResourcesC.numeroTetraLinx" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.SharepointProjet:</span>
+                                                            </div>
+
+                                                            <div class=" col-lg-6">
+                                                                @{
+                                                                    var ProjectURLSharepoint = "";
+                                                                    if (Model.fiche.ficheDetails != null)
+                                                                    {
+                                                                        ProjectURLSharepoint = Model.fiche.ficheDetails.TLinxProjectNumber == "" ? "" : Model.fiche.ficheDetails.ProjectURLSharepoint;
+
+                                                                    }
+                                                                }
+
+                                                                <input type="text" class="form-control" name="ProjectURLSharepoint" id="ProjectURLSharepoint" value="@ProjectURLSharepoint" placeholder="@ResourcesC.SharepointProjet" />
+                                                            </div>
+                                                        </div>
+
+                                                    </fieldset>
+                                                </div>
+
+
+                                            </div>
+
+
+
+                                            <div class="row form-group">
+
+                                                <div class="col-lg-12" id="ServicesEnvironnement">
+                                                    <fieldset class="boomerang-border">
+                                                        <legend class="boomerang-border">@ResourcesC.theServices</legend>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.service:</span>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div>
+                                                                    <select multiple="multiple" data-live-search="true" class="form-control selectpickerM" id="listeServices" title="" data-size="15" data-selected-text-format="count" data-none-selected-text="">
+                                                                        @*<option value="" style="font-size:14px;" hidden></option>*@
+                                                                        @foreach (type_mission item in Model.listeTypeMission)
+                                                                        {
+                                                                            if (ViewBag.Lang == "fr" || ViewBag.Lang == "")
+                                                                            {
+                                                                                <option value="@item.id_type_mission">@item.libelle</option>
+
+                                                                            }
+                                                                            else if (ViewBag.Lang == "en")
+                                                                            {
+                                                                                <option value="@item.id_type_mission">@item.libelle_en</option>
+                                                                            }
+                                                                            else if (ViewBag.Lang == "esp")
+                                                                            {
+                                                                                <option value="@item.id_type_mission">@item.libelle_esp</option>}
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.disciplines:</span>
+                                                            </div>
+
+                                                            <div class=" col-lg-6">
+                                                                @{
+                                                                    var disciplines = "";
+                                                                    if (Model.fiche.ficheDetails != null)
+                                                                    {
+                                                                        disciplines = Model.fiche.ficheDetails.mission == "" ? "" : Model.fiche.ficheDetails.mission;
+
+                                                                    }
+                                                                }
+                                                                <input type="text" class="form-control" name="mission" id="mission" value="@disciplines" placeholder="@ResourcesC.disciplines" />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span> @ResourcesC.particular (Max: 345)</span>
+                                                            </div>
+                                                            <div class=" col-lg-6">
+                                                                @{
+                                                                    var particular = "";
+                                                                    if (Model.fiche.ficheDetails != null)
+                                                                    {
+                                                                        descrition = Model.fiche.ficheDetails.particularite == "" ? "" : Model.fiche.ficheDetails.particularite;
+
+                                                                    }
+                                                                }
+                                                                <textarea class="textareaDesc form-control" name="particularite" id="particularite" onkeydown="CheckMaxLength(this, 345, 'count_particularite');" onkeyup="CheckMaxLength(this, 345, 'count_particularite');" placeholder="" value="@particular" maxlength="345"></textarea>
+                                                                <div id="">
+                                                                    <span id="count_particularite">0</span>
+                                                                    <span id="maximum">/ 345</span>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-lg-12" id="ServicesAutreQueEnvironnement" style="display: none;">
+                                                    <fieldset class="boomerang-border">
+                                                        <legend class="boomerang-border">@ResourcesC.theServices</legend>
+                                                        <div class="row form-group">
+
+                                                            <div class="col-lg-6">
+                                                                <div>
+                                                                    <select multiple="multiple" data-live-search="true" class="form-control selectpickerM" id="listeServices" title="" data-size="15" data-selected-text-format="count" data-none-selected-text="">
+                                                                        @*<option value="" style="font-size:14px;" hidden></option>*@
+                                                                        @foreach (type_mission item in Model.listeTypeMission)
+                                                                        {
+                                                                            if (ViewBag.Lang == "fr" || ViewBag.Lang == "")
+                                                                            {
+                                                                                <option value="@item.id_type_mission">@item.libelle</option>
+
+                                                                            }
+                                                                            else if (ViewBag.Lang == "en")
+                                                                            {
+                                                                                <option value="@item.id_type_mission">@item.libelle_en</option>
+                                                                            }
+                                                                            else if (ViewBag.Lang == "esp")
+                                                                            {
+                                                                                <option value="@item.id_type_mission">@item.libelle_esp</option>}
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class=" col-lg-6">
+                                                                @{
+                                                                    var disciplinesSAQE = "";
+                                                                    if (Model.fiche.ficheDetails != null)
+                                                                    {
+                                                                        disciplinesSAQE = Model.fiche.ficheDetails.mission == "" ? "" : Model.fiche.ficheDetails.mission;
+
+                                                                    }
+                                                                }
+                                                                <input type="text" class="form-control" name="missionSAQE" id="missionSAQE" value="@disciplinesSAQE" placeholder="@ResourcesC.disciplines" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span> @ResourcesC.particular (Max: 345)</span>
+                                                            </div>
+
+                                                            <div class=" col-lg-6">
+                                                                @{
+                                                                    var particulariteSAQE = "";
+                                                                    if (Model.fiche.ficheDetails != null)
+                                                                    {
+                                                                        particulariteSAQE = Model.fiche.ficheDetails.particularite == "" ? "" : Model.fiche.ficheDetails.particularite;
+
+                                                                    }
+                                                                }
+                                                                <textarea class="textareaDesc form-control" name="particulariteSAQE" id="particulariteSAQE" onkeydown="CheckMaxLength(this, 345, 'count_particulariteSAQE');" onkeyup="CheckMaxLength(this, 345, 'count_particulariteSAQE');" placeholder="" value="@particulariteSAQE" maxlength="345"></textarea>
+                                                                <div id="">
+                                                                    <span id="count_particulariteSAQE">0</span>
+                                                                    <span id="maximum">/ 345</span>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-lg-12">
+                                                    <fieldset class="boomerang-border">
+                                                        <legend class="boomerang-border">@ResourcesC.theNumbers</legend>
+                                                        <div class="row form-group" id="">
+                                                            <div class="col-lg-2"><span>@ResourcesC.periode </span></div>
+                                                            <div class="col-lg-1" style="width: 20px;">Initial:</div>
+                                                            <div class="col-lg-3" style="margin-top: -7px;">
+                                                                <div class="col-lg-6">
+                                                                    <input type="text" class="datepicker form-control" style="font-family:Arial, FontAwesome; text-align:left" placeholder="Début" id="periode_mois_annee_debut_initial" />
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <input type="text" class="datepicker form-control" style="font-family:Arial, FontAwesome; text-align:left" placeholder="Fin" id="periode_mois_annee_fin_initial" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-1" style="width: 20px;">Final:</div>
+                                                            <div class="col-lg-3" style="margin-top: -7px;">
+                                                                <div class="col-lg-6">
+                                                                    <input type="text" class="datepicker form-control" style="font-family:Arial, FontAwesome; text-align:left" placeholder="Début" id="periode_mois_annee_debut_final" />
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <input type="text" class="datepicker form-control" style="font-family:Arial, FontAwesome; text-align:left" placeholder="Fin" id="periode_mois_annee_fin_final" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group" id="echeancier">
+                                                            <div class="col-lg-2"><span>@ResourcesC.echeancier @ResourcesC.conception </span></div>
+                                                            <div class="col-lg-1" style="width: 20px;">Initial:</div>
+                                                            <div class="col-lg-3" style="margin-top: -7px;">
+                                                                <div class="col-lg-6">
+                                                                    <input type="text" class="datepicker form-control" style="font-family:Arial, FontAwesome; text-align:left" placeholder="Début" id="echeancier_mois_annee_debut_initial" />
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <input type="text" class="datepicker form-control" style="font-family:Arial, FontAwesome; text-align:left" placeholder="Fin" id="echeancier_mois_annee_fin_initial" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-1" style="width: 20px;">Final:</div>
+                                                            <div class="col-lg-3" style="margin-top: -7px;">
+                                                                <div class="col-lg-6">
+                                                                    <input type="text" class="datepicker form-control" style="font-family:Arial, FontAwesome; text-align:left" placeholder="Début" id="echeancier_mois_annee_debut_final" />
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <input type="text" class="datepicker form-control" style="font-family:Arial, FontAwesome; text-align:left" placeholder="Fin" id="echeancier_mois_annee_fin_final" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2"><span>@ResourcesC.planDevis</span></div>
+                                                            <div class="col-lg-1" style="width: 20px;">Initial:</div>
+                                                            <div class="col-lg-3" style="margin-top: -7px;">
+                                                                <div class="col-lg-6">
+                                                                    <input type="text" class="datepicker form-control" style="font-family:Arial, FontAwesome; text-align:left" placeholder="Début" id="planDevis_mois_annee_debut_initial" />
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <input type="text" class="datepicker form-control" style="font-family:Arial, FontAwesome; text-align:left" placeholder="Fin" id="planDevis_mois_annee_fin_initial" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-1" style="width: 20px;">Final:</div>
+                                                            <div class="col-lg-3" style="margin-top: -7px;">
+                                                                <div class="col-lg-6">
+                                                                    <input type="text" class="datepicker form-control" style="font-family:Arial, FontAwesome; text-align:left" placeholder="Début" id="planDevis_mois_annee_debut_final" />
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <input type="text" class="datepicker form-control" style="font-family:Arial, FontAwesome; text-align:left" placeholder="Fin" id="planDevis_mois_annee_fin_final" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2"><span>@ResourcesC.construction</span></div>
+                                                            <div class="col-lg-1" style="width: 20px;">Initial:</div>
+                                                            <div class="col-lg-3" style="margin-top: -7px;">
+                                                                <div class="col-lg-6">
+                                                                    <input type="text" class="datepicker form-control" style="font-family:Arial, FontAwesome; text-align:left" placeholder="Début" id="construction_mois_annee_debut_initial" />
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <input type="text" class="datepicker form-control" style="font-family:Arial, FontAwesome; text-align:left" placeholder="Fin" id="construction_mois_annee_fin_initial" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-1" style="width: 20px;">Final:</div>
+                                                            <div class="col-lg-3" style="margin-top: -7px;">
+                                                                <div class="col-lg-6">
+                                                                    <input type="text" class="datepicker form-control" style="font-family:Arial, FontAwesome; text-align:left" placeholder="Début" id="construction_mois_annee_debut_final" />
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <input type="text" class="datepicker form-control" style="font-family:Arial, FontAwesome; text-align:left" placeholder="Fin" id="construction_mois_annee_fin_final" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.respectEcheancierBudgetNote (Max 255)</span>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                @{
+                                                                    var ecart_periode_real = "";
+                                                                    if (Model.fiche.ficheDetails != null)
+                                                                    {
+                                                                        ecart_periode_real = Model.fiche.ficheDetails.ecart_periode_real == "" ? "" : Model.fiche.ficheDetails.ecart_periode_real;
+
+                                                                    }
+                                                                }
+                                                                <textarea class="textareaDesc form-control" name="ecart_periode_real" id="ecart_periode_real" onkeydown="CheckMaxLength(this, 255, 'count_descriptionEcart');" onkeyup="CheckMaxLength(this, 255, 'count_descriptionEcart');" placeholder="" maxlength="255" value="@ecart_periode_real"></textarea>
+                                                                <div id="">
+                                                                    <span id="count_descriptionEcart">0</span>
+                                                                    <span id="maximum">/ 255</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group" id="echeancier_environnement" style="display: none;">
+                                                            <div class="row form-group">
+                                                                <div class="col-lg-4">
+                                                                    <label class="radio-inline" style="padding-left: 14px">@ResourcesC.respectEcheancierBudget : </label>
+                                                                    <label class="radio-inline"><input type="radio" name="optradio" value="yes">@ResourcesC.yes</label>
+                                                                    <label class="radio-inline"><input type="radio" name="optradio" value="no">@ResourcesC.no</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row form-group">
+                                                                <div class="col-lg-12">
+                                                                    <div class="col-lg-2">
+                                                                        <span>@ResourcesC.respectEcheancierBudgetNote (Max 255)</span>
+                                                                    </div>
+
+                                                                    @{
+                                                                        var respect_echeancier_budget_note = "";
+                                                                        if (Model.fiche.ficheDetails != null)
+                                                                        {
+                                                                            respect_echeancier_budget_note = Model.fiche.ficheDetails.respect_echeancier_budget_note == "" ? "" : Model.fiche.ficheDetails.respect_echeancier_budget_note;
+
+                                                                        }
+                                                                    }
+                                                                    <div class="col-lg-6">
+                                                                        <textarea class="textareaDesc form-control" name="ecart_periode_real" id="respect_echeancier_budget_note" onkeydown="CheckMaxLength(this, 255, 'count_respect_echeancier_budget_note');" onkeyup="CheckMaxLength(this, 255, 'count_respect_echeancier_budget_note');" placeholder="" value="@respect_echeancier_budget_note"></textarea>
+                                                                        <div id="">
+                                                                            <span id="count_respect_echeancier_budget_note">0</span>
+                                                                            <span id="maximum">/ 255</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.duration</span>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                @{
+                                                                    var duree = "";
+                                                                    if (Model.fiche.ficheDetails != null)
+                                                                    {
+                                                                        duree = Model.fiche.ficheDetails.duree.ToString() == "" ? "" : Model.fiche.ficheDetails.duree.ToString();
+
+                                                                    }
+                                                                }
+
+                                                                <input maxlength="3" type="number" size="4" min="0" class="form-control" style="font-family:Arial, FontAwesome; text-align:left" onblur="update_number(this);" placeholder="@ResourcesC.helpDuration" id="duree" value="@duree" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.unite</span>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div>
+                                                                    <select data-live-search="true" class="form-control selectpicker" id="id_type_unite_1" title="" data-size="15" data-selected-text-format="count" data-none-selected-text="">
+                                                                        <option selected value="" style="font-size:14px;">@ResourcesC.helpUnite</option>
+                                                                        @foreach (type_unite item in Model.listeTypeUnits)
+                                                                        {
+                                                                            if (Model.fiche.ficheDetails != null && Model.fiche.ficheDetails.id_type_unite_1 != 0)
+                                                                            {
+                                                                                if ((ViewBag.Lang == "fr" || ViewBag.Lang == "") && Model.fiche.ficheDetails.id_type_unite_1 == item.id_type_unite)
+                                                                                {
+                                                                                    <option selected value="@item.id_type_unite">@item.categorie (@item.unite)</option>
+
+                                                                                }
+                                                                                else if (ViewBag.Lang == "en")
+                                                                                {
+                                                                                    <option selected value="@item.id_type_unite">@item.categorie (@item.unite)</option>
+                                                                                }
+                                                                                else if (ViewBag.Lang == "esp")
+                                                                                {
+                                                                                    <option selected value="@item.id_type_unite">@item.categorie (@item.unite)</option>
+                                                                                }
+
+
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if (ViewBag.Lang == "fr" || ViewBag.Lang == "")
+                                                                                {
+                                                                                    <option value="@item.id_type_unite">@item.categorie (@item.unite)</option>
+
+                                                                                }
+                                                                                else if (ViewBag.Lang == "en")
+                                                                                {
+                                                                                    <option value="@item.id_type_unite">@item.categorie (@item.unite)</option>
+                                                                                }
+                                                                                else if (ViewBag.Lang == "esp")
+                                                                                {
+                                                                                    <option value="@item.id_type_unite">@item.categorie (@item.unite)</option>
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                @{
+                                                                    var unite_1 = 0.0;
+                                                                    if (Model.fiche.ficheDetails != null)
+                                                                    {
+                                                                        unite_1 = (Convert.ToDouble(Model.fiche.ficheDetails.unite_1) == 0 || Model.fiche.ficheDetails.unite_1 == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.unite_1);
+
+                                                                    }
+                                                                }
+
+                                                                <input maxlength="3" type="number" size="4" min="0" class="form-control" style="font-family:Arial, FontAwesome; text-align:left" placeholder="@ResourcesC.helpDuration" id="duree" value="@unite_1" />
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.unite2</span>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div>
+                                                                    <select data-live-search="true" class="form-control selectpicker" id="id_type_unite_2" title="" data-size="15" data-selected-text-format="count" data-none-selected-text="">
+                                                                        <option slected value="" style="font-size:14px;">@ResourcesC.helpUnite2</option>
+                                                                        @foreach (type_unite item in Model.listeTypeUnits)
+                                                                        {
+                                                                            if (Model.fiche.ficheDetails != null && Model.fiche.ficheDetails.id_type_unite_2 != 0)
+                                                                            {
+                                                                                if ((ViewBag.Lang == "fr" || ViewBag.Lang == "") && Model.fiche.ficheDetails.id_type_unite_2 == item.id_type_unite)
+                                                                                {
+                                                                                    <option selected value="@item.id_type_unite">@item.categorie (@item.unite)</option>
+
+                                                                                }
+                                                                                else if (ViewBag.Lang == "en")
+                                                                                {
+                                                                                    <option selected value="@item.id_type_unite">@item.categorie (@item.unite)</option>
+                                                                                }
+                                                                                else if (ViewBag.Lang == "esp")
+                                                                                {
+                                                                                    <option selected value="@item.id_type_unite">@item.categorie (@item.unite)</option>
+                                                                                }
+
+
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if (ViewBag.Lang == "fr" || ViewBag.Lang == "")
+                                                                                {
+                                                                                    <option value="@item.id_type_unite">@item.categorie (@item.unite)</option>
+
+                                                                                }
+                                                                                else if (ViewBag.Lang == "en")
+                                                                                {
+                                                                                    <option value="@item.id_type_unite">@item.categorie (@item.unite)</option>
+                                                                                }
+                                                                                else if (ViewBag.Lang == "esp")
+                                                                                {
+                                                                                    <option value="@item.id_type_unite">@item.categorie (@item.unite)</option>
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                @{
+                                                                    var unite_2 = 0.0;
+                                                                    if (Model.fiche.ficheDetails != null)
+                                                                    {
+                                                                        unite_2 = (Convert.ToDouble(Model.fiche.ficheDetails.unite_2) == 0 || Model.fiche.ficheDetails.unite_2 == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.unite_2);
+
+                                                                    }
+                                                                }
+
+                                                                <input maxlength="3" type="number" size="4" min="0" class="form-control" style="font-family:Arial, FontAwesome; text-align:left" placeholder="@ResourcesC.helpDuration" id="duree" value="@unite_2" />
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.montant</span>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                @{
+                                                                    var montant_operation = 0.0;
+                                                                    if (Model.fiche.ficheDetails != null)
+                                                                    {
+                                                                        montant_operation = (Convert.ToDouble(Model.fiche.ficheDetails.montant_operation) == 0 || Model.fiche.ficheDetails.montant_operation == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.montant_operation);
+
+                                                                    }
+                                                                }
+                                                                <input maxlength="3" type="number" size="4" min="0" class="form-control" style="font-family:Arial, FontAwesome; text-align:left" onblur="update_number(this);" placeholder="@ResourcesC.montant" id="duree" value="@montant_operation" />
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Spécifique au pole Batiment- 1ere partie -->
+                                                        <div class="row form-group specialBAT" id="detailsCout">
+                                                            <div class="col-lg-12">
+                                                                <h3 style=" text-decoration: underline;">Pole Bâtiment:</h3>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width:25%">@ResourcesC.estimation</th>
+                                                                                <th style="width:25%">@ResourcesC.soumission</th>
+                                                                                <th style="width:25%">@ResourcesC.cout</th>
+                                                                                <th style="width:25%">@ResourcesC.helpEcart</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @{
+                                                                                    var montant_estimation = 0.0;
+                                                                                    var montant_soumission = 0.0;
+                                                                                    var montant_final = 0.0;
+                                                                                    var ecart_cout = "";
+                                                                                    if (Model.fiche.ficheDetails != null)
+                                                                                    {
+                                                                                        montant_estimation = (Convert.ToDouble(Model.fiche.ficheDetails.montant_estimation) == 0 || Model.fiche.ficheDetails.montant_estimation == null) ? 0.00 : Convert.ToDouble(Model.fiche.ficheDetails.montant_estimation);
+                                                                                        montant_soumission = (Convert.ToDouble(Model.fiche.ficheDetails.montant_soumission) == 0 || Model.fiche.ficheDetails.montant_soumission == null) ? 0.00 : Convert.ToDouble(Model.fiche.ficheDetails.montant_soumission);
+                                                                                        montant_final = (Convert.ToDouble(Model.fiche.ficheDetails.montant_final) == 0 || Model.fiche.ficheDetails.montant_final == null) ? 0.00 : Convert.ToDouble(Model.fiche.ficheDetails.montant_final);
+                                                                                        ecart_cout = (Model.fiche.ficheDetails.ecart_cout == "" || Model.fiche.ficheDetails.ecart_cout == null) ? "" : Model.fiche.ficheDetails.ecart_cout;
+                                                                                    }
+                                                                                }
+
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="montant_estimation" id="montant_estimation" value="@montant_estimation" />
+                                                                                    </div>
+                                                                                </td>
+
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="montant_soumission" id="montant_soumission" value="@montant_soumission" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="montant_final" id="montant_final" value="@montant_final" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%"><textarea class="form-control" id="ecart_cout" name="ecart_cout" style="width: 292px; height: 50px;" value="@ecart_cout"></textarea></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width:25%">@ResourcesC.chgmtBPR</th>
+                                                                                <th style="width:25%">@ResourcesC.montantGen</th>
+                                                                                <th style="width:25%">@ResourcesC.helpChgmt</th>
+                                                                                <th style="width:25%"></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @{
+                                                                                    var changement_bpr = 0.0;
+                                                                                    var montant_changement_bpr = 0.0;
+                                                                                    var nature_changement_bpr = "";
+                                                                                    if (Model.fiche.ficheDetails != null)
+                                                                                    {
+                                                                                        changement_bpr = (Convert.ToDouble(Model.fiche.ficheDetails.changement_bpr) == 0 || Model.fiche.ficheDetails.changement_bpr == null) ? 0.00 : Convert.ToDouble(Model.fiche.ficheDetails.changement_bpr);
+                                                                                        montant_changement_bpr = (Convert.ToDouble(Model.fiche.ficheDetails.montant_changement_bpr) == 0 || Model.fiche.ficheDetails.montant_changement_bpr == null) ? 0.00 : Convert.ToDouble(Model.fiche.ficheDetails.montant_changement_bpr);
+                                                                                        nature_changement_bpr = (Model.fiche.ficheDetails.nature_changement_bpr == "" || Model.fiche.ficheDetails.nature_changement_bpr == null) ? "" : Model.fiche.ficheDetails.nature_changement_bpr;
+                                                                                    }
+                                                                                }
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit2">
+                                                                                        <input type="number" class="form-control" name="changement_bpr" id="changement_bpr" value="@changement_bpr" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="montant_changement_bpr" id="montant_changement_bpr" value="@montant_changement_bpr" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%"><textarea class="form-control" id="nature_changement_bpr" name="nature_changement_bpr" style="width: 292px; height: 50px;" value="@nature_changement_bpr"></textarea></td>
+                                                                                <td style="width:25%"></td>
+
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width:25%">@ResourcesC.chgmtClient</th>
+                                                                                <th style="width:25%">@ResourcesC.montantGen</th>
+                                                                                <th style="width:25%">@ResourcesC.helpChgmt</th>
+                                                                                <th style="width:25%"></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @{
+                                                                                    var changement_client = 0;
+                                                                                    var montant_changement_client = 0.0;
+                                                                                    var nature_changement_client = "";
+                                                                                    if (Model.fiche.ficheDetails != null)
+                                                                                    {
+                                                                                        changement_client = Model.fiche.ficheDetails.changement_client == null ? 0 : Model.fiche.ficheDetails.changement_client.Value;
+                                                                                        montant_changement_client = (Convert.ToDouble(Model.fiche.ficheDetails.montant_changement_client) == 0 || Model.fiche.ficheDetails.montant_changement_client == null) ? 0.00 : Convert.ToDouble(Model.fiche.ficheDetails.montant_changement_client);
+                                                                                        nature_changement_client = (Model.fiche.ficheDetails.nature_changement_bpr == "" || Model.fiche.ficheDetails.nature_changement_bpr == null) ? "" : Model.fiche.ficheDetails.nature_changement_bpr;
+                                                                                    }
+                                                                                }
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit2">
+                                                                                        <input type="number" class="form-control" name="changement_client" id="changement_client" value="@changement_client" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="montant_changement_client" id="montant_changement_client" value="@montant_changement_client" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%"><textarea class="form-control" id="nature_changement_client" name="nature_changement_client" style="width: 292px; height: 50px;" value="@nature_changement_client"></textarea></td>
+                                                                                <td style="width:25%"></td>
+
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-12">
+                                                                <div>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width:25%">@ResourcesC.structPrev</th>
+                                                                                <th style="width:25%">@ResourcesC.structFin</th>
+                                                                                <th style="width:25%">@ResourcesC.helpEcart</th>
+                                                                                <th style="width:25%"></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @{
+                                                                                    var structure_prevu = 0.0;
+                                                                                    var structure_final = 0.0;
+                                                                                    var ecart_structure = "";
+                                                                                    if (Model.fiche.ficheDetails != null)
+                                                                                    {
+                                                                                        structure_prevu = (Convert.ToDouble(Model.fiche.ficheDetails.structure_prevu) == 0 || Model.fiche.ficheDetails.structure_prevu == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.structure_prevu);
+                                                                                        structure_final = (Convert.ToDouble(Model.fiche.ficheDetails.structure_final) == 0 || Model.fiche.ficheDetails.structure_final == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.structure_final);
+                                                                                        ecart_structure = (Model.fiche.ficheDetails.ecart_structure == "" || Model.fiche.ficheDetails.ecart_structure == null) ? "" : Model.fiche.ficheDetails.nature_changement_bpr;
+                                                                                    }
+                                                                                }
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="structure_prevu" id="structure_prevu" value="@structure_prevu" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="structure_final" id="structure_final" value="@structure_final" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%"><textarea class="form-control" id="ecart_structure" name="ecart_structure" style="width: 292px; height: 50px;" value="@ecart_structure"></textarea></td>
+                                                                                <td style="width:25%"></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width:25%">@ResourcesC.amenagmtPrev</th>
+                                                                                <th style="width:25%">@ResourcesC.amenagmtFin</th>
+                                                                                <th style="width:25%">@ResourcesC.helpEcart</th>
+                                                                                <th style="width:25%"></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @{
+                                                                                    var amenagement_prevu = 0.0;
+                                                                                    var amenagement_final = 0.0;
+                                                                                    var ecart_amenagement = "";
+                                                                                    if (Model.fiche.ficheDetails != null)
+                                                                                    {
+                                                                                        amenagement_prevu = (Convert.ToDouble(Model.fiche.ficheDetails.amenagement_prevu) == 0 || Model.fiche.ficheDetails.amenagement_prevu == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.amenagement_prevu);
+                                                                                        amenagement_final = (Convert.ToDouble(Model.fiche.ficheDetails.amenagement_final) == 0 || Model.fiche.ficheDetails.amenagement_final == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.amenagement_final);
+                                                                                        ecart_amenagement = (Model.fiche.ficheDetails.ecart_amenagement == "" || Model.fiche.ficheDetails.ecart_amenagement == null) ? "" : Model.fiche.ficheDetails.ecart_amenagement;
+                                                                                    }
+                                                                                }
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="amenagement_prevu" id="amenagement_prevu" value="@amenagement_prevu" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="amenagement_final" id="amenagement_final" value="@amenagement_final" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%"><textarea class="form-control" id="ecart_amenagement" name="ecart_amenagement" style="width: 292px; height: 50px;" value="@ecart_amenagement"></textarea></td>
+                                                                                <td style="width:25%"></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-12">
+                                                                <div>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width:25%">@ResourcesC.mecaPrev</th>
+                                                                                <th style="width:25%">@ResourcesC.mecaFin</th>
+                                                                                <th style="width:25%">@ResourcesC.helpEcart</th>
+                                                                                <th style="width:25%"></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @{
+                                                                                    var mecanique_prevu = 0.0;
+                                                                                    var mecanique_final = 0.0;
+                                                                                    var ecart_mecanique = "";
+                                                                                    if (Model.fiche.ficheDetails != null)
+                                                                                    {
+                                                                                        mecanique_prevu = (Convert.ToDouble(Model.fiche.ficheDetails.mecanique_prevu) == 0 || Model.fiche.ficheDetails.mecanique_prevu == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.mecanique_prevu);
+                                                                                        mecanique_final = (Convert.ToDouble(Model.fiche.ficheDetails.mecanique_final) == 0 || Model.fiche.ficheDetails.mecanique_final == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.mecanique_final);
+                                                                                        ecart_mecanique = (Model.fiche.ficheDetails.ecart_mecanique == "" || Model.fiche.ficheDetails.ecart_mecanique == null) ? "" : Model.fiche.ficheDetails.ecart_mecanique;
+                                                                                    }
+                                                                                }
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="mecanique_prevu" id="mecanique_prevu" value="@mecanique_prevu" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="mecanique_final" id="mecanique_final" value="@mecanique_final" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%"><textarea class="form-control" id="ecart_mecanique" name="ecart_mecanique" style="width: 292px; height: 50px;" value="@ecart_mecanique"></textarea></td>
+                                                                                <td style="width:25%"></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-12">
+                                                                <div>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width:25%">@ResourcesC.electPrev</th>
+                                                                                <th style="width:25%">@ResourcesC.electFin</th>
+                                                                                <th style="width:25%">@ResourcesC.helpEcart</th>
+                                                                                <th style="width:25%"></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @{
+                                                                                    var electricite_prevu = 0.0;
+                                                                                    var electricite_final = 0.0;
+                                                                                    var ecart_electricite = "";
+                                                                                    if (Model.fiche.ficheDetails != null)
+                                                                                    {
+                                                                                        electricite_prevu = (Convert.ToDouble(Model.fiche.ficheDetails.electricite_prevu) == 0 || Model.fiche.ficheDetails.electricite_prevu == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.electricite_prevu);
+                                                                                        electricite_final = (Convert.ToDouble(Model.fiche.ficheDetails.electricite_final) == 0 || Model.fiche.ficheDetails.electricite_final == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.electricite_final);
+                                                                                        ecart_electricite = (Model.fiche.ficheDetails.ecart_electricite == "" || Model.fiche.ficheDetails.ecart_electricite == null) ? "" : Model.fiche.ficheDetails.ecart_electricite;
+                                                                                    }
+                                                                                }
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="electricite_prevu" id="electricite_prevu" value="@electricite_prevu" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="electricite_final" id="electricite_final" value="@electricite_final" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%"><textarea class="form-control" id="ecart_electricite" name="ecart_electricite" style="width: 292px; height: 50px;" value="@ecart_electricite"></textarea></td>
+                                                                                <td style="width:25%"></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-12">
+                                                                <div>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width:25%">@ResourcesC.infraPrev</th>
+                                                                                <th style="width:25%">@ResourcesC.infraFin</th>
+                                                                                <th style="width:25%">@ResourcesC.helpEcart</th>
+                                                                                <th style="width:25%"></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @{
+                                                                                    var infrastructure_prevu = 0.0;
+                                                                                    var infrastructure_final = 0.0;
+                                                                                    var ecart_infrastructure = "";
+                                                                                    if (Model.fiche.ficheDetails != null)
+                                                                                    {
+                                                                                        infrastructure_prevu = (Convert.ToDouble(Model.fiche.ficheDetails.infrastructure_prevu) == 0 || Model.fiche.ficheDetails.infrastructure_prevu == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.infrastructure_prevu);
+                                                                                        infrastructure_final = (Convert.ToDouble(Model.fiche.ficheDetails.infrastructure_final) == 0 || Model.fiche.ficheDetails.infrastructure_final == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.infrastructure_final);
+                                                                                        ecart_infrastructure = (Model.fiche.ficheDetails.ecart_infrastructure == "" || Model.fiche.ficheDetails.ecart_infrastructure == null) ? "" : Model.fiche.ficheDetails.ecart_infrastructure;
+                                                                                    }
+                                                                                }
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="infrastructure_prevu" id="infrastructure_prevu" value="@infrastructure_prevu" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="infrastructure_final" id="infrastructure_final" value="@infrastructure_final" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%"><textarea class="form-control" id="ecart_infrastructure" name="ecart_infrastructure" style="width: 292px; height: 50px;" value="@ecart_infrastructure"></textarea></td>
+                                                                                <td style="width:25%"></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width:25%">@ResourcesC.gestPrev</th>
+                                                                                <th style="width:25%">@ResourcesC.gestFin</th>
+                                                                                <th style="width:25%">@ResourcesC.helpEcart</th>
+                                                                                <th style="width:25%"></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @{
+                                                                                    var gestion_prevu = 0.0;
+                                                                                    var gestion_final = 0.0;
+                                                                                    var ecart_gestion = "";
+                                                                                    if (Model.fiche.ficheDetails != null)
+                                                                                    {
+                                                                                        gestion_prevu = (Convert.ToDouble(Model.fiche.ficheDetails.gestion_prevu) == 0 || Model.fiche.ficheDetails.gestion_prevu == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.gestion_prevu);
+                                                                                        gestion_final = (Convert.ToDouble(Model.fiche.ficheDetails.gestion_final) == 0 || Model.fiche.ficheDetails.gestion_final == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.gestion_final);
+                                                                                        ecart_gestion = (Model.fiche.ficheDetails.ecart_gestion == "" || Model.fiche.ficheDetails.ecart_gestion == null) ? "" : Model.fiche.ficheDetails.ecart_gestion;
+                                                                                    }
+                                                                                }
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="gestion_prevu" id="gestion_prevu" value="@gestion_prevu" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="gestion_final" id="gestion_final" value="@gestion_final" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%"><textarea class="form-control" id="ecart_gestion" name="ecart_gestion" style="width: 292px; height: 50px;" value="@ecart_gestion"></textarea></td>
+                                                                                <td style="width:25%"></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-12">
+                                                                <div>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width:25%">@ResourcesC.nomDiscipline</th>
+                                                                                <th style="width:25%">@ResourcesC.autrePrev</th>
+                                                                                <th style="width:25%">@ResourcesC.autreFin</th>
+                                                                                <th style="width:25%">@ResourcesC.helpEcart</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @{
+                                                                                    var autre_nom = "";
+                                                                                    var autre_prevu = 0.0;
+                                                                                    var autre_final = 0.0;
+                                                                                    var ecart_autre = "";
+                                                                                    if (Model.fiche.ficheDetails != null)
+                                                                                    {
+                                                                                        autre_nom = (Model.fiche.ficheDetails.autre_nom == "" || Model.fiche.ficheDetails.autre_nom == null) ? "" : Model.fiche.ficheDetails.autre_nom;
+                                                                                        autre_prevu = (Convert.ToDouble(Model.fiche.ficheDetails.autre_prevu) == 0 || Model.fiche.ficheDetails.autre_prevu == null) ? 0.00 : Convert.ToDouble(Model.fiche.ficheDetails.autre_prevu);
+                                                                                        autre_final = (Convert.ToDouble(Model.fiche.ficheDetails.autre_final) == 0 || Model.fiche.ficheDetails.autre_final == null) ? 0.00 : Convert.ToDouble(Model.fiche.ficheDetails.autre_final);
+                                                                                        ecart_autre = (Model.fiche.ficheDetails.ecart_autre == "" || Model.fiche.ficheDetails.ecart_autre == null) ? "" : Model.fiche.ficheDetails.ecart_autre;
+                                                                                    }
+                                                                                }
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text">
+                                                                                        <input type="text" class="form-control" name="autre_nom" id="autre_nom" value="@autre_nom" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="autre_prevu" id="autre_prevu" value="@autre_prevu" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="autre_final" id="autre_final" value="@autre_final" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%"><textarea class="form-control" id="ecart_autre" name="ecart_autre" style="width: 292px; height: 50px;" value="@ecart_autre"></textarea></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.feesTeam</span>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width:25%">@ResourcesC.planned</th>
+                                                                                <th style="width:25%">@ResourcesC.finalF</th>
+                                                                                <th style="width:25%">@ResourcesC.helpEcart</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @{
+                                                                                    var montant_equipe = 0.0;
+                                                                                    var montant_equipe_fin = 0.0;
+                                                                                    var ecart_montant_equipe = "";
+                                                                                    if (Model.fiche.ficheDetails != null)
+                                                                                    {
+                                                                                        montant_equipe = (Convert.ToDouble(Model.fiche.ficheDetails.montant_equipe) == 0 || Model.fiche.ficheDetails.montant_equipe == null) ? 0.00 : Convert.ToDouble(Model.fiche.ficheDetails.montant_equipe);
+                                                                                        montant_equipe_fin = (Convert.ToDouble(Model.fiche.ficheDetails.montant_equipe_fin) == 0 || Model.fiche.ficheDetails.montant_equipe_fin == null) ? 0.00 : Convert.ToDouble(Model.fiche.ficheDetails.montant_equipe_fin);
+                                                                                        ecart_montant_equipe = (Model.fiche.ficheDetails.ecart_montant_equipe == "" || Model.fiche.ficheDetails.ecart_montant_equipe == null) ? "" : Model.fiche.ficheDetails.ecart_montant_equipe;
+                                                                                    }
+                                                                                }
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="montant_equipe" id="montant_equipe" value="@changement_client" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="montant_equipe_fin" id="montant_equipe_fin" value="@montant_changement_client" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%"><textarea class="form-control" id="ecart_montant_equipe" name="ecart_montant_equipe" style="width: 292px; height: 50px;" value="@nature_changement_client"></textarea></td>
+
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-2">
+                                                                <span>@ResourcesC.feesBpr</span>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width:25%">@ResourcesC.planned</th>
+                                                                                <th style="width:25%">@ResourcesC.finalF</th>
+                                                                                <th style="width:25%">@ResourcesC.helpEcart</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @{
+                                                                                    var montant_societe = 0.0;
+                                                                                    var montant_societe_fin = 0.0;
+                                                                                    var ecart_montant_societe = "";
+                                                                                    if (Model.fiche.ficheDetails != null)
+                                                                                    {
+                                                                                        montant_societe = (Convert.ToDouble(Model.fiche.ficheDetails.montant_societe) == 0 || Model.fiche.ficheDetails.montant_societe == null) ? 0.00 : Convert.ToDouble(Model.fiche.ficheDetails.montant_societe);
+                                                                                        montant_societe_fin = (Convert.ToDouble(Model.fiche.ficheDetails.montant_societe_fin) == 0 || Model.fiche.ficheDetails.montant_societe_fin == null) ? 0.00 : Convert.ToDouble(Model.fiche.ficheDetails.montant_societe_fin);
+                                                                                        ecart_montant_societe = (Model.fiche.ficheDetails.ecart_montant_societe == "" || Model.fiche.ficheDetails.ecart_montant_societe == null) ? "" : Model.fiche.ficheDetails.ecart_montant_societe;
+                                                                                    }
+                                                                                }
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="montant_societe" id="montant_societe" value="@montant_societe" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="montant_societe_fin" id="montant_societe_fin" value="@montant_changement_client" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%"><textarea class="form-control" id="ecart_montant_societe" name="ecart_montant_societe" style="width: 292px; height: 50px;" value="@ecart_montant_societe"></textarea></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+
+                                                        @*specifique batiment- 2eme partie*@
+
+                                                        <div class="row form-group specialBAT" id="detailsHonoraire">
+                                                            <div class="col-lg-12">
+                                                                <h3 style=" text-decoration: underline;">Pole Bâtiment:</h3>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width:25%">@ResourcesC.structPrevFees</th>
+                                                                                <th style="width:25%">@ResourcesC.structFinFees</th>
+                                                                                <th style="width:25%">@ResourcesC.helpChgmt</th>
+                                                                                <th style="width:25%"></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @{
+                                                                                    var structure_prevu_bpr = 0.0;
+                                                                                    var structure_final_bpr = 0.0;
+                                                                                    var ecart_structure_bpr = "";
+                                                                                    if (Model.fiche.ficheDetails != null)
+                                                                                    {
+                                                                                        structure_prevu_bpr = (Convert.ToDouble(Model.fiche.ficheDetails.structure_prevu_bpr) == 0 || Model.fiche.ficheDetails.structure_prevu_bpr == null) ? 0.00 : Convert.ToDouble(Model.fiche.ficheDetails.structure_prevu_bpr);
+                                                                                        structure_final_bpr = (Convert.ToDouble(Model.fiche.ficheDetails.structure_final_bpr) == 0 || Model.fiche.ficheDetails.structure_final_bpr == null) ? 0.00 : Convert.ToDouble(Model.fiche.ficheDetails.structure_final_bpr);
+                                                                                        ecart_structure_bpr = (Model.fiche.ficheDetails.ecart_structure_bpr == "" || Model.fiche.ficheDetails.ecart_structure_bpr == null) ? "" : Model.fiche.ficheDetails.ecart_structure_bpr;
+                                                                                    }
+                                                                                }
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit2">
+                                                                                        <input type="number" class="form-control" name="structure_prevu_bpr" id="structure_prevu_bpr" value="@structure_prevu_bpr" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="structure_final_bpr" id="structure_final_bpr" value="@structure_final_bpr" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%"><textarea class="form-control" id="ecart_structure_bpr" name="ecart_structure_bpr" style="width: 292px; height: 50px;" value="@ecart_structure_bpr"></textarea></td>
+                                                                                <td style="width:25%"></td>
+
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width:25%">@ResourcesC.amenagmtPrevFees</th>
+                                                                                <th style="width:25%">@ResourcesC.amenagmtFinFees</th>
+                                                                                <th style="width:25%">@ResourcesC.helpChgmt</th>
+                                                                                <th style="width:25%"></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @{
+                                                                                    var amenagement_prevu_bpr = 0.0;
+                                                                                    var amenagement_final_bpr = 0.0;
+                                                                                    var ecart_amenagement_bpr = "";
+                                                                                    if (Model.fiche.ficheDetails != null)
+                                                                                    {
+                                                                                        amenagement_prevu_bpr = (Convert.ToDouble(Model.fiche.ficheDetails.amenagement_prevu_bpr) == 0 || Model.fiche.ficheDetails.amenagement_prevu_bpr == null) ? 0.00 : Convert.ToDouble(Model.fiche.ficheDetails.amenagement_prevu_bpr);
+                                                                                        amenagement_final_bpr = (Convert.ToDouble(Model.fiche.ficheDetails.amenagement_final_bpr) == 0 || Model.fiche.ficheDetails.amenagement_final_bpr == null) ? 0.00 : Convert.ToDouble(Model.fiche.ficheDetails.amenagement_final_bpr);
+                                                                                        ecart_amenagement_bpr = (Model.fiche.ficheDetails.ecart_amenagement_bpr == "" || Model.fiche.ficheDetails.ecart_amenagement_bpr == null) ? "" : Model.fiche.ficheDetails.ecart_amenagement_bpr;
+                                                                                    }
+                                                                                }
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit2">
+                                                                                        <input type="number" class="form-control" name="amenagement_prevu_bpr" id="amenagement_prevu_bpr" value="@amenagement_prevu_bpr" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="amenagement_final_bpr" id="amenagement_final_bpr" value="@amenagement_final_bpr" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%"><textarea class="form-control" id="ecart_amenagement_bpr" name="ecart_amenagement_bpr" style="width: 292px; height: 50px;" value="@ecart_amenagement_bpr"></textarea></td>
+                                                                                <td style="width:25%"></td>
+
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-12">
+                                                                <div>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width:25%">@ResourcesC.mecaPrevFees</th>
+                                                                                <th style="width:25%">@ResourcesC.structFin</th>
+                                                                                <th style="width:25%">@ResourcesC.helpEcart</th>
+                                                                                <th style="width:25%"></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @{
+                                                                                    var mecanique_prevu_bpr = 0.0;
+                                                                                    var mecanique_final_bpr = 0.0;
+                                                                                    var ecart_mecanique_bpr = "";
+                                                                                    if (Model.fiche.ficheDetails != null)
+                                                                                    {
+                                                                                        mecanique_prevu_bpr = (Convert.ToDouble(Model.fiche.ficheDetails.mecanique_prevu_bpr) == 0 || Model.fiche.ficheDetails.mecanique_prevu_bpr == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.mecanique_prevu_bpr);
+                                                                                        mecanique_final_bpr = (Convert.ToDouble(Model.fiche.ficheDetails.mecanique_final_bpr) == 0 || Model.fiche.ficheDetails.mecanique_final_bpr == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.mecanique_final_bpr);
+                                                                                        ecart_mecanique_bpr = (Model.fiche.ficheDetails.ecart_mecanique_bpr == "" || Model.fiche.ficheDetails.ecart_mecanique_bpr == null) ? "" : Model.fiche.ficheDetails.ecart_mecanique_bpr;
+                                                                                    }
+                                                                                }
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="mecanique_prevu_bpr" id="mecanique_prevu_bpr" value="@mecanique_prevu_bpr" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="mecanique_final_bpr" id="mecanique_final_bpr" value="@mecanique_final_bpr" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%"><textarea class="form-control" id="ecart_mecanique_bpr" name="ecart_mecanique_bpr" style="width: 292px; height: 50px;" value="@ecart_mecanique_bpr"></textarea></td>
+                                                                                <td style="width:25%"></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width:25%">@ResourcesC.electPrevFees</th>
+                                                                                <th style="width:25%">@ResourcesC.electFinFees</th>
+                                                                                <th style="width:25%">@ResourcesC.helpEcart</th>
+                                                                                <th style="width:25%"></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @{
+                                                                                    var electricite_prevu_bpr = 0.0;
+                                                                                    var electricite_final_bpr = 0.0;
+                                                                                    var ecart_electricite_bpr = "";
+                                                                                    if (Model.fiche.ficheDetails != null)
+                                                                                    {
+                                                                                        electricite_prevu_bpr = (Convert.ToDouble(Model.fiche.ficheDetails.electricite_prevu_bpr) == 0 || Model.fiche.ficheDetails.electricite_prevu_bpr == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.amenagement_prevu);
+                                                                                        electricite_final_bpr = (Convert.ToDouble(Model.fiche.ficheDetails.electricite_final_bpr) == 0 || Model.fiche.ficheDetails.electricite_final_bpr == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.amenagement_final);
+                                                                                        ecart_electricite_bpr = (Model.fiche.ficheDetails.ecart_electricite_bpr == "" || Model.fiche.ficheDetails.ecart_electricite_bpr == null) ? "" : Model.fiche.ficheDetails.ecart_electricite_bpr;
+                                                                                    }
+                                                                                }
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="electricite_prevu_bpr" id="electricite_prevu_bpr" value="@electricite_prevu_bpr" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="electricite_final_bpr" id="electricite_final_bpr" value="@electricite_final_bpr" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%"><textarea class="form-control" id="ecart_electricite_bpr" name="ecart_electricite_bpr" style="width: 292px; height: 50px;" value="@ecart_electricite_bpr"></textarea></td>
+                                                                                <td style="width:25%"></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-12">
+                                                                <div>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width:25%">@ResourcesC.infraPrevFees</th>
+                                                                                <th style="width:25%">@ResourcesC.infraFinFees</th>
+                                                                                <th style="width:25%">@ResourcesC.helpEcart</th>
+                                                                                <th style="width:25%"></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @{
+                                                                                    var infrastructure_prevu_bpr = 0.0;
+                                                                                    var infrastructure_final_bpr = 0.0;
+                                                                                    var ecart_infrastructure_bpr = "";
+                                                                                    if (Model.fiche.ficheDetails != null)
+                                                                                    {
+                                                                                        infrastructure_prevu_bpr = (Convert.ToDouble(Model.fiche.ficheDetails.infrastructure_prevu_bpr) == 0 || Model.fiche.ficheDetails.infrastructure_prevu_bpr == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.infrastructure_prevu_bpr);
+                                                                                        infrastructure_final_bpr = (Convert.ToDouble(Model.fiche.ficheDetails.infrastructure_final_bpr) == 0 || Model.fiche.ficheDetails.infrastructure_final_bpr == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.mecanique_final);
+                                                                                        ecart_infrastructure_bpr = (Model.fiche.ficheDetails.ecart_infrastructure_bpr == "" || Model.fiche.ficheDetails.ecart_mecanique == null) ? "" : Model.fiche.ficheDetails.ecart_infrastructure_bpr;
+                                                                                    }
+                                                                                }
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="infrastructure_prevu_bpr" id="infrastructure_prevu_bpr" value="@infrastructure_prevu_bpr" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="infrastructure_final_bpr" id="infrastructure_final_bpr" value="@infrastructure_final_bpr" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%"><textarea class="form-control" id="ecart_infrastructure_bpr" name="ecart_infrastructure_bpr" style="width: 292px; height: 50px;" value="@ecart_infrastructure_bpr"></textarea></td>
+                                                                                <td style="width:25%"></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-12">
+                                                                <div>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width:25%">@ResourcesC.gestPrevFees</th>
+                                                                                <th style="width:25%">@ResourcesC.gestFinFees</th>
+                                                                                <th style="width:25%">@ResourcesC.helpEcart</th>
+                                                                                <th style="width:25%"></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @{
+                                                                                    var gestion_prevu_bpr = 0.0;
+                                                                                    var gestion_final_bpr = 0.0;
+                                                                                    var ecart_gestion_bpr = "";
+                                                                                    if (Model.fiche.ficheDetails != null)
+                                                                                    {
+                                                                                        gestion_prevu_bpr = (Convert.ToDouble(Model.fiche.ficheDetails.gestion_prevu_bpr) == 0 || Model.fiche.ficheDetails.gestion_prevu_bpr == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.gestion_prevu_bpr);
+                                                                                        gestion_final_bpr = (Convert.ToDouble(Model.fiche.ficheDetails.gestion_final_bpr) == 0 || Model.fiche.ficheDetails.gestion_final_bpr == null) ? 0 : Convert.ToDouble(Model.fiche.ficheDetails.gestion_final_bpr);
+                                                                                        ecart_gestion_bpr = (Model.fiche.ficheDetails.ecart_gestion_bpr == "" || Model.fiche.ficheDetails.ecart_gestion_bpr == null) ? "" : Model.fiche.ficheDetails.ecart_gestion_bpr;
+                                                                                    }
+                                                                                }
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="gestion_prevu_bpr" id="gestion_prevu_bpr" value="@gestion_prevu_bpr" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="gestion_final_bpr" id="gestion_final_bpr" value="@gestion_final_bpr" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%"><textarea class="form-control" id="ecart_gestion_bpr" name="ecart_gestion_bpr" style="width: 292px; height: 50px;" value="@ecart_gestion_bpr"></textarea></td>
+                                                                                <td style="width:25%"></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="col-lg-12">
+                                                                <div>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width:25%">@ResourcesC.nomDiscipline</th>
+                                                                                <th style="width:25%">@ResourcesC.autrePrevFees</th>
+                                                                                <th style="width:25%">@ResourcesC.autreFinFees</th>
+                                                                                <th style="width:25%">@ResourcesC.helpEcart</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                @{
+                                                                                    var autre_nom_bpr = "";
+                                                                                    var autre_prevu_bpr = 0.0;
+                                                                                    var autre_final_bpr = 0.0;
+                                                                                    var ecart_autre_bpr = "";
+                                                                                    if (Model.fiche.ficheDetails != null)
+                                                                                    {
+                                                                                        autre_nom_bpr = (Model.fiche.ficheDetails.autre_nom_bpr == "" || Model.fiche.ficheDetails.autre_nom_bpr == null) ? "" : Model.fiche.ficheDetails.autre_nom_bpr;
+                                                                                        autre_prevu_bpr = (Convert.ToDouble(Model.fiche.ficheDetails.autre_prevu_bpr) == 0 || Model.fiche.ficheDetails.autre_prevu_bpr == null) ? 0.00 : Convert.ToDouble(Model.fiche.ficheDetails.autre_prevu_bpr);
+                                                                                        autre_final_bpr = (Convert.ToDouble(Model.fiche.ficheDetails.autre_final_bpr) == 0 || Model.fiche.ficheDetails.autre_final_bpr == null) ? 0.00 : Convert.ToDouble(Model.fiche.ficheDetails.autre_final_bpr);
+                                                                                        ecart_autre_bpr = (Model.fiche.ficheDetails.ecart_autre_bpr == "" || Model.fiche.ficheDetails.ecart_autre_bpr == null) ? "" : Model.fiche.ficheDetails.ecart_autre_bpr;
+                                                                                    }
+                                                                                }
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text">
+                                                                                        <input type="text" class="form-control" name="autre_nom_bpr" id="autre_nom_bpr" value="@autre_nom_bpr" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="autre_prevu_bpr" id="autre_prevu_bpr" value="@autre_prevu_bpr" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <div class="form-text unit">
+                                                                                        <input type="number" class="form-control" name="autre_final_bpr" id="autre_final_bpr" value="@autre_final_bpr" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width:25%"><textarea class="form-control" id="ecart_autre_bpr" name="ecart_autre" style="width: 292px; height: 50px;" value="@ecart_autre_bpr"></textarea></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </fieldset>
+                                                </div>
+
+                                                
+                                                @*<div class="row form-group">
+                                                            <div class=" col-lg-12">
+                                                                <div class="input-group textarea-editor">
+                                                                </div>
+                                                            </div>
+                                                    </div>*@
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $(document).ready(function () {
+        // Initialize Editor
+        $('.textarea-editor').summernote({
+            height: 300, // set editor height
+            minHeight: null, // set minimum height of editor
+            maxHeight: null, // set maximum height of editor
+            focus: true // set focus to editable area after initializing summernote
+        });
+
+
+                $('.selectpickerM').multiselect({
+                nonSelectedText: '@ResourcesC.theServices' ,
+                allSelectedText: '@Session["lang"].ToString()' == 'fr'? 'Toutes les options sont sélectionnée':'All the options are selected',
+                numberDisplayed: 1,
+                buttonWidth: '100%',
+                includeSelectAllOption: true,
+                selectAllText: '@Session["lang"].ToString()' == 'fr' ? 'Tout sélectionner' : 'Select all',
+                nSelectedText : '@Session["lang"].ToString()' == 'fr' ? 'Sélectionnés' : 'Selected',
+                enableCaseInsensitiveFiltering: true,
+                maxHeight: 400,
+                filterPlaceholder: '@Session["lang"].ToString()' == 'fr'? 'Recherche':'Search'
+        });
+
+        $(".datepicker").datepicker({
+            format: "mm-yyyy",
+            startView: "months",
+            minViewMode: "months"
+        });
+    });
+
+    function CheckMaxLength(txt, size, countField) {
+        if (txt.value.length > size) {
+            txt.value = txt.value.substr(0, size);
+        }
+        $("#"+countField).html ( txt.value.length);
+        return;
+    }
+
+    //$('.textareaDesc').keyup(function () {
+    //    var characterCount = $(this).val().length,
+    //        current = $('#current'),
+    //        maximum = $('#maximum'),
+    //        theCount = $('#the-count');
+
+    //    current.text(characterCount);
+
+
+        /*This isn't entirely necessary, just playin around*/
+        //if (characterCount < 70) {
+        //    current.css('color', '#666');
+        //}
+        //if (characterCount > 70 && characterCount < 90) {
+        //    current.css('color', '#6d5555');
+        //}
+        //if (characterCount > 90 && characterCount < 100) {
+        //    current.css('color', '#793535');
+        //}
+        //if (characterCount > 100 && characterCount < 120) {
+        //    current.css('color', '#841c1c');
+        //}
+        //if (characterCount > 120 && characterCount < 139) {
+        //    current.css('color', '#8f0001');
+        //}
+
+        //if (characterCount >= 140) {
+        //    maximum.css('color', '#8f0001');
+        //    current.css('color', '#8f0001');
+        //    theCount.css('font-weight', 'bold');
+        //} else {
+        //    maximum.css('color', '#666');
+        //    theCount.css('font-weight', 'normal');
+        //}
+
+
+    //});
+
+</script>

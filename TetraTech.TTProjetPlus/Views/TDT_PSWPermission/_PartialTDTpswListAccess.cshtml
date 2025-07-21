@@ -1,0 +1,248 @@
+﻿@model List<TetraTech.TTProjetPlus.Models.pswPermissionModel>
+@using InfoResources = TetraTech.TTProjetPlus.Views.TTProjet
+@{
+    ViewBag.Title = "EmployeeListPartial";
+}
+
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="panel pagination-grey clearfix m-b-0">
+        <div id="data-table_wrapper2" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+            <table id="data_Liste_Permission" class="table table-bordered  data-table  dataTable" style="width: 100%">
+                <thead id="tableHeaderGP">
+                    <tr class="grey" role="row">
+                        @if (Model[0].listeType != "approbateurs")
+                        {
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending">
+                                Nom de l'employé
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                Numéro employé
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                Adresse courriel
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                Titre
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                Division
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                Commentaire
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                Fait
+                            </th>
+
+                            if (Model[0].listeType == "moyenne")
+                            {
+                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                    Retrait
+                                </th>
+
+                            }
+
+                        }
+                        else
+                        {
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                Nom
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                Division de marché
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                Autorisation
+                            </th>
+
+                        }
+                        <th class="sorting " tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                            Actions
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int j = 0; j < Model.Count; j++)
+                    {
+                        <tr>
+                            @if (Model[0].listeType != "approbateurs")
+                            {
+
+                                <td style="text-align: left;">
+                                    @Model[j].Nom_employee
+                                </td>
+                                <td style="text-align: left;">
+                                    @Model[j].Num_employee
+                                </td>
+                                <td style="text-align: left;  ">
+                                    @Model[j].email
+                                </td>
+                                <td style="text-align: left; ">
+                                    @Model[j].Titre
+                                </td>
+                                <td style="text-align: left; ">
+                                    @Model[j].Division
+                                </td>
+                                <td style="text-align: left; ">
+                                    @Model[j].Commentaire
+                                </td>
+                                <td style="text-align: left; ">
+                                    @Model[j].Fait
+                                </td>
+                                if (Model[0].listeType == "moyenne")
+                                {
+                                    <td style="text-align: left; ">
+                                        @Model[j].Retrait
+                                    </td>
+
+                                }
+                                <td style="text-align: left; ">
+                                    <div style="text-align: center">
+                                        <i class="fa fa-remove clickableAwesomeFont" id="@Model[j].Num_employee" onclick="openRemoveModal(this.id)"></i>
+                                    </div>
+                                </td>
+
+
+                            }
+                            else
+                            {
+
+
+                                <td style="text-align: left;">
+                                    @Model[j].Nom_approbateur
+                                </td>
+                                <td style="text-align: left;">
+                                    @Model[j].Nom_Division_market
+                                </td>
+                                <td style="text-align: left;  ">
+                                    @Model[j].autorisation
+                                </td>
+
+                                <td style="text-align: left; ">
+                                    @{
+                                        var id = Model[j].Nom_approbateur + "_" + Model[j].Nom_Division_market;
+                                    }
+                                    <div style="text-align: center">
+                                        <i class="fa fa-remove clickableAwesomeFont" id="@id" onclick="openRemoveModal(this.id)"></i>
+                                    </div>
+                                </td>
+
+
+
+                            }
+
+                        </tr>
+
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+<style>
+    /* Clear floats */
+    .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+</style>
+<div id="confirmModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <p>Voulez vous vraiment supprimer les permissions a cet(te) employé(e) ( <span id="empToDelete"></span> ) ?</p>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="clearfix">
+                    <button type="button" class="btn btn-primary" onclick="closeModal()">Annuler</button>
+                    <button type="button" class="btn btn-primary" onclick="deletEmpPerm()">Supprimer les permissions</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@*else
+    {
+            @Html.Partial("Error")
+    }*@
+<script>
+    var idToDelete =""
+    $(document).ready(function () {
+
+        $('#data_Liste_Permission').DataTable({
+              pageResize: true,
+            dom:
+                "<'row'<'col-lg-2'l><'col-lg-7 text-center'B><'col-lg-2'f>>" +
+                "<'row'<'col-lg-12'tr>>" +
+                "<'row'<'col-lg-5'i><'col-lg-7'p>>",
+                buttons: [
+                { extend: 'excel', text: 'Exporter vers Excel' }
+
+                ],
+
+                pageLength: 10,
+            select: true,
+            scrollX: true,
+            scrollY: $(window).height() <= 722 ? $(window).height() / 3.5 : $(window).height() / 2,
+            scrollCollapse: true,
+            "order": [[0, "asc"]],
+            "columnDefs": [{ "targets": [2], "visible": true }],
+            "language": {
+                "url": '@ViewBag.lang.ToString()' == 'fr' ? "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json" : "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+            }
+        });
+
+    });
+
+
+    $('#data_Liste_Permission tbody tr  td').on('click', function () {
+
+        $('#data_Liste_Permission tr').removeClass('selected');
+        $(this).closest('tr').addClass('selected');
+
+        EmployeeNumber = ($(this).closest('tr').children()[0].textContent).trim();
+        EmployeeTTAccount = ($(this).closest('tr').children()[1].textContent).trim();
+        discDocProjId = ($(this).closest('tr').children()[2].textContent).trim();
+    });
+
+    $('#cancelAddEmployee').click(function () {
+        ($('input[type=search]')[0]).value = "";
+        $('#data_projectManagerName tr').removeClass('selected');
+        $('#data_projectManagerName').DataTable().search('').draw();
+
+    });
+
+
+    //$('.clickableAwesomeFont').click(function () {
+    //});
+
+    function openRemoveModal(id)
+    {
+        idToDelete = id;
+        $('#empToDelete').text(id)
+        $('#confirmModal').modal('show');
+    }
+
+    function  closeModal(){
+        $('#confirmModal').modal('hide');
+    }
+
+
+</script>
+
+

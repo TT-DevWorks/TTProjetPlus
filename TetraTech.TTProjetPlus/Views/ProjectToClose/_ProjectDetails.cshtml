@@ -1,0 +1,57 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.ProjectToClose
+
+@model TetraTech.TTProjetPlus.Models.ProjectToCloseModel  
+
+@if (Model.MenuVisible)
+{
+   <div id="informations" class="row form-group" style="margin:0; padding-bottom:20px; border-bottom:1px solid lightgray;font-size:15px;">
+    <div class="col-sm-12"> 
+            <div class="row">
+                <div class="col-sm-6" style="text-align:left; color: #003478">
+                    <span><b>@Model.OSProjectNumber | @Model.ProjectInformations.ProjectDescription</b></span>
+                </div>
+                <div class="col-sm-6" style="text-align:right; color:#b5b5b5">
+                    <div><b>@Model.ProjectInformations.AcctCenterName | @Model.ProjectInformations.CustomerName</b></div>
+                    <div><b> @Resources.ProjectToCloseRessources.startingDate: @Model.ProjectInformations.ProjectStartDateString | @Resources.ProjectToCloseRessources.endDate: @Model.ProjectInformations.ProjectEndDateString</b></div> 
+                </div> 
+            </div> 
+            <hr style="margin-top:5px" />
+            <div class="row" style="text-align:left;color:darkslateblue">
+                <div class=col-sm-3>
+                    @Resources.ProjectToCloseRessources.ProjectManager
+                </div>
+                <div class=col-sm-3>
+                    @Resources.ProjectToCloseRessources.ProgramManager
+                </div>
+                <div class=col-sm-3>
+                    @Resources.ProjectToCloseRessources.BillingSpecialist
+                </div>
+                <div class=col-sm-3>
+                    @Resources.ProjectToCloseRessources.ContractAdministrator
+                </div>
+            </div>
+            <div class="row" style="text-align:left;color:darkslateblue">
+                <div class=col-sm-3>
+                    <b>@Model.ProjectInformations.ProjectManager_Name</b>
+                </div>
+                <div class=col-sm-3>
+                    <b>@Model.ProjectInformations.ProgramManager_Name</b>
+                </div> 
+                <div class=col-sm-3>
+                    <b>@Model.ProjectInformations.BillingSpecialist_Name</b>
+                </div>
+                <div class=col-sm-3>
+                    <b>@Model.ProjectInformations.ContractAdministrator_Name</b>
+                </div>
+            </div>  
+    </div>
+</div>    
+} 
+
+<div id="project-to-close-details" style="padding-top:8px;"> 
+
+  @Html.Partial("_ActiveProjectToClose", Model)   
+</div>
+
+
+

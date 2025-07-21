@@ -1,0 +1,540 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.Disciplines
+@using Resources0 = TetraTech.TTProjetPlus.Views.ManageDirectoryRights
+@using Resources2 = TetraTech.TTProjetPlus.Views.Securite
+@using ArchiveResources = TetraTech.TTProjetPlus.Views.ArchiveProjet
+@using Resources3 = TetraTech.TTProjetPlus.Views.TTProjet
+
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Controllers
+@model TetraTech.TTProjetPlus.Models.ProjectToModifyModel
+@{
+    /**/
+
+    ViewBag.Title = "Satisfaction Client";
+}
+
+<style type="text/css">
+
+    #main-container {
+        width: 600px;
+        margin: 150px auto;
+    }
+
+    .inputWidth3 {
+        width: 60%;
+        display: inline
+    }
+
+    #tree-container label.hover {
+        color: red;
+    }
+
+    #loading {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        display: block;
+        opacity: 0.7;
+        background-color: #fff;
+        z-index: 99;
+        text-align: center;
+        display: none;
+    }
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+                background-color: #ddd;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+                background-color: #ccc;
+            }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+</style>
+
+<div id="loadingf">
+    <img id="loadingGIF2" src="~/Content/assets/img/loading-image.gif" alt="en cours..." />
+</div>
+
+<div class="container " style="height: 200vh; width: 100%">
+    <div class="main">
+        @if (ViewBag.MenuVisible == "true")
+        {
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-3" style="padding-top: -49px;">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 99px; ">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                    <li style="color:#183666 ; font-weight: bold"><a href="@Url.Action("Index2", "ArchiveProjet")"> @ArchiveResources.ArchiveProjetRessource.Administration </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 99px; ">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666 ; " href="@Url.Action("Index2", "ArchiveProjet")">@ArchiveResources.ArchiveProjetRessource.ArchiveProject</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666; " href="@Url.Action("Index", "ArchiveProjet")">@ArchiveResources.ArchiveProjetRessource.ArchiveProject1</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666 ;" href="@Url.Action("Index", "Securite")">@Resources2.Securite.CreateNumberAccessManagement</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666;" href="@Url.Action("Index", "GestionProjetSecuriser")">@Resources3.TTProjet.MangeProjetSecuriser</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 99px; ">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666;" href="@Url.Action("Index", "Gestion10ConfTQE")">@Resources3.TTProjet.Manage10ConfTQE</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666; " href="@Url.Action("Index", "Gestion10Conf")">@Resources3.TTProjet.Manage10Conf</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666;" href="@Url.Action("Index", "EnvVerifDiligente")">@Resources3.TTProjet.ListProjetEnvDiligente</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666; font-weight: bold " href="@Url.Action("SatisfactionClient", "TTProjet")">@Resources3.TTProjet.ProcessusSatisfactionClient</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+       
+            <div class="row">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel panel-primary " style="border-radius: 10px; margin-top: -15px; margin-left: -10px; ">
+                            <div class="panel-body" style="margin:15px;">
+                                @if (ViewBag.isAllowedSatisfactionClient == true)
+                                {
+
+
+                                    <div class="tab">
+                                        <button class="tablinks" onclick="openPhase(event, 'phase1')">Phase 1</button>
+                                        <button class="tablinks" onclick="openPhase(event, 'phase2')">Phase 2</button>
+                                    </div>
+
+                                    <div id="phase1" class="tabcontent" style="display: block;">
+
+                                        <div class="row">
+                                            <div class="">
+                                                <div class="alert alert-warning" id="UniteAffaireMissing" hidden="hidden" style="margin:30px;">
+                                                    <button type="button" class="close" data-hide="alert">&times;</button>
+                                                    <strong>Unité d'affaire manquante</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                @*<h4 style="margin-top: 0px; color: #183666; font-family: 'Arial Bold'; font-size: 18pt; ">
+                    <b>Veuillez-vous assurer de sélectionner les mêmes dates de début et/ou de fin que celles sélectionnées dans la page du rapport satisfaction client.</b>
+                </h4>*@
+                                                <p>
+
+                                                    La logique du processus
+                                                    <ul>
+                                                        <li>
+                                                            1 - Le projet doit être dans le Rapport de Satisfaction, c'est-à-dire avoir les critères d'un budget de 20 000$ et plus ainsi qu'avoir un % d'avancement de plus de 90%.
+
+                                                        </li>
+                                                        <li>
+                                                            2 - Le projet doit être dans votre registre Excel (QIB ou TQE).  S'il ne l'est pas, on va retirer le projet de la liste de satisfaction.
+
+                                                        </li>
+                                                        <li>
+                                                            3 - Si le projet est dans le registre Excel, nous validons si la colonne "Date - Info reçue" a une date. Si oui, on retire le projet.
+
+                                                        </li>
+
+                                                        <li>
+                                                            4 - Nous envoyons un courriel à chaque chargé de projet du résultat final qui leur présentera la liste de leur(s) projet(s).
+
+                                                        </li>
+
+
+                                                    </ul>
+
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        @*<div class="row">
+            <div class="col-sm-6">
+                <div class="row" style="font-size:initial">
+                    <div class="col-lg-3" style="padding-top: -49px; ">
+                        <label> @Resources3.TTProjet.DateDebut : </label>
+                    </div>
+                    <div class="input-group" style=" width: 45%">
+                        <input id="datedebut" type="text" class="form-control date-input" />
+                        <label class="input-group-btn" for="datedebut">
+                            <span class="btn btn-default">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="row" style="font-size:initial">
+                    <div class="col-lg-3" style="padding-top: -49px; ">
+                        <label> @Resources3.TTProjet.DateFin : </label>
+                    </div>
+                    <div class="input-group" style=" width: 45%">
+                        <input id="datefin" type="text" class="form-control date-input" />
+                        <label class="input-group-btn" for="datefin">
+                            <span class="btn btn-default">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="row" style="font-size:initial">
+                                                    <div class="col-lg-3" style="padding-top: -49px;">
+                                                        <label> @Resources3.TTProjet.BusinessUnit :</label>
+                                                    </div>
+                                                    <div class="input-group" style="width: 47%; display: flex; align-items: center;">
+                                                        <select class="form-control formControl2 lightBlue" id="UniteAffaire" required>
+                                                            <option value="">@Resources3.TTProjet.BusinessUnitSelect</option>
+                                                            <option value="QIB">QIB</option>
+                                                            <option value="TQE">TQE</option>
+                                                        </select>
+                                                        <span style="color: red; padding-left: 5px; font-size: 1.5em;">*</span> <!-- Astérisque à côté du champ de sélection -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="row" style="font-size:initial">
+                                                    <div class="col-lg-3" style="padding-top: -49px;">
+                                                        <label> @Resources3.TTProjet.EnvoiType :</label>
+                                                    </div>
+                                                    <div class="input-group" style="width: 45%; display: flex; align-items: center;">
+                                                        <select class="form-control formControl2 lightBlue" id="TypeEnvoi" required>
+                                                            <option value="">@Resources3.TTProjet.EnvoiTypeSelect</option>
+                                                            <option value="Test">Test</option>
+                                                            <option value="Normal">Normal</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <br />
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="row" style="font-size:initial">
+                                                    <div class="col-lg-3" style="padding-top: -49px;">
+                                                        <label> </label>
+                                                    </div>
+
+                                                    <div class="input-group" style="width: 45%; display: flex; align-items: center;">
+                                                        <button class="specialB" onclick="EnvoyerCourrielSatisfactionClient()">@Resources3.TTProjet.GenerateEmail</button>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div id="phase2" class="tabcontent">
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="row" style="font-size:initial">
+                                                    <div class="col-lg-3" style="padding-top: -49px;">
+                                                        <label>SurveyMonkey URL:</label>
+                                                    </div>
+                                                    <div class="input-group" style="width: 47%; display: flex; align-items: center;">
+                                                        <input type="text" class="form-control" id="survey_monkey_url" placeholder="ex: https://fr.surveymonkey.com/r/6QQX76C">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="row" style="font-size:initial">
+                                                    <div class="col-lg-3" style="padding-top: -49px;">
+                                                        <label> @Resources3.TTProjet.BusinessUnit :</label>
+                                                    </div>
+                                                    <div class="input-group" style="width: 47%; display: flex; align-items: center;">
+                                                        <select class="form-control formControl2 lightBlue" id="UniteAffaire2" required>
+                                                            <option value="">@Resources3.TTProjet.BusinessUnitSelect</option>
+                                                            <option value="QIB">QIB</option>
+                                                            <option value="TQE">TQE</option>
+                                                        </select>
+                                                        <span style="color: red; padding-left: 5px; font-size: 1.5em;">*</span> <!-- Astérisque à côté du champ de sélection -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="row" style="font-size:initial">
+                                                    <div class="col-lg-3" style="padding-top: -49px;">
+                                                        <label> @Resources3.TTProjet.EnvoiType :</label>
+                                                    </div>
+                                                    <div class="input-group" style="width: 45%; display: flex; align-items: center;">
+                                                        <select class="form-control formControl2 lightBlue" id="TypeEnvoi2" required>
+                                                            <option value="">@Resources3.TTProjet.EnvoiTypeSelect</option>
+                                                            <option value="Test">Test</option>
+                                                            <option value="Normal">Normal</option>
+                                                        </select>
+                                                    </div>
+                                                    <br />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="row" style="font-size:initial">
+                                                    <div class="col-lg-3" style="padding-top: -49px;">
+                                                        <label> Libellé du courriel (optionel) :</label>
+                                                    </div>
+                                                    <div class="input-group" style="width: 45%; display: flex; align-items: center;">
+                                                        <textarea class="form-control" rows="5" id="comment2"></textarea>                                                    </div>
+                                                    <br />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-sm-6">
+                                                <div class="row" style="font-size:initial">
+                                                    <div class="col-lg-3" style="padding-top: -49px;">
+                                                        <label></label>
+                                                    </div>
+                                                    <div class="input-group" style="width: 45%; display: flex; align-items: center;">
+                                                        <button class="specialB" onclick="EnvoyerCourrielSatisfactionClient_2()">@Resources3.TTProjet.GenerateEmail</button>
+
+                                                    </div>
+                                                    <br />
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        </div>
+
+
+
+
+                                }
+                                else
+                                {
+                                    <div class="panel-body" style="color: red; font-size: initial;">
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <h4>@Resources3.TTProjet.RestrictedAccess10Conf</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+       
+
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+
+
+          if ('@Session["lang"].ToString()' == 'fr') {
+            $.datepicker.regional['fr'] = {
+                closeText: "Fermer",
+                prevText: "Précédent",
+                nextText: "Suivant",
+                currentText: "Aujourd'hui",
+                monthNames: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+                    "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+                ],
+                monthNamesShort: ["Jan", "Fév", "Mar", "Avr", "Mai", "Jun",
+                    "Jul", "Aou", "Sept", "Oct", "Nov", "Déc"
+                ],
+                dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+                dayNamesShort: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+                dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+                weekHeader: "Sem.",
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ""
+            };
+            $.datepicker.setDefaults($.datepicker.regional['fr']);
+        }
+
+        $('#datedebut').datepicker({
+            dateFormat: "yy-mm-dd",
+             defaultDate: "+1w",
+            numberOfMonths: 2,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-10:+10',
+            maxDate: '+10Y'
+        });
+
+        $('#datefin').datepicker({
+            dateFormat: "yy-mm-dd",
+            defaultDate: "+1w",
+            numberOfMonths: 2,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-10:+10',
+            maxDate: '+10Y'
+        });
+    });
+
+
+
+
+        function EnvoyerCourrielSatisfactionClient_2() {
+
+        var ProjectStartDate = "";
+            var ProjectEndDate = "";
+        var surveyMonkeyURL = $('#survey_monkey_url').val();
+        var UniteAffaire = $('#UniteAffaire2').val();
+        var TypeEnvoi = $('#TypeEnvoi2').val();
+
+        if (UniteAffaire !== '') {
+             $.ajax({
+                     type: 'GET',
+                     dataType: 'JSON',
+                     cache: false,
+                 data: {
+                          surveyURL: surveyMonkeyURL ,
+                         UniteAffaire: UniteAffaire,
+                         TypeEnvoi: TypeEnvoi
+                            },
+                     url: '@Url.Action("SendCourrielSatisfactionClient_2", "TTProjet")',
+                      success: function (data)
+                      {
+                          if (data.result == "success") {
+                              alert('@Resources3.TTProjet.EnvoiReussi'.replace('&#233;', '\é'))
+
+                          }
+                          else
+                              alert(data.result)
+                      }
+                 });
+
+        }
+        else {
+            $("#UniteAffaireMissing").show();
+            setTimeout(function () {
+                $('#UniteAffaireMissing').fadeOut('slow');
+            }, 60000
+            );
+        }
+    }
+
+
+
+    $(".close").click(function () {
+        $(".alert").hide();
+
+    });
+
+    function openPhase(evt, phaseName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(phaseName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+</script>

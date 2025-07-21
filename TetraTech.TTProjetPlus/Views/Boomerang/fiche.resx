@@ -1,0 +1,504 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="amenagmtFin" xml:space="preserve">
+    <value> Coût final Aménag. ext.</value>
+  </data>
+  <data name="amenagmtFinFees" xml:space="preserve">
+    <value> Hon. finaux Amnénag. ext.</value>
+  </data>
+  <data name="amenagmtPrev" xml:space="preserve">
+    <value> Coût prévu Aménag. ext.</value>
+  </data>
+  <data name="amenagmtPrevFees" xml:space="preserve">
+    <value> Hon. prévus Amnénag. ext.</value>
+  </data>
+  <data name="autreFin" xml:space="preserve">
+    <value> Final Other costs</value>
+  </data>
+  <data name="autreFinFees" xml:space="preserve">
+    <value> Final Other fees</value>
+  </data>
+  <data name="autrePrev" xml:space="preserve">
+    <value> Estimated Other costs</value>
+  </data>
+  <data name="autrePrevFees" xml:space="preserve">
+    <value> Estimated Other fees</value>
+  </data>
+  <data name="back" xml:space="preserve">
+    <value>Retour</value>
+  </data>
+  <data name="chgmtBpr" xml:space="preserve">
+    <value>Changement par Tetra Tech</value>
+  </data>
+  <data name="chgmtClient" xml:space="preserve">
+    <value>Changement par le client</value>
+  </data>
+  <data name="chiffres" xml:space="preserve">
+    <value>Les chiffres</value>
+  </data>
+  <data name="client" xml:space="preserve">
+    <value> Client</value>
+  </data>
+  <data name="codeAff" xml:space="preserve">
+    <value> Numéro de projet</value>
+  </data>
+  <data name="conception" xml:space="preserve">
+    <value>Conception</value>
+  </data>
+  <data name="conducteur" xml:space="preserve">
+    <value> Opérateur</value>
+  </data>
+  <data name="confidentiel" xml:space="preserve">
+    <value>Confidentiel</value>
+  </data>
+  <data name="consoBat" xml:space="preserve">
+    <value> Conso. du bâtiment</value>
+  </data>
+  <data name="construct" xml:space="preserve">
+    <value>Construction</value>
+  </data>
+  <data name="cout" xml:space="preserve">
+    <value> Coût</value>
+  </data>
+  <data name="coutFin" xml:space="preserve">
+    <value> Coût final</value>
+  </data>
+  <data name="coutGlob" xml:space="preserve">
+    <value>Coût global du projet</value>
+  </data>
+  <data name="coutPrev" xml:space="preserve">
+    <value> Coût prévu</value>
+  </data>
+  <data name="create" xml:space="preserve">
+    <value> Fiche créée</value>
+  </data>
+  <data name="createThe" xml:space="preserve">
+    <value> Fiche créée le</value>
+  </data>
+  <data name="dateFinale" xml:space="preserve">
+    <value>Dates finales</value>
+  </data>
+  <data name="dateFinales" xml:space="preserve">
+    <value> Dates finales</value>
+  </data>
+  <data name="datePrevue" xml:space="preserve">
+    <value>Dates prévues</value>
+  </data>
+  <data name="datePrevues" xml:space="preserve">
+    <value> Dates prévues</value>
+  </data>
+  <data name="devise" xml:space="preserve">
+    <value>$</value>
+  </data>
+  <data name="duration" xml:space="preserve">
+    <value>Durée du projet</value>
+  </data>
+  <data name="ecartReal" xml:space="preserve">
+    <value>Raisons de l'écart</value>
+  </data>
+  <data name="echeancier" xml:space="preserve">
+    <value>Échéancier</value>
+  </data>
+  <data name="ecoEnerg" xml:space="preserve">
+    <value> Economie d'énergie</value>
+  </data>
+  <data name="ecoEnergie" xml:space="preserve">
+    <value> Economie d'énergie et période de retour sur investissements</value>
+  </data>
+  <data name="ecoMonet" xml:space="preserve">
+    <value> Economies monétaires</value>
+  </data>
+  <data name="electFin" xml:space="preserve">
+    <value> Coût final électricité</value>
+  </data>
+  <data name="electFinFees" xml:space="preserve">
+    <value> Hon. finaux électricité</value>
+  </data>
+  <data name="electPrev" xml:space="preserve">
+    <value> Coût prévu électricité</value>
+  </data>
+  <data name="electPrevFees" xml:space="preserve">
+    <value> Hon. prévus électricité</value>
+  </data>
+  <data name="electricite" xml:space="preserve">
+    <value> Electricité</value>
+  </data>
+  <data name="equipeInterne" xml:space="preserve">
+    <value> Equipe interne</value>
+  </data>
+  <data name="feesBpr" xml:space="preserve">
+    <value> Honoraire Tetra Tech</value>
+  </data>
+  <data name="feesFin" xml:space="preserve">
+    <value> Hon. finaux</value>
+  </data>
+  <data name="feesPrev" xml:space="preserve">
+    <value> Hon. prévus </value>
+  </data>
+  <data name="feesTeam" xml:space="preserve">
+    <value> Honoraire de l'équipe</value>
+  </data>
+  <data name="final" xml:space="preserve">
+    <value> final</value>
+  </data>
+  <data name="Finaux" xml:space="preserve">
+    <value> Finaux</value>
+  </data>
+  <data name="genOpqibi" xml:space="preserve">
+    <value> Générer OPQIBI</value>
+  </data>
+  <data name="gestFin" xml:space="preserve">
+    <value> Coût final Gestion de projet</value>
+  </data>
+  <data name="gestFinFees" xml:space="preserve">
+    <value> Hon. finaux Gestion de projet</value>
+  </data>
+  <data name="gestion" xml:space="preserve">
+    <value> Gestion de projet</value>
+  </data>
+  <data name="gestPrev" xml:space="preserve">
+    <value> Coût prévu Gestion de projet</value>
+  </data>
+  <data name="gestPrevFees" xml:space="preserve">
+    <value> Hon. prévus Gestion de projet</value>
+  </data>
+  <data name="hon" xml:space="preserve">
+    <value> Hon.</value>
+  </data>
+  <data name="honoraire" xml:space="preserve">
+    <value> Honoraires</value>
+  </data>
+  <data name="impr" xml:space="preserve">
+    <value>Imprimer</value>
+  </data>
+  <data name="infoInterne" xml:space="preserve">
+    <value> Informations internes</value>
+  </data>
+  <data name="infraFin" xml:space="preserve">
+    <value> Coût final Infrastructure</value>
+  </data>
+  <data name="infraFinFees" xml:space="preserve">
+    <value> Hon. finaux Infrastructure</value>
+  </data>
+  <data name="infraPrev" xml:space="preserve">
+    <value> Coût prévu Infrastructure</value>
+  </data>
+  <data name="infraPrevFees" xml:space="preserve">
+    <value> Hon. prévus Infrastructure</value>
+  </data>
+  <data name="infrastructure" xml:space="preserve">
+    <value> Infrastructure</value>
+  </data>
+  <data name="lastMod" xml:space="preserve">
+    <value> Dernière modification le</value>
+  </data>
+  <data name="mecaFin" xml:space="preserve">
+    <value> Coût final Mécanique</value>
+  </data>
+  <data name="mecaFinFees" xml:space="preserve">
+    <value> Hon. finaux Mécanique</value>
+  </data>
+  <data name="mecanique" xml:space="preserve">
+    <value> Mécanique</value>
+  </data>
+  <data name="mecaPrev" xml:space="preserve">
+    <value> Coût prévu Mécanique</value>
+  </data>
+  <data name="mecaPrevFees" xml:space="preserve">
+    <value> Hon. prévus Mécanique</value>
+  </data>
+  <data name="mesurageEco" xml:space="preserve">
+    <value> Plan de mesurage des économies</value>
+  </data>
+  <data name="mission" xml:space="preserve">
+    <value>Discipline</value>
+  </data>
+  <data name="montant" xml:space="preserve">
+    <value> Montant</value>
+  </data>
+  <data name="montantEstim" xml:space="preserve">
+    <value>Estimation du projet</value>
+  </data>
+  <data name="montantFin" xml:space="preserve">
+    <value> Final</value>
+  </data>
+  <data name="montantSoum" xml:space="preserve">
+    <value>Amount tendered</value>
+  </data>
+  <data name="month" xml:space="preserve">
+    <value> mois</value>
+  </data>
+  <data name="months" xml:space="preserve">
+    <value>mois</value>
+  </data>
+  <data name="nomContact" xml:space="preserve">
+    <value> Nom du contact</value>
+  </data>
+  <data name="none" xml:space="preserve">
+    <value>Non renseigné</value>
+  </data>
+  <data name="NoStructure" xml:space="preserve">
+    <value> No structure (P-xxxxxx)</value>
+  </data>
+  <data name="numRef" xml:space="preserve">
+    <value> Numéro de référence projet du client</value>
+  </data>
+  <data name="ofTeam" xml:space="preserve">
+    <value> de l'équipe</value>
+  </data>
+  <data name="organisme" xml:space="preserve">
+    <value> Organisme</value>
+  </data>
+  <data name="others" xml:space="preserve">
+    <value> Autres partenaires</value>
+  </data>
+  <data name="particularite" xml:space="preserve">
+    <value>Particularités du projet</value>
+  </data>
+  <data name="planDevis" xml:space="preserve">
+    <value>Plans et devis</value>
+  </data>
+  <data name="prevu" xml:space="preserve">
+    <value> prévu</value>
+  </data>
+  <data name="prevue" xml:space="preserve">
+    <value> Prévue</value>
+  </data>
+  <data name="prevues" xml:space="preserve">
+    <value> Prévues</value>
+  </data>
+  <data name="Prevus" xml:space="preserve">
+    <value> Prévus</value>
+  </data>
+  <data name="pri" xml:space="preserve">
+    <value> PRI simple annuel</value>
+  </data>
+  <data name="proprio" xml:space="preserve">
+    <value> Propriétaire de l'ouvrage</value>
+  </data>
+  <data name="reelle" xml:space="preserve">
+    <value> Réelle</value>
+  </data>
+  <data name="reelles" xml:space="preserve">
+    <value> Réelles</value>
+  </data>
+  <data name="resil" xml:space="preserve">
+    <value> de réalisation</value>
+  </data>
+  <data name="service" xml:space="preserve">
+    <value>Services</value>
+  </data>
+  <data name="serviceEnvironnement" xml:space="preserve">
+    <value>Nature des travaux</value>
+  </data>
+  <data name="space" xml:space="preserve">
+    <value> &amp;nbsp; |   &amp;nbsp;  </value>
+  </data>
+  <data name="structFin" xml:space="preserve">
+    <value> Coût final Structure</value>
+  </data>
+  <data name="structFinFees" xml:space="preserve">
+    <value> Hon. finaux Structure</value>
+  </data>
+  <data name="structPrev" xml:space="preserve">
+    <value> Coût prévu Structure</value>
+  </data>
+  <data name="structPrevFees" xml:space="preserve">
+    <value> Hon. prévus Structure</value>
+  </data>
+  <data name="structure" xml:space="preserve">
+    <value> Structure</value>
+  </data>
+  <data name="theTeam" xml:space="preserve">
+    <value> L'équipe</value>
+  </data>
+  <data name="travauxApres" xml:space="preserve">
+    <value> Après travaux</value>
+  </data>
+  <data name="travauxAvant" xml:space="preserve">
+    <value> Avant travaux</value>
+  </data>
+  <data name="txtConfidentiel" xml:space="preserve">
+    <value>L'accès au contenu de cette fiche est a été restreint par le responsable de Boomerang</value>
+  </data>
+  <data name="typeClient" xml:space="preserve">
+    <value> Type de client</value>
+  </data>
+  <data name="unite" xml:space="preserve">
+    <value>Unité</value>
+  </data>
+  <data name="year" xml:space="preserve">
+    <value> Année</value>
+  </data>
+  <data name="yearReal" xml:space="preserve">
+    <value>Période de réalisation</value>
+  </data>
+  <data name="agence" xml:space="preserve">
+    <value>Bureau</value>
+  </data>
+  <data name="appui" xml:space="preserve">
+    <value>Aide financière respectée</value>
+  </data>
+  <data name="appuiPrevu" xml:space="preserve">
+    <value>Aide projetée</value>
+  </data>
+  <data name="appuiReel" xml:space="preserve">
+    <value>Aide réelle</value>
+  </data>
+  <data name="archi" xml:space="preserve">
+    <value> Architecte(s)</value>
+  </data>
+  <data name="by" xml:space="preserve">
+    <value>par</value>
+  </data>
+  <data name="chargeAff" xml:space="preserve">
+    <value>Directeur de projet</value>
+  </data>
+  <data name="accueil" xml:space="preserve">
+    <value>Accueil</value>
+  </data>
+  <data name="aide" xml:space="preserve">
+    <value>Aide</value>
+  </data>
+  <data name="creation_fiche" xml:space="preserve">
+    <value>Créer une fiche</value>
+  </data>
+  <data name="paniers" xml:space="preserve">
+    <value>Mes paniers</value>
+  </data>
+  <data name="phototheque" xml:space="preserve">
+    <value>Photothéque</value>
+  </data>
+  <data name="recherche" xml:space="preserve">
+    <value>Recherche</value>
+  </data>
+  <data name="myDrafts" xml:space="preserve">
+    <value>Mes brouillons en cours ou en attente de validation</value>
+  </data>
+  <data name="newOnBoomerang" xml:space="preserve">
+    <value>En effet, dés a présent, les fiches générées automatiquement en format PDF n'afficheront plus de logo et présenteront uniquement le domaine et l'expertise (bandeau bleu a gauche). Toutefois, vous avez encore la possibilitéd'imposer le logo de votre choix en vous créant des "paniers".&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Mise a niveau des fiches de projet&lt;/b&gt;&lt;br /&gt;-Faire attention a la terminologie employée dans la description des projets afin de faire disparaitre le mot BPR.&lt;br /&gt;Par exemple, nous devrions lire : "L'équipe a réaliséle mandat ... " plutot que : "BPR a réaliséle mandat ..." ou encore rédiger la description de fiche de mani&amp;egrave;re plus impersonnelle : "Les travaux consistaient a ...".&lt;br /&gt;-Pour les projets réalisés depuis le transfert de votre division vers une filiale de Tetra Tech QC, courant 2014, vous pouvez continuer avec "notre équipe", mais vous pouvez aussi utiliser "Tetra Tech". Prenez note qu'on ne parle jamais de Tetra Tech QI, QB, QE ou IN qui ne sont que des entités légales. a l'externe, on se présente seulement sous Tetra Tech.&lt;br /&gt;N'oubliez pas, une formation Boomerang est disponible en tout temps :&lt;br /&gt;&lt;a href="https://sites.tetratech.com/teams/TTE_Can/TI/Video_formation_Boomerang/Forms/AllItems.aspx" target="_blank"&gt;https://sites.tetratech.com/teams/TTE_Can/TI/Video_formation_Boomerang/Forms/AllItems.aspx&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;En cas de doute ou de question, n'hésitez pas a joindre Chantal Doucet au 438-469-2456 ou a &lt;a href="mailto:Chantal.Doucet@tetratech.com"&gt;Chantal.Doucet@tetratech.com&lt;/a&gt;.&lt;br /&gt;&lt;br /&gt;Excellente utilisation de Boomerang.</value>
+  </data>
+  <data name="projectSheet" xml:space="preserve">
+    <value>Fiches projet</value>
+  </data>
+  <data name="help" xml:space="preserve">
+    <value>Page d'aide</value>
+  </data>
+</root>

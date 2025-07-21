@@ -1,0 +1,92 @@
+﻿@model List<TetraTech.TTProjetPlus.Models.DisciplineEmployeeItem>
+@using InfoResources = TetraTech.TTProjetPlus.Views.Disciplines
+@{
+    ViewBag.Title = "EmployeeListPartial";
+}
+
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="panel pagination-grey clearfix m-b-0">
+        <div id="data-table_wrapper2" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+            <table id="data_projectManagerName" class="table table-bordered  data-table  dataTable" style="width: 100%">
+                <thead id="tableHeaderGP">
+                    <tr class="grey" role="row">
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width: 50%">
+                            @InfoResources.Discipline.Name
+                        </th>               
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 50%">
+                            @InfoResources.Discipline.TTAccount
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 0%;">
+                            
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+                    <tr>
+                        <td style="text-align: left;width: 50%">
+                            @item.Full_Name
+                        </td>
+                        <td style="text-align: left;width: 50%">
+                            @item.TTAccount
+                        </td>
+                        <td style="text-align: left; width: 0%; visibility: hidden;">
+                            @item.discDocProjId
+                        </td>
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+else
+{
+    if (Model == null)
+    {
+        @Html.Partial("Error")
+    }
+    else
+    {
+        <span>  @InfoResources.Discipline.employeeList_null</span>
+    }
+}
+<script>
+    $(document).ready(function () {
+
+        $('#data_projectManagerName').DataTable({
+            "order": [[0, "asc"]],
+            "columnDefs": [{ "targets": [2], "visible": true }],
+           "language": {
+                "url": '@ViewBag.lang.ToString()' == 'fr' ? "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json" : "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+            }
+        });
+
+    });
+
+
+    $('#data_projectManagerName tbody tr  td').on('click', function () {
+
+        $('#data_projectManagerName tr').removeClass('selected');
+        $(this).closest('tr').addClass('selected');
+
+        EmployeeNumber = ($(this).closest('tr').children()[0].textContent).trim();
+        EmployeeTTAccount = ($(this).closest('tr').children()[1].textContent).trim();
+        discDocProjId = ($(this).closest('tr').children()[2].textContent).trim();
+    });
+
+    $('#cancelAddEmployee').click(function () {
+        ($('input[type=search]')[0]).value = "";
+        $('#data_projectManagerName tr').removeClass('selected');
+        $('#data_projectManagerName').DataTable().search('').draw();
+
+    });
+</script>
+
+

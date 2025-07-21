@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ProjectToCloseRessources" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>projecttocloseressources.resx;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="ProjectToCloseRessources_Designer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>projecttocloseressources.designer.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Actif</value>
+  </data>
+  <data name="ArchiveDateTime" xml:space="preserve">
+    <value>Date d'archivage</value>
+  </data>
+  <data name="BillingSpecialist" xml:space="preserve">
+    <value>Agent de facturation</value>
+  </data>
+  <data name="BillingSpecialistProjectToClose" xml:space="preserve">
+    <value>Agent de facturation (fermeture)</value>
+  </data>
+  <data name="chooseNumber" xml:space="preserve">
+    <value>Veuillez choisir un numéro de projet</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Fermé</value>
+  </data>
+  <data name="CommentFermeture_Projet" xml:space="preserve">
+    <value>Instruction à l'agente de facturation</value>
+  </data>
+  <data name="ContractAdministrator" xml:space="preserve">
+    <value>Contrôleur de coût</value>
+  </data>
+  <data name="Doc_PostponedDateTime" xml:space="preserve">
+    <value>Date de report de l'archivage</value>
+  </data>
+  <data name="DuplicateComment" xml:space="preserve">
+    <value>Il existe déjà une instruction de facturation pour ce projet.</value>
+  </data>
+  <data name="EstimateEndDate" xml:space="preserve">
+    <value>Date de fin estimée</value>
+  </data>
+  <data name="hide" xml:space="preserve">
+    <value>Masquer les projets fermés</value>
+  </data>
+  <data name="InClosingProcess" xml:space="preserve">
+    <value>En cours de fermeture</value>
+  </data>
+  <data name="InformationMessage" xml:space="preserve">
+    <value>Seul un membre clé du projet peut procéder à la fermeture d'un projet.  Le menu déroulant des numéros de projet est ajusté en conséquence.</value>
+  </data>
+  <data name="InitiatedBy" xml:space="preserve">
+    <value>Initié par</value>
+  </data>
+  <data name="LabelArchivedPostponedDate" xml:space="preserve">
+    <value>Si non, à quelle date voulez-vous le reporter?</value>
+  </data>
+  <data name="LabelIsArchived" xml:space="preserve">
+    <value>Voulez-vous archiver la structure de répertoires?</value>
+  </data>
+  <data name="LabelIsClosed" xml:space="preserve">
+    <value>Voulez-vous fermer le projet dans Tetra Linx ?</value>
+  </data>
+  <data name="Legend" xml:space="preserve">
+    <value>Légende</value>
+  </data>
+  <data name="noResults" xml:space="preserve">
+    <value>Aucun résultat...</value>
+  </data>
+  <data name="NotAProject" xml:space="preserve">
+    <value>Ce numéro {0} n'est pas un projet.</value>
+  </data>
+  <data name="ProgramManager" xml:space="preserve">
+    <value>Gestionnaire de programme</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Titre abrégé</value>
+  </data>
+  <data name="ProjectManager" xml:space="preserve">
+    <value>Gestionnaire de projet</value>
+  </data>
+  <data name="ProjectManagerProjectToClose" xml:space="preserve">
+    <value>Gestionnaire de projet (fermeture)</value>
+  </data>
+  <data name="ProjectNumber" xml:space="preserve">
+    <value>Numéro de projet</value>
+  </data>
+  <data name="ProjectToCloseAccessDenied" xml:space="preserve">
+    <value>Seul un membre-clé du projet peut procéder à la fermeture d'un projet.</value>
+  </data>
+  <data name="ProjectToCloseTitle" xml:space="preserve">
+    <value>Fermeture de projet</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>En report</value>
+  </data>
+  <data name="SaveMessage" xml:space="preserve">
+    <value>Un courriel sera envoyé à l'agente de facturation en mettant en copie conforme le gestionnaire de projet et le contrôleur de coût.</value>
+  </data>
+  <data name="SaveSuccess" xml:space="preserve">
+    <value>Le projet {0} a été sauvegardé avec succes. Le no. de référence du courriel est: {1}</value>
+  </data>
+  <data name="SelectProject" xml:space="preserve">
+    <value>Veuillez choisir un numéro de projet</value>
+  </data>
+  <data name="StatusDocName" xml:space="preserve">
+    <value>Statut de la documentation</value>
+  </data>
+  <data name="StatusName" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="SubmittedDate" xml:space="preserve">
+    <value>Demande faite le</value>
+  </data>
+  <data name="TlinxProjectNull" xml:space="preserve">
+    <value>Le projet TetraLinx+ doit exister.</value>
+  </data>
+  <data name="message1" xml:space="preserve">
+    <value>Le processus d'archivage de la structure de répertoires débutera à la date la plus éloignée entre la date de report et la date de fermeture effective du projet indiquée dans Tetra Linx</value>
+  </data>
+  <data name="message2" xml:space="preserve">
+    <value>Le processus d'archivage de la structure de répertoires débutera lorsque le projet sera fermé dans Tetra Linx.</value>
+  </data>
+  <data name="message3" xml:space="preserve">
+    <value>Le processus d'archivage de la structure de répertoires débutera lorsque le projet sera fermé dans Tetra Linx</value>
+  </data>
+  <data name="chooseProjectMum" xml:space="preserve">
+    <value>Veuillez choisir un numéro de projet</value>
+  </data>
+  <data name="endDate" xml:space="preserve">
+    <value>Date de fin</value>
+  </data>
+  <data name="startingDate" xml:space="preserve">
+    <value>Date de début</value>
+  </data>
+  <data name="emailLang" xml:space="preserve">
+    <value>Dans quelle langue voulez vous envoyer le courriel automatique? :</value>
+  </data>
+  <data name="en" xml:space="preserve">
+    <value>En</value>
+  </data>
+  <data name="fr" xml:space="preserve">
+    <value>Fr</value>
+  </data>
+  <data name="Afermer" xml:space="preserve">
+    <value>Projet à fermer</value>
+  </data>
+  <data name="AllP" xml:space="preserve">
+    <value>Tous</value>
+  </data>
+  <data name="AddPMName" xml:space="preserve">
+    <value>Veuillez saisir les informations du chargé projet client</value>
+  </data>
+</root>

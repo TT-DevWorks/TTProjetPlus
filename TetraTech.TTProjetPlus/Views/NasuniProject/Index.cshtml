@@ -1,0 +1,212 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.TTProjet
+@model TetraTech.TTProjetPlus.Models.ListProjectNasuni2
+
+<style>
+    #data_customer {
+        width: 100% !important;
+    }
+
+        #data_customer td {
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        #data_customer th {
+            white-space: normal;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+</style>
+
+<div class="container " style="height: 200vh;width: 100%;">
+    <div class="main">
+        <div class="row">
+            <div class="row">
+                <div class="col-lg-3" style="padding-top: -49px;">
+                    <div class="panel" style="border-radius: 10px; width: 106%;">
+                        <div class="panel-body">
+                            <ul class="list-inline">
+                                <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet" )">TT Projet +  /</a></li>
+                                <li><a style=" color:#183666; font-weight: bold" href="@Url.Action("IndexAdmin", "Admin" )">@Resources.TTProjet.TITools</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="">
+                        <div class="panel" style="border-radius: 10px; ">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li>
+                                        &bull;&nbsp;<a style="color:#183666  " href="@Url.Action("IndexAdmin", "Admin")">@Resources.TTProjet.cancelProjectClosing</a>
+
+                                    </li>
+
+                                    <li>
+                                        &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "Litige")"> @Resources.TTProjet.LitigeManagement</a>
+
+                                    </li>
+                                  
+                                    <li>
+                                        &bull;&nbsp;<a style="color:#183666 ;font-weight: bold" href="@Url.Action("Index", "NasuniProject")">Liste projets à sécuriser (Nasuni)</a>
+
+                                    </li>
+                                    <li>
+                                        &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "LocalBPR")">Recherche informations employé</a>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="row form-group">
+                <div class="col-sm-12">
+                    <div class="panel pagination-grey" style="margin-top: -10px; ">                     
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div style="border-radius: 10px">
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <br>
+                                                @{ var checkF = Model.Checked; }
+                                                <label class="checkbox-inline" style="margin-left: 25px;"><input id="projectCheckbox" class="" type="checkbox" value="" @checkF>Masquer les Projects complétés</label>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="panel pagination-grey clearfix m-b-0">
+                                            <div id="data-table_wrapper1" class="dataTables_wrapper form-inline dt-bootstrap no-footer" style=" margin-left : 40px">
+                                                <table id="data_customer" class=" table table-bordered  data-table  dataTable display" style="width: 100%;">
+                                                    <thead id="tableHeaderGP">
+                                                        <tr style="font-style:italic; "></tr>
+                                                        <tr class="grey" role="row">
+
+                                                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                <a>id</a>
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                <a>NasuniSeqID</a>
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                <a>ProjectID</a>
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                <a>DtInserted</a>
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                <a>dtStarted</a>
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                <a>dtFinished</a>
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                <a>nbTrial</a>
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                <a>error</a>
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                <a>Completed</a>
+                                                            </th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @for (var i = 0; i < Model.ListProjectNasuni.Count ; i++)
+                                                        {
+
+                                                            <tr>
+                                                                <td style="text-align: left;">
+                                                                    @Model.ListProjectNasuni[i].id  
+                                                                </td>
+                                                                <td style="text-align: left;">
+                                                                    @Model.ListProjectNasuni[i].NasuniSeqID
+                                                                </td>
+                                                                <td style="text-align: left;">
+                                                                    @Model.ListProjectNasuni[i].ProjectID
+                                                                </td>
+                                                                <td style="text-align: left;">
+                                                                    @Model.ListProjectNasuni[i].DtInserted
+                                                                </td>
+                                                                <td style="text-align: left;">
+                                                                    @Model.ListProjectNasuni[i].dtStarted
+                                                                </td>
+                                                                <td style="text-align: left;">
+                                                                    @Model.ListProjectNasuni[i].dtFinished
+                                                                </td>
+                                                                <td style="text-align: left;">
+                                                                    @Model.ListProjectNasuni[i].nbTrial
+                                                                </td>
+                                                                <td style="text-align: left;">
+                                                                    @Model.ListProjectNasuni[i].error
+                                                                </td>
+                                                                <td style="text-align: left;">
+                                                                    @Model.ListProjectNasuni[i].Completed
+                                                                </td>
+
+                                                            </tr>
+                                                        }
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {       
+
+        $('#data_customer').DataTable({
+            pageResize: true,
+            pageLength: 25,
+            select: true,
+            scrollX: true,
+            scrollY: $(window).height() <= 722 ? $(window).height() / 3.5 : $(window).height() / 2,
+            scrollCollapse: true,
+            language: {
+                "url": '@Session["lang"].ToString()' == 'fr' ? "/Content/assets/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json",
+                select: {
+                    rows: '@Session["lang"].ToString()' == 'fr' ? '' : ''
+                }
+            },
+        });
+        $('#data_customer').DataTable().draw();
+    });
+
+    $('#data_customer thead').on('keyup', ".column_search", function () {
+
+        $('#data_customer').DataTable()
+            .column($(this).parent().index())
+            .search(this.value)
+            .draw();
+    });
+
+
+    //pour montrer les projets inactifs
+    $("#projectCheckbox").click(function () {
+        var activeParam = $("#projectCheckbox").is(':checked') ? "yes" : "no"
+
+        window.location.href = "/NasuniProject/Index?menuVisible=" + "true" + "&activeproject=" + activeParam;
+     
+    });
+
+  
+
+</script>

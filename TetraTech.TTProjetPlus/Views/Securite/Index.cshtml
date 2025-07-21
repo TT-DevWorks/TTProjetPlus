@@ -1,0 +1,481 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.Securite
+@using Resources2 = TetraTech.TTProjetPlus.Views.ManageDirectoryRights
+@using Resources3 = TetraTech.TTProjetPlus.Views.TTProjet
+@using TetraTech.TTProjetPlus.Security
+@using TetraTech.TTProjetPlus.Models
+@using InfoResources = TetraTech.TTProjetPlus.Views.Home.informations
+@using TetraTech.TTProjetPlus.Controllers
+@using ArchiveResources = TetraTech.TTProjetPlus.Views.ArchiveProjet
+@using TetraTech.TTProjetPlus.Security
+
+
+@{
+    ViewBag.Title = "Nouveau projet";
+
+    var currentUser = UserService.CurrentUser;
+
+}
+
+
+<style>
+    .fade {
+        opacity: 0;
+        -webkit-transition: opacity .3s linear;
+        transition: opacity .3s linear
+    }
+
+    .modal-content {
+        box-shadow: none;
+        border: none;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px
+    }
+
+    .modal-content, .popover {
+        -webkit-box-shadow: none
+    }
+
+    .modal-header {
+        border-bottom: 2px solid #EAEDEF;
+        padding: 15px 20px 12px
+    }
+
+    .modal-body, .modal-footer {
+        padding: 15px 20px
+    }
+
+    .modal-footer {
+        border-top: 2px solid #EAEDEF
+    }
+
+    .modal-message .modal-dialog {
+        width: 100%;
+        margin: 0
+    }
+
+    .modal-message .modal-content {
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0
+    }
+
+    .modal-message .modal-body, .modal-message .modal-footer, .modal-message .modal-header {
+        width: 60%;
+        border: none;
+        margin: 0 auto
+    }
+
+    .modal-backdrop.in {
+        opacity: .3;
+        filter: alpha(opacity=30)
+    }
+
+    .modal {
+        position: absolute;
+        top: 200px;
+        right: 250px;
+        bottom: 0;
+        left: 0;
+        z-index: 10040;
+        height: 800px;
+    }
+
+    i {
+        background: white;
+        cursor: pointer;
+    }
+</style>
+
+<div class="form-horizontal">
+    <div id="top"></div>
+
+    <div class="container " style="height: 100%; width: 100%">
+        <div class="main">
+            @if (ViewBag.MenuVisible == "true")
+            {
+
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-3" style="padding-top: -49px;">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 99px; ">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                        <li style="color:#183666 ; font-weight: bold"><a href="@Url.Action("Index2", "ArchiveProjet")"> @ArchiveResources.ArchiveProjetRessource.Administration </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="">
+                                <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 99px; ">
+                                    <div class="panel-body">
+                                        <ul class="list-inline">
+                                            <li>
+                                                &bull;&nbsp;
+                                                <a style="color:#183666 ; " href="@Url.Action("Index2", "ArchiveProjet")">@ArchiveResources.ArchiveProjetRessource.ArchiveProject</a>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                &bull;&nbsp;
+                                                <a style="color: #183666; " href="@Url.Action("Index", "ArchiveProjet")">@ArchiveResources.ArchiveProjetRessource.ArchiveProject1</a>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                &bull;&nbsp;
+                                                <a style="color: #183666; font-weight: bold" href="@Url.Action("Index", "Securite")">@Resources.Securite.CreateNumberAccessManagement</a>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                &bull;&nbsp;
+                                                <a style="color: #183666;" href="@Url.Action("Index", "GestionProjetSecuriser")">@Resources3.TTProjet.MangeProjetSecuriser</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="">
+                                <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 99px; ">
+                                    <div class="panel-body">
+                                        <ul class="list-inline">
+                                            <li>
+                                                &bull;&nbsp;
+                                                <a style="color:#183666 ;" href="@Url.Action("Index", "Gestion10ConfTQE")">@Resources3.TTProjet.Manage10ConfTQE</a>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                &bull;&nbsp;
+                                                <a style="color: #183666; " href="@Url.Action("Index", "Gestion10Conf")">@Resources3.TTProjet.Manage10Conf</a>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                &bull;&nbsp;
+                                                <a style="color: #183666;" href="@Url.Action("Index", "EnvVerifDiligente")">@Resources3.TTProjet.ListProjetEnvDiligente</a>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                &bull;&nbsp;
+                                                <a style="color: #183666;" href="@Url.Action("SatisfactionClient", "TTProjet")">@Resources3.TTProjet.ProcessusSatisfactionClient</a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="row">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel panel-primary" style="border-radius: 10px; margin-top: -15px; margin-left: -10px;">
+                            @if (Session["HasAccessToSecurite"].ToString() == "true")
+                            {
+
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="alert alert-success" id="successUpdate" hidden="hidden">
+                                                <button type="button" class="close" data-hide="alert">&times;</button>
+                                                <strong>@Resources.Securite.message1 </strong>
+                                            </div>
+
+                                            <div class="alert alert-danger" id="failUpdate" hidden="hidden">
+                                                <button type="button" class="close" data-hide="alert">&times;</button>
+                                                <strong>@Resources.Securite.message2</strong>
+                                            </div>
+                                            <div class="alert alert-info" id="existsUpdate" hidden="hidden">
+                                                <button type="button" class="close" data-hide="alert">&times;</button>
+                                                <strong>@Resources.Securite.message3</strong>
+                                            </div>
+                                            <div class="alert alert-success" id="successRemove" hidden="hidden">
+                                                <button type="button" class="close" data-hide="alert">&times;</button>
+                                                <strong>@Resources.Securite.message4 </strong>
+                                            </div>
+
+                                            <div class="alert alert-danger" id="failRemove" hidden="hidden">
+                                                <button type="button" class="close" data-hide="alert">&times;</button>
+                                                <strong>@Resources.Securite.message5</strong>
+                                            </div>
+                                            <div class="alert alert-info" id="notExistRemove" hidden="hidden">
+                                                <button type="button" class="close" data-hide="alert">&times;</button>
+                                                <strong>@Resources.Securite.message6</strong>
+                                            </div>
+                                            <div class="alert alert-info" id="ConfirmDelEmp" hidden="hidden">
+                                                <div class="row">
+                                                    <div class="col-lg-5">
+                                                        @Resources.Securite.message7 <strong id="empToDel"></strong>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <button type="button" class="btn btn-default" id="delButton" onclick="confirmDelEmployeAlert()">@Resources.Securite.confirm</button>
+                                                        <button type="button" class="btn btn-default" id="cancelButton" onclick="cancelDelEmp()">@Resources.Securite.cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="alert alert-info" id="actionCancelled" hidden="hidden">
+                                                <button type="button" class="close" data-hide="alert">&times;</button>
+                                                <strong>@Resources.Securite.message8</strong>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="col-sm-11">
+                                                    <div class="input-group" style="float:left;">
+                                                        <input type="text" class="form-control formControl2" id="employee" placeholder="@Resources.Securite.addAnEmployee" style="padding-left: 10px;">
+                                                        <div class="input-group-addon" onclick="openModal('')">
+                                                            <i class="fa fa-search"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <button type="button" class="specialB" onclick="AddEmployee()">@Resources.Securite.add</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div id="contentListResponsibles">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <p>@Resources.Securite.message9</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-message fade" id="employeesModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" style="right:0px; top: 275px;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="width:100%;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="modalLabelGP">@Resources.Securite.employeesList</h4>
+                </div>
+                <div class="modal-body" id="contentProjectManager" style="width:100%;">
+                </div>
+                <div class="modal-footer" style="width:100%;">
+                    <button type="button" class="specialB" data-dismiss="modal" id="cancelProjectMgr">@Resources.Securite.cancel</button>
+                    <button type="button" class="specialB" onclick="applyEmployeeValue()">@Resources.Securite.ok</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+
+    $(document).ready(function () {
+         $.ajax({
+
+             type: 'GET',
+             dataType: 'html',
+             cache: false,
+             url: '@Url.Action("returnTableListResponsibles", "Securite")',
+              success: function (result) {
+                  $("#contentListResponsibles").html(result);
+              }
+    });
+
+
+    $.ajax({
+
+             type: 'GET',
+             dataType: 'html',
+             cache: false,
+             url: '@Url.Action("returnListProjectManagers", "Home")',
+              success: function (result) {
+                  $("#contentProjectManager").html(result);
+              }
+    });
+    });
+
+
+//autocomplete pour liste des employés
+$(function() {
+var array = @Html.Raw(Json.Encode(@ViewBag.EmployeeArray));
+var numberArray = [];
+for (var i = 0; i < array.length; i++) {
+numberArray[i] = { value: array[i], label: array[i] };
+}
+    $( "#employee" ).autocomplete({
+source: numberArray,
+focus: function( event, ui ) {
+    $( "#employee" ).val( ui.item.label );
+return false;
+}})
+.autocomplete( "instance" )._renderItem = function( ul, item ) {
+return $( "<li>" )
+.append( "<div>" + item.label + "</div>" )
+.appendTo( ul );
+};
+});
+// fin autcomplete
+
+
+    var projectOrProgramManagerNumber = "";
+    var employeeToDeleteId = "";
+
+    function openModal() {
+        $('#employeesModal').modal('show');
+    }
+
+    function applyEmployeeValue() {
+        $("#employee").val(projectOrProgramManagerNumber);
+
+        $('#data_projectManagerName tr').removeClass('selected');
+        ($('input[type=search]')[0]).value = "";
+        $('#data_projectManagerName').DataTable().search('').draw();
+        $('#data_projectManagerName tr').removeClass('selected');
+        $('#employeesModal').modal('toggle');
+
+    }
+    $(".close").click(function () {
+        $(".alert").hide();
+
+    });
+
+
+
+    function AddEmployee() {
+        if ($("#employee").val() != "") {
+            $.ajax({
+
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                data: {
+                    employee: $("#employee").val()
+                },
+                url: '@Url.Action("givePermissionToEmployee", "Securite")',
+                success: function (result) {
+                    if (result.data == "existsUpdate") {
+                        $("#existsUpdate").show();
+                        setTimeout(function () {
+                            $('#existsUpdate').fadeOut('slow');
+                        }, 3000
+                        );
+                    }
+                    else if (result.data == "successUpdate") {
+                        $("#successUpdate").show();
+                        $("#contentListResponsibles").html("");
+                        $.ajax({
+                            type: 'GET',
+                            dataType: 'html',
+                            cache: false,
+                            url: '@Url.Action("returnTableListResponsibles", "Securite")',
+                            success: function (result) {
+                                $("#contentListResponsibles").html(result);
+                            }
+                        });
+                        setTimeout(function () {
+                            $('#successUpdate').fadeOut('slow');
+                        }, 3000
+                        );
+                    }
+                    else if (result.data == "failUpdate") {
+                        $("#failUpdate").show();
+                        setTimeout(function () {
+                            $('#failUpdate').fadeOut('slow');
+                        }, 3000
+                        );
+                    }
+                    $('#employee').val("");
+                }
+            });
+        }
+        else {
+            alert('@Resources.Securite.chooseEmployee'.replace('&#233;', '\é'))
+        }
+    }
+
+    function confirmDelEmployeAlert() {
+            $("#ConfirmDelEmp").hide();
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    cache: false,
+                    data: {
+                        employeeId: employeeToDeleteId
+                    },
+                    url: '@Url.Action("removeResponsible", "Securite")',
+                    success: function (result) {
+                        employeeToDeleteId = "";
+                if (result.data == "notExistRemove") {
+                    $("#notExistRemove").show();
+                    setTimeout(function () {
+                        $('#notExistRemove').fadeOut('slow');
+                    }, 3000
+                    );
+                }
+                else if (result.data == "successRemove") {
+                    $("#successRemove").show();
+                    $("#contentListResponsibles").html("");
+                                $.ajax({
+                                type: 'GET',
+                                dataType: 'html',
+                                cache: false,
+                                url: '@Url.Action("returnTableListResponsibles", "Securite")',
+                                success: function (result) {
+                                    $("#contentListResponsibles").html(result);
+                                }
+                                });
+                    setTimeout(function () {
+                        $('#successRemove').fadeOut('slow');
+                    }, 3000
+                    );
+                }
+                else if (result.data == "failRemove") {
+                    $("#failRemove").show();
+                    setTimeout(function () {
+                        $('#failRemove').fadeOut('slow');
+                    }, 3000
+                    );
+                }
+             }
+         });
+    }
+
+        function confirmDeleteEmploye(id, name) {
+        $("#empToDel").html(name);
+        $("#ConfirmDelEmp").show();
+        employeeToDeleteId = id;
+    }
+
+    function cancelDelEmp() {
+        $("#ConfirmDelEmp").hide();
+        $("#actionCancelled").show();
+        setTimeout(function () {
+            $('#actionCancelled').fadeOut('slow');
+        }, 1500
+        );
+    }
+</script>

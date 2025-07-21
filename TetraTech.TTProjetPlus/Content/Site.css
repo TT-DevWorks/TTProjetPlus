@@ -1,0 +1,416 @@
+﻿body {
+    font-family: Helvetica,Arial, sans-serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+html.wait, html.wait * {
+    cursor: wait !important;
+}
+
+body.wait, body.wait * {
+    cursor: wait !important;
+}
+
+input {
+    border-radius: 2px;
+    border: 1px solid #f0f0f0;
+    padding: 7px;
+}
+
+    input[type=submit] {
+        border-color: gainsboro;
+    }
+
+textarea {
+    border-radius: 2px;
+    border: 1px solid #f0f0f0;
+    padding: 7px;
+}
+
+ul.editor-template {
+    max-height: 300px;
+    list-style: none;
+    overflow-y: scroll;
+    padding: 0 10px;
+}
+
+    ul.editor-template input, textarea {
+        width: 350px;
+    }
+
+    ul.editor-template li {
+        margin: 10px 0;
+    }
+
+ul.form {
+    list-style: none;
+    padding-left: 0;
+}
+
+    ul.form li {
+        padding: 6px 0;
+    }
+
+.brand {
+    margin-left: 16px;
+    padding-right: 20px;
+}
+
+    .brand img {
+        height: 28px;
+        margin-top: -5px;
+        vertical-align: middle;
+    }
+
+    .brand .title {
+        font-size: 16px;
+        margin-left: 16px;
+    }
+
+.content {
+    /*margin: 32px 16px;*/
+    margin: 0px 8px 0px 8px;
+}
+
+.current-user {
+    margin-right: 3em;
+}
+
+.exceeded {
+    background-color: orangered;
+    color: white;
+    font-weight: bold;
+}
+
+.input-validation-error, .form-control.input-validation-error {
+    border-color: red ;
+}
+
+.no-records {
+    margin: 16px 0;
+}
+
+.right-align {
+    text-align: right;
+}
+
+.validation-summary-errors {
+    color: red;
+}
+
+    .validation-summary-errors ul {
+        padding-left: 16px;
+    }
+
+
+table {
+    border: 0px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+td, img {
+    padding: 0px;
+    border-width: 0px;
+    margin: 0px;
+}
+
+.content > .k-loading-mask > .k-loading-image {
+    background-position-y: center;
+}
+
+/*styles after upgrading kendo to 2018*/
+.k-toolbar {
+    line-height: 3em;
+}
+
+.k-i-more-vertical:before {
+    content: "\e006";
+}
+/*end 2018*/
+/*mainpagelayout css grid*/
+.mainpagelayout {
+    justify-content: center;
+    width: 100vw;
+    height: 100%;
+    max-width: 100%;
+}
+
+.mainpagelayout-cell {
+    width: 100%;
+    background-color: white;
+    margin-bottom: 1em;
+    vertical-align: bottom;
+    padding: 1em;
+    border-radius: 8px;
+}
+
+.mainpagelayout .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.main-section-welcome {
+    height: 2.5em;
+    color: white;
+    padding: 0 .5em;
+}
+
+.custombreadcrumb {
+    font-size: 14px;
+    margin: 0 -1em;
+}
+
+    .custombreadcrumb .breadcrumb-item + .breadcrumb-item::before {
+        color: #fff !important;
+        font-weight: normal;
+    }
+
+    .custombreadcrumb .breadcrumb-item.active, .custombreadcrumb .breadcrumb-item a.active {
+        font-weight: bold;
+        color: #fff;
+    }
+
+.nobackground {
+    background-color: transparent !important;
+}
+
+.custombreadcrumb a, .custombreadcrumb a:hover, .custombreadcrumb a:focus {
+    color: #fff;
+}
+/*tt-styles*/
+.tt-h1 {
+    font-weight: bold;
+    color: white;
+    text-transform: none;
+    font-size: 20px;
+}
+
+.tt-h2, span.tt-h2 {
+    font-weight: bold;
+    color: #5482ab;
+    text-transform: none;
+    font-size: 18px;
+}
+
+.tt-h2-darkblue, span.tt-h2-darkblue {
+    font-weight: bold;
+    color: #183666;
+    text-transform: none;
+    font-size: 18px;
+}
+
+.tt-h3-darkblue, span.tt-h3-darkblue {
+    font-weight: bold;
+    color: #183666;
+    text-transform: none;
+    font-size: 15px;
+}
+
+.tt-h3-lightblue, span.tt-h3-lightblue {
+    font-weight: bold;
+    color: #5482ab;
+    text-transform: none;
+    font-size: 17px;
+}
+
+.tt-h4 {
+    font-size: 14px;
+    font-weight: normal;
+    color: white;
+}
+
+.tt-regular {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.tt-gridcolumn-button {
+    font-size: 12px;
+    font-weight: bold;
+    color: #d7d7d7;
+    text-transform: uppercase;
+}
+
+.tt-darkblue {
+    color: #183666;
+}
+
+.tt-lightblue {
+    color: #5482ab;
+}
+
+.tt-gray {
+    color: #b5b5b5;
+}
+
+.tt-lightgray {
+    color: #d7d7d7;
+}
+
+.tt-gold {
+    color: #b59b60;
+}
+
+.tt-orange {
+    color: #ca7700;
+}
+
+.tt-green {
+    color: #699230;
+}
+
+.tt-taupe {
+    color: #675c53;
+}
+
+.tt-bk-darkblue {
+    background-color: #183666;
+}
+
+.tt-bk-lightblue {
+    background-color: #5482ab;
+}
+
+.tt-bk-gray {
+    background-color: #b5b5b5;
+}
+
+.tt-bk-lightgray {
+    background-color: #d7d7d7;
+}
+
+.tt-bk-gold {
+    background-color: #b59b60;
+}
+
+.tt-bk-orange {
+    background-color: #ca7700;
+}
+
+.tt-bk-green {
+    background-color: #699230;
+}
+
+.tt-bk-taupe {
+    background-color: #675c53;
+}
+
+
+/*kendo styles adjust*/
+.k-dropdown-wrap, .k-list-optionlabel:not(.k-state-selected) {
+    color: #5482ab;
+    font-size: 12pt;
+}
+
+.k-list-scroller > ul > li {
+    padding-left: .8em !important;
+    margin: 0 .2em;
+}
+
+.k-list-optionlabel .ddloptionlabel {
+    color: inherit;
+}
+
+.k-nodata {
+    text-transform: none;
+}
+
+.panel-body .k-dropdown {
+    border: none;
+}
+/*kendo styles adjust*/
+.ddlvaluetemplate {
+    position: absolute;
+    width: 90%;
+    margin-left: -0.8em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ddloptionlabel, .k-dropdown-wrap .k-state-default {
+    color: #5482ab;
+    font-size: 12pt;
+}
+
+.k-list .k-item {
+    font-size: 12pt;
+}
+
+.smallInfoText {
+    font-size: 12px;
+    color: gray;
+    padding-bottom: 1em;
+}
+
+.k-dropdown-wrap span, li.k-item {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.k-loading-mask .k-loading-image {
+    background-image: url('assets/img/loading-image.gif');
+}
+.k-dropdown span{margin:-.1em;}
+/*end kendo styles adjust*/
+.ui-menu-item .ui-state-active, .ui-menu-item:hover {
+    background: #5482ab !important;
+    font-size: 12pt;
+}
+
+.form-control::placeholder {
+    color: #5482ab;
+}
+
+:-ms-input-placeholder.form-control {
+    color: #5482ab;
+}
+
+.form-control::-ms-input-placeholder {
+    color: #5482ab;
+}
+
+.panel{
+    border-radius: 10px;
+}
+
+/*menuv visible css*/
+
+.elementhide-true, .elementhide-True {
+    display: none;
+}
+
+.div-ReadOnly, .div-ReadOnly-True{
+    pointer-events: none;
+} 
+/*end menuv visible css*/
+#loadingf {
+    position: fixed;
+    left: 50%;
+    top: 35%;
+    display: none;
+    background: transparent;
+    z-index: 1000;
+    height: 31px;
+    width: 31px;
+}
+
+span.form-control {
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+}
+.form-control.datepicker {text-align:right;}
+.validation-summary-errors.stylewarning {
+    padding: 8px; 
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+} 
+.validation-summary-errors.stylewarning ul {
+    list-style: none
+}

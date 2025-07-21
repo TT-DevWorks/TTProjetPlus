@@ -1,0 +1,62 @@
+﻿@using GlobalResources = Resources
+@model TetraTech.TTProjetPlus.Models.SearchEmployeesViewModel
+
+<div class="modal modal-message fade" id="SearchEmployeesModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" >
+    <div class="modal-dialog" role="document" style="width:100%;">
+        <div class="modal-content">
+            <div class="modal-header" style="width:100%;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelGP">@Model.ModalDescription</h4>
+            </div>
+            <div class="modal-body" id="contentemployees" style="width:100%;">
+            </div>
+            <div class="modal-footer" style="width:100%;">
+                <button type="button" class="specialB" data-dismiss="modal" id="cancelSearch">@GlobalResources.TTProjetPlusResource.Cancel</button>
+                <button type="button" class="specialB" onclick="applyEmployeeModalValue()">OK</button> 
+            </div>
+        </div>
+    </div>
+</div> 
+ @if (Model.Preload)
+ {
+     <script> 
+     $(document).ready(function () {  
+        GetEmployeesDataForModalSearch(false);
+    });
+    </script> 
+ }
+<script> 
+var searchedModalEmployee = null;  
+
+function GetEmployeesDataForModalSearch(showModal) { 
+     $.ajax({ 
+            type: 'GET',
+            dataType: 'html', 
+            url: '@Url.Action("ReturnListEmployees", "Employees")',
+            showModal: showModal,
+            success: function (result) { 
+            $("#contentemployees").html(result);  
+            if(showModal) $('#SearchEmployeesModal').modal('show');
+            }
+         });
+};
+function OpenEmployeesForModalSearch() {
+    searchedModalEmployee = null;  
+    $('#SearchEmployeesModal').modal('show');
+}
+function applyEmployeeModalValue() {
+    if (searchedModalEmployee!=null)
+    { 
+        $("#@Model.ResultIdForName").val(searchedModalEmployee.name);
+        $("#@Model.ResultIdForNumber").val(searchedModalEmployee.number); 
+        searchedModalEmployee = null;
+    } 
+    clearModalTable(); 
+    $('#SearchEmployeesModal').modal('toggle');
+}
+$('#cancelSearch').click(function () {
+    clearModalTable();
+});   
+</script>

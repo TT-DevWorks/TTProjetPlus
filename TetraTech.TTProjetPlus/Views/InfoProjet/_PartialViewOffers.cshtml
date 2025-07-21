@@ -1,0 +1,336 @@
+﻿@using InfoResources = TetraTech.TTProjetPlus.Views.InfoProjet.InfoProjectRessources
+@using TetraTech.TTProjetPlus.Security
+@using Resources = TetraTech.TTProjetPlus.Views.Home.informations
+@model TetraTech.TTProjetPlus.Models.ListOfOffers
+
+
+        <div class="panel pagination-grey clearfix m-b-0">
+            <br />
+            <div id="data-table_wrapper1" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                <table id="data_table_OfferList" data-page-length='10' class="table table-bordered  data-table  dataTable display " style="width:100%">
+                    <thead style="font-size: medium">
+                        <tr style="font-style:italic; ">
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.Status" class="column_search" />
+                            </th>
+
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.TitleOS" class="column_search" />
+                            </th>
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.MasterOrlinkedProject" class="column_search" />
+                            </th>
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.ClientNumber" class="column_search" />
+                            </th>
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.ClientName" class="column_search" />
+                            </th>
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.Company" class="column_search" />
+                            </th>
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.BusinessUnit" class="column_search" />
+                            </th>
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.ORG" class="column_search" />
+                            </th>
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.ProjectManager" class="column_search" />
+                            </th>
+
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.BillingAgent" class="column_search" />
+                            </th>
+
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.InitiatedByOS" class="column_search" />
+                            </th>
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.FinalClient" column_search" />
+                            </th>
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.ContactClient" class="column_search" />
+                            </th>
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.ApproximateAmount" class="column_search" />
+                            </th>
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.RefAndComments" class="column_search" />
+                            </th>
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.FacturationAddress" class="column_search" />
+                            </th>
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.ShippingAddress" class="column_search" />
+                            </th>
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.EmailAdressIf" class="column_search" />
+                            </th>
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.ContractType" class="column_search" />
+                            </th>
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.Program" class="column_search" />
+                            </th>
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.WorkCategory" class="column_search" />
+                            </th>
+
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.OfficeAddress" class="column_search" />
+                            </th>
+
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.ProgramManager" class="column_search" />
+                            </th>
+
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.Currency" class="column_search" />
+                            </th>
+
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.ContractNumber" class="column_search" />
+                            </th>
+
+                            <th>
+                                <input type="text" placeholder=" @InfoResources.OpeningDate" class="column_search" />
+                            </th>
+                            @*<th>
+                                    <input type="text" placeholder=" @InfoResources.Status" class="column_search" />
+                                </th>*@
+                        </tr>
+                        <tr class="grey" role="row">
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.Status
+                            </th>
+
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.TitleOS
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.MasterOrlinkedProject
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.ClientNumber
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.ClientName
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.Company
+                            </th>
+
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.BusinessUnit
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.ORG
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.ProjectManager
+                            </th>
+
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.BillingAgent
+                            </th>
+
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.InitiatedByOS
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.FinalClient"
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.ContactClient
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.ApproximateAmount
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.RefAndComments
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.ApproximateAmount
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.FacturationAddress
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.ShippingAddress
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.EmailAdressIf
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.ContractType
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.Program
+                            </th>
+
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.WorkCategory
+                            </th>
+
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.OfficeAddress
+                            </th>
+
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.ProgramManager
+                            </th>
+
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.Currency
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.ContractNumber
+                            </th>
+
+                            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                @InfoResources.OpeningDate
+                            </th>
+                            @*<th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width:6.66%">
+                                    @InfoResources.Status
+                                </th>*@
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        @for (var i = 0; i < Model.OffersList.Count(); i++)
+                        {
+
+                            <tr id="@i" style="color:steelblue" class="statut_OS_@Model.OffersList[i].Status_ID" @*data-toggle="modal" data-target="#modal_OfferList" onclick="newLocation()"  title="Click on the row for more information" style="cursor:pointer"*@>
+                                <td style="text-align: left; width: 6.66%" class="ProjectNumber">
+                                    @Model.OffersList[i].Status_ID
+                                </td>
+
+                                <td style="text-align: left; width: 6.66%" class="ProjectNumber">
+                                    @Model.OffersList[i].Project_Description
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Is_Master
+                                </td>
+                                <td style="text-align: left; width: 6.66%" class="ProjectNumber">
+                                    @Model.OffersList[i].Customer_Number
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Customer_Name
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Company
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Acct_Group_ID
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Acct_Center_ID
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Project_Mgr_Number
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Project_Description
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Bill_Specialist_Number
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Initiated_By
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].End_Client_Name
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Contact_Client
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Approx_Amount
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Comments
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Billing_Address
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Shipping_Address
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Invoice_Email_Address
+                                </td>
+
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Contract_Type_ID
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Program_ID
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Work_Type_ID
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Office_Address_Id
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Program_Mgr_Number
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Currency_ID
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Contract_Number
+                                </td>
+                                <td style="text-align: left; width:6.66%">
+                                    @Model.OffersList[i].Required_Opening_Date
+                                </td>
+                                @*<td style="text-align: left; width:6.66%">
+                                        @Model.OffersList[i].Status_ID
+                                    </td>*@
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+  
+<script>
+
+    $(document).ready(function () {
+
+        
+    });
+
+    $('#data_table_OfferList thead').on('keyup', ".column_search", function () {
+
+        $('#data_table_OfferList').DataTable()
+            .column($(this).parent().index())
+            .search(this.value)
+            .draw();
+    });
+
+     $("#offerCheckbox").click(function () {
+            $('#offers').html("")
+            $.ajax({
+                url: '@Url.Action("Offers", "InfoProjet")',
+                type: 'GET',
+                data: {
+                    notIncludeInactiveOffers: $("#offerCheckbox").is(':checked')
+                },
+
+                success: function (result) {
+                    $('#offers').html(result)
+                    //$('#data_table_OfferList').dataTable().clear().destroy();
+
+                    ////Create new Datatable
+                    //$('#data_table_OfferList').DataTable()
+
+                }
+            });
+        });
+</script>

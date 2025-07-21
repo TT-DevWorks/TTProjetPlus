@@ -1,0 +1,730 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.TTProjet
+@model TetraTech.TTProjetPlus.Models.AddModifyRGEModel
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Data;
+@using TetraTech.TTProjetPlus.Controllers
+@using TetraTech.TTProjetPlus.Security
+
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/select/1.3.4/js/dataTables.select.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
+<script type="text/javascript" src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js"></script>
+<link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" media="screen">
+<link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet" media="screen">
+<link href="https://cdn.datatables.net/select/1.3.4/css/select.dataTables.min.css" rel="stylesheet" media="screen">
+<link href="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css" rel="stylesheet" media="screen">
+<link href="https://editor.datatables.net/extensions/Editor/css/editor.dataTables.min.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
+<style>
+    #data_ListAddModifyRGEModel {
+        width: 100% !important;
+    }
+
+        #data_ListAddModifyRGEModel td {
+            width: auto !important;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        #data_ListAddModifyRGEModel th {
+            width: auto !important;
+            white-space: normal;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+</style>
+
+<div class="container " style="height: 200vh;width: 100%;">
+    <div class="main">
+        <div class="row">
+            <div class="row">
+                <div class="col-lg-4" style="padding-top: -49px; ">
+                    <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 100px;">
+                        <div class="panel-body">
+                            <ul class="list-inline">
+                                <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet" )">TT Projet +  /</a></li>
+                                <li><a style=" color:#183666; font-weight: bold" href="@Url.Action("IndexAdmin", "Admin" )">@Resources.TTProjet.TITools</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 100px; ">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li>
+                                        &bull;&nbsp;<a style="color:#183666  " href="@Url.Action("IndexAdmin", "Admin")">@Resources.TTProjet.cancelProjectClosing</a>
+
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "Litige")">@Resources.TTProjet.LitigeManagement</a>
+
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "Customer")">@Resources.TTProjet.AddCustomer</a>
+
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "LocalBPR")">Recherche informations employé</a>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-lg-4">
+                    <div class="">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 100px; ">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li>
+                                        &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "SecurityProjectEquivalence")">Équivalence des projets</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color: #183666" href="@Url.Action("IndexActiverProjet", "TTProjet")">Activer un projet</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color: #183666; font-weight: bold" href="@Url.Action("Index", "AddModifyRGE")">Ajout / Modification / Suppression pour les RGE</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row" style="color:steelblue; font-size:initial">
+            <div class="form-group">
+                <div class="col-sm-12 ">
+                    <div class="row">
+                        <div class="row form-group">
+                            <div class="col-lg-12">
+                                <div class="panel pagination-grey" style="border-radius: 10px; margin-left: -10px; margin-top: -10px;">
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h4 style="margin-top: 0px; color: #183666; font-family: 'Arial Bold'; font-size: 18pt; margin-left: 30px;">
+                                                <b>Ajout / Modification / Suppression pour les RGE</b>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <button type="button" style="margin-left: 10px; " class="btn btn-info" id="insertButton" onclick="openInsertModelRGE()">
+                                        Ajouter
+                                    </button>
+                                    <br />
+                                    <br />
+                                    <div id="data-table_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer" style=" margin-right: 10px; margin-left: 10px">
+                                        <table id="data_ListAddModifyRGEModel" class=" table table-bordered  data-table  dataTable display" style="margin-top: -50px; width: 100%; font-size: 12px; ">
+                                            <thead id="tableHeaderGP">
+                                                <tr style="font-style:italic; ">
+                                                    <th>
+                                                        <input type="text" placeholder=id class="column_search" />
+                                                    </th>
+                                                    <th>
+                                                        <input type="text" placeholder=First_Name class="column_search" />
+                                                    </th>
+                                                    <th>
+                                                        <input type="text" placeholder=Employee_Number class="column_search" />
+                                                    </th>
+                                                    <th>
+                                                        <input type="text" placeholder=Organization class="column_search" />
+                                                    </th>
+                                                    <th>
+                                                        <input type="text" placeholder=Email_Address class="column_search" />
+                                                    </th>
+                                                    <th>
+                                                        <input type="text" placeholder=DateDebutProjet class="column_search" />
+                                                    </th>
+                                                    <th>
+                                                        <input type="text" placeholder=NoProjet class="column_search" />
+                                                    </th>
+                                                </tr>
+                                                <tr class="grey" role="row">
+                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> id </a>
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> First_Name </a>
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> Employee_Number </a>
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> Organization </a>
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> Email_Address </a>
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> DateDebutProjet </a>
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> NoProjet </a>
+                                                    </th>
+
+                                                    <th class="sorting_disabled" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> Modifier </a>
+                                                    </th>
+                                                    <th class="sorting_disabled" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                        <a> Supprimer </a>
+                                                    </th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for (var i = 0; i < Model.ListAddModifyRGE.Count(); i++)
+                                                {
+
+                                                    <tr>
+                                                        <td style="text-align: left; width:10%">
+                                                            @Model.ListAddModifyRGE[i].id
+                                                        </td>
+                                                        <td style="text-align: left; width:10%">
+                                                            @Model.ListAddModifyRGE[i].First_Name
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            @Model.ListAddModifyRGE[i].Employee_Number
+                                                        </td>
+                                                        <td style="text-align: left; width:10%">
+                                                            @Model.ListAddModifyRGE[i].Organization
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            @Model.ListAddModifyRGE[i].Email_Address
+                                                        </td>
+                                                        <td style="text-align: left; width:10%">
+                                                            @if (Model.ListAddModifyRGE[i].DateDebutProjet.HasValue)
+                                                            {
+                                                                @Model.ListAddModifyRGE[i].DateDebutProjet.Value.ToString("yyyy-MM-dd")
+                                                            }
+                                                            else
+                                                            {
+                                                                @Model.ListAddModifyRGE[i].DateDebutProjet
+                                                            }
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            @Model.ListAddModifyRGE[i].NoProjet
+                                                        </td>
+
+                                                        <td style="text-align: left;">
+                                                            <div class="btn-toolbar" style="">
+                                                                <button type="button" id="btnSubmit" class="btn btn-primary btn-sm " style=" padding: 0px 15px;" onclick="openEditModelRGE('@Model.ListAddModifyRGE[i].id', '@Model.ListAddModifyRGE[i].First_Name', '@Model.ListAddModifyRGE[i].Employee_Number', '@Model.ListAddModifyRGE[i].Organization', '@Model.ListAddModifyRGE[i].Email_Address', '@Model.ListAddModifyRGE[i].DateDebutProjet', '@Model.ListAddModifyRGE[i].NoProjet')"><span class="glyphicon glyphicon-edit"></span></button>
+                                                            </div>
+                                                        </td>
+
+                                                        <td style="text-align: left;">
+                                                            <div class="btn-toolbar" style="">
+                                                                <div class="btn-toolbar" style="">
+                                                                    <button type="button" id="btnSubmit" class="btn btn-primary btn-sm " style=" padding: 0px 15px;" onclick="openDeleteModelRGE('@Model.ListAddModifyRGE[i].id','@Model.ListAddModifyRGE[i].First_Name','@Model.ListAddModifyRGE[i].Employee_Number','@Model.ListAddModifyRGE[i].Organization','@Model.ListAddModifyRGE[i].Email_Address','@Model.ListAddModifyRGE[i].DateDebutProjet','@Model.ListAddModifyRGE[i].NoProjet')">Supprimer</button>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<div class="modal" id="insertModalRGE">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Ajout / Modification / Suppression pour les RGE</h4>
+                <button type="button" class="close" data-dismiss="modal" onclick="">&times;</button>
+            </div>
+
+            <div class="row">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="alert alert-warning" id="error" hidden="hidden">
+                        <button type="button" class="close" data-hide="alert">&times;</button>
+                        <strong id="error"> </strong>
+                    </div>
+
+                    <div class="container">
+                        <h3 id="insertNew"></h3>
+                        <div class="col-sm-8">
+                            <form class="form-horizontal">
+                                <div class="form-group" style="display: none;" id="GroupeId">
+                                    <label class="control-label col-sm-3">id</label>
+                                    <div class="input-group col-sm-6">
+                                        <input type="text" class="form-control" id="id" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">First_Name</label>
+                                    <div class="input-group col-sm-6">
+                                        <input type="text" class="form-control" id="First_Name" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Employee_Number</label>
+                                    <div class=" input-group col-sm-6">
+                                        <input type="text" class="form-control" id="Employee_Number" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Organization</label>
+                                    <div class="input-group col-sm-6">
+                                        <input type="text" class="form-control" id="Organization" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Email_Address</label>
+                                    <div class=" input-group col-sm-6">
+                                        <input type="text" class="form-control" id="Email_Address" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">DateDebutProjet</label>
+                                    <div class="input-group col-sm-6">
+                                        <input type="text" class="form-control" id="DateDebutProjet" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">NoProjet</label>
+                                    <div class=" input-group col-sm-6">
+                                        <input type="text" class="form-control" id="NoProjet" placeholder="">
+                                    </div>
+                                </div>
+                                @*<div class="form-group">
+                                    <label class="control-label col-sm-3">Organization</label>
+                                    <div class=" input-group col-sm-6">
+                                        <select data-live-search="true" class="form-control selectpicker userInput" id="Company">
+                                            <option value="" selected style="font-size:14px">Organization</option>
+                                            @foreach (structureItem item in AddModifyRGEController.ListeCompanies)
+                                            {
+                                                <option value="@item.Name">@item.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Date debut</label>
+                                    <div class="input-group" style=" width: 45%">
+                                        <input id="datedebut" type="text" class="form-control date-input" />
+                                        <label class="input-group-btn" for="datedebut">
+                                            <span class="btn btn-default">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>*@
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" id="actionButtonRGE" class="btn btn-info" onclick="actionButtonRGE()"></button>
+                <button type="button" id="" class="btn btn-info" data-dismiss="modal" onclick="cancel()">Annuler</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    var globalType = 'insert'
+
+    $(document).ready(function () {
+
+        $('#id').prop('disabled', false);
+        $('#First_Name').prop('disabled', false);
+        $('#Employee_Number').prop('disabled', false);
+        $('#Organization').prop('disabled', false);
+        $('#Email_Address').prop('disabled', false);
+        $('#DateDebutProjet').prop('disabled', false);
+        $('#NoProjet').prop('disabled', false);
+        $('#actionButtonRGE').text('@Html.Raw("Ajouter")')
+        $('#contentEditModal').html('');
+        $('#First_Name').val('')
+        $('#Employee_Number').val('')
+        $('#Organization').val('')
+        $('#Email_Address').val('')
+        $('#DateDebutProjet').val('')
+        $('#NoProjet').val('')
+        $('#insertNew').html('');
+        $('#insertNew').html('@Html.Raw("Ajouter")');
+
+        $('#data_ListAddModifyRGEModel').DataTable({
+            pageResize: true,
+            pageLength: 10,
+            select: true,
+            scrollX: true,
+            scrollY: $(window).height() <= 722 ? $(window).height() / 3.5 : $(window).height() / 2,
+            scrollCollapse: true,
+            "aoColumnDefs": [
+                { 'bSortable': false, 'aTargets': [2, 3] }
+            ],
+            language: {
+                "url": '@Session["lang"].ToString()' == 'fr' ? "/Content/assets/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json",
+                select: {
+                    rows: '@Session["lang"].ToString()' == 'fr' ? '' : ''
+                }
+            },
+        });
+        $('#data_ListAddModifyRGEModel').DataTable().draw();
+
+        if ('@Session["lang"].ToString()' == 'fr') {
+            $.datepicker.regional['fr'] = {
+                closeText: "Fermer",
+                prevText: "Précédent",
+                nextText: "Suivant",
+                currentText: "Aujourd'hui",
+                monthNames: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+                    "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+                ],
+                monthNamesShort: ["Jan", "Fév", "Mar", "Avr", "Mai", "Jun",
+                    "Jul", "Aou", "Sept", "Oct", "Nov", "Déc"
+                ],
+                dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+                dayNamesShort: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+                dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+                weekHeader: "Sem.",
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ""
+            };
+            $.datepicker.setDefaults($.datepicker.regional['fr']);
+        }
+
+        $('#datedebut').datepicker({
+            dateFormat: "yy-mm-dd",
+             defaultDate: "+1w",
+            numberOfMonths: 2,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-10:+10',
+            maxDate: '+10Y'
+        });
+
+
+    });
+
+    $('#data_ListAddModifyRGEModel thead').on('keyup', ".column_search", function () {
+
+        $('#data_ListAddModifyRGEModel').DataTable()
+            .column($(this).parent().index())
+            .search(this.value)
+            .draw();
+    });
+
+
+    function openEditModelRGE(id, First_Name, Employee_Number, Organization, Email_Address, DateDebutProjet, NoProjet) {
+
+
+        globalType = 'modify'
+
+       $('#insertNew').html('');
+        $('#insertNew').html('Modifier');
+        $("#GroupeId").show();
+        $('#id').val(id)
+        $('#First_Name').val(First_Name)
+        $('#Employee_Number').val(Employee_Number)
+        $('#Organization').val(Organization)
+        $('#Email_Address').val(Email_Address)
+        if (DateDebutProjet) {
+            var dateSplit = DateDebutProjet.split(' '); // Sépare la date et l'heure
+            var datePart = dateSplit[0]; // Récupère la partie date
+            var datePartSplit = datePart.split('/'); // Sépare la date en jour, mois, année
+            var annee = datePartSplit[2];
+            var mois = datePartSplit[1];
+            var jour = datePartSplit[0];
+            var dateFormatee = annee + '-' + mois + '-' + jour;
+            $('#DateDebutProjet').val(dateFormatee);
+        } else {
+            $('#DateDebutProjet').val('');
+        }
+        $('#NoProjet').val(NoProjet)
+        $('#id').prop('disabled', true);
+        $('#First_Name').prop('disabled', false);
+        $('#Employee_Number').prop('disabled', false);
+        $('#Organization').prop('disabled', false);
+        $('#Email_Address').prop('disabled', false);
+        $('#DateDebutProjet').prop('disabled', false);
+        $('#NoProjet').prop('disabled', false);
+        $('#actionButtonRGE').text('@Html.Raw("Modifier")')
+        $("#error").hide();
+         $('#insertModalRGE').modal('show');
+
+        }
+
+    function cancel() {
+        $('#insertModalRGE').modal('hide');
+
+    }
+
+        function openInsertModelRGE() {
+
+        globalType = 'insert'
+        $('#insertNew').html('');
+        $('#insertNew').html('@Html.Raw("Ajouter")');
+        $('#contentEditModal').html('');
+            $("#GroupeId").hide();
+        $('#First_Name').val('')
+        $('#Employee_Number').val('')
+        $('#Organization').val('')
+        $('#Email_Address').val('')
+        $('#DateDebutProjet').val('')
+        $('#NoProjet').val('')
+        $('#First_Name').prop('disabled', false);
+        $('#Employee_Number').prop('disabled', false);
+        $('#Organization').prop('disabled', false);
+        $('#Email_Address').prop('disabled', false);
+        $('#DateDebutProjet').prop('disabled', false);
+        $('#NoProjet').prop('disabled', false);
+        $('#actionButtonRGE').text('@Html.Raw("Ajouter")')
+            $("#error").hide();
+        $('#insertModalRGE').modal('show');
+
+    }
+
+    function openDeleteModelRGE(id, First_Name, Employee_Number, Organization, Email_Address, DateDebutProjet, NoProjet) {
+        globalType = 'delete'
+       $('#insertNew').html('');
+        $('#insertNew').html('Supprimer');
+        $("#GroupeId").show();
+            $('#id').val(id)
+            $('#First_Name').val(First_Name)
+            $('#Employee_Number').val(Employee_Number)
+            $('#Organization').val(Organization)
+            $('#Email_Address').val(Email_Address)
+            if (DateDebutProjet) {
+                var dateSplit = DateDebutProjet.split(' '); // Sépare la date et l'heure
+                var datePart = dateSplit[0]; // Récupère la partie date
+                var datePartSplit = datePart.split('/'); // Sépare la date en jour, mois, année
+                var annee = datePartSplit[2];
+                var mois = datePartSplit[1];
+                var jour = datePartSplit[0];
+                var dateFormatee = annee + '-' + mois + '-' + jour;
+                $('#DateDebutProjet').val(dateFormatee);
+            } else {
+                $('#DateDebutProjet').val('');
+            }
+        $('#NoProjet').val(NoProjet)
+            $('#id').prop('disabled', true);
+            $('#First_Name').prop('disabled', true);
+            $('#Employee_Number').prop('disabled', true);
+            $('#Organization').prop('disabled', true);
+            $('#Email_Address').prop('disabled', true);
+            $('#DateDebutProjet').prop('disabled', true);
+            $('#NoProjet').prop('disabled', true);
+
+        $('#actionButtonRGE').text('@Html.Raw("Supprimer")')
+
+        $("#error").hide();
+         $('#insertModalRGE').modal('show');
+
+        }
+
+    function actionButtonRGE()
+    {
+        var id1 = $('#id').val()
+        var First_Name1 = $('#First_Name').val()
+        var Employee_Number1 = $('#Employee_Number').val()
+        var Organization1 = $('#Organization').val()
+        var Email_Address1 = $('#Email_Address').val()
+        var DateDebutProjet1 = $('#DateDebutProjet').val()
+        var NoProjet1 = $('#NoProjet').val()
+
+        if (First_Name1 != '' && Employee_Number1 != '')
+         {
+             if (globalType == 'delete')
+             {
+                 if (confirm("Voulez-vous vraiment supprimer cette ligne ?"))
+                 {
+                    $.ajax({
+                    url: '@Url.Action("DeleteInRGE", "AddModifyRGE")',
+                    type: 'GET',
+                    cache: false,
+                    async: false,
+                    data: {
+                        id: id1
+                    },
+                    success: function (result) {
+                        var message = ''
+                        if (result[0] == '1') {
+                            message = '@Session["lang"].ToString()' == 'fr' ?  'Insertion réussie!' : "Insertion was successfull!"
+                        }
+                        else if (result[0] == '2') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "L'insertion a échoué...!" : "Insertion failed..."
+                        }
+                        else if (result[0] == '3') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La modifictaion a réussie!" : "Modify was successful!"
+                        }
+                        else if (result[0] == '4') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La modifictaion a échoué!" : "Modify failed"
+                        }
+                        else if (result[0] == '5') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La suppression a réussie!" : "Delete was successfull"
+                        }
+                        else if (result[0] == '6') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La suppression a échoué!" : "Delete failed"
+                        }
+
+                        //$('#insertModalRGE').modal('hide');
+
+                        window.setTimeout(function () {
+                            location.reload();
+                            alert(message);
+                        }, 500);
+
+                         }
+                    });
+                 }
+             }
+             else if (globalType == 'modify')
+             {
+                  $.ajax({
+                    url: '@Url.Action("ModifiyInRGE", "AddModifyRGE")',
+                    type: 'GET',
+                    cache: false,
+                    async: false,
+                    data: {
+                        id: id1,
+                        First_Name: First_Name1,
+                        Employee_Number: Employee_Number1,
+                        Organization: Organization1,
+                        Email_Address: Email_Address1,
+                        DateDebutProjet: DateDebutProjet1,
+                        NoProjet: NoProjet1
+                    },
+                    success: function (result) {
+                        var message = ''
+                        if (result[0] == '1') {
+                            message = '@Session["lang"].ToString()' == 'fr' ?  'Insertion réussie!' : "Insertion was successfull!"
+                        }
+                        else if (result[0] == '2') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "L'insertion a échoué...!" : "Insertion failed..."
+                        }
+                        else if (result[0] == '3') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La modifictaion a réussie!" : "Modify was successful!"
+                        }
+                        else if (result[0] == '4') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La modifictaion a échoué!" : "Modify failed"
+                        }
+                        else if (result[0] == '5') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La suppression a réussie!" : "Delete was successfull"
+                        }
+                        else if (result[0] == '6') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La suppression a échoué!" : "Delete failed"
+                        }
+
+                        //$('#insertModalRGE').modal('hide');
+
+                        window.setTimeout(function () {
+                            location.reload();
+                            alert(message);
+                        }, 500);
+                    }
+                    });
+            }
+             else if (globalType == 'insert')
+             {
+                  $.ajax({
+                    url: '@Url.Action("insertNewRGE", "AddModifyRGE")',
+                    type: 'GET',
+                    cache: false,
+                    async: false,
+                    data: {
+                        First_Name: First_Name1,
+                        Employee_Number: Employee_Number1,
+                        Organization: Organization1,
+                        Email_Address: Email_Address1,
+                        DateDebutProjet: DateDebutProjet1,
+                        NoProjet: NoProjet1
+                    },
+                    success: function (result) {
+                        var message = ''
+                        if (result[0] == '1') {
+                            message = '@Session["lang"].ToString()' == 'fr' ?  'Insertion réussie!' : "Insertion was successfull!"
+                        }
+                        else if (result[0] == '2') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "L'insertion a échoué...!" : "Insertion failed..."
+                        }
+                        else if (result[0] == '3') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La modifictaion a réussie!" : "Modify was successful!"
+                        }
+                        else if (result[0] == '4') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La modifictaion a échoué!" : "Modify failed"
+                        }
+                        else if (result[0] == '5') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La suppression a réussie!" : "Delete was successfull"
+                        }
+                        else if (result[0] == '6') {
+                            message = '@Session["lang"].ToString()' == 'fr' ? "La suppression a échoué!" : "Delete failed"
+                        }
+
+                        //$('#insertModalRGE').modal('hide');
+
+                        window.setTimeout(function () {
+                            location.reload();
+                            alert(message);
+                        }, 500);
+                    }
+                    });
+             }
+
+         }
+         else
+         {
+             $("#error").html('Tous les champs sont obligatoires');
+             $("#error").show();
+             setTimeout(function () {
+                $('#error').fadeOut('slow');
+             }, 1000
+             );
+         }
+
+    }
+
+
+</script>

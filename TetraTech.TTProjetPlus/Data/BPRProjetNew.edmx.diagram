@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="09989360882e4f9989aee632f6b2ed5f" Name="Diagram1">
+        <EntityTypeShape EntityType="BPRProjetModel.dtproperty" Width="1.5" PointX="7.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Etat_Projet" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.MapName" Width="1.5" PointX="5.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Modele" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Modele_Securite" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Modele_Selection" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Modele_Selection_Repertoire" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Projet" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Projet_Exclusion" Width="1.5" PointX="7.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Projet_Exclusion_Securite" Width="1.5" PointX="9.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Projet_Repertoire" Width="1.5" PointX="7.5" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Projet_Repertoire_Verif" Width="1.5" PointX="9.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Repertoire_Securite" Width="1.5" PointX="9.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Repertoire_Securite_Groupe" Width="1.5" PointX="9.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Security_Project_Exclusion" Width="1.5" PointX="11.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Serveur" Width="1.5" PointX="3" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.SpecialMapServer" Width="1.5" PointX="11.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.C__KM" Width="1.5" PointX="11.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.C__PC" Width="1.5" PointX="11.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.C__tempKM" Width="1.5" PointX="7.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.ProjectLog" Width="1.5" PointX="13.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Repertoire_BIM" Width="1.5" PointX="9.75" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.repertoire_pre_import" Width="1.5" PointX="15.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Securite_Groupe_Base" Width="1.5" PointX="15.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Security_ApplySecurityResult" Width="1.5" PointX="5.75" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Security_FileToDo" Width="1.5" PointX="15.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Security_List" Width="1.5" PointX="15.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Security_Project_Inclusion" Width="1.5" PointX="11.75" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Security_Psexec_Output" Width="1.5" PointX="15.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Security_Result" Width="1.5" PointX="13.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.Security_Servers" Width="1.5" PointX="15.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPRProjetModel.testRepertoire" Width="1.5" PointX="17.75" PointY="5.125" IsExpanded="true" />
+        <AssociationConnector Association="BPRProjetModel.FK_Projet_Etat_Projet" ManuallyRouted="false" />
+        <AssociationConnector Association="BPRProjetModel.FK_Modele_Securite_Modele" ManuallyRouted="false" />
+        <AssociationConnector Association="BPRProjetModel.FK_Modele_Selection_Modele" ManuallyRouted="false" />
+        <AssociationConnector Association="BPRProjetModel.FK_Projet_Modele_Securite" ManuallyRouted="false" />
+        <AssociationConnector Association="BPRProjetModel.FK_Modele_Selection_Repertoire_Modele_Selection" ManuallyRouted="false" />
+        <AssociationConnector Association="BPRProjetModel.FK_Projet_Repertoire_Projet" ManuallyRouted="false" />
+        <AssociationConnector Association="BPRProjetModel.FK_Projet_Serveur" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BPRProjetModel.Security_Directory_Logs" Width="1.5" PointX="18.375" PointY="0.75" />
+        <EntityTypeShape EntityType="BPRProjetModel.ListeDocDepotAutomatiqueTQE" Width="1.5" PointX="5.375" PointY="18.75" />
+        <EntityTypeShape EntityType="BPRProjetModel.TQEDocsToInsertInSubForlder" Width="1.5" PointX="18.375" PointY="12.75" />
+        <EntityTypeShape EntityType="BPRProjetModel.TQEDocsToInsertInSubForlders_Sly" Width="1.5" PointX="18.375" PointY="15.75" />
+        <EntityTypeShape EntityType="BPRProjetModel.Nasuni_TT_ProjectsToSecured" Width="1.5" PointX="0.75" PointY="19.75" />
+        <EntityTypeShape EntityType="BPRProjetModel.Repertoire" Width="1.5" PointX="3" PointY="20.375" />
+        <AssociationConnector Association="BPRProjetModel.FK_Repertoire_Modele" />
+        <EntityTypeShape EntityType="BPRProjetModel.Security_Project_Equivalence" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="BPRProjetModel.tbl_ObtenirRepertoireParProjetTTProjetPlusNasuni" Width="1.5" PointX="9.375" PointY="19.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

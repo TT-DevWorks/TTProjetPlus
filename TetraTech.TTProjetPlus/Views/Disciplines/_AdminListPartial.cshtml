@@ -1,0 +1,90 @@
+﻿@using TetraTech.TTProjetPlus.Data
+@using Resources = TetraTech.TTProjetPlus.Views.Disciplines
+@using TetraTech.TTProjetPlus.Controllers
+
+
+
+<div class="panel pagination-grey clearfix m-b-0; col-sm-12" style=" margin-right: -15px; padding: 15px;">
+    <div id="data-table_wrapper3" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+        <table id="data_AdminList" class="table table-bordered  data-table  dataTable display" style="width:100%; font-size:12px">
+            <thead id="tableHeader">
+                <tr style="font-style:italic; ">
+                    <th>
+                        <input type="text" placeholder=" @Resources.Discipline.Company" class="column_search" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder=" @Resources.Discipline.DisciplineTitle" class="column_search" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder=" @Resources.Discipline.AdministratorName" class="column_search" />
+                    </th>
+                    <th>
+                        <input type="text" placeholder="  @Resources.Discipline.Email" class="column_search" />
+                    </th>
+                </tr>
+                <tr class="grey" role="row">
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending">
+                        @Resources.Discipline.Company
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @Resources.Discipline.DisciplineTitle
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        @Resources.Discipline.AdministratorName
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                        Email
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (usp_getDisciplineAdminList_Result item in DisciplinesController.ListeAdmins)
+                {
+
+                    <tr>
+                        <td style="text-align: left">
+                            @item.Company
+                        </td>
+                        <td style="text-align: left">
+                            @item.Discipline
+                        </td>
+                        <td style="text-align: left">
+                            @item.FullName
+                        </td>
+                        <td title="Envoyer un courriel à cette personne." id="">
+                            <a href="mailto:@item.Email?subject=Demande d'accès TTProjet+&body=Nom du requérant%0D%0A%0D%0A%0D%0ADate requise%0D%0A%0D%0A%0D%0ADemande d'accès"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                        </td>
+
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $('#data_AdminList').DataTable({
+            "order": [[0, "asc"]],
+            pageLength: 20,
+            scrollX: true,
+           "language": {
+                "url": '@ViewBag.lang.ToString()' == 'fr' ? "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json" : "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+            }
+        });
+        $('#data_AdminList').DataTable().draw();
+    });
+
+    $('#data_AdminList thead').on('keyup', ".column_search", function () {
+
+        $('#data_AdminList').DataTable()
+            .column($(this).parent().index())
+            .search(this.value)
+            .draw();
+    });
+</script>

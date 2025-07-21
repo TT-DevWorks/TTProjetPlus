@@ -1,0 +1,2048 @@
+﻿@model TetraTech.TTProjetPlus.Models.numberGenerationModel
+@using Resources = TetraTech.TTProjetPlus.Views.Home
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Controllers
+@using TetraTech.TTProjetPlus.Security
+@using ResourcesTTProjet = TetraTech.TTProjetPlus.Views.TTProjet
+@using Resources1 = TetraTech.TTProjetPlus.Views.TTProjet
+
+@{
+    ViewBag.Title = "Nouveau projet";
+
+    var currentUser = UserService.CurrentUser;
+
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<style>
+    /*
+        pour icon dans input:
+    */
+    .inner-addon .glyphicon {
+        position: absolute;
+        padding: 10px;
+        pointer-events: none;
+    }
+
+
+    /* add padding  */
+    .right-addon {
+        padding-right: 30px;
+    }
+
+    i {
+        background: white;
+        cursor: pointer;
+    }
+    /*fin */
+    .panel-body {
+        margin-left: 30px;
+        margin-right: 30px;
+        margin-bottom: -15px
+    }
+
+
+    .form-control {
+        border-radius: 0px;
+    }
+
+    .btn {
+        border-radius: 0px;
+    }
+
+    .input-group-addon {
+        border-radius: 0px;
+        cursor: pointer;
+    }
+
+    label {
+        color: steelblue;
+        font-size: initial;
+    }
+
+
+    .redText {
+        color: red;
+    }
+
+    .inputWidth {
+        width: 100%;
+    }
+
+    .inputWidth2 {
+        width: 50%;
+        display: inline
+    }
+
+    table {
+        font-size: 1em;
+    }
+
+
+        table.dataTable,
+        table.dataTable th,
+        table.dataTable td {
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+        }
+
+
+    #tree-container2 label.hover {
+        color: red;
+    }
+
+
+    h4 {
+        color: white;
+    }
+    /* WebKit, Edge */
+    .darkBlue::-webkit-input-placeholder {
+        color: #183666;
+        font-family: 'Arial';
+        font-size: 16pt;
+    }
+    /* Firefox 4-18 */
+    .darkBlue:-moz-placeholder {
+        color: #183666;
+        font-family: 'Arial';
+        font-size: 14pt;
+    }
+    /* Firefox 19+ */
+    .darkBlue::-moz-placeholder {
+        color: #183666;
+        font-family: 'Arial';
+        font-size: 14pt;
+    }
+    /* IE 10-11 */
+    .darkBlue:-ms-input-placeholder {
+        color: #183666;
+        font-family: 'Arial';
+        font-size: 14pt;
+    }
+    /* Edge */
+    .darkBlue:-ms-input-placeholder {
+        color: #183666;
+        font-family: 'Arial';
+        font-size: 14pt;
+    }
+    /* MODERN BROWSER */
+    .darkBlue::-webkit-input-placeholder {
+        color: #183666;
+        font-family: 'Arial';
+        font-size: 14pt;
+        font-weight: bold
+    }
+
+    /* WebKit, Edge */
+    .lightBlue::-webkit-input-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+    }
+    /* Firefox 4-18 */
+    .lightBlue:-moz-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+    }
+    /* Firefox 19+ */
+    .lightBlue::-moz-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+    }
+    /* IE 10-11 */
+    .lightBlue:-ms-input-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+        text-align: left;
+    }
+    /* Edge */
+    .lightBlue:-ms-input-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+    }
+    /* MODERN BROWSER */
+    .lightBlue::-webkit-input-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+        text-align: left;
+    }
+
+    .formControl1 {
+        padding: 20px;
+    }
+
+    .formControl2 {
+        padding: 20px;
+    }
+
+
+    .lightBlueSelect {
+        color: #5482ab;
+    }
+
+    .bootstrap-select > .dropdown-toggle.bs-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+    }
+
+    textarea {
+        width: 100%;
+    }
+
+
+    .no-results {
+        content: "Chercher...";
+        cursor: pointer;
+    }
+
+    .selected {
+        background-color: #5bc0de;
+    }
+
+    .formTextArea {
+        width: 100%;
+    }
+
+    #ApproximateAmount {
+        text-align: right;
+    }
+
+    @@media (min-width: 768px) {
+        .modal-xl {
+            width: 90%;
+            max-width: 1200px;
+        }
+    }
+
+    @@media (min-width: 768px) {
+        .modal-xl1 {
+            width: 90%;
+            max-width: 1300px;
+        }
+    }
+</style>
+
+
+<div class="form-horizontal">
+    <div id="top"></div>
+
+    <div class="container " style="height: 200vh; width: 100%">
+        <div class="main">
+            @if (ViewBag.MenuVisible == "true")
+            {
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-3" style="padding-top: -49px; ">
+                            <div class="panel" style="border-radius: 10px;  ">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                        <li style=" color:white ;"><a href="@Url.Action("Index", "Home")"> @Resources1.TTProjet.Projects </a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="panel panel-primary" style="border-radius: 10px">
+                                <div class="panel-body" style="margin-left:0px">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 ; font-weight: bold" href="@Url.Action("Index", "Home")">@ResourcesTTProjet.TTProjet.GenerateProjectNumber</a>
+
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 ; " href="@Url.Action("Index", "ListeOffres")">@ResourcesTTProjet.TTProjet.OffersList</a>
+
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("IndexProjet", "ListeOffres")">@ResourcesTTProjet.TTProjet.ProjectsList</a>
+
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "InfoProjet")">@ResourcesTTProjet.TTProjet.InfoProject</a>
+
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "ProjectToClose")">@ResourcesTTProjet.TTProjet.ProjectToCloseTitle</a>
+                                        </li>
+                                        @*<li>
+                                                &nbsp;&nbsp;&bull;
+                                                <a style="color:#183666;" href="@System.Configuration.ConfigurationManager.AppSettings["TTIndexUrl"]" target="_blank">@ResourcesTTProjet.TTProjet.TTIndex</a>
+                                            </li>*@
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666;" href="@System.Configuration.ConfigurationManager.AppSettings["BoomerangUrl"]" target="_blank">@ResourcesTTProjet.TTProjet.Boomerang</a>
+                                        </li>
+                                        @*<li>
+                                                &bull;&nbsp;
+                                                <a style="color:#183666;cursor:pointer" onclick="OPMOdal()">@ResourcesTTProjet.TTProjet.ProjectOpening</a>
+                                            </li>*@
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            }
+            @if (Session["HasAccessToNewProjectNumber"].ToString() == "true")
+            {
+                <div id="formPage">
+                    <div class="row">
+                        @*<div class="col-sm-12">*@
+                        <div class="panel panel-primary" style="border-radius: 10px; margin-top: -15px;">
+                            <div>
+                                <h4 style="margin-left: 25px; float:left ; color: #183666; font-family: 'Arial'; font-size: 16pt;">
+                                    <b>@ResourcesTTProjet.TTProjet.GenerateProjectNumber</b>
+                                </h4>
+                            </div>
+                            <hr style="width:100%; margin-top: 0px;margin-bottom: 0px;" />
+                            <div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="">
+                                            <div class="alert alert-warning" id="MissingFieldsAdd" hidden="hidden">
+                                                <button type="button" class="close" data-hide="alert">&times;</button>
+                                                <strong>@Resources.informations.message1</strong>
+                                                <p id="MF1" hidden="hidden">@Resources.informations.projectNameError</p>
+                                                <p id="MF3" hidden="hidden">@Resources.informations.masterProjectNameError</p>
+                                                <p id="MF4" hidden="hidden">@Resources.informations.phaseError</p>
+                                                <p id="MF5" hidden="hidden">@Resources.informations.ClientNumberError</p>
+                                                <p id="MF6" hidden="hidden">@Resources.informations.ClientNameError</p>
+                                                <p id="MF17" hidden="hidden">@Resources.informations.MissingCourriel</p>
+                                                <p id="MF7" hidden="hidden">@Resources.informations.CompanyError</p>
+                                                <p id="MF8" hidden="hidden">@Resources.informations.BusinessUnitError</p>
+                                                <p id="MF9" hidden="hidden">@Resources.informations.ORGError</p>
+                                                <p id="MF10" hidden="hidden">@Resources.informations.ProjectMgrError</p>
+                                                <p id="MF11" hidden="hidden">@Resources.informations.ServerError</p>
+                                                <p id="MF12" hidden="hidden">@Resources.informations.modelError</p>
+                                                <p id="MF13" hidden="hidden">@Resources.informations.SecurityModelError</p>
+                                                <p id="MF14" hidden="hidden">@Resources.informations.alreadyExistingTitleError</p>
+                                                <p id="MF15" hidden="hidden">@Resources.informations.notExistingMP</p>
+                                                <p id="MF16" hidden="hidden">@Resources.informations.notExistingProgramManager</p>
+                                            </div>
+                                            <div class="alert alert-warning" id="doublonAlert" hidden>
+                                                <button type="button" class="close" data-hide="alert">&times;</button>
+                                                <strong>@Resources.informations.existingChild</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6  ">
+                                            <div class="form-group row">
+                                                @*<i class="k-icon k-i-question" aria-hidden="true" style="color:red" title="Titre du projet"></i>*@
+                                                <div class="col-xs-10" data-toggle="tooltip" data-placement="top">
+                                                    @Html.EditorFor(m => m.AbreviatedTitle, "", new
+                                               {
+                                                   htmlAttributes = new
+                                                   {
+                                                       @class = "form-control formControl1 userInput ",
+                                                       @placeholder = Resources.informations.TitleOS,
+                                                       @id = "AbreviatedTitle"
+
+                                                   }
+                                               })
+                                                </div>
+                                                <div class="col-xs-1" style="color:red">
+                                                    <h3 class="star pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-4">
+                                                <label for="pwd">@Resources.informations.IsItLinkedToMasterProject? </label>
+                                            </div>
+                                            <div class="col-sm-2 ">
+                                                <div class="form-group " sstyle="text-align: left;">
+                                                    @*@Html.RadioButtonFor(m => m.HasAMasterProject, 1, new { @class = "master_project" }) @Resources.yes
+                        @Html.RadioButtonFor(m => m.HasAMasterProject, 0, new { @class = "master_project", Checked = "checked" }) @Resources.no*@
+                                                    <input type="radio" name="HasAMasterProject" class="master_project" value="1"> @Resources.informations.yes
+                                                    <input type="radio" name="HasAMasterProject" class="master_project" value="0" checked> @Resources.informations.no
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="">
+                                            <div id="masterProjectPanel" hidden>
+                                                <div class="col-sm-6 ">
+                                                    <div class="input-group col-sm-11">
+                                                        <input id="MasterProjectNumber" type="text" class="form-control" name="msg" placeholder="@Resources.informations.MPNumber">
+                                                        <span class="input-group-addon" onclick="displayNextResult()"><i class="fa fa-search"></i></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class=" col-sm-4">@Resources.informations.SelectPhaseCode:</label>
+                                                    @*<i class="k-icon k-i-question" aria-hidden="true" style="color:red" title="Code de phase"></i>*@
+                                                    <div id="inline_content" class="col-sm-5">
+                                                        <div class="form-check">
+                                                            <p>@Resources.informations.additionalInfo</p>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <div>
+                                                                <label class="form-check-label" id="PhaseCodeAlphabeticLabel">
+                                                                    <input class="form-check-input master_project_phase" type="radio" name="phaseCode" id="radioAlphabeticPhaseCode" value="alphabetic" checked>&nbsp; @Resources.informations.Alphabetic &nbsp;
+                                                                </label>
+                                                                <div id="alphabetique">
+                                                                    <select data-live-search="true" class="form-control selectpicker userInput" id="PhaseCodeAlphabetic" onchange="PhaseCodeAlphabeticSelection()">
+                                                                        <option value="" selected style="font-size:14px">@Resources.informations.Alphabetic</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <br />
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input class="form-check-input master_project_phase" type="radio" name="phaseCode" id="radioNumericPhaseCode" value="numeric">&nbsp; @Resources.informations.Numeric &nbsp; &nbsp;
+                                                            </label>
+                                                            <div id="numerique">
+                                                                <select data-live-search="true" class="form-control selectpicker userInput" id="PhaseCodeNumeric" onchange="PhaseCodeNumericSelection()">
+                                                                    <option value="" selected style="font-size:14px">@Resources.informations.Numeric</option>
+                                                                </select>
+                                                            </div>
+
+                                                        </div>
+                                                        <br />
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input class="form-check-input master_project_phase" type="radio" name="phaseCode" id="radioTextPhaseCode" value="textField">&nbsp; @Resources.informations.TextField
+                                                            </label>
+                                                            <div id="texte">
+                                                                <div class="input-group" style="float:left;width:100%" onchange="texteSelection()">
+                                                                    @Html.EditorFor(m => m.PhaseCode, "", new { htmlAttributes = new { @class = "form-control formControl2 inputWidth2", @placeholder = @Resources.informations.Text, @maxlength = "5" } })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-12" style=" color: #183666;font-family: 'Arial';font-size: 14pt;">
+                                            <b>@Resources.informations.the_client</b>
+                                        </div>
+                                    </div>
+
+                                    @*partie pour ajouter un client.  NE PAS EFFACER
+           <div>
+            <button class="btn btn-info " value="ajouter" onclick="addClient()">Ajouter un client</button>&nbsp;
+        </div>
+            <br />*@
+                                    <div class="row" hidden>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <div class="col-sm-11">
+                                                    <div class="input-group" style="float:left;">
+                                                        @Html.EditorFor(m => m.ClientNumber, "", new { htmlAttributes = new { @class = "form-control formControl2 inputWidth2 userInput", @placeholder = @Resources.informations.ClienNumber, @style = "border-right: none;" } })
+                                                        <div class="input-group-addon" onclick="openModalClientsNumber()">
+                                                            <i class="fa fa-search"></i>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="padding-top: 5px;">
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                @*<i class="k-icon k-i-question" aria-hidden="true" style="color:red" title="Nom du client"></i>*@
+                                                <div class="col-xs-10">
+                                                    <div class="input-group" style="float:left;">
+                                                        @Html.EditorFor(m => m.ClientName, "", new { htmlAttributes = new { @class = "form-control formControl2 inputWidth2 userInput", @placeholder = @Resources.informations.ClientName, @style = "border-right: none;", } })
+                                                        <div class="input-group-addon" onclick="openModalClientsNumber()">
+                                                            <i class="fa fa-search"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-1" style="color:red">
+                                                    <h3 class="pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2 center-block  text-center" style="color: #b5b5b5; width: 7.5%; margin-left: -65px">
+                                            <span title="Copier" n><i class="fa fa-arrow-right k-i-question" aria-hidden="true" id="arrowCopy"></i></span>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                @*<i class="k-icon k-i-question" aria-hidden="true" style="color:gray" title="Client final"></i>*@
+                                                <div class="col-xs-11">
+                                                    <div class="input-group" style="float:left;width:99%">
+                                                        @Html.EditorFor(m => m.ClientFinal, "", new { htmlAttributes = new { @class = "form-control formControl2 inputWidth2", @placeholder = @Resources.informations.FinalClient } })
+                                                        <div class="input-group-addon" onclick="openModalClientsNumber2()">
+                                                            <i class="fa fa-search"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr /> @*ProjectManager*@
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <div class="col-sm-12" style=" color: #183666;font-family: 'Arial';font-size: 14pt;">
+                                                    <b>@Resources.informations.ProjectManagerName</b>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-xs-10" data-toggle="tooltip" data-placement="top">
+                                                    <input type="text" class="form-control formControl2 inputWidth2 text-box single-line lightBlue" id="ClientProjectManager" style="width: 99%" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-5">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <b style=" color: #183666;font-family: 'Arial';font-size: 14pt;">@Resources.informations.ProjectManagerCourriel</b>
+                                                    <b style=" color: #000000; font-family: 'Arial'; font-size: 12pt; font-weight: bold;">@Resources.informations.ProjectMangerReg</b>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-xs-10">
+                                                    <input type="text" class="form-control formControl2 inputWidth2 text-box single-line lightBlue" id="ClientEmailProjectManager" style="width: 120%" value="">
+                                                </div>
+                                                <div class="col-xs-1" style="color:red">
+                                                    <h3 class="pull-left" style="margin-top: 2px;margin-left: 95px">*</h3>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+
+                                    </div>
+
+
+                                    <hr /> @*compagnies*@
+                                    <div class="row">
+                                        <div class="col-sm-12" style=" color: #183666;font-family: 'Arial';font-size: 14pt;">
+                                            <b>@Resources.informations.internalOrg</b>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-top: 5px;">
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                <div class="col-xs-10">
+                                                    <div>
+                                                        <select data-live-search="true" class="form-control selectpicker userInput" id="Company">
+                                                            <option value="" selected style="font-size:14px">1. @Resources.informations.Company</option>
+                                                            @foreach (structureItem item in HomeController.ListeCompanies)
+                                                            {
+                                                                <option value="@item.Name">@item.Name</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-1" style="color:red">
+                                                    <h3 class="pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                @*<i class="k-icon k-i-question" aria-hidden="true" style="color:red" title="Gestionnaire de projet"></i>*@
+                                                <div class="col-xs-10">
+                                                    <div class="input-group" style="float:left;">
+                                                        @Html.EditorFor(m => m.ProjectMgr, "", new { htmlAttributes = new { @class = "form-control formControl2 inputWidth2 userInput", @placeholder = @Resources.informations.ProjectMgr, @style = "border-right: none;" } })
+                                                        <div class="input-group-addon" onclick="openModalPrjectMgr('')">
+                                                            <i class="fa fa-search"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-1" style="color:red">
+                                                    <h3 class="pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                @*<i class="k-icon k-i-question" aria-hidden="true" style="color:red" title="Unité d'affaire"></i>*@
+                                                <div class="col-xs-10">
+                                                    <div>
+                                                        <select data-live-search="true" class="form-control selectpicker userInput" id="BusinessUnit">
+                                                            <option value="">2. @Resources.informations.BusinessUnit</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-1" style="color:red">
+                                                    <h3 class="pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                @*<i class="k-icon k-i-question" aria-hidden="true" style="color:red" title="Gestionnaire de programme"></i>*@
+                                                <div class="col-xs-10">
+                                                    <div class="input-group" style="float:left;">
+                                                        @Html.EditorFor(m => m.ProgramMgr, "", new { htmlAttributes = new { @class = "form-control formControl2 inputWidth2 userInput", @placeholder = @Resources.informations.ProgramMgr, @style = "border-right: none;" } })
+                                                        <div class="input-group-addon" onclick="openModalPrjectMgr('program')">
+                                                            <i class="fa fa-search"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div id="ProjectPanelDiligente" hidden>
+                                                <div class="col-sm-4">
+                                                    <label for="pwd">@Resources.informations.EnvDiligente</label>
+                                                </div>
+                                                <div class="col-sm-2 ">
+                                                    <div class="form-group " sstyle="text-align: left;">
+                                                        <input type="radio" name="HasProjectDiligente"  value="1"> @Resources.informations.yes
+                                                        <input type="radio" name="HasProjectDiligente"  value="0" checked> @Resources.informations.no
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                @*<i class="k-icon k-i-question" aria-hidden="true" style="color:red" title="Organisation"></i>*@
+                                                <div class="col-xs-10">
+                                                    <div>
+                                                        <select data-live-search="true" class="form-control selectpicker userInput" id="ORG">
+                                                            <option value="">3. @Resources.informations.ORG</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-1" style="color:red">
+                                                    <h3 class="pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group row">
+                                                @*<i class="k-icon k-i-question" aria-hidden="true" style="color:gray" title="Montant approximatif"></i>*@
+                                                <div class="col-xs-10" data-toggle="tooltip">
+                                                    @Html.EditorFor(m => m.ApproximateAmount, "", new { htmlAttributes = new { @class = "form-control formControl2 ", @placeholder = Resources.informations.ApproximateAmount } })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group row">
+                                                @*<i class="k-icon k-i-question" aria-hidden="true" style="color:gray" title="Références et commentaires"></i>*@
+                                                <div style="width: 100%">
+                                                    <div class="col-sm-11">
+                                                        @Html.TextAreaFor(m => m.RefAndComments, new { @class = "form-control formControl3 formTextArea", style = "height:150px", @placeholder = Resources.informations.RefAndComments, })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-12" style=" color: #183666;font-family: 'Arial';font-size: 14pt;">
+                                            <b>@Resources.informations.FolderStructure</b>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-top: 5px;">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-4">
+                                                <label for="pwd">@Resources.informations.CreateFolderStrucutre?</label>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    @Html.RadioButtonFor(m => m.HasprojectStruture, "1", new { @class = "project_structure", Checked = "checked" }) @Resources.informations.yes
+                                                    @Html.RadioButtonFor(m => m.HasprojectStruture, "0", new { @class = "project_structure" }) @Resources.informations.no
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @* nouveau layout pour cette partie *@
+                                    <div class="row">
+                                        <div id="projectStructure" class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group row">
+                                                        @*<i class="k-icon k-i-question" aria-hidden="true" style="color:red" title="Serveur"></i>*@
+                                                        <div class="col-xs-10 divServer">
+                                                            <div>
+                                                                <select data-live-search="true" class="form-control selectpicker userInput" id="Server">
+                                                                    <option value="" selected style="font-size:14px">1. @Resources.informations.Server</option>
+                                                                    @foreach (structureItem item in HomeController.ListeServers)
+                                                                    {
+                                                                        <option value="@item.Value">@item.Name</option>
+
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-1" style="color:red">
+                                                            <h3 class="pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group row">
+                                                        @*<i class="k-icon k-i-question" aria-hidden="true" style="color:red" title="Modéle"></i>*@
+                                                        <div class="col-xs-10 divModele">
+
+                                                            <div>
+                                                                <select data-live-search="true" class="form-control selectpicker userInput" id="ServerModel" data-toggle="tooltip">
+                                                                    <option value="" selected style="font-size:14px">2. @Resources.informations.Model</option>
+                                                                    @foreach (structureItem item in HomeController.ListeModels)
+                                                                    {
+                                                                        <option value="@item.Value">@item.Name</option>
+
+                                                                    }
+                                                                </select>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-1" style="color:red">
+                                                            <h3 class="pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group row">
+                                                        @*<i class="k-icon k-i-question" aria-hidden="true" style="color:red" title="Modéle de sécurité"></i>*@
+                                                        <div class="col-xs-10 divModeleSecurite">
+                                                            <div>
+                                                                <select data-live-search="true" class="form-control selectpicker userInput" id="SecurityModel">
+                                                                    <option value="" selected style="font-size:14px">3. @Resources.informations.SecurityModel</option>
+                                                                    @*@foreach (structureItem item in HomeController.ListeSecurityModels)
+                                        {
+                                            <option value="@item.Value">@item.Name</option>
+
+                                        }*@
+                                                                    <option value="0">@Resources.informations.SecurityModel</option>
+
+                                                                </select>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-1" style="color:red">
+                                                            <h3 class="pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group row">
+                                                        @*<i class="k-icon k-i-question" aria-hidden="true" style="color:gray" title="Modéle de sélection"></i>*@
+                                                        <div class="col-xs-10 divModeleSelection">
+                                                            <div>
+                                                                <select data-live-search="true" class="form-control selectpicker" id="SelectionModel">
+                                                                    <option value="" selected style="font-size:14px">4. @Resources.informations.SelectionModel</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div style="text-align:right">
+                                                <button class="specialB " type="reset" value="Cancel" onclick="cancelForm2()">@Resources.informations.Cancel</button>&nbsp;
+                                                <button class="specialB submitButton" onclick="submitForm()">@Resources.informations.Next</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                        @*</div>*@
+                    </div>
+                </div>
+                <div id="resumePage">
+                </div>
+                <div id="addNewClient" style="color:white">
+                </div>
+                <script>
+    var flagForPhaseCode;
+    var clientName = "";
+    var clientNumber = "";
+    var clientFinal = "";
+    var projectOrProgramManagerNumber = "";
+    var programManagerNumber = "";
+    var sourceFinalClient = "";
+    var dataFroModeleSelection = null;
+    var clickOrigin = "";
+    var projectNumber = "";
+    $("#projectStructure").show()
+    $(document).ready(function () {
+
+        var inputElement = $('#AbreviatedTitle');        
+        inputElement.attr('maxlength', 250);
+
+        $(".dropdown-toggle").removeAttr("title");
+        $('.k-i-question').tooltip();
+
+                $('.formControl1').addClass('darkBlue');
+                $('.formControl2').addClass('lightBlue');
+                $('.formControl3').addClass('lightBlue');
+                $.ajax({
+
+             type: 'GET',
+             dataType: 'html',
+             cache: false,
+             url: '@Url.Action("returnListCustomerNumberName", "Home")',
+                    success: function (result) {
+                  $("#contentCustomerNumberName").html(result);
+              }
+         });
+
+         $.ajax({
+
+             type: 'GET',
+             dataType: 'html',
+             cache: false,
+             url: '@Url.Action("returnListProjectManagers", "Home")',
+              success: function (result) {
+                  $("#contentProjectManager").html(result);
+              }
+         });
+
+           @*$.ajax({
+
+             type: 'GET',
+             dataType: 'html',
+             cache: false,
+             url: '@Url.Action("returnListProjects", "Home")',
+               success: function (result) {
+                   console.log("returnListProjects")
+                  $("#contentProjectsList").html(result);
+              }
+         });*@
+        var state = '@Session["masterProjectPanelState"].ToString()';
+            if (state == "open") {
+                $("#masterProjectPanel").show()
+            }
+            else {
+                $("#masterProjectPanel").hide();
+            }
+        var structure = '@Session["masterProjectStruct"].ToString()' ;
+            if (structure == "open") {
+                $("#projectStructure").show()
+            }
+            else {
+                $("#projectStructure").hide();
+        }
+    });
+
+    $("body").click(function () {
+               $(".dropdown-toggle").removeAttr("title");
+
+    });
+
+    $("input[name='HasAMasterProject']").change(function(){
+        if ($(this).val() == '1') {
+            $("#masterProjectPanel").show();
+        }
+        else {
+            $("#masterProjectPanel").hide();
+        }
+});
+
+    function openModalClientsNumber() {
+        $('#clientNumberModal').modal('show');
+    }
+
+    function openModalClientsNumber2() {
+        sourceFinalClient = "true";
+        $('#clientNumberModal').modal('show');
+
+    }
+
+    function openModalPrjectMgr(origin) {
+        clickOrigin = origin
+        $('#projetcManagerModal').modal('show');
+    }
+
+    function openModalProjectList() {
+        $('#projectsListModal').modal('show');
+    }
+
+    ///////////////on change master project id , mettre a jour la liste des phases
+    $("#MasterProjectNumber").change(function () {
+
+    });
+
+
+    $("input[name='phaseCode']").change(function (event) {
+        if ($('input[name=phaseCode]:checked').val()=="alphabetic")
+        {
+            $('#PhaseCodeNumeric').val('');
+            $('#PhaseCode').val('');
+            $('.selectpicker').selectpicker('refresh')
+        }
+        if ($('input[name=phaseCode]:checked').val() == "numeric")
+        {
+            $('#PhaseCodeAlphabetic').val('');
+            $('#PhaseCode').val('');
+            $('.selectpicker').selectpicker('refresh')
+        }
+        if ($('input[name=phaseCode]:checked').val() == "textField")
+        {
+            $('#PhaseCodeAlphabetic').val('');
+            $('#PhaseCodeNumeric').val('');
+            $('.selectpicker').selectpicker('refresh')
+        }
+    });
+
+    function PhaseCodeAlphabeticSelection() {
+        $('#radioAlphabeticPhaseCode').prop("checked", true);
+    }
+
+    function PhaseCodeNumericSelection() {
+        $('#radioNumericPhaseCode').prop("checked", true);
+    }
+
+    function texteSelection() {
+        $('#radioTextPhaseCode').prop("checked", true);
+    }
+
+/////////////////////client name////////////////////////////////:
+
+$(function() {
+var array = @Html.Raw(Json.Encode(@ViewBag.NameArray));
+var numberArray = [];
+for (var i = 0; i < array.length; i++) {
+numberArray[i] = { value: array[i], label: array[i] };
+}
+$( "#ClientName" ).autocomplete({
+    source: numberArray,
+    focus: function (event, ui)
+    {
+
+        if (ui.item === null || !ui.item)
+            $("#ClientName").val(''); /* clear the value */
+        else $("#ClientName").val(ui.item.label);
+         return false;
+
+    },
+    change: function (event, ui) {
+        if ($("#ClientName").val() != "") {
+            if (ui.item === null || !ui.item)
+                $("#ClientName").val("@Resources.informations.notExistingClient".replace('&#39;','\''));
+        }
+
+    }
+    })
+.autocomplete( "instance" )._renderItem = function( ul, item ) {
+return $( "<li>" )
+.append( "<div>" + item.label + "</div>" )
+.appendTo( ul );
+};
+});
+
+/////////////////////client number////////////////////////////////:
+$(function() {
+var array = @Html.Raw(Json.Encode(@ViewBag.NumberArray));
+var numberArray = [];
+for (var i = 0; i < array.length; i++) {
+numberArray[i] = { value: array[i], label: array[i] };
+}
+$( "#ClientNumber" ).autocomplete({
+source: numberArray,
+focus: function( event, ui ) {
+$( "#ClientNumber" ).val( ui.item.label );
+return false;
+    }
+})
+.autocomplete( "instance" )._renderItem = function( ul, item ) {
+return $( "<li>" )
+.append( "<div>" + item.label + "</div>" )
+.appendTo( ul );
+};
+} );
+
+
+
+
+//////////////gestionnaire de projet//////////////////////
+
+$(function() {
+var array = @Html.Raw(Json.Encode(@ViewBag.GestionnairesNumberArray));
+var numberArray = [];
+    for (var i = 0; i < array.length; i++)
+        {
+        numberArray[i] = { value: array[i], label: array[i] };
+        }
+    $("#ProjectMgr").autocomplete(
+        {
+      source: numberArray,
+      focus: function (event, ui)
+             {
+
+          $("#ProjectMgr").val(ui.item.label);
+            return false;
+
+            }
+      ,
+    change: function (event, ui) {
+        if ($("#ProjectMgr").val() != "") {
+            if (ui.item === null || !ui.item)
+                $("#ProjectMgr").val("@Resources.informations.notExistingProjectManager".replace('&#39;','\''));
+        }
+
+    }
+        }
+    )
+     .autocomplete("instance")._renderItem = function (ul, item)
+     {
+return $( "<li>" )
+.append( "<div>" + item.label + "</div>" )
+.appendTo( ul );
+        };
+
+});
+
+//////////////gestionnaire de programme//////////////////////
+
+$(function() {
+var array = @Html.Raw(Json.Encode(@ViewBag.GestionnairesNumberArray));
+var numberArray = [];
+for (var i = 0; i < array.length; i++) {
+numberArray[i] = { value: array[i], label: array[i] };
+}
+    $( "#ProgramMgr" ).autocomplete({
+source: numberArray,
+focus: function( event, ui ) {
+    $( "#ProgramMgr" ).val( ui.item.label );
+return false;
+        }
+,
+    change: function (event, ui) {
+        if ($("#ProgramMgr").val() != "") {
+            if (ui.item === null || !ui.item)
+                $("#ProgramMgr").val("@Resources.informations.notExistingProgramManager".replace('&#39;','\''));
+        }
+
+    }
+
+    })
+.autocomplete( "instance" )._renderItem = function( ul, item ) {
+return $( "<li>" )
+.append( "<div>" + item.label + "</div>" )
+.appendTo( ul );
+};
+});
+
+///////////////////////////////////////////////////////////////
+
+
+
+    $('#Server').on('change', function ()
+    {
+        if ($('#Server').val() != null)
+        {
+  $.ajax({
+    url: '@Url.Action("returnListServerModel", "TTProjet")',
+     type: 'GET',
+    success:function(data)
+    {
+        $('#ServerModel').empty();
+        $("#ServerModel").append('<option value="" >'+'@Resources.informations.chooseModel'+'</option >');
+        $.each(data, function (index, row) {
+            $("#ServerModel").append('<option value="'
+                + row.Value + '">'
+                + row.Name + '</option>');
+        });
+        $('#ServerModel').selectpicker('refresh');
+        $(".dropdown-toggle").removeAttr("title");
+
+    }
+  });
+
+
+
+ }
+ });
+    //les modéles de sécurité etant la securité de base  , on enléve ce choix
+  $('#ServerModel').on('change', function () {
+      if ($('#ServerModel').val() != null) {
+
+//pour les modeles de selection:
+             $.ajax({
+    url: '@Url.Action("returnModeleSelection", "TTProjet")',
+     type: 'GET',
+   data: {
+
+       modelId: $('#ServerModel').val()
+    },
+
+    success:function(data)
+    {
+        $("#SelectionModel").empty();
+        if (data == null || data == "")
+        {
+            $("#SelectionModel").append('<option value="">'+'@Resources.informations.noModelForThisServer'+'</option >');
+        }
+        else
+        {
+
+            $("#SelectionModel").append('<option value="">'+'@Resources.informations.chooseSelectionModel'+'</option >');
+            $.each(data, function (index, row) {
+
+                $("#SelectionModel").append('<option value="'
+                    + row.Value + '">'
+                    + row.Name + '</option>');
+            });
+
+
+
+        }
+        $('#SelectionModel').selectpicker('refresh');
+        $(".dropdown-toggle").removeAttr("title");
+    }
+  });
+
+ }
+ });
+
+//$('#SecurityModel').on('change', function () {
+//    if ($('#SecurityModel').val() != null)
+//    {
+
+
+// }
+//});
+
+    //$('#SelectionModel').on('change', function () {
+
+    //    $("button[data-id='SelectionModel']").removeAttr("title");
+    //});
+
+//////////////////////////////////////////////////////////////////
+    $(function () {
+        $(".project_structure").click(function () {
+			if ($(this).val() == 1) {
+                $.ajax({
+
+                    type: 'GET',
+                    url:  '@Url.Action("changeMasterProjectStructure", "Home")',
+                    data: { state: "open" },
+                    success: function (data) {
+                        $("#projectStructure").show();
+                    },
+                    error: function () {
+                        alert('Nope');
+                    }
+                });
+            }
+            else {
+
+               $.ajax({
+                   url: '@Url.Action("changeMasterProjectStructure", "Home")',
+                    type: 'GET',
+                    data: { state: "closed" },
+                   success: function (data) {
+                       $("#projectStructure").hide();
+                    },
+                    error: function () {
+                        alert('Nope');
+                    }
+                });
+            }
+
+        });
+
+    });
+
+////////////////////////////////////////////////////////////////////////////
+
+       $(function () {
+           $(".master_project").click(function () {
+			if ($(this).val() == 1) {
+                $.ajax({
+
+                    type: 'GET',
+                    url:  '@Url.Action("changeMasterProjectPanelSate", "Home")',
+                    data: { state: "open" },
+                    success: function (data) {
+                        $("#masterProjectPanel").show();
+                    },
+                    error: function () {
+                    }
+                });
+            }
+            else {
+
+               $.ajax({
+                   url: '@Url.Action("changeMasterProjectPanelSate", "Home")',
+                    type: 'GET',
+                    data: { state: "closed" },
+                   success: function (data) {
+                       $("#masterProjectPanel").hide();
+                    },
+                    error: function () {
+                    }
+                });
+            }
+
+        });
+
+       });
+
+$("#cn").click(function () {    alert("modal")
+    $("#clientNumberModal").modal("show");
+    });
+
+    $('#ClientNumber').on('focusout', function () {
+        if ($('#ClientNumber').val()!=null) {
+ $.ajax({
+    url: '@Url.Action("returnClientName", "Home")',
+     type: 'GET',
+   data: {
+
+       custNumber: $('#ClientNumber').val()
+    },
+
+    success:function(data)
+    {
+     $('#ClientName').val(data)
+    }
+  });
+ }
+ });
+
+ $('#ClientName').on('focusout', function () {
+     if ($('#ClientName').val() != null) {
+ $.ajax({
+    url: '@Url.Action("returnClientNumber", "Home")',
+     type: 'GET',
+   data: {
+
+       custName: $('#ClientName').val()
+    },
+
+    success:function(data)
+    {
+     $('#ClientNumber').val(data)
+    }
+  });
+ }
+ });
+
+$('#Company').on('change', function () {
+
+    $("#ProjectPanelDiligente").hide()
+
+        if ($('#Company').val() != null) {
+ $.ajax({
+    url: '@Url.Action("returnSelectedUA", "Home")',
+     type: 'GET',
+   data: {
+
+       company: $('#Company').val()
+    },
+
+    success:function(data)
+    {
+        $("#BusinessUnit").empty();
+        $("#BusinessUnit").append('<option value="">'+'2. '+'@Resources.informations.BusinessUnit'+'</option>');
+
+        $.each(data, function (index, row) {
+            $("#BusinessUnit").append('<option value="'
+                + row.Value + '">'
+                + row.Name + '</option>');
+        });
+        $('#BusinessUnit').selectpicker('refresh');
+    }
+  });
+ }
+ });
+
+$('#BusinessUnit').on('change', function () {
+
+    if ($('#BusinessUnit').val() != null) {        
+        if ($('#BusinessUnit').val() == '10640') {
+            $("#ProjectPanelDiligente").show();
+        }
+        else {
+            $("#ProjectPanelDiligente").hide();
+        }
+
+ $.ajax({
+    url: '@Url.Action("returnSelectedORG", "Home")',
+     type: 'GET',
+   data: {
+
+       UAId: $('#BusinessUnit').val()
+    },
+
+    success:function(data)
+    {
+        $("#ORG").empty();
+        $("#ORG").append('<option value="">3.'+'@Resources.informations.ORG'+'</option>');
+
+        $.each(data, function (index, row) {
+            $("#ORG").append('<option value="'
+                + row.Value + '">'
+                + row.Name + '</option>');
+        });
+        $('#ORG').selectpicker('refresh');
+    }
+  });
+ }
+    });
+
+//soumission du formulaire:
+    function submitForm()
+    {
+        $("#MissingFieldsAdd").hide();
+        $("#MF1").hide()
+        $("#MF3").hide()
+        $("#MF4").hide()
+        $("#MF5").hide()
+        $("#MF6").hide()
+        $("#MF7").hide()
+        $("#MF8").hide()
+        $("#MF9").hide()
+        $("#MF10").hide()
+        $("#MF11").hide()
+        $("#MF12").hide()
+        $("#MF13").hide()
+        $("#MF14").hide()
+        $("#MF15").hide()
+        $("#MF16").hide()
+        $("#MF17").hide()
+
+        $('#resumePage').html("")
+        var invalidForm = false;
+        var phase = "";
+        var phaseCodeId = "0";
+        var ProjectMgrValue = $('#ProjectMgr').val();
+
+        //validation nom projet maitre et code phase
+        @*if ($('#AbreviatedTitle').val() != "") {
+                    $.ajax({
+                     type: 'GET',
+                      dataType: 'json',
+                      data: {
+
+                       AbreviatedTitle : $('#AbreviatedTitle').val(),
+                      },
+                        cache: false,
+                        async: false,
+                     url: '@Url.Action("checkNameAvailability", "Home")',
+                     success: function (data)
+                     {
+                         if (data.result == "notAvailable")
+                         {
+
+                             invalidForm = true;
+                             $("#MF14").show();
+
+                         }
+                     }
+                 });
+        }*@
+        if ($('#AbreviatedTitle').val() == "" || $('#AbreviatedTitle').val().trim()=="") {
+            invalidForm = true;
+            $("#MF1").show();
+        }
+        if ($('[name="HasAMasterProject"]:checked').val() == "1")
+        {
+            if ($('#MasterProjectNumber').val() == "") {
+                invalidForm = true;
+                $("#MF3").show()
+            }
+        }
+        //
+        if ($('[name="HasAMasterProject"]:checked').val() == "1")
+        {
+            if ($('#PhaseCodeAlphabetic').val() == "" && $('#PhaseCodeNumeric').val() == "" && $('#PhaseCode').val() == "")
+            {
+                invalidForm = true;
+                $("#MF4").show()
+            }
+
+            // on valide que maitre existe
+            $.ajax ( {
+			type: 'GET',
+			dataType: 'json',
+			data: {
+                master: $('#MasterProjectNumber').val().trim()
+			  },
+                cache: false,
+             async: false,
+			 url: '@Url.Action("checkIfMasterProjectNumberExists", "Home")',
+			 success: function (data)
+             {
+                 if (data.result == "cannotContinue") {
+                     invalidForm = true;
+                     $("#MF15").show()
+                     //alert("invalide");
+				 }
+             }
+          });
+
+
+        }
+        if ($('#ClientName').val() == "" || $('#ClientName').val().trim() == "" || $('#ClientName').val() == "@Resources.informations.notExistingClient".replace('&#39;', '\'')) {
+            invalidForm = true;
+            $("#MF6").show()
+        }
+
+        if ($('#ClientEmailProjectManager').val() == "") {
+            invalidForm = true;
+            $("#MF17").show()
+        }
+
+        //
+        if ($('#Company').val() == "") {
+            invalidForm = true;
+            $("#MF7").show()
+        }
+        //
+        if ($('#BusinessUnit').val() == "") {
+            invalidForm = true;
+            $("#MF8").show()
+        }
+        //
+        if ($('#ORG').val() == "") {
+            invalidForm = true;
+            $("#MF9").show()
+        }
+        //
+
+        if ($('#ProjectMgr').val() == "" || $('#ProjectMgr').val().trim() == "" || $('#ProjectMgr').val() == "@Resources.informations.notExistingProjectManager".replace('&#39;', '\'')) {
+            invalidForm = true;
+            $("#MF10").show()
+        }
+
+        if ($('#ProgramMgr').val() == "@Resources.informations.notExistingProgramManager".replace('&#39;', '\'')) {
+            invalidForm = true;
+            $("#MF16").show()
+        }
+      if ($('#HasprojectStruture').is(':checked') == "1" )
+        {
+          if ($('#Server').val() == "") {
+              invalidForm = true;
+              $("#MF11").show()
+          }
+
+          if ($('#ServerModel').val() == "") {
+              invalidForm = true;
+              $("#MF12").show()
+          }
+
+          if ($('#SecurityModel').val() == "") {
+              invalidForm = true;
+              $("#MF13").show()
+          }
+
+        }
+        if (invalidForm == true)
+        {
+            $(document).scrollTop($("#top").offset().top);
+            $("#MissingFieldsAdd").show();
+        }
+        else
+        {
+            if ($('[name="HasAMasterProject"]:checked').val() == "1")
+            {
+
+                if ($('input[name=phaseCode]:checked').val() == "alphabetic") {
+                    phase = $('#PhaseCodeAlphabetic').val();
+                    phaseCodeId = "2";
+                }
+                else if ($('input[name=phaseCode]:checked').val() == "numeric") {
+                    phase = $('#PhaseCodeNumeric').val();
+                    phaseCodeId = "1";
+                }
+                else {
+                    phase = $('#PhaseCode').val();
+                    phaseCodeId = "3";
+                }
+            }
+            //ici on va faire verifier que l on ne va pas générer un doublon
+            //il y a une contrainte sur: le projet maitre, la phase, la compagnie
+                $.ajax ( {
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        master: $('#MasterProjectNumber').val().trim(),
+                        phase: phase,
+                        company: $('#Company').val()
+                      },
+                     cache: false,
+                     url: '@Url.Action("checkForDoublons", "Home")',
+                     success: function (data)
+                     {
+                         if (data.result == "cannotContinue") {
+
+                             $("#doublonAlert").show();
+                         }
+                         else
+                         {
+                $.ajax({
+                     type: 'GET',
+                      dataType: 'html',
+                      data: {
+
+                                  AbreviatedTitle : $('#AbreviatedTitle').val(),
+                                  HasAMasterProject: $('[name="HasAMasterProject"]:checked').val(),
+                                  MasterProjectNumber: $('#MasterProjectNumber').val().trim(),
+                                  PhaseCode: phase,
+                                  PhaseCodeId: phaseCodeId,
+                                  ClientNumber: $('#ClientNumber').val(), //customer number
+                                  ClientName: $('#ClientName').val(),
+                                  CompanyId: $('#Company').val(),//[Acct_Group]
+                                  BusinessUnit: $('#BusinessUnit').val(),//[Acct_Center]
+                                  ORG : $('#ORG').val(),
+                                  ProjectMgr: ProjectMgrValue,
+                                  ProgramMgr: $("#ProgramMgr").val(),
+                                  currentUser:"@Html.Raw(UserService.CurrentUser)",
+                                  ClientFinal: $('#ClientFinal').val(),
+                                  ClientContact: $('#ClientContact').val(),
+                                  ApproximateAmount: $('#ApproximateAmount').val(),
+                                  RefAndComments: $('#RefAndComments').val(),
+                                  Server: $('#Server').val(),//68
+                                  ServerModel: $('#ServerModel').val(),
+                                  SecurityModel: $('#ServerModel').val(),//$('#SecurityModel').val()  ,
+                                  SelectionModel: $('#SelectionModel').val(),
+                                  ClientProjectManager: $('#ClientProjectManager').val(),
+                                  ClientEmailProjectManager: $('#ClientEmailProjectManager').val(),
+                                  HasProjectDiligente: $('[name="HasProjectDiligente"]:checked').val() == "1" ? true : false,
+                                  HasprojectStruture: $('[name="HasprojectStruture"]:checked').val() == "0" ? false : true
+                      },
+                     cache: false,
+                     url: '@Url.Action("submitAction", "Home")',
+                     success: function (result)
+                     {
+                         $('#formPage').hide()
+                         $(document).scrollTop($("#top").offset().top);
+                         $('#resumePage').html(result)
+                         $('#precedent').prop("disabled", false);
+                         $('#accepter').prop("disabled", false);
+                         $('#annuler').prop("disabled", false);
+
+                       //  window.location.href = result.redirectToUrl;
+                     }
+                 });
+               }
+             }
+          });
+
+        }
+
+    }
+
+    function cancelForm2() {
+        window.location.href = '@Url.Action("Index", "TTProjet")';
+
+    }
+
+    $(".close").click(function () {
+        $(".alert").hide();
+
+    });
+
+    $(".submitButton").click(function () {
+        $("#resumePage").show();
+        $('#precedent').prop("disabled", false);
+        $('#accepter').prop("disabled", false);
+        $('#annuler').prop("disabled", false);
+
+
+    });
+
+    function addClient()
+    {
+        $('#formPage').hide()
+        $(document).scrollTop($("#top").offset().top);
+        $.ajax({
+            url: '@Url.Action("Index", "NewClient")',
+                    type: 'GET',
+                    dataType: 'html',
+           data: {
+            },
+            success:function(data)
+            {
+                $('#addNewClient').html(data)
+            }
+          });
+    }
+
+
+    function applyClientModalValue() {
+        if (sourceFinalClient == "true") {
+            $("#ClientFinal").val(clientFinal);
+            sourceFinalClient = "";
+        }
+        else {
+            if (clientNumber != "") {
+                $("#ClientNumber").val(clientNumber);
+                $("#ClientName").val(clientName);
+              //  $("#ClientFinal").val(clientFinal);
+
+                clientNumber = "";
+                clientName = "";
+                clientFinal = "";
+                sourceFinalClient = "";
+            }
+        }
+
+        $('#data_CustomerNumberName tr').removeClass('selected');
+        ($('input[type=search]')[1]).value = "";
+        $('#data_CustomerNumberName').DataTable().search('').draw();
+        $('#data_CustomerNumberName tr').removeClass('selected');
+        $('#clientNumberModal').modal('toggle');
+
+    }
+
+
+    function applyProjectManagerModalValue() {
+        if (projectOrProgramManagerNumber != "")
+        {
+            if (clickOrigin == "program") {
+                $("#ProgramMgr").val(projectOrProgramManagerNumber);
+                projectOrProgramManagerNumber = "";
+            }
+
+            else {
+                $("#ProjectMgr").val(projectOrProgramManagerNumber);
+            }
+            projectOrProgramManagerNumber = "";
+        }
+        $('#data_projectManagerName tr').removeClass('selected');
+        ($('input[type=search]')[0]).value = "";
+        $('#data_projectManagerName').DataTable().search('').draw();
+        $('#data_projectManagerName tr').removeClass('selected');
+        $('#projetcManagerModal').modal('toggle');
+    }
+
+
+                    function applyMasterProjectValue() {
+                        if (($('#data_SearchMasterProjectTable tr').length != 0 && $('#data_SearchMasterProjectTable tr.selected').length == 0) ||
+                            ($('#data_SearchMasterProjectTable2 tr').length != 0 && $('#data_SearchMasterProjectTable2 tr.selected').length == 0)
+                        ) {
+                            $("#unselected").show();
+                        }
+                        else if ($('#data_SearchMasterProjectTable tr').length == 0 && $('#data_SearchMasterProjectTable2 tr').length == 0) {
+                            $("#searchMasterProjectModal").modal("toggle")
+                        }
+                        else {
+                            $("#MasterProjectNumber").val(projectNumber);
+                            $('.SearchMasterProject tr').removeClass('selected');
+                            ($('input[type=search]')[0]).value = "";
+                            $('.SearchMasterProject').DataTable().search('').draw();
+                            $('.SearchMasterProject tr').removeClass('selected');
+                            $('#searchMasterProjectModal').modal('toggle');
+                            returnPhases();
+
+                        }
+                    }
+
+      function returnPhases() {
+                 $.ajax({
+                type: 'GET',
+                dataType: 'JSON',
+                 cache: false,
+                 data: {
+                     masterProjectId: $("#MasterProjectNumber").val()
+                     },
+                    url: '@Url.Action("returnListPhases", "Home")',
+                     success: function (data)
+                     {
+                         $("#PhaseCodeAlphabetic").empty();
+                          $("#PhaseCodeAlphabetic").append('<option value="">'+'@Resources.informations.Alphabetic'+'</option >');
+
+                         $.each(data.phasesList2, function (index, row) {
+                             $("#PhaseCodeAlphabetic").append('<option value="'
+                                 + row.Name + '">'
+                                 + row.Name + '</option>');
+                         });
+                         $('select[id=PhaseCodeAlphabetic]').val($("#PhaseCodeAlphabetic option:eq(1)").val());
+                         $('#PhaseCodeAlphabetic').selectpicker('refresh')
+                         ///
+                         $("#PhaseCodeNumeric").empty();
+                         $("#PhaseCodeNumeric").append('<option value="">'+'@Resources.informations.Numeric'+'</option >');
+
+                         $.each(data.phasesList1, function (index, row) {
+                             $("#PhaseCodeNumeric").append('<option value="'
+                                 + row.Name + '">'
+                                 + row.Name + '</option>');
+                         });
+                       //  $('select[id=PhaseCodeNumeric]').val($("#PhaseCodeNumeric option:eq(1)").val());
+                         $('#PhaseCodeNumeric').selectpicker('refresh')
+                     }
+                 })
+
+                       // applyDefaultValues();
+            }
+
+          function applyDefaultValues()
+                  {
+           $.ajax({
+                type: 'GET',
+                dataType: 'JSON',
+                 cache: false,
+                 data: {
+                     masterProjectNumber: $("#MasterProjectNumber").val()
+                     },
+                    url: '@Url.Action("applyDefaultValuesFromMasterProject", "Home")',
+                     success: function (dataR)
+                     {
+                         if (dataR != null)
+                         {
+                         dataR.Customer_Number == "" || dataR.Customer_Number == null ? $('#ClientNumber').val(''): $('#ClientNumber').val(dataR.Customer_Number) //customer number
+                         dataR.Customer_Name == "" || dataR.Customer_Name == null    ? $('#ClientName').val('')  : $('#ClientName').val(dataR.Customer_Name)
+                         dataR.End_Client_Name == "" || dataR.End_Client_Name == null ? $('#ClientFinal').val(''): $('#ClientFinal').val(dataR.End_Client_Name)
+                         dataR.Company == "" || dataR.Company == null ? $('select[id=Company]').val(''): $('select[id=Company]').val(dataR.Company);
+                         $('#Company').selectpicker('refresh')
+
+                         //pour UA
+                         if (dataR.Company != null && dataR.Company != "")
+                         {
+                             $.ajax({
+                                url: '@Url.Action("returnSelectedUA", "Home")',
+                                 type: 'GET',
+                               data: {
+                                   company: dataR.Company
+                                },
+                                success:function(data)
+                                {
+                                    $("#BusinessUnit").empty();
+                                    $("#BusinessUnit").append('<option value="">'+'2. '+'@Resources.informations.BusinessUnit'+'</option>');
+
+                                    $.each(data, function (index, row) {
+                                        if (dataR.Acct_Group_ID == row.Value)
+                                        {
+                                            $("#BusinessUnit").append('<option value="' + row.Value + '" selected>' + row.Name + '</option>');
+                                        }
+                                       else $("#BusinessUnit").append('<option value="' + row.Value + '">' + row.Name + '</option>');
+
+                                    });
+                                    $('#BusinessUnit').selectpicker('refresh');
+                                }
+                              });
+                         }
+
+
+                         //pour organisation
+                         if (dataR.Acct_Group_ID != null && dataR.Acct_Group_ID != "")
+                         {
+                            $.ajax({
+                            url: '@Url.Action("returnSelectedORG", "Home")',
+                            type: 'GET',
+                            data: {
+
+                                UAId: dataR.Acct_Group_ID
+                            },
+
+                            success:function(data)
+                            {
+                                $("#ORG").empty();
+                                $("#ORG").append('<option value="">3. '+'@Resources.informations.ORG'+'</option>');
+                                    $.each(data, function (index, row) {
+                                        if (dataR.Acct_Center_ID == row.Value)
+                                        {
+                                            $("#ORG").append('<option value="' + row.Value + '" selected>' + row.Name + '</option>');
+                                        }
+                                        else $("#ORG").append('<option value="' + row.Value + '">' + row.Name + '</option>');
+                                });
+                                $('#ORG').selectpicker('refresh');
+                            }
+                            });
+                         }
+
+                         $("#ProjectMgr").val(dataR.Project_Mgr_Number)
+                         $("#ProgramMgr").val(dataR.Program_Mgr_Number)
+
+                         $('#ApproximateAmount').val(dataR.Approx_Amount)
+                         $('#RefAndComments').val(dataR.Comments)
+                        //$('#Server').val()//68
+                        //$('#ServerModel').val()
+                        //$('#ServerModel').val()//$('#SecurityModel').val()  ,
+                        //$('#SelectionModel').val()
+                        //$('[name="HasprojectStruture"]:checked').val()=="0" ? false: true
+                         }
+
+
+                     }
+                 })
+                    }
+
+
+         $('#MasterProjectNumber').on('blur', function () {
+             if ($('#MasterProjectNumber').val() != "")
+              {
+                 returnPhases();
+                // applyDefaultValues(); sera fait plus tard
+                 }
+
+        });
+
+    $("#arrowCopy").click(function () {
+
+        if ($("#ClientName").val() != '@Resources.informations.notExistingClient')
+        {
+            $("#ClientFinal").val($("#ClientName").val());
+
+        }
+    });
+
+    //partie pour formatage instantanné pour ApproximateAmount
+    const currency = [2000, 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1];
+
+    const valueRef = document.querySelector("#ApproximateAmount");
+
+    function getCurrency(value) {
+        console.clear();
+        var map = new Map();
+        let i = 0;
+        //loop unitll value 0
+        while (value) {
+            //if divide in non-zero add in map
+            if (Math.floor(value / currency[i]) != 0) {
+                map.set(currency[i], Math.floor(value / currency[i]));
+                //update value using mod
+                value = value % currency[i] ;
+            }
+            i++;
+        }
+
+
+    }
+
+    function getChange() {
+        // 48 - 57 (0-9)
+        var str1 = valueRef.value;
+        if (
+            str1[str1.length - 1].charCodeAt() < 48 ||
+            str1[str1.length - 1].charCodeAt() > 57
+        ) {
+            valueRef.value = str1.substring(0, str1.length - 1);
+            return;
+        }
+
+        // t.replace(/,/g,'')
+        let str = valueRef.value.replace(/,/g, "");
+        str = valueRef.value.replace(/\s/g, "");
+        let value = +str;
+        getCurrency(value)
+        valueRef.value = value.toLocaleString("fr-FR");
+    }
+
+    valueRef.addEventListener("keyup", getChange);
+
+    $('#ApproximateAmount').blur(function () {
+        var valueAppAmount = $('#ApproximateAmount').val();
+        if (valueAppAmount != "")
+        {
+            $('#ApproximateAmount').val(valueAppAmount + " $");
+
+        }
+    });
+
+//pour mettre les caractéres du projets maitre en majuscule
+
+      $("#MasterProjectNumber")
+        .focusout(function () {
+            $("#MasterProjectNumber").val($("#MasterProjectNumber").val().toUpperCase())
+        })
+//
+
+    //fin partie pour formatage instantanné pour ApproximateAmount
+
+
+    function displayNextResult() {
+        $('#contentSearchMasterProject').html("")
+        $.ajax({
+            url: '@Url.Action("displayNextResults", "Home")',
+                    type: 'GET',
+            dataType: 'html',
+            cache: false,
+            data: {
+                searchTerm: $('#MasterProjectNumber').val().trim()
+            },
+            success:function(data)
+            {
+                $('#searchMasterProjectModal').modal('show');
+
+                $('#contentSearchMasterProject').html(data)
+            }
+          });
+    }
+
+               function reinitializeCounter() {
+
+                   $.ajax({
+                       data: {
+                           searchTerm: $('#MasterProjectNumber').val().trim()
+                       },
+            url: '@Url.Action("resetCounter", "Home")',
+                    type: 'GET',
+          });
+
+                 //  $('#searchMasterProjectModal').modal('toggle');
+            }
+                </script>
+
+            }
+            else
+            {
+                <div class="panel panel-primary" style="border-radius: 10px;margin-top: -10px;">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div>
+                                    <p style="color:red">
+                                        @Resources.informations.restricted
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary" style="border-radius: 10px;margin-top: -10px;">
+                    <div class="panel-body">
+                        <div class="row">
+
+                            @Html.Partial("AdministratorsListPartial")
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+
+</div>
+<div class="modal modal-message fade" id="projetcManagerModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-xl1" role="document">
+        <div class="modal-content" style="width:100%;">
+            <div class="modal-header" style="width:100%;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelGP">@Resources.informations.projectManList</h4>
+            </div>
+            <div class="modal-body" id="contentProjectManager" style="width:100%;">
+            </div>
+            <div class="modal-footer" style="width:100%;">
+                <button type="button" class="specialB" data-dismiss="modal" id="cancelProjectMgr">@Resources.informations.Cancel</button>
+                <button type="button" class="specialB" onclick="applyProjectManagerModalValue()">@Resources.informations.OK</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="clientNumberModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabel">@Resources.informations.clientList</h4>
+            </div>
+            <div class="modal-body" id="contentCustomerNumberName">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="specialB" data-dismiss="modal" id="cancelCustomer">@Resources.informations.Cancel</button>
+                <button type="button" class="specialB" onclick="applyClientModalValue()">@Resources.informations.OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="projectsListModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content" style="width:850px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelGP">@Resources.informations.ListOfProjects</h4>
+            </div>
+            <div class="modal-body" id="contentProjectsList">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@Resources.informations.close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="NewClientModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelGP">@Resources.informations.newClient</h4>
+            </div>
+            <div class="modal-body" id="contentClientList">
+                <div class="form-group" style="color:#5482ab">
+                    <input type="text" id="contact" placeholder="@Resources.informations.contact">
+                    <input type="text" id="adresse" placeholder="@Resources.informations.address">
+                    <input type="text" id="ville" placeholder="@Resources.informations.city">
+                    <input type="text" id="codePostal" placeholder="@Resources.informations.zip">
+                    <input type="text" id="province" placeholder="@Resources.informations.state">
+                    <input type="text" id="telephone" placeholder="@Resources.informations.phone">
+                    <input type="button" class="btn btn-info add-row" value="@Resources.informations.add">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@Resources.informations.close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal modal-message fade" id="searchMasterProjectModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content" style="width:100%;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelGP">@Resources.informations.MPSearch</h4>
+            </div>
+            <div class="modal-body" id="contentSearchMasterProject" style="width:100%;">
+            </div>
+            <div class="modal-footer" style="width:100%;">
+                <button type="button" class="specialB" data-dismiss="modal" id="cancelProjectMgr" onclick="reinitializeCounter()">@Resources.informations.Cancel</button>
+                <button type="button" class="specialB" id="okButton" onclick="applyMasterProjectValue()">@Resources.informations.OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+</script>
+
+

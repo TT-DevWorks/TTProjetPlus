@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AD_TT_LOCAL_BPRModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbAD_TT_Local_BPR">
+          <Key>
+            <PropertyRef Name="employeeID" />
+          </Key>
+          <Property Name="cn" Type="nvarchar" MaxLength="4000" />
+          <Property Name="name" Type="nvarchar" MaxLength="4000" />
+          <Property Name="mail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="sAMAccountName" Type="nvarchar" MaxLength="4000" />
+          <Property Name="employeeID" Type="varchar" MaxLength="400" Nullable="false" />
+          <Property Name="preferredLanguage" Type="nvarchar" MaxLength="4000" />
+          <Property Name="company" Type="nvarchar" MaxLength="4000" />
+          <Property Name="title" Type="nvarchar" MaxLength="100" />
+          <Property Name="department" Type="nvarchar" MaxLength="200" />
+          <Property Name="l" Type="nvarchar" MaxLength="500" />
+          <Property Name="physicalDeliveryOfficeName" Type="nvarchar" MaxLength="200" />
+          <Property Name="street" Type="nvarchar" MaxLength="500" />
+          <Property Name="postalCode" Type="nvarchar" MaxLength="7" />
+          <Property Name="LastName" Type="varchar" MaxLength="200" />
+          <Property Name="FirstName" Type="varchar" MaxLength="200" />
+          <Property Name="lastUpdt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="AD_TT_LOCAL_BPRModel1StoreContainer">
+          <EntitySet Name="tbAD_TT_Local_BPR" EntityType="Self.tbAD_TT_Local_BPR" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AD_TT_LOCAL_BPRModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbAD_TT_Local_BPR">
+          <Key>
+            <PropertyRef Name="employeeID" />
+          </Key>
+          <Property Name="cn" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="mail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="sAMAccountName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="employeeID" Type="String" MaxLength="400" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="preferredLanguage" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="company" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="department" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="l" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="physicalDeliveryOfficeName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="street" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="postalCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="lastUpdt" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="AD_TT_LOCAL_BPREntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbAD_TT_Local_BPR" EntityType="Self.tbAD_TT_Local_BPR" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AD_TT_LOCAL_BPRModel1StoreContainer" CdmEntityContainer="AD_TT_LOCAL_BPREntities1">
+          <EntitySetMapping Name="tbAD_TT_Local_BPR">
+            <EntityTypeMapping TypeName="AD_TT_LOCAL_BPRModel1.tbAD_TT_Local_BPR">
+              <MappingFragment StoreEntitySet="tbAD_TT_Local_BPR">
+                <ScalarProperty Name="cn" ColumnName="cn" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="sAMAccountName" ColumnName="sAMAccountName" />
+                <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+                <ScalarProperty Name="preferredLanguage" ColumnName="preferredLanguage" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="l" ColumnName="l" />
+                <ScalarProperty Name="physicalDeliveryOfficeName" ColumnName="physicalDeliveryOfficeName" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="postalCode" ColumnName="postalCode" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="lastUpdt" ColumnName="lastUpdt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

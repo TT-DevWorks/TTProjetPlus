@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ApplySeslectionModel" xml:space="preserve">
+    <value>Apply a selection template</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Return</value>
+  </data>
+  <data name="CheckFolder" xml:space="preserve">
+    <value>Check or uncheck the folders you want to see in the folder structure from the following list:</value>
+  </data>
+  <data name="Modifiy" xml:space="preserve">
+    <value>Modify a folder structure</value>
+  </data>
+  <data name="PeriodWeekDate" xml:space="preserve">
+    <value>Last data update</value>
+  </data>
+  <data name="ProjectReume" xml:space="preserve">
+    <value>Project summary:</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SelectionModel" xml:space="preserve">
+    <value>Selection template</value>
+  </data>
+  <data name="SelectProject" xml:space="preserve">
+    <value>Select a project from the list:</value>
+  </data>
+  <data name="ServerUsed" xml:space="preserve">
+    <value>Server used for this project:</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>ADD</value>
+  </data>
+  <data name="AddModel" xml:space="preserve">
+    <value>Add a selection template</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>REMOVE</value>
+  </data>
+  <data name="DeleteModele" xml:space="preserve">
+    <value>Remove a selection template</value>
+  </data>
+  <data name="Modify" xml:space="preserve">
+    <value>MODIFY</value>
+  </data>
+  <data name="ModifyModel" xml:space="preserve">
+    <value>Modify a selection template</value>
+  </data>
+  <data name="SelectionModelManagement" xml:space="preserve">
+    <value>Selection template management</value>
+  </data>
+  <data name="CopyFromExistingElement" xml:space="preserve">
+    <value>Copy of an already existing element</value>
+  </data>
+  <data name="Modele" xml:space="preserve">
+    <value>Model</value>
+  </data>
+  <data name="ModeleDescription" xml:space="preserve">
+    <value>Description of the template</value>
+  </data>
+  <data name="ModeleName" xml:space="preserve">
+    <value>Name of the new selection template</value>
+  </data>
+  <data name="ModeleNametoModify" xml:space="preserve">
+    <value>Mame of the selection template</value>
+  </data>
+  <data name="requiredField" xml:space="preserve">
+    <value>Required field</value>
+  </data>
+  <data name="ChooseASelectionModel" xml:space="preserve">
+    <value>Please choose a selection template ...</value>
+  </data>
+  <data name="ConnectADrive" xml:space="preserve">
+    <value>Connect a network drive</value>
+  </data>
+  <data name="ConnectASpecialDrive" xml:space="preserve">
+    <value>Connect a special network drive</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="message1" xml:space="preserve">
+    <value>Please choose a selection template before submitting the query!</value>
+  </data>
+  <data name="message2" xml:space="preserve">
+    <value>The chosen name is already assigned to a selection template. Please choose another one</value>
+  </data>
+  <data name="message3" xml:space="preserve">
+    <value>The addition of the selection template was successful!</value>
+  </data>
+  <data name="message4" xml:space="preserve">
+    <value>Adding the selection template failed!</value>
+  </data>
+  <data name="message5" xml:space="preserve">
+    <value>Please fill in all the fields marked with a star</value>
+  </data>
+  <data name="ModelSelectionMng" xml:space="preserve">
+    <value>Selection templates management</value>
+  </data>
+  <data name="ModifyStrucFolder" xml:space="preserve">
+    <value>Folder structure modification</value>
+  </data>
+  <data name="NoSelectionModel" xml:space="preserve">
+    <value>There is no selection template for this model</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ChooseFromList" xml:space="preserve">
+    <value>Check or uncheck the folders you want to see or not see in the folder structure in the following list ...</value>
+  </data>
+  <data name="ChooseModel" xml:space="preserve">
+    <value>Please choose a selection template ...</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="message10" xml:space="preserve">
+    <value>The removal of the selection template was successful!</value>
+  </data>
+  <data name="message11" xml:space="preserve">
+    <value>Failed to delete the selection template!</value>
+  </data>
+  <data name="message12" xml:space="preserve">
+    <value>Please confirm the deletion of this selection model. This operation is not reversible.</value>
+  </data>
+  <data name="message13" xml:space="preserve">
+    <value>The action has been canceled.</value>
+  </data>
+  <data name="message6" xml:space="preserve">
+    <value>The modification of the selection template was successful!</value>
+  </data>
+  <data name="message7" xml:space="preserve">
+    <value>Modification of the selection template failed!</value>
+  </data>
+  <data name="message8a" xml:space="preserve">
+    <value>Please contact the CSTI to modify this selection template.</value>
+  </data>
+  <data name="message8b" xml:space="preserve">
+    <value>The tree structure is shown for information only. You cannot change it.</value>
+  </data>
+  <data name="message9" xml:space="preserve">
+    <value>Please refer to the administrator for the removal of this selection template.</value>
+  </data>
+  <data name="DeleteError" xml:space="preserve">
+    <value>A problem occurred when deleting folders for this selection template:</value>
+  </data>
+  <data name="DeleteErrorModelTemplate" xml:space="preserve">
+    <value>A problem occurred when deleting this selection template:</value>
+  </data>
+  <data name="EmptyListError" xml:space="preserve">
+    <value>The list of folders to be added is empty for the entered parameters</value>
+  </data>
+  <data name="EmptyListToDeleteError" xml:space="preserve">
+    <value>The folders list to be deleted is empty</value>
+  </data>
+  <data name="fileUpload" xml:space="preserve">
+    <value>Form upload</value>
+  </data>
+</root>

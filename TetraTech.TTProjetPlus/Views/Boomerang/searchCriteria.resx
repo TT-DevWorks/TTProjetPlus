@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AfAsc" xml:space="preserve">
+    <value>Année de fin - Ascendant</value>
+  </data>
+  <data name="AfDesc" xml:space="preserve">
+    <value>Année de fin - Descendant</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Tous</value>
+  </data>
+  <data name="AllBusinessUnit" xml:space="preserve">
+    <value>Toutes les unités d'affaire</value>
+  </data>
+  <data name="AllClients" xml:space="preserve">
+    <value>Tous les clients</value>
+  </data>
+  <data name="AllDiscipline" xml:space="preserve">
+    <value>Toutes les disciplines</value>
+  </data>
+  <data name="Business_unit" xml:space="preserve">
+    <value>Unités d'affaires/Expertises</value>
+  </data>
+  <data name="Clients" xml:space="preserve">
+    <value>Clients</value>
+  </data>
+  <data name="dirctives5" xml:space="preserve">
+    <value>Sélectionner un bureau pour filtrer les résultats</value>
+  </data>
+  <data name="directives1" xml:space="preserve">
+    <value>Vos mots clés de recherche doivent être séparés par des espaces. Utiliser des doubles guillemets pour rechercher une phrase précise. (exemple: pont Lachapelle")</value>
+  </data>
+  <data name="directives10" xml:space="preserve">
+    <value>Indiquer un nombre de mois (valeur entière)</value>
+  </data>
+  <data name="directives2" xml:space="preserve">
+    <value>Sélectionnez une unité d'affaires ou une expertise pour filtrer les résultats</value>
+  </data>
+  <data name="directives3" xml:space="preserve">
+    <value>Enter the project number you want to find</value>
+  </data>
+  <data name="directives6" xml:space="preserve">
+    <value>Sélectionner un type de services pour filtrer les résultats</value>
+  </data>
+  <data name="directives7" xml:space="preserve">
+    <value>Choisir supérieur ou inférieur au montant choisi pour filtrer les résultats</value>
+  </data>
+  <data name="directives8" xml:space="preserve">
+    <value>Choisir supérieur ou inférieur au nombre voulu et sélectionner l'unité souhaitée</value>
+  </data>
+  <data name="directives9" xml:space="preserve">
+    <value>Rechercher uniquement les fiches traduites dans la langue sélectionnée</value>
+  </data>
+  <data name="diretcives4" xml:space="preserve">
+    <value>Indiquez une année de début et de fin de réalisation (format AAAA)</value>
+  </data>
+  <data name="Disciplines" xml:space="preserve">
+    <value>Disciplines</value>
+  </data>
+  <data name="EndYear" xml:space="preserve">
+    <value>Réalisation, année de fin</value>
+  </data>
+  <data name="english" xml:space="preserve">
+    <value>Anglais</value>
+  </data>
+  <data name="fileCreatedInTheLast" xml:space="preserve">
+    <value>Fiches créées dans les derniers [ ] mois</value>
+  </data>
+  <data name="GlobalCost" xml:space="preserve">
+    <value>Coût global  du projet</value>
+  </data>
+  <data name="Greater" xml:space="preserve">
+    <value>Coût glaobal supérieur à:</value>
+  </data>
+  <data name="keyWords" xml:space="preserve">
+    <value>Mot clé</value>
+  </data>
+  <data name="Langage" xml:space="preserve">
+    <value>Langue</value>
+  </data>
+  <data name="Less" xml:space="preserve">
+    <value>Coût global Inférieur  à:</value>
+  </data>
+  <data name="LocAsc" xml:space="preserve">
+    <value>Localisation -Ascendant</value>
+  </data>
+  <data name="LocDesc" xml:space="preserve">
+    <value>Localisation - Descendant</value>
+  </data>
+  <data name="monthNumber" xml:space="preserve">
+    <value>Indiquer un nombre de mois (valeur entière)</value>
+  </data>
+  <data name="months" xml:space="preserve">
+    <value>mois</value>
+  </data>
+  <data name="noOptSelected" xml:space="preserve">
+    <value>Aucune option séctionnée...</value>
+  </data>
+  <data name="offices" xml:space="preserve">
+    <value>Bureaux</value>
+  </data>
+  <data name="orderBY" xml:space="preserve">
+    <value>Trier par:</value>
+  </data>
+  <data name="Periode_realisation" xml:space="preserve">
+    <value>Période de réalisation</value>
+  </data>
+  <data name="Project_number" xml:space="preserve">
+    <value>Numéro de projet</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Rechercher</value>
+  </data>
+  <data name="spanish" xml:space="preserve">
+    <value>Espagnol</value>
+  </data>
+  <data name="StartYear" xml:space="preserve">
+    <value>Réalisation, année de début</value>
+  </data>
+  <data name="TypeService" xml:space="preserve">
+    <value>Type de services</value>
+  </data>
+  <data name="unitMeasure" xml:space="preserve">
+    <value>Unité de mesure..</value>
+  </data>
+  <data name="Units" xml:space="preserve">
+    <value>Unité de mesure</value>
+  </data>
+  <data name="UnitsGreater" xml:space="preserve">
+    <value>Unité de mesure: supérieur à</value>
+  </data>
+  <data name="UnitsLesser" xml:space="preserve">
+    <value>Unité de mesure: inférieur à</value>
+  </data>
+  <data name="unitType" xml:space="preserve">
+    <value>Type d'unité</value>
+  </data>
+  <data name="fileCreatedInTheLast1" xml:space="preserve">
+    <value>Fiches créées dans les derniers </value>
+  </data>
+  <data name="full_expression" xml:space="preserve">
+    <value>Expression entiére</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>Intitulé court</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="noResultForThisQuery" xml:space="preserve">
+    <value>Aucun résultat pour cette requête...</value>
+  </data>
+  <data name="allExpertise" xml:space="preserve">
+    <value>Toutes les expertises</value>
+  </data>
+  <data name="Draft" xml:space="preserve">
+    <value>Brouillon</value>
+  </data>
+  <data name="Forbidden" xml:space="preserve">
+    <value>Confidentielle</value>
+  </data>
+  <data name="MoreCriteria" xml:space="preserve">
+    <value>Plus de critéres</value>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>Hors ligne</value>
+  </data>
+  <data name="Online" xml:space="preserve">
+    <value>En ligne</value>
+  </data>
+  <data name="SelectCart" xml:space="preserve">
+    <value>Veuillez choisir un panier</value>
+  </data>
+  <data name="state" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="WaitingDA" xml:space="preserve">
+    <value>En attente de validation</value>
+  </data>
+  <data name="AccessPhoto" xml:space="preserve">
+    <value>Accéder à la photothéque</value>
+  </data>
+  <data name="addRemoveFiche" xml:space="preserve">
+    <value>Ajouter/Retirer la fiche du panier en cours</value>
+  </data>
+  <data name="apercuTache" xml:space="preserve">
+    <value>Aperçu de la fiche</value>
+  </data>
+  <data name="Award" xml:space="preserve">
+    <value>Ce projet a reçu un prix</value>
+  </data>
+  <data name="EnglishVersion" xml:space="preserve">
+    <value>La version anglaise est disponible</value>
+  </data>
+  <data name="RefLetter" xml:space="preserve">
+    <value>Une lettre de référence client est présente</value>
+  </data>
+  <data name="SpaEngVersion" xml:space="preserve">
+    <value>Les versions anglaise et espagnole sont disponibles</value>
+  </data>
+  <data name="SpaVersion" xml:space="preserve">
+    <value>La version espagnole est disponible</value>
+  </data>
+  <data name="argument" xml:space="preserve">
+    <value>Argumentaire</value>
+  </data>
+  <data name="fiche" xml:space="preserve">
+    <value>Fiche</value>
+  </data>
+  <data name="printPDF_Arg" xml:space="preserve">
+    <value>Imprimer la version française de l'argumentaire commercial en PDF</value>
+  </data>
+  <data name="printPDF_En" xml:space="preserve">
+    <value>Imprimer la version anglaise de la fiche en PDF</value>
+  </data>
+  <data name="printPDF_Es" xml:space="preserve">
+    <value>Imprimer la version espagnole de la fiche en PDF</value>
+  </data>
+  <data name="printPDF_Fr" xml:space="preserve">
+    <value>Imprimer la version française de la fiche en PDF</value>
+  </data>
+  <data name="AddRemoveSheetFact" xml:space="preserve">
+    <value>Ajouter/retirer la fiche du panier en cours</value>
+  </data>
+  <data name="Docs" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="englishVersionDispo" xml:space="preserve">
+    <value>La version anglaise est disponible</value>
+  </data>
+  <data name="goToPhotoLib" xml:space="preserve">
+    <value>Accéder à la photothèque</value>
+  </data>
+  <data name="spanishVersionDispo" xml:space="preserve">
+    <value>La version espagnole est disponible</value>
+  </data>
+  <data name="activity" xml:space="preserve">
+    <value>Expertise</value>
+  </data>
+  <data name="Agence" xml:space="preserve">
+    <value>Bureau</value>
+  </data>
+  <data name="by" xml:space="preserve">
+    <value>par </value>
+  </data>
+  <data name="createThe" xml:space="preserve">
+    <value>créée le </value>
+  </data>
+  <data name="draft_validated" xml:space="preserve">
+    <value>Brouillon /en attente de validation </value>
+  </data>
+  <data name="modifyThe" xml:space="preserve">
+    <value>Modifié le</value>
+  </data>
+  <data name="UA" xml:space="preserve">
+    <value>Unité d'affaire</value>
+  </data>
+  <data name="validationWait" xml:space="preserve">
+    <value>En attente de validation depuis le </value>
+  </data>
+  <data name="canccel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="chooseResp" xml:space="preserve">
+    <value>Sélectionner un responsable</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>à</value>
+  </data>
+  <data name="transferDraft" xml:space="preserve">
+    <value>Transférer le brouillon</value>
+  </data>
+</root>

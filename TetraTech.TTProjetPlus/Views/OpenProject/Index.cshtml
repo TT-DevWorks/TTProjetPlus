@@ -1,0 +1,1512 @@
+﻿@model TetraTech.TTProjetPlus.Models.OpenProjectModel
+@using Resources3 = TetraTech.TTProjetPlus.Views.OpenProject
+@using Resources = TetraTech.TTProjetPlus.Views.ProjectToClose
+@using Resources2 = TetraTech.TTProjetPlus.Views.ListeOffres
+@using ResourcesF = TetraTech.TTProjetPlus.Views.Boomerang.fiche
+
+@using TetraTech.TTProjetPlus.Data
+@using TetraTech.TTProjetPlus.Controllers
+@using TetraTech.TTProjetPlus.Security
+@using TetraTech.TTProjetPlus.Models
+
+@{
+    ViewBag.Title = Resources.ProjectToCloseRessources.ProjectToCloseTitle;
+}
+@*<link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+        <link href="~/Content/DateTimePicker/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="~/Content/DateTimePicker/bootstrap-datetimepicker.js" charset="UTF-8"></script>*@
+
+
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="~/Content/DateTimePicker/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+<script type="text/javascript" src="~/Content/SimpleTreeTabke/jquery-simple-tree-table.js" charset="UTF-8"></script>
+
+@if (ViewBag.ProjectNumberCalled == "true" && ViewBag.MenuVisible == "false")
+{
+    //adjust styles for iframe
+    <style>
+        body {
+            overflow-x: hidden;
+            background: transparent;
+        }
+
+        .container-project {
+            height: 100%;
+            width: 100%;
+            padding: 0;
+        }
+
+        span {
+            text-decoration: underline;
+            color: blue;
+            cursor: pointer;
+        }
+    </style>
+}
+<style>
+    /*
+        pour icon dans input:
+    */
+    .inner-addon .glyphicon {
+        position: absolute;
+        padding: 10px;
+        pointer-events: none;
+    }
+
+
+    /* add padding  */
+    .right-addon {
+        padding-right: 30px;
+    }
+
+    i {
+        background: white;
+        cursor: pointer;
+    }
+    /*fin */
+    .panel-body {
+        margin-left: 30px;
+        margin-right: 30px;
+        margin-bottom: -15px
+    }
+
+
+    .form-control {
+        border-radius: 0px;
+    }
+
+    .btn {
+        border-radius: 0px;
+    }
+
+    .input-group-addon {
+        border-radius: 0px;
+        cursor: pointer;
+    }
+
+    label {
+        color: steelblue;
+        font-size: initial;
+    }
+
+
+    .redText {
+        color: red;
+    }
+
+    .inputWidth {
+        width: 100%;
+    }
+
+    .inputWidth2 {
+        width: 50%;
+        display: inline
+    }
+
+    table {
+        font-size: 1em;
+    }
+
+
+        table.dataTable,
+        table.dataTable th,
+        table.dataTable td {
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+        }
+
+
+
+    h4 {
+        color: white;
+    }
+    /* WebKit, Edge */
+    .darkBlue::-webkit-input-placeholder {
+        color: #183666;
+        font-family: 'Arial';
+        font-size: 16pt;
+    }
+    /* Firefox 4-18 */
+    .darkBlue:-moz-placeholder {
+        color: #183666;
+        font-family: 'Arial';
+        font-size: 14pt;
+    }
+    /* Firefox 19+ */
+    .darkBlue::-moz-placeholder {
+        color: #183666;
+        font-family: 'Arial';
+        font-size: 14pt;
+    }
+    /* IE 10-11 */
+    .darkBlue:-ms-input-placeholder {
+        color: #183666;
+        font-family: 'Arial';
+        font-size: 14pt;
+    }
+    /* Edge */
+    .darkBlue:-ms-input-placeholder {
+        color: #183666;
+        font-family: 'Arial';
+        font-size: 14pt;
+    }
+    /* MODERN BROWSER */
+    .darkBlue::-webkit-input-placeholder {
+        color: #183666;
+        font-family: 'Arial';
+        font-size: 14pt;
+        font-weight: bold
+    }
+
+    /* WebKit, Edge */
+    .lightBlue::-webkit-input-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+    }
+    /* Firefox 4-18 */
+    .lightBlue:-moz-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+    }
+    /* Firefox 19+ */
+    .lightBlue::-moz-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+    }
+    /* IE 10-11 */
+    .lightBlue:-ms-input-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+        text-align: left;
+    }
+    /* Edge */
+    .lightBlue:-ms-input-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+    }
+    /* MODERN BROWSER */
+    .lightBlue::-webkit-input-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+        text-align: left;
+    }
+
+    .formControl1 {
+        padding: 20px;
+    }
+
+    .formControl2 {
+        padding: 20px;
+    }
+
+
+    .lightBlueSelect {
+        color: #5482ab;
+    }
+
+    .bootstrap-select > .dropdown-toggle.bs-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+    }
+
+    textarea {
+        width: 100%;
+    }
+
+
+    .no-results {
+        content: "Chercher...";
+        cursor: pointer;
+    }
+
+    .selected {
+        background-color: #5bc0de;
+    }
+
+    .formTextArea {
+        width: 100%;
+    }
+
+    @@media (min-width: 768px) {
+        .modal-xl {
+            width: 90%;
+            max-width: 1200px;
+        }
+    }
+
+    @@media (min-width: 768px) {
+        .modal-xl1 {
+            width: 90%;
+            max-width: 1300px;
+        }
+    }
+
+
+
+    .form-control {
+        height: 43px;
+    }
+
+    .table-borderless > thead > tr > th,
+    .table-borderless > tbody > tr > th,
+    .table-borderless > tfoot > tr > th,
+    .table-borderless > thead > tr > td,
+    .table-borderless > tbody > tr > td,
+    .table-borderless > tfoot > tr > td {
+        border: 1px solid #dddddd;
+        border-right-width: 0px;
+        border-left-width: 0px;
+        border-bottom-width: 0px;
+        border-top-width: 0px;
+    }
+
+    th {
+        font-weight: normal;
+    }
+
+    #basic tr.active {
+        background: #ccc;
+    }
+</style>
+
+
+<div class="container-fluid container-project">
+    <div class="main" id="ProjectToCloseMain" style="margin-top:8px;">
+        @if (ViewBag.MenuVisible == "true")
+        {
+            @*@Html.Partial("~/Views/Shared/Components/_TTProjetBreadcrumbf.cshtml", Model)*@
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-3" style="padding-top:-49px;">
+                        <div class="panel" style="border-radius: 10px; width: 106%;">
+                            <div class="panel-body">
+                                <ul class="list-inline" style="">
+                                    <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                    <li><a style=" color:#183666; font-weight: bold" href="@Url.Action("Index", "OpenProject")">@Resources2.ListeProjetsRessources.ProjectOpening</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; ">
+                                <div class="panel-body">
+                                    <ul class="list-inline" style="">
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "Home")">@Resources2.ListeProjetsRessources.GenerateProjectNumber</a>
+
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "ListeOffres")">@Resources2.ListeProjetsRessources.OffersList</a>
+
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("IndexProjet", "ListeOffres")">@Resources2.ListeProjetsRessources.ProjectsList</a>
+
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666;" href="@Url.Action("Index", "InfoProjet")">@Resources2.ListeProjetsRessources.InfoProject</a>
+
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666;" href="@Url.Action("Index", "ProjectToClose")">@Resources2.ListeProjetsRessources.ProjectToCloseTitle</a>
+                                        </li>
+                                        <li>
+                                            &nbsp;&nbsp;&bull;
+                                            <a style="color:#183666;" href="@System.Configuration.ConfigurationManager.AppSettings["TTIndexUrl"]" target="_blank">@Resources2.ListeProjetsRessources.TTIndex</a>
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666;" href="@System.Configuration.ConfigurationManager.AppSettings["BoomerangUrl"]" target="_blank">@Resources2.ListeProjetsRessources.Boomerang</a>
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666;cursor:pointer;font-weight: bold" onclick="OPMOdal()">@Resources2.ListeProjetsRessources.ProjectOpening</a>
+
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666;" href="@Url.Action("Home", "Boomerang")">@ResourcesF.projectSheet</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary" style="border-radius: 10px; margin-top: -11px;">
+                        <div style="margin:2px;">
+                            <h4 style="margin-left: 25px; float:left ; color: #183666; font-family: 'Arial'; font-size: 14pt;">
+                                <b>@Resources2.ListeProjetsRessources.ProjectOpening</b>
+                            </h4>
+                        </div>
+                        <hr style="width:100%; margin-top:0px; margin-bottom:0px;" />
+                        <div style="margin:2px;">
+                            <div style="margin-left: 25px;">
+                                <div style="color: #183666; font-family: 'Arial'; font-size: 13pt;">
+                                    <b>@Resources3.OpenProjectRessources.ProjectNumber: @ViewBag.project_number</b><br /><br />
+                                </div>
+
+                                <div class="row" style="margin-bottom: 10px;">
+                                    <div class="col-sm-2">
+                                        <span id="badge1" class="badge" style="background-color:#183666">1</span>&nbsp;<span style="cursor: pointer;">@Resources2.ListeProjetsRessources.ClientIdentification</span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="badge2" class="badge" style="background-color:lightgray">2</span>&nbsp;<span style="cursor: pointer;">@Resources2.ListeProjetsRessources.ProjectIdentification</span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="badge3" class="badge" style="background-color:lightgray">3</span>&nbsp;<span style="cursor: pointer;">@Resources2.ListeProjetsRessources.Classification</span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="badge4" class="badge" style="background-color:lightgray">4</span>&nbsp;<span style="cursor: pointer;">@Resources2.ListeProjetsRessources.Divers</span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="badge5" class="badge" style="background-color:lightgray">5</span>&nbsp;<span style="cursor: pointer;">@Resources2.ListeProjetsRessources.Duties</span>
+                                    </div>
+                                    <div class="col-sm-2">
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <hr style="width:100%;margin-top:0px; margin-bottom:0px;" />
+                            <div style="margin-left: 25px;">
+                                <div id="Page1" class="page" style="">
+                                    <div class="row">
+                                        <div class="col-sm-1">
+
+                                        </div>
+                                        <div class="col-sm-11">
+                                            <div class="row" style="">
+                                                <div class="col-sm-12" style=" color: #183666;font-family: 'Arial';font-size: 14pt;margin-top: 10px;">
+                                                    <b>@Resources3.OpenProjectRessources.clientIdentification</b>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-top: 15px;">
+
+                                                <div class="col-sm-10">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <div class="input-group" style="float:left;">
+                                                                    <input class="form-control lightBlue inputWidth2" type="text" id="ClientName1" placeholder="@Resources3.OpenProjectRessources.customerName">
+                                                                    <div class="input-group-addon">
+                                                                        <i class="fa fa-search" id="openModalButton" onclick="openModalClientsNumber(this.id)"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-1 center-block  text-center" style="color: #b5b5b5;">
+                                                            <span title="Copier" n><i class="fa fa-arrow-right k-i-question" aria-hidden="true" id="arrowCopy"></i></span>
+                                                        </div>
+
+                                                        <div class="col-sm-5">
+                                                            <div class="form-group">
+                                                                <div class="input-group" style="float:left;width:100%">
+                                                                    <input class="form-control lightBlue inputWidth2" type="text" id="End_Client_Name" placeholder="@Resources3.OpenProjectRessources.finalClient">
+                                                                    <div class="input-group-addon inputmask" onclick="openModalClientsNumber2()">
+                                                                        <i class="fa fa-search"></i>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-10">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="float:left;width:100%">
+                                                                <input class="form-control lightBlue inputWidth2" type="text" id="Billing_Address" placeholder="@Resources3.OpenProjectRessources.billingAddress">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="float:left;width:100%">
+                                                                <input class="form-control lightBlue inputWidth2" type="text" id="Shipping_Address" placeholder="@Resources3.OpenProjectRessources.shippingAddress">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-10">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="float:left;width:100%">
+                                                                <input class="form-control lightBlue inputWidth2" type="text" id="Contact_Client" placeholder="@Resources3.OpenProjectRessources.responsibleName">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <div class="col-sm-8">
+                                                                    <div class="input-group" style="float:left;width:100%">
+                                                                        <input class="form-control lightBlue inputWidth2" type="text" id="phone" placeholder="@Resources3.OpenProjectRessources.responsiblePhone:(555) 555-5555">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <div class="input-group" style="float:left;width:100%">
+                                                                        <input class="form-control lightBlue inputWidth2" type="text" id="extension" placeholder="extension" size="10">
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-top: 15px;">
+
+                                            </div>
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-12" style=" color: #183666;font-family: 'Arial';font-size: 14pt;">
+                                                    <b>@Resources3.OpenProjectRessources.MustAppearOnBill</b>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-10">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <div class="">
+                                                                <div class="input-group" style="float:left;width:100%">
+                                                                    <input type="email" class="form-control lightBlue inputWidth2" id="invoice_Email_Address1" placeholder='@Resources3.OpenProjectRessources.email #1'>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <div class="">
+                                                                <div class="input-group" style="float:left;width:100%">
+                                                                    <input type="email" class="form-control lightBlue inputWidth2" id="invoice_Email_Address2" placeholder='@Resources3.OpenProjectRessources.email #2'>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-10">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <div class="">
+                                                                <div class="input-group" style="float:left;width:100%">
+                                                                    <input class="form-control lightBlue inputWidth2" type="text" id="Contract_Number" placeholder="@Resources3.OpenProjectRessources.refCustomer">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-10">
+                                                    <div class="col-sm-6">
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <button type="button" style="float:right" class="specialB" onclick="show('Page2');" id="">@Resources2.ListeProjetsRessources.Next</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        @* identification client *@
+                                    </div>
+                                    <br />
+                                </div>@* identification client *@
+                                <div id="Page2" class="page" style="display:none">
+                                    <div class="row">
+                                        <div class="col-sm-1">
+
+                                        </div>
+                                        <div class="col-sm-11">
+                                            <div class="row" style="">
+                                                <div class="col-sm-12" style=" color: #183666;font-family: 'Arial';font-size: 14pt;margin-top: 10px;">
+                                                    <b>@Resources3.OpenProjectRessources.projectIdentification</b>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-10">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <div class="col-sm-5">
+                                                                @Resources3.OpenProjectRessources.langagesCom :
+                                                            </div>
+                                                            <div class="col-sm-7">
+                                                                <div class="input-group" style="float:left;">
+                                                                    <label class="radio-inline"><input type="radio" name="optradioLang" value="FR" checked>FR</label>
+                                                                    <label class="radio-inline"><input type="radio" name="optradioLang" value="EN">EN</label>
+                                                                    @*pour recuperer la valeur: $('input[name="optradioLang"]:checked').val();*@
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="col-sm-5">
+                                                                @Resources3.OpenProjectRessources.preferedCom :
+                                                            </div>
+                                                            <div class="col-sm-7">
+                                                                <label class="checkbox-inline">
+                                                                    <input class="rb" type="checkbox" value="Paper" name="optbuttonPrefCom">@Resources3.OpenProjectRessources.paper :
+                                                                </label>
+                                                                <label class="checkbox-inline">
+                                                                    <input class="rb" type="checkbox" value="Electronic" name="optbuttonPrefCom">@Resources3.OpenProjectRessources.electronic :
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        @*pour recuperer la valeur: var array = []; $("input:checkbox[name=optbuttonPrefCom]:checked").each(function(){array.push($(this).val()); }); array*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-10">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <div class="">
+                                                                <div class="input-group" style="float:left;width:100%">
+                                                                    <input class="form-control formControl2 inputWidth2 text-box single-line lightBlue" id="Project_Name" name="Project_Name" placeholder="@Resources3.OpenProjectRessources.shortTitle" style="" type="text" value="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <div class="">
+                                                                <div class="input-group" style="float:left;width:100%">
+                                                                    <input class="form-control formControl2 inputWidth2 text-box single-line lightBlue" id="Project_Description" name="Project_Description" placeholder="@Resources3.OpenProjectRessources.longTitle" style="" type="text" value="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-10">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <select data-live-search="true" class="form-control selectpicker" id="Project_Mgr_Number">
+                                                                <option value="" selected style="font-size:14px">@Resources3.OpenProjectRessources.dirProject</option>
+                                                                @foreach (structureItem item in OpenProjectController.ListeEmployeeActif_Inactive)
+                                                                {
+                                                                    <option value="@item.Value">@item.Name</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <select data-live-search="true" class="form-control selectpicker" id="Program_Mgr_Number">
+                                                                <option value="" selected style="font-size:14px">@Resources3.OpenProjectRessources.gestProjet</option>
+                                                                @foreach (structureItem item in OpenProjectController.ListeEmployeeActif_Inactive)
+                                                                {
+                                                                    <option value="@item.Value">@item.Name</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-10">
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <select data-live-search="true" class="form-control selectpicker" id="Bill_Specialist_Number">
+                                                                <option value="" selected style="font-size:14px">@Resources3.OpenProjectRessources.billingAgent</option>
+                                                                @foreach (structureItem item in OpenProjectController.ListeEmployeeActif_Inactive)
+                                                                {
+                                                                    <option value="@item.Value">@item.Name</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <select data-live-search="true" class="form-control selectpicker" id="OtherKM_01">
+                                                                <option value="" selected style="font-size:14px">@Resources3.OpenProjectRessources.otherKM1</option>
+                                                                @foreach (structureItem item in OpenProjectController.ListeEmployeeActif_Inactive)
+                                                                {
+                                                                    <option value="@item.Value">@item.Name</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <select data-live-search="true" class="form-control selectpicker" id="OtherKM_02">
+                                                                <option value="" selected style="font-size:14px">@Resources3.OpenProjectRessources.otherKM2</option>
+                                                                @foreach (structureItem item in OpenProjectController.ListeEmployeeActif_Inactive)
+                                                                {
+                                                                    <option value="@item.Value">@item.Name</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-10">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <div class="">
+                                                                <div class="input-group" style="float:left;width:100%">
+                                                                    <input class="form-control formControl2 inputWidth2 text-box single-line lightBlue" id="CurrentUser" name="ClientName" placeholder="@Resources3.OpenProjectRessources.askedBy: @UserService.CurrentUser" style="" type="text" value="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <select data-live-search="true" class="form-control selectpicker" id="Currency_Id">
+                                                                <option value="" selected style="font-size:14px">@Resources3.OpenProjectRessources.currency</option>
+                                                                @foreach (structureItem item in OpenProjectController.ListeCurrencies)
+                                                                {
+                                                                    <option value="@item.Value">@item.Name</option>
+                                                                }
+                                                            </select>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-10">
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <div class="">
+                                                                <div class="input-group" style="float:left;width:100%">
+                                                                    <input class="form-control formControl2 inputWidth2 text-box single-line lightBlue" id="date" name="date" placeholder="Date: @ViewBag.Date" style="" type="text" value="" readonly>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <div class="">
+                                                            <div class='col-sm-6'>
+                                                                <div class="form-group">
+                                                                    <div class='input-group date' id='datetimepicker6'>
+                                                                        <input type='text' class="form-control" id="startDate" style="height: 43px;" />
+                                                                        <span class="input-group-addon">
+                                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class='col-sm-6' style="float:right">
+                                                                <div class="form-group">
+                                                                    <div class='input-group date' id='datetimepicker7'>
+                                                                        <input type='text' class="form-control" id="endDate" style="height: 43px;" />
+                                                                        <span class="input-group-addon">
+                                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-10">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <button type="button" class="specialB" style="float:left" onclick="show('Page1');" id="">@Resources2.ListeProjetsRessources.Back</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <button type="button" class="specialB" style="float:right" onclick="show('Page3');" id="">@Resources2.ListeProjetsRessources.Next</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                </div>
+                                <div id="Page3" class="page" style="display:none">
+                                    <div class="row">
+                                        <div class="col-sm-1">
+
+                                        </div>
+                                        <div class="col-sm-11">
+                                            <div class="row" style="">
+                                                <div class="col-sm-12" style=" color: #183666;font-family: 'Arial';font-size: 14pt;margin-top: 10px;">
+                                                    <b>@Resources3.OpenProjectRessources.classification</b>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-10">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <select data-live-search="true" class="form-control selectpicker" id="Distribution_Rule_Id">
+                                                                    <option value="" selected style="font-size:14px">@Resources3.OpenProjectRessources.incomeCalculationMet</option>
+                                                                    @foreach (structureItem item in OpenProjectController.ListeDistribution)
+                                                                    {
+                                                                        <option value="@item.Value">@item.Name</option>
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <select data-live-search="true" class="form-control selectpicker" id="Contract_Type_Id">
+                                                                    <option value="" selected style="font-size:14px">@Resources3.OpenProjectRessources.contractType</option>
+                                                                    @if (Session["lang"].ToString() == "en")
+                                                                    {
+                                                                        foreach (structureItem item in OpenProjectController.ListeContractType)
+                                                                        {
+                                                                            <option value="@item.Value">@item.Description</option>
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        foreach (structureItem item in OpenProjectController.ListeContractType)
+                                                                        {
+                                                                            <option value="@item.Value">@item.Name</option>
+                                                                        }
+
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="">
+                                                <div class="col-sm-10">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <select data-live-search="true" class="form-control selectpicker" id="Acct_Center_Id">
+                                                                <option value="" selected style="font-size:14px">@Resources3.OpenProjectRessources.Org_income</option>
+                                                                @foreach (structureItem item in OpenProjectController.ListeAcctCenters)
+                                                                {
+                                                                    <option value="@item.Value">@item.Name</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <select data-live-search="true" class="form-control selectpicker" id="Office_Address_Id">
+                                                                <option value="" selected style="font-size:14px">@Resources3.OpenProjectRessources.officeAddress</option>
+                                                                @foreach (structureItem item in OpenProjectController.ListeOfficeAddress)
+                                                                {
+                                                                    <option value="@item.Value">@item.Name</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="">
+                                                <div class="col-sm-10">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <select data-live-search="true" class="form-control selectpicker" id="Work_Location_ID">
+                                                                <option value="" selected style="font-size:14px">@Resources3.OpenProjectRessources.mandatLocalisation</option>
+                                                                @foreach (structureItem item in OpenProjectController.ListeWorkLocations)
+                                                                {
+                                                                    <option value="@item.Value">@item.Name</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <select data-live-search="true" class="form-control selectpicker" id="Program_Id">
+                                                                <option value="" selected style="font-size:14px">@Resources3.OpenProjectRessources.programType</option>
+                                                                @foreach (structureItem item in OpenProjectController.ListePrograms)
+                                                                {
+                                                                    <option value="@item.Value">@item.Name</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="">
+                                                <div class="col-sm-10">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <select data-live-search="true" class="form-control selectpicker" id="Work_Type_Id">
+                                                                <option value="" selected style="font-size:14px">@Resources3.OpenProjectRessources.workType</option>
+                                                                @foreach (structureItem item in OpenProjectController.ListeWorkType)
+                                                                {
+                                                                    <option value="@item.Value">@item.Name</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <div class="">
+                                                                <div class="input-group" style="float:left;width:100%">
+                                                                    <input class="form-control formControl2 inputWidth2 text-box single-line lightBlue" id="budegtCost" name="budegtCost" placeholder="@Resources3.OpenProjectRessources.budegtCost" style="" type="text" value="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="">
+                                                <div class="col-sm-12" style=" color: #183666;font-family: 'Arial';font-size: 12pt;margin-top: 10px;">
+                                                    <b>@Resources3.OpenProjectRessources.classificationContract</b>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="">
+                                                <div class="col-sm-8" style=" color: #183666;font-family: 'Arial';font-size: 12pt;margin-top: 10px;">
+                                                    <table class="table table-borderless">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>@Resources3.OpenProjectRessources.addToBill: </th>
+                                                                <th>@Resources3.OpenProjectRessources.timeSheet</th>
+                                                                <th>
+                                                                    <div class="input-group" style="float:left;">
+                                                                        <label class="radio-inline"><input type="radio" name="optradioFT" value="yes" checked>@Resources3.OpenProjectRessources.yes</label>
+                                                                        <label class="radio-inline"><input type="radio" name="optradioFT" value="no">@Resources3.OpenProjectRessources.no</label>
+                                                                        @*pour recuperer la valeur: $('input[name="optradioLang"]:checked').val();*@
+                                                                    </div>
+                                                                </th>
+                                                                <th>@Resources3.OpenProjectRessources.MandatoryTimesheetComment</th>
+                                                                <th>
+                                                                    <div class="input-group" style="float:left;">
+                                                                        <label class="radio-inline"><input type="radio" name="optradioMTC" value="yes" checked>@Resources3.OpenProjectRessources.yes</label>
+                                                                        <label class="radio-inline"><input type="radio" name="optradioMTC" value="no">@Resources3.OpenProjectRessources.no</label>
+                                                                        @*pour recuperer la valeur: $('input[name="optradioLang"]:checked').val();*@
+                                                                    </div>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row"></th>
+                                                                <td>@Resources3.OpenProjectRessources.expenses</td>
+                                                                <td>
+                                                                    <div class="input-group" style="float:left;">
+                                                                        <label class="radio-inline"><input type="radio" name="optradioEx" value="yes" checked>@Resources3.OpenProjectRessources.yes</label>
+                                                                        <label class="radio-inline"><input type="radio" name="optradioEx" value="no">@Resources3.OpenProjectRessources.no</label>
+                                                                        @*pour recuperer la valeur: $('input[name="optradioLang"]:checked').val();*@
+                                                                    </div>
+                                                                </td>
+                                                                <td>@Resources3.OpenProjectRessources.ExpenseReportOriginal</td>
+                                                                <td>
+                                                                    <div class="input-group" style="float:left;">
+                                                                        <label class="radio-inline"><input type="radio" name="optradioERO" value="yes" checked>@Resources3.OpenProjectRessources.yes</label>
+                                                                        <label class="radio-inline"><input type="radio" name="optradioERO" value="no">@Resources3.OpenProjectRessources.no</label>
+                                                                        @*pour recuperer la valeur: $('input[name="optradioLang"]:checked').val();*@
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row"></th>
+                                                                <td>@Resources3.OpenProjectRessources.invoiceSuppliers</td>
+                                                                <td>
+                                                                    <div class="input-group" style="float:left;">
+                                                                        <label class="radio-inline"><input type="radio" name="optradioIS" value="yes" checked>@Resources3.OpenProjectRessources.yes</label>
+                                                                        <label class="radio-inline"><input type="radio" name="optradioIS" value="no">@Resources3.OpenProjectRessources.no</label>
+                                                                        @*pour recuperer la valeur: $('input[name="optradioLang"]:checked').val();*@
+                                                                    </div>
+                                                                </td>
+                                                                <td>@Resources3.OpenProjectRessources.InvoiceSupplierOriginal</td>
+                                                                <td>
+                                                                    <div class="input-group" style="float:left;">
+                                                                        <label class="radio-inline"><input type="radio" name="optradioISO" value="yes" checked>@Resources3.OpenProjectRessources.yes</label>
+                                                                        <label class="radio-inline"><input type="radio" name="optradioISO" value="no">@Resources3.OpenProjectRessources.no</label>
+                                                                        @*pour recuperer la valeur: $('input[name="optradioLang"]:checked').val();*@
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-10">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <button type="button" class="specialB" style="float:left" onclick="show('Page2');" id="">@Resources2.ListeProjetsRessources.Back</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <button type="button" class="specialB" style="float:right" onclick="show('Page4');" id="">@Resources2.ListeProjetsRessources.Next</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <br />
+                                </div>
+                                <div id="Page4" class="page" style="display:none">
+                                    <div class="row">
+                                        <div class="col-sm-1">
+
+                                        </div>
+                                        <div class="col-sm-11">
+                                            <div class="row" style="">
+                                                <div class="col-sm-12" style=" color: #183666;font-family: 'Arial';font-size: 14pt;margin-top: 10px;">
+                                                    <b>@Resources3.OpenProjectRessources.miscellaneous</b>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="">
+                                                <div class="col-sm-12" style=" color: #183666;font-family: 'Arial';font-size: 12pt;margin-top: 10px;">
+                                                    <b>@Resources3.OpenProjectRessources.clientApproval</b>
+                                                </div>
+                                            </div>
+
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-10">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-3">
+                                                            <div class="col-sm-5">
+                                                                @Resources3.OpenProjectRessources.written :
+                                                            </div>
+                                                            <div class="col-sm-7">
+                                                                <div class="input-group" style="float:left;">
+                                                                    <label class="radio-inline"><input type="radio" name="optradioWR" value="yes" checked> @Resources3.OpenProjectRessources.yes</label>
+                                                                    <label class="radio-inline"><input type="radio" name="optradioWR" value="no"> @Resources3.OpenProjectRessources.no</label>
+                                                                    @*pour recuperer la valeur: $('input[name="optradioLang"]:checked').val();*@
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-5">
+                                                            <div class="col-sm-5">
+                                                                @Resources3.OpenProjectRessources.verbal :
+                                                            </div>
+                                                            <div class="col-sm-7">
+                                                                <div class="input-group" style="float:left;">
+                                                                    <label class="radio-inline"><input type="radio" name="optradioVB" value="yes" checked> @Resources3.OpenProjectRessources.yes</label>
+                                                                    <label class="radio-inline"><input type="radio" name="optradioVB" value="no"> @Resources3.OpenProjectRessources.no</label>
+                                                                    @*pour recuperer la valeur: $('input[name="optradioLang"]:checked').val();*@
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="col-sm-5">
+                                                                @Resources3.OpenProjectRessources.none :
+                                                            </div>
+                                                            <div class="col-sm-7">
+                                                                <div class="input-group" style="float:left;">
+                                                                    <label class="radio-inline"><input type="radio" name="optradioNN" value="yes" checked> @Resources3.OpenProjectRessources.yes</label>
+                                                                    <label class="radio-inline"><input type="radio" name="optradioNN" value="no"> @Resources3.OpenProjectRessources.no</label>
+                                                                    @*pour recuperer la valeur: $('input[name="optradioLang"]:checked').val();*@
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row" style="">
+                                                <div class="col-sm-12" style=" color: #183666;font-family: 'Arial';font-size: 12pt;margin-top: 10px;">
+                                                    <b>@Resources3.OpenProjectRessources.projectOpening</b>
+                                                </div>
+                                            </div>
+
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-10">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-4">
+                                                            <div class="col-sm-6">
+                                                                @Resources3.OpenProjectRessources.interCompany :
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="input-group" style="float:left;">
+                                                                    <label class="radio-inline"><input type="radio" name="optradioIC" value="yes" checked> @Resources3.OpenProjectRessources.yes</label>
+                                                                    <label class="radio-inline"><input type="radio" name="optradioIC" value="no"> @Resources3.OpenProjectRessources.no</label>
+                                                                    @*pour recuperer la valeur: $('input[name="optradioLang"]:checked').val();*@
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="col-sm-4">
+                                                                @Resources3.OpenProjectRessources.TAR :
+                                                            </div>
+                                                            <div class="col-sm-8">
+                                                                <div class="input-group" style="float:left;">
+                                                                    <label class="radio-inline"><input type="radio" name="optradioTAR" value="yes" checked> @Resources3.OpenProjectRessources.yes</label>
+                                                                    <label class="radio-inline"><input type="radio" name="optradioTAR" value="no"> @Resources3.OpenProjectRessources.no</label>
+                                                                    @*pour recuperer la valeur: $('input[name="optradioLang"]:checked').val();*@
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-10">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-4">
+                                                            <div class="col-sm-6">
+                                                                @Resources3.OpenProjectRessources.multipleOrder :
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="input-group" style="float:left;">
+                                                                    <label class="radio-inline"><input type="radio" name="optradioMO" value="yes" checked> @Resources3.OpenProjectRessources.yes</label>
+                                                                    <label class="radio-inline"><input type="radio" name="optradioMO" value="no"> @Resources3.OpenProjectRessources.no</label>
+                                                                    @*pour recuperer la valeur: $('input[name="optradioLang"]:checked').val();*@
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="col-sm-4">
+                                                                @Resources3.OpenProjectRessources.consortium :
+                                                            </div>
+                                                            <div class="col-sm-8">
+                                                                <div class="input-group" style="float:left;">
+                                                                    <label class="radio-inline"><input type="radio" name="optradioCS" value="yes" checked> @Resources3.OpenProjectRessources.yes</label>
+                                                                    <label class="radio-inline"><input type="radio" name="optradioCS" value="no"> @Resources3.OpenProjectRessources.no</label>
+                                                                    @*pour recuperer la valeur: $('input[name="optradioLang"]:checked').val();*@
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-4">
+                                                            <div class="col-sm-4">
+                                                                @Resources3.OpenProjectRessources.multipleClient :
+                                                            </div>
+                                                            <div class="col-sm-8">
+                                                                <div class="input-group" style="float:left;">
+                                                                    <label class="radio-inline"><input type="radio" name="optradioMC" value="yes"> @Resources3.OpenProjectRessources.yes</label>
+                                                                    <label class="radio-inline"><input type="radio" name="optradioMC" value="no" checked> @Resources3.OpenProjectRessources.no</label>
+                                                                    @*pour recuperer la valeur: $('input[name="optradioLang"]:checked').val();*@
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-10">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <button type="button" class="specialB" style="float:left" onclick="show('Page3');" id="">@Resources2.ListeProjetsRessources.Back</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <button type="button" class="specialB" style="float:right" onclick="show('Page5');" id="">@Resources2.ListeProjetsRessources.Next</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                </div>
+                                <div id="Page5" class="page" style="display:none">
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <button type="button" id="expander">@Resources3.OpenProjectRessources.Expand</button>
+                                            <button type="button" id="collapser">@Resources3.OpenProjectRessources.Collapse</button>
+                                            <button type="button" id="addTask">@Resources3.OpenProjectRessources.AddTask</button>
+
+                                            <table id="basic" border="1" class="table">
+                                                <tr>
+                                                    <th>Task number</th>
+                                                    <th>Task name</th>
+                                                    <th>Task_start_date</th>
+                                                    <th>Task_end_date</th>
+
+                                                </tr>
+                                                @foreach (XX_PROJECT_TASKS_WBS item in OpenProjectController.ListeTasksForProject)
+                                                {
+
+                                                    <tr class="rows" data-node-id="@item.task_id" data-node-pid="@item.parent_task_id">
+                                                        <td><a href="#" class="addRow">@item.task_number</a></td>
+                                                        <td class="tdf">@item.task_long_name</td>
+                                                        <td class="tdf">@item.task_start_date</td>
+                                                        <td class="tdf">@item.task_end_date</td>
+                                                    </tr>
+                                                }
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-1">
+
+                                        </div>
+                                        <div class="col-sm-11">
+
+                                            <div class="row" style="padding-top: 15px;">
+                                                <div class="col-sm-10">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <button type="button" class="specialB" style="float:left" onclick="show('Page4');" id="">@Resources2.ListeProjetsRessources.Back</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <button type="button" class="specialB" style="float:right" onclick="submitOP()" ;" id="">@Resources3.OpenProjectRessources.submit</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="clientNumberModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabel">@Resources3.OpenProjectRessources.clientList</h4>
+            </div>
+            <div class="modal-body" id="contentCustomerNumberName">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="specialB" data-dismiss="modal" id="cancelCustomer">@Resources3.OpenProjectRessources.cancel</button>
+                <button type="button" class="specialB" onclick="applyClientModalValue()">@Resources3.OpenProjectRessources.Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="additionalClientModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabel">@Resources3.OpenProjectRessources.clientList</h4>
+            </div>
+            <div class="modal-body" id="contentAdditionalClientModal">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="control-label col-sm-2">Client:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="email" placeholder="Client">
+                                    </div>
+                                    <label class="control-label col-sm-2">TTLINX client #:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="email" placeholder="Client number">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="control-label col-sm-2">Client:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="email" placeholder="Client">
+                                    </div>
+                                    <label class="control-label col-sm-2">TTLINX client #:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="email" placeholder="Client number">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="control-label col-sm-2">Client:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="email" placeholder="Client">
+                                    </div>
+                                    <label class="control-label col-sm-2">TTLINX client #:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="email" placeholder="Client number">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="specialB" data-dismiss="modal" id="cancelCustomer">@Resources3.OpenProjectRessources.cancel</button>
+                <button type="button" class="specialB" onclick="">@Resources3.OpenProjectRessources.Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+        var sourceFinalClient = "";
+    $(document).ready(function () {
+        $('#basic').simpleTreeTable({
+            expander: $('#expander'),
+            collapser: $('#collapser'),
+            store: 'session',
+            storeKey: 'simple-tree-table-basic'
+        });
+        $('#open1').on('click', function () {
+            $('#basic').data('simple-tree-table').openByID("1");
+        });
+        $('#close1').on('click', function () {
+            $('#basic').data('simple-tree-table').closeByID("1");
+        });
+
+
+        if (@Html.Raw(Json.Encode(ViewBag.origin))=='projet') {
+            $('#ClientName1').val(@Html.Raw(Json.Encode(ViewBag.client)))
+            $('#ClientName1').attr('readonly', true);
+            $('#ClientName1').css('border-right','none')
+            $('#openModalButton').hide();
+        }
+        else if (@Html.Raw(Json.Encode(ViewBag.origin))=='offre') {
+            $('#ClientName1').val(@Html.Raw(Json.Encode(ViewBag.client)))
+        }
+                 $.ajax({
+
+             type: 'GET',
+             dataType: 'html',
+             cache: false,
+             url: '@Url.Action("returnListCustomerNumberName", "Home")',
+                    success: function (result) {
+                        $("#contentCustomerNumberName").html(result);
+              }
+         });
+
+                document.getElementById('phone').addEventListener('input', function (e) {
+                    var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+                    e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+                });
+
+
+
+        $("#addTask").click(function () {
+            //$('#basic tr').removeClass('active');
+            //$(this).closest('tr').addClass('active');
+            var insertData = "<tr> <td><input type='text' ></td> <td><input type='text' ></td> <td><input type='text' ></td> <td><input type='text' ></td> <td></td> </tr>";
+
+            $("#basic tr:last").after(insertData);
+        });
+
+
+    });
+
+    $(function () {
+        $('#datetimepicker6').datetimepicker({
+            format: 'yyyy-MM-DD',
+            locale: '@Session["lang"].ToString()' == 'fr' ? 'fr': 'en'
+        });
+        $('#datetimepicker7').datetimepicker({
+            format: 'yyyy-MM-DD',
+           locale: '@Session["lang"].ToString()' == 'fr' ? 'fr': 'en',
+            useCurrent: false //Important! See issue #1075
+        });
+        $("#datetimepicker6").on("dp.change", function (e) {
+            $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+        });
+        $("#datetimepicker7").on("dp.change", function (e) {
+            $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+        // show the given page, hide the rest
+        function show(elementID) {
+            // find the requested page and alert if it's not found
+            const ele = document.getElementById(elementID);
+            if (!ele) {
+                alert("no such element");
+                return;
+            }
+
+            // get all pages, loop through them and hide them
+            const pages = document.getElementsByClassName('page');
+            for (let i = 0; i < pages.length; i++) {
+                pages[i].style.display = 'none';
+            }
+
+            // then show the requested page
+            ele.style.display = 'block';
+            if (elementID == "Page1")
+                document.getElementById("badge1").style.backgroundColor = '#183666';
+            else document.getElementById("badge1").style.backgroundColor = 'lightgray';
+
+            if (elementID == "Page2")
+                document.getElementById("badge2").style.backgroundColor = '#183666';
+            else document.getElementById("badge2").style.backgroundColor = 'lightgray';
+            if (elementID == "Page3")
+                document.getElementById("badge3").style.backgroundColor = '#183666';
+            else document.getElementById("badge3").style.backgroundColor = 'lightgray';
+            if (elementID == "Page4")
+                document.getElementById("badge4").style.backgroundColor = '#183666';
+            else document.getElementById("badge4").style.backgroundColor = 'lightgray';
+            if (elementID == "Page5")
+                document.getElementById("badge5").style.backgroundColor = '#183666';
+            else document.getElementById("badge5").style.backgroundColor = 'lightgray';
+        }
+
+        function openModalClientsNumber() {
+            $('#clientNumberModal').modal('show');
+        }
+        function openModalClientsNumber2() {
+            sourceFinalClient = "true";
+            $('#clientNumberModal').modal('show');
+
+        }
+        function applyClientModalValue() {
+            if (sourceFinalClient == "true") {
+                $("#End_Client_Name").val(clientFinal);
+                sourceFinalClient = "";
+            }
+            else {
+                if (clientNumber != "") {
+                   // $("#ClientNumber").val(clientNumber);
+                    $("#ClientName1").val(clientNumber+": "+clientName);
+                    //  $("#ClientFinal").val(clientFinal);
+
+                    clientNumber = "";
+                    clientName = "";
+                    clientFinal = "";
+                    sourceFinalClient = "";
+                }
+            }
+
+            $('#data_CustomerNumberName tr').removeClass('selected');
+           // ($('input[type=search]')[1]).value = "";
+            $('#data_CustomerNumberName').DataTable().search('').draw();
+            $('#data_CustomerNumberName tr').removeClass('selected');
+            $('#clientNumberModal').modal('toggle');
+
+        }
+
+    $("#arrowCopy").click(function () {
+
+        $("#End_Client_Name").val($("#ClientName1").val());
+
+    });
+
+
+    $('input[type=radio][name=optradioMC]').change(function () {
+        if (this.value == 'yes') {
+            $('#additionalClientModal').modal('show');
+        }
+    });
+
+    function submitOP() {
+        //recuperation de toute les données
+          var ProjectNumber = @Html.Raw(Json.Encode(ViewBag.project_number));
+          var pref_Com = [];
+        $("input:checkbox[name=optbuttonPrefCom]:checked").each(function ()
+        {
+            pref_Com.push($(this).val());
+        });
+            $.ajax({
+
+            type: 'GET',
+            dataType: 'html',
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                data:
+                {
+                    project_number: ProjectNumber,
+                    client: $('#ClientName1').val(),
+                    clientFinal: $('#End_Client_Name').val(),
+                    billingAddress: $('#Billing_Address').val(),
+                    shippingAddress: $('#Shipping_Address').val(),
+                    contactClient: $('#Contact_Client').val(),
+                    phone: $('#phone').val(),
+                    extension: $('#extension').val(),
+                    invoiceEmailAddress1: $('#invoice_Email_Address1').val(),
+                    invoiceEmailAddress2: $('#invoice_Email_Address2').val(),
+                    contractNumber: $('#Contract_Number').val(),
+                    billingLanguage: $('input[name="optradioLang"]:checked').val(),
+                    prefCom: pref_Com.join(),
+                    projectName: $('#Project_Name').val(),
+                    projectDescription: $('#Project_Description').val(),
+                    programMgrNumber: $('#Program_Mgr_Number').val(),
+                    billSpecialistNumber: $('#Bill_Specialist_Number').val(),
+                    otherKM01: $('#OtherKM_01').val(),
+                    otherKM02: $('#OtherKM_02').val(),
+                    requiredBy: @Html.Raw(Json.Encode(UserService.CurrentUser)),
+                    currency: $('#Currency_Id').val(),
+                    date: $('#date').attr('placeholder').split(" ")[1],
+                    startDate: $('#startDate').val(),
+                    endDate: $('#endDate').val(),
+                    distributionRuleId: $('#Distribution_Rule_Id').val(),
+                    contractTypeId: $('#Contract_Type_Id').val(),
+                    acctCenterId: $('#Acct_Center_Id').val(),
+                    officeAddressId: $('#Office_Address_Id').val(),
+                    workLocationID: $('#Work_Location_ID').val(),
+                    programId: $('#Program_Id').val(),
+                    workTypeId: $('#Work_Type_Id').val(),
+                    budegtCost: $('#budegtCost').val(),
+                    timesheet: $('input[name="optradioFT"]:checked').val(),
+                    timesheetCom: $('input[name="optradioMTC"]:checked').val(),
+                    expenseReport: $('input[name="optradioEx"]:checked').val(),
+                    expenseReportOriginal: $('input[name="optradioERO"]:checked').val(),
+                    supplierInv: $('input[name="optradioIS"]:checked').val(),
+                    supplierInvOriginal: $('input[name="optradioISO"]:checked').val(),
+                    writtenApproval: $('input[name="optradioWR"]:checked').val(),
+                    verbalApproval: $('input[name="optradioVB"]:checked').val(),
+                    noneApproval: $('input[name="optradioNN"]:checked').val(),
+                    interCompany: $('input[name="optradioIC"]:checked').val(),
+                    tar: $('input[name="optradioTAR"]:checked').val(),
+                    multipleOrderPurc: $('input[name="optradioMO"]:checked').val(),
+                    consortium: $('input[name="optradioCS"]:checked').val(),
+                    multipleClient: $('input[name="optradioMC"]:checked').val(),
+
+
+                },
+            url: '@Url.Action("saveOpenProject", "OpenProject")',
+            success: function (result) {
+            }
+            });
+    }
+
+    //$("tr.rows").click(function () {
+    //    alert("Click!");
+    //});
+
+
+</script>
+
+

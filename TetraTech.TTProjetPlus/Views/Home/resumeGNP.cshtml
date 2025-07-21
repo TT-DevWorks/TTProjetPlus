@@ -1,0 +1,603 @@
+﻿@model TetraTech.TTProjetPlus.Models.numberGenerationModel
+@using Resources = TetraTech.TTProjetPlus.Views.Home
+@using TetraTech.TTProjetPlus.Controllers
+@using TetraTech.TTProjetPlus.Security
+
+
+@{
+    ViewBag.Title = "Accueil";
+
+    var currentUser = UserService.CurrentUser;
+
+}
+
+
+<style>
+    .text-on-pannel {
+        background: #fff none repeat scroll 0 0;
+        height: auto;
+        margin-left: 20px;
+        padding: 3px 5px;
+        position: absolute;
+        
+        border: 1px solid #337ab7;
+        border-radius: 8px;
+    }
+
+
+    .panel-body {
+        margin-left: 30px;
+        margin-right: 30px;
+        margin-bottom: -15px
+    }
+
+    /* enable absolute positioning */
+    .inner-addon {
+        position: relative;
+    }
+
+        /* style icon */
+        .inner-addon .glyphicon {
+            position: absolute;
+            padding: 10px;
+            pointer-events: none;
+        }
+
+    /* align icon */
+    .left-addon .glyphicon {
+        left: 0px;
+    }
+
+    .right-addon .glyphicon {
+        right: 0px;
+    }
+
+    /* add padding  */
+    .left-addon input {
+        padding-left: 30px;
+    }
+
+    .right-addon input {
+        padding-right: 30px;
+    }
+
+    /*i {
+        background: lightblue;
+    }*/
+
+    .redText {
+        color: red;
+    }
+
+    .inputWidth {
+        width: 100%;
+    }
+
+    .inputWidth2 {
+        width: 20%;
+        display: inline
+    }
+</style>
+
+
+            <div class="panel panel-primary" style="border-radius: 10px; margin-top: -15px; margin-left: -15px; width: 102%">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h4 style="margin-top: 0px; color:#183666; font-family: 'Arial Bold'; font-size: 18pt;"><b>@Resources.informations.Resume</b></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-4">@Resources.informations.TitleOS: </label>
+                        <span class="col-sm-8 border border-primary" id="AbreviatedTitle">
+                            @Model.AbreviatedTitle
+                        </span>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-4">@Resources.informations.TypeOfProject: </label>
+                        <div class="col-sm-8 border border-primary">
+                            @if (Model.HasAMasterProject == "1")
+                            {
+                                <span id="HasAMasterProject">@Resources.informations.LinkedProject</span>
+                            }
+                            else
+                            {
+                                <span id="HasAMasterProject">
+                                    @Resources.informations.Masterproject
+                                </span>
+                            }
+                        </div>
+                    </div>
+
+                    <div id="masterProject">
+                        @if (Model.HasAMasterProject == "1")
+                        {
+
+                            <div class="row">
+                                <label class=" col-sm-4">@Resources.informations.Masterproject: </label>
+                                <div class="col-sm-8 border border-primary">
+                                    <span id="MasterProjectNumber">@Model.MasterProjectNumber</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class=" col-sm-4">@Resources.informations.CodeOfPhase: </label>
+                                <div class="col-sm-8 border border-primary" id="PhaseCode">
+                                    @Model.PhaseCodeFinal @*(ID de code de phase: @Model.PhaseCodeId)*@
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="row">
+                        <label class=" col-sm-4">@Resources.informations.ClientName: </label>
+                        <div class="col-sm-8 border border-primary">
+                            <span id="ClientName">@Model.ClientName </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class=" col-sm-4">@Resources.informations.Company: </label>
+                        <div class="col-sm-8 border border-primary" id="Company">
+                            @Model.CompanyName @*(@Model.Company)*@
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class=" col-sm-4">@Resources.informations.BusinessUnit: </label>
+                        <div class="col-sm-8 border border-primary" id="BusinessUnit">
+                            @Model.BusinessUnitName @*(@Model.BusinessUnit)*@
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class=" col-sm-4">@Resources.informations.ORG: </label>
+                        <div class="col-sm-8 border border-primary" id="ORG">
+                            @Model.ORGName @*(@Model.ORG)*@
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class=" col-sm-4">@Resources.informations.ProjectMgr: </label>
+                        <div class="col-sm-8 border border-primary" id="ProjectMgr">
+                            @Model.ProjectMgr
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class=" col-sm-4">@Resources.informations.ProgramMgr: </label>
+                        <div class="col-sm-8 border border-primary" id="ProgramMgr">
+                            @Model.ProgramMgr
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class=" col-sm-4">@Resources.informations.InitiatedBy: </label>
+                        <div class="col-sm-8 border border-primary" id="currentUser">
+                            @currentUser
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class=" col-sm-4">@Resources.informations.FinalClient: </label>
+                        <div class="col-sm-8 border border-primary" id="ClientFinal">
+                            @Model.ClientFinal
+                        </div>
+                    </div>
+                    @*<div class="row">
+            <label class=" col-sm-4">@Resources.ContactClient :</label>
+            <div class="col-sm-8 border border-primary" id="ClientContact">
+                @Model.ClientContact
+            </div>
+        </div>*@
+                    <div class="row">
+                        <label class=" col-sm-4">@Resources.informations.ApproximateAmount: </label>
+                        <div class="col-sm-8 border border-primary" id="ApproximateAmount2">
+                            @Model.ApproximateAmount
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class=" col-sm-4">@Resources.informations.RefAndComments: </label>
+                        <div class="col-sm-8 border border-primary" id="RefAndComments">
+                            @Model.RefAndComments
+                        </div>
+                        <div hidden>
+                            <input type="hidden" id="RefAndCommentsVal" value="@Model.RefAndComments" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label class=" col-sm-4">@Resources.informations.ProjectManagerName: </label>
+                        <div class="col-sm-8 border border-primary" id="RefAndComments">
+                            @Model.ClientProjectManager
+                        </div>                       
+                    </div>
+
+                    <div class="row">
+                        <label class=" col-sm-4">@Resources.informations.ProjectManagerCourriel: </label>
+                        <div class="col-sm-8 border border-primary" id="RefAndComments">
+                            @Model.ClientEmailProjectManager
+                        </div>                       
+                    </div>
+
+
+                    <hr />
+                    <div>
+                        <div class="row">
+                            <label class=" col-sm-4">@Resources.informations.CreateFolderStrucutre ? </label>
+
+                            <div class="col-sm-8 border border-primary">
+                                @if (Model.HasprojectStruture == true)
+                                {
+                                    <span> @Resources.informations.yes</span>
+                                }
+                                else
+                                {
+                                    <span> @Resources.informations.no</span>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="serverStructure">
+                        <p hidden>'@Model.HasprojectStruture'</p>
+                        @if (Model.HasprojectStruture == true)
+                        {
+
+                            <div class="row">
+                                <label class=" col-sm-4">@Resources.informations.Server: </label>
+                                <div class="col-sm-8 border border-primary">
+                                    <span id="Server"> @Model.ServerName @*(@Model.Server)*@</span>
+                                    <p id="serverNumber" hidden>@Model.Server</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class=" col-sm-4">@Resources.informations.Model: </label>
+                                <div class="col-sm-8 border border-primary" id="ServerModel">
+                                    @Model.ServerModelName @*(@Model.ServerModel)*@
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class=" col-sm-4">@Resources.informations.SecurityModel: </label>
+                                <div class="col-sm-8 border border-primary" id="SecurityModel">
+                                    @Model.SecurityModelName @*(@Model.SecurityModel)*@
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class=" col-sm-4">@Resources.informations.SelectionModel: </label>
+                                <div class="col-sm-8 border border-primary" id="SelectionModel">
+                                    @Model.SelectionModelName @*(@Model.SelectionModel)*@
+                                </div>
+                            </div>
+
+                        }
+
+                        @if (Model.ShowAutomaticEmailAddresses == true)
+                        {
+                            <div class="row">
+                                <label class=" col-sm-4">@Resources.informations.emailLang :</label>
+                                <div class="col-sm-8 border border-primary" id="emailLang">
+                                    <div class="form-group " style="text-align: left;padding-left: 15px">
+                                        <input type="radio" id="TQELangFR" name="TQELang" class="master_project" value="fr" checked> @Resources.informations.fr
+                                        <input type="radio" id="TQELangEN" name="TQELang" class="master_project" value="en"> @Resources.informations.en
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        @if (Model.HasAMasterProject != "0")
+                        {
+                            <div class="row">
+                                <label class=" col-sm-4">@Resources.informations.ProjectNumberAnticipated :</label>
+                                <div class="col-sm-8 border border-primary" id="numberPreview">
+                                    @Model.previewNumber
+                                </div>
+                            </div>
+
+                        }
+                        <div class="row">
+                            <div class=" col-sm-4"></div>
+                            <div class="col-sm-8 border border-primary" id="numberPreview">
+                                Cliquer sur le bouton <b>Accepter</b> afin de générer le numéro de projet.
+                            </div>
+                            <div class=" col-sm-4"></div>
+                        </div>
+                    </div>
+                    <div class="row" style="text-align: center">
+                        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="display: inline-block">
+                            <div class="btn-group mr-2" role="group" aria-label="First group">
+                                <button type="button" class="specialB" id="precedent">@Resources.informations.Precedent</button>
+                            </div>
+                            <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                <button type="button" class="specialB" id="accepter">@Resources.informations.Accept</button>
+                            </div>
+                            <div class="btn-group" role="group" aria-label="Third group">
+                                <button type="button" class="specialB" id="annuler">@Resources.informations.Cancel</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="panel panel-primary" id="numero" style="display:none">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="alert alert-danger" id="failedCreationNumber" hidden="hidden">
+                                    <button type="button" class="close" data-hide="alert">&times;</button>
+                                    <strong>@Resources.informations.failedCreation</strong>
+                                </div>
+                                <div class="alert alert-success" id="successCreationNumber" hidden="hidden">
+                                    <button type="button" class="close" data-hide="alert">&times;</button>
+                                    <strong>@Resources.informations.successCreation</strong>
+                                </div>
+                                <div class="alert alert-danger" id="failedCreationOnServer" hidden="hidden">
+                                    <button type="button" class="close" data-hide="alert">&times;</button>
+                                    <strong>@Resources.informations.problemExcecution</strong>
+                                    <button data-toggle="collapse" data-target="#detailsFailedCreationOnServer">@Resources.informations.Details</button>
+                                    <div id="detailsFailedCreationOnServer" class="collapse">
+                                    </div>
+                                </div>
+                                <div class="alert alert-success" id="successCreationOnServer" hidden="hidden">
+                                    <button type="button" class="close" data-hide="alert">&times;</button>
+                                    <strong>@Resources.informations.successTree</strong>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-bottom: 10px;">
+                                <label class="col-sm-4">@Resources.informations.NumberGenerated:</label>
+                                <span class="col-sm-8 border border-primary" id="projectNumber"></span>
+                            </div>
+                            <div class="row" id="FolderStructure" style="margin-bottom: 10px;" hidden="hidden">
+                                <label class="col-sm-4">@Resources.informations.structPath:</label>
+                                <span class="col-sm-4 border border-primary" id="accessPath"></span>
+                                <button class="col-sm-1 copyButton" id="OpenStructButton" style="margin-bottom: 10px;float: left;" onclick='copyFunction2()' title="@Resources.informations.openStruct"><i class="fa fa-folder-open" aria-hidden="true"></i></button>
+                                <button class="col-sm-1 copyButton" id="CopyPathButton" style="margin-bottom: 10px;float: left;" onclick='copyFunction()' title='@Resources.informations.copyPath
+                                                @Resources.informations.CopyPath4'>
+                                    <i class="fa fa-copy"></i>
+                                </button>
+                                <label class="col-sm-3"></label>
+                            </div>
+                            <div class="row" id="SendOSInfo" style="margin-bottom: 10px;" hidden="hidden">
+                                <label class="col-sm-4">@Resources.informations.sendMail:</label>
+                                <button class="col-sm-1" onclick='DownloadEmail("fr")'>@Resources.informations.fr <i class='fa fa-envelope'></i></button>
+                                <button class="col-sm-1" onclick='DownloadEmail("en")'>@Resources.informations.en <i class='fa fa-envelope'></i></button>
+                                <label class="col-sm-6"></label>
+                            </div>
+                            <br />
+                            @if (Model.Company == "711 TQE")
+                            {
+                                <div class="row" id="SendOSInfoTQE" style="margin-bottom: 10px;" hidden="hidden">
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-8">@Resources.informations.TQEEmailAddressesList:</div>
+                                </div>
+                                <div class="row" id="SendOSInfoTQE2" style="margin-bottom: 10px;" hidden="hidden">
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-8" id="emailAddresses"></div>
+                                </div>
+                                <div class="row" style="margin-bottom: 10px;"></div>
+                            }
+                        </div>
+                    </div>
+                    <div class="panel panel-primary" style="border:none">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12 alert alert-info" id="tips" hidden="hidden" style="float:right">
+                                    <button type="button" class="close" data-hide="alert">&times;</button>
+                                    <strong>@Resources.informations.Tips</strong>&nbsp;&nbsp;&nbsp;&nbsp; <u>@Resources.informations.CopyPath3</u>
+                                    @Resources.informations.CopyPath4
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                        </div>
+        
+<div id="anchor"></div>
+<script>
+    $('#accessPath').text("")
+
+    if ('@Session["lang"].ToString()' != 'fr')
+    {
+        $("#TQELangFR").attr("checked", false);
+        $("#TQELangEN").attr("checked", true);
+    }
+
+    //$("#successCreationNumber").show();
+
+    var projectNumber = "";
+    $("#precedent").click(function ()
+    {
+        $(".alert").hide();
+        $('#formPage').show()
+        $('#resumePage').hide()
+
+    });
+
+    $("#accepter").click(function () {
+        $("#numero").show();
+        $('#precedent').css("background-color", "#AAB7B8 ")
+        $('#precedent').prop("disabled", true);
+        $('#accepter').css("background-color", "#AAB7B8 ")
+        $('#accepter').prop("disabled", true);
+        $('#annuler').css("background-color", "#AAB7B8 ")
+        $('#annuler').prop("disabled", true);
+                
+        $.ajax({
+            url: '@Url.Action("GetProjectNumber", "Home")',
+            type: 'GET',
+            dataType: 'json',
+            traditional: true,
+            data: {
+
+
+                AbreviatedTitle: $('#AbreviatedTitle').val(),
+                HasAMasterProject: '@Model.HasAMasterProject',
+                IsMaster: '@Model.HasAMasterProject'=="true" ? false:true,
+                MasterProjectNumber:   '@Model.MasterProjectNumber',
+                PhaseCode: '@Model.HasAMasterProject'=="1" ? '@Model.PhaseCodeFinal' : "0",
+                PhaseCodeID: '@Model.HasAMasterProject'=="1" ? '@Model.PhaseCodeId' : "0",
+                ClientNumber: '@Model.ClientNumber',
+                ClientName : $('#ClientName').val(),
+                CompanyId: '@Model.Company',
+                BusinessUnit: '@Model.BusinessUnit',
+                ORG: '@Model.ORG',
+                ProjectMgr: $('#ProjectMgr').val(),
+                ProjectMgrNumber: '@Model.ProjectMgrNumber',
+                ProgramMgrNumber: '@Model.ProgramMgrNumber',
+                currentUser: '@UserService.CurrentUser.EmployeeId',
+                ClientFinal: $('#ClientFinal').val(),
+                ClientContact: $('#ClientContact').val(),
+                ApproximateAmount: '@Model.ApproximateAmount.Replace(" ", "")',
+                RefAndComments: $('#RefAndCommentsVal').val(), @*@Model.RefAndComments',*@
+                Server: '@Model.Server',
+                ServerModel: '@Model.ServerModel',
+                SecurityModel: '@Model.SecurityModel',
+                SelectionModel: '@Model.SelectionModel',
+                HasprojectStruture: '@Model.HasprojectStruture',
+                ClientProjectManager: '@Model.ClientProjectManager',
+                ClientEmailProjectManager: '@Model.ClientEmailProjectManager',
+                HasProjectDiligente: '@Model.HasProjectDiligente',
+                TQELang: $('input[name="TQELang"]:checked').val()
+            },
+            success: function (data1)
+            {
+                if (data1.insertionInTT == "successInsertionInTT") {
+                    $('#projectNumber').html(data1.number)
+                    if ('@Model.HasprojectStruture' == 'True')
+                    {
+                        getFolderLocation();
+                        $("#FolderStructure").show();
+                        //$("#tips").show();
+                    }
+                    $("#SendOSInfo").show();
+
+                    if (data1.emailAddresses != '') {
+                        $('#emailAddresses').html(data1.emailAddresses);
+                        $("#SendOSInfoTQE").show();
+                        $("#SendOSInfoTQE2").show();
+                    }
+
+                    $("#successCreationNumber").show();
+                    setTimeout(function () {
+                        $('#successCreationNumber').fadeOut('slow');
+                    }, 6000
+                    );
+                }
+
+
+                else {
+                    $('#projectNumber').html("")
+                    $("#failedCreationNumber").show();
+                    setTimeout(function () {
+                        $('#failedCreationNumber').fadeOut('slow');
+                    }, 6000
+                    );
+                }
+
+                if (data1.insertionInBPR == "successfullProcess")
+                {
+                    $("#successCreationOnServer").show();
+                    setTimeout(function () {
+                        $('#successCreationOnServer').fadeOut('slow');
+                    }, 6000
+                    );
+
+                }
+                else if (data1.insertionInBPR == "failedIsertionInBPR" || data1.insertionInBPR == "failedAdditionFolder" || data1.insertionInBPR == "failedApplySecurity" || data1.insertionInBPR == "alreadyExistingProject")
+                {
+                    $('#detailsFailedCreationOnServer').html("");
+                    $("#failedCreationOnServer").show();
+
+                    if (data1.insertionInBPR == "failedIsertionInBPR") {
+                        $('#detailsFailedCreationOnServer').html(" @Resources.informations.message1a");
+                    }
+                    if (data1.insertionInBPR == "failedAdditionFolder") {
+                        $('#detailsFailedCreationOnServer').html("@Resources.informations.message2a");
+                    }
+
+                    if (data1.insertionInBPR == "failedApplySecurity") {
+                        $('#detailsFailedCreationOnServer').html("@Resources.informations.message3a");
+                    }
+
+                    if (data1.insertionInBPR == "alreadyExistingProject") {
+                        $('#detailsFailedCreationOnServer').html("@Resources.informations.message4a");
+                    }
+
+                    setTimeout(function () {
+                        $('#detailsFailedCreationOnServer').fadeOut('slow');
+                    }, 6000
+                    );
+                }
+
+                 if (data1.resultFail == "failedCreation")
+                 {
+
+                    $('#detailsFailedCreationOnServer').html("");
+                    $("#failedCreationOnServer").show();
+                    $('#detailsFailedCreationOnServer').html(data1.details);
+
+                }
+                $('#precedent').css("background-color", "#AAB7B8")
+                $('#precedent').prop("disabled", true);
+                $('#accepter').css("background-color", "#AAB7B8")
+                $('#accepter').prop("disabled", true);
+                $('#annuler').css("background-color", "#183666 ")
+                $('#annuler').prop("disabled", false);
+                $("#annuler").text('@Resources.informations.Return');
+            },
+            error: function () {
+
+            }
+        });
+    });
+
+    function stripHtml(html) {
+        var tmp = document.createElement("DIV");
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || "";
+    }
+    $("#annuler").click(function () {
+
+        window.location.href = '@Url.Action("Index", "Home")'
+    });
+    $(".close").click(function () {
+        $(".alert").hide();
+
+    });
+
+function getFolderLocation() {
+$.ajax({
+type: 'GET',
+dataType: 'json',
+data: {
+serverId: $('#serverNumber').text(),
+projectFolder: $('#projectNumber').text()
+},
+url: '@Url.Action("openServerLocation", "Home")',
+
+success: function (data) {
+    $('#accessPath').html(data.result)
+
+    if ('@Session["lang"].ToString()' == 'fr') {
+        document.getElementById("OpenStructButton").title = "Ouvrir: " + data.result;
+        document.getElementById("CopyPathButton").title = "Copier le chemin du répertoire de projet: " + " " + data.result + '\n' + "Cliquez sur ce bouton, puis sur la touche Windows + E de votre clavier et coller le contenu du presse-papier dans la barre d'adresse";
+    }
+    else {
+        document.getElementById("OpenStructButton").title = "Open: " + data.result;
+        document.getElementById("CopyPathButton").title = "Copy the path of the project folder structure: " + " " + data.result + '\n' + "Click on this button, then on the Windows key + E on your keyboard and paste the contents of the clipboard";
+    }
+}
+});
+    }
+
+    function DownloadEmail(lang)
+    {
+        window.location.href = '@Url.Action("DownloadEmail2", "ListeOffres")?Project_Number=' + $('#projectNumber').text().trim() + '&lang=' + lang;
+    }
+
+    function copyFunction() {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($('#accessPath').text().trim()).select();
+        document.execCommand("copy");
+        $temp.remove();
+    }
+
+ function copyFunction2() {
+     window.location.href = '@Url.Action("createBatchFile", "InfoProjet")?folderLocation=' + $('#accessPath').text().trim();
+    }
+
+</script>

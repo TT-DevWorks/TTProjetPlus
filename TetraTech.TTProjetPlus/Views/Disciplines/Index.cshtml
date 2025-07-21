@@ -1,0 +1,528 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.Disciplines
+@using TetraTech.TTProjetPlus.Models
+@model TetraTech.TTProjetPlus.Models.ManageDisciplineMembersViewModel
+@using TetraTech.TTProjetPlus.Controllers
+@{
+    ViewBag.Title = "Discipline";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
+
+<style>
+    .borderColor {
+        border: 1px solid blue;
+        border-radius: 5px;
+    }
+
+    /*
+        pour icon dans input:
+    */
+    .inner-addon .glyphicon {
+        position: absolute;
+        padding: 10px;
+        pointer-events: none;
+    }
+
+    .panel-body {
+        margin-left: 30px;
+        margin-right: 30px;
+        margin-bottom: -15px
+    }
+
+    .form-control {
+        border-radius: 0px;
+    }
+
+    .btn {
+        border-radius: 0px;
+    }
+
+    .input-group-addon {
+        border-radius: 0px;
+        cursor: pointer;
+    }
+
+    .inputWidth {
+        width: 100%;
+    }
+
+    .inputWidth2 {
+        width: 50%;
+        display: inline
+    }
+
+    table {
+        font-size: 1em;
+    }
+
+
+    /*  table.dataTable,
+        table.dataTable th,
+        table.dataTable td {
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+        }*/
+
+    .formControl1 {
+        padding: 20px;
+    }
+
+    .formControl2 {
+        padding: 20px;
+    }
+
+
+    .bootstrap-select > .dropdown-toggle.bs-placeholder {
+        color: #5482ab;
+        font-family: 'Arial';
+        font-size: 12pt;
+    }
+
+    textarea {
+        width: 100%;
+    }
+
+    .formTextArea {
+        width: 100%;
+    }
+
+
+    @@media (min-width: 768px) {
+        .modal-xl {
+            width: 90%;
+            max-width: 1200px;
+        }
+    }
+
+    @@media (min-width: 768px) {
+        .modal-xl1 {
+            width: 90%;
+            max-width: 1300px;
+        }
+    }
+
+    .display-flex-center {
+        display: flex;
+        align-items: center;
+    }
+
+    .btn-space {
+        margin-right: 5px;
+    }
+</style>
+<div class="container " style="height: 200vh; width: 100%">
+    <div class="main">
+        @if (ViewBag.MenuVisible == "true")
+        {
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-3" style="padding-top: -49px;">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; width: 100%; height: 75px ">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                    <li><a style=" color:#183666; font-weight: bold" href="@Url.Action("Index", "Disciplines", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources.Discipline.disciplinesManagement</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; width: 100%; height: 75px ">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666; font-weight: bold " href="@Url.Action("Index", "Disciplines", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources.Discipline.disciplinesUsersManagement</a>
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666;" href="@Url.Action("ListeAdmin", "Disciplines" , new { displayRetourLM = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources.Discipline.disciplinesAdminList</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        <div class="row">
+            <div class="panel panel-primary" style="border-radius: 10px; margin-top: -15px; margin-left: -10px; height: 150px; width: 100% ">
+                @if (ViewBag.isAllowedDiscipline == true)
+                {
+                <div class="form-horizontal">
+                       <div class="form-group" style="margin-top: 10px;">
+                            <input class="form-check-input" type="radio" name="disciplineRadioButton" id="disciplineRadioButton" checked style="margin-left: 35px; float: left; margin-top: 10px;">
+                            <div class="col-sm-6">
+                                <select data-live-search="true" class="selectpicker form-control" id="discipline">
+                                    <option value="">@Resources.Discipline.ChooseDiscipline</option>
+                                    @for (int i = 0; i < DisciplinesController.disciplineItems.disciplineItem.Count; i++)
+                                    {
+                                        <option value="@DisciplinesController.disciplineItems.disciplineItem[i].DiscId">@DisciplinesController.disciplineItems.disciplineItem[i].DisciplineName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-check-input" type="radio" name="disciplineRadioButton" id="docProjRadioButton" style="margin-left: 35px; float:left;margin-top: 10px;">
+                            <div class="col-sm-6">
+                                <select data-live-search="true" class="selectpicker form-control" id="docProj">
+                                    <option value="">@Resources.Discipline.ChooseDocProj</option>
+                                    @for (int i = 0; i < DisciplinesController.disciplineItems.docProjItem.Count; i++)
+                                    {
+                                        <option value="@DisciplinesController.disciplineItems.docProjItem[i].DocProj_ID">@DisciplinesController.disciplineItems.docProjItem[i].DocProj_Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    else
+        {
+            <div class="panel-body" style="color: red; font-size: initial;">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <h4>@Resources.Discipline.RestrictedAccess</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="display: block; ">
+                <div class="col-sm-12">
+                    <div style="border-radius: 10px">
+                        @Html.Partial("_AdminListPartial")
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+        </div>
+        @if (ViewBag.isAllowedDiscipline == true)
+        {
+
+            <div class="panel panel-default" style="border-radius: 10px; width : 100%" id="infoPanel" hidden>
+                <div class="panel-heading" style=" width: 100%">
+                    <h4 style="color: #5482ab; font-family: 'Arial Bold'; font-size: 18pt;" id="title">
+                        <b>@Resources.Discipline.PanelTitle  <span id="mainTitle"></span></b>
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <p></p>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8" id="disciplineDocProjDetails">
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading tt-h3-darkblue" id="addEmployeeDescription"> @Resources.Discipline.AddEmployee </div>
+                                <div class="panel-body">
+                                    <div class="row"><p></p></div>
+                                    <div class="row">
+                                        <div class="col-sm-5" style="margin: auto; ">
+                                            <button class="specialB" value="Submit" onclick="SubmitFormAdd()" style="">@Resources.Discipline.btnAddText</button>
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <span id="employeeTypeDescription"></span>
+                                        </div>
+                                        <div class="row"><span></span></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="row"><p></p></div>
+                                        <span style="color: red;"><i>@Resources.Discipline.ProcessTime</i></span>
+                                    </div>
+                                    <div class="row"><div class="col-sm-12"></div></div>
+                                    <div class="row"><p></p></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12" style="margin-bottom: 0.5em;">
+                                    <div class="details-messages alert alert-danger" role="alert" style="display:none;padding:.5em;margin:0;">  <span></span> </div>
+                                    <div class="details-messages alert alert-success" role="alert" style="display:none;padding:.5em;margin:0;">  <span></span> </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div id="MessageSteps" class="alert alert-info" role="alert" style="padding:.5em;margin:0;">
+                                        @if (Session["lang"].ToString() == "fr")
+                                        {
+                                            <div id="MessageSteps">
+                                                <b>Note:</b><br>&bull; Suite à l'ajout ou au retrait d'un accès, veuillez informer l’usager d’un délai d’attente d’environ 15 à 30 minutes afin que les droits soient établis dans le système.<br>&bull; De plus, l’usager en question doit redémarrer sa session Windows afin que la sécurité soit effective sur son poste.
+                                            </div>}
+                                        else
+                                        {
+                                            <div id="MessageSteps">
+                                                <b>Note:</b><br>&bull; Following the addition or removal of an access, please inform the user of a waiting period of approximately 15 to 30 minutes in order for the rights to be established in the system.<br>&bull; The user might have to restart their Windows session in order for security to be effective.
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="modal modal-message fade" id="addEmployeeControl" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-xl1" role="document">
+        <div class="modal-content" style="width:100%;">
+            <div class="modal-header" style="width:100%;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelGP">@Resources.Discipline.EmployeeList</h4>
+            </div>
+            <div class="modal-body" id="contentEmployee" style="width:100%;">
+            </div>
+            <div class="modal-footer" style="width:100%;">
+                <button type="button" class="specialB" data-dismiss="modal" id="cancelAddEmployee">@Resources.Discipline.Cancel</button>
+                <button type="button" class="specialB" onclick="applyAddEmployeeModalValue()">@Resources.Discipline.OK</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var groupSelected = "";
+    var EmployeeNumber = "";
+    var EmployeeTTAccount = "";
+    var discDocProjId = "";
+
+    $(document).ready(function () {
+        groupSelected = "";
+        $(function () {
+            $('.selectpicker').selectpicker();
+        });
+    });
+
+    function returntoMenu()
+    {
+        window.location.href = "@Url.Action("Index", "TTProjet")";
+    }
+
+
+    $(function () {
+        $("[data-hide]").on("click", function () {
+            $(this).closest("." + $(this).attr("data-hide")).hide();
+        });
+    });
+
+    //------------------//
+    $("#docProj").on('change', function () {
+        $('#discipline').selectpicker('val', ''); $('#discipline').selectpicker('refresh');
+        $("#docProjRadioButton").prop("checked", true);
+        $("#disciplineRadioButton").prop("checked", false);
+    });
+
+    $("#discipline").on('change', function () {
+        $('#docProj').selectpicker('val', ''); $('#docProj').selectpicker('refresh');
+        $("#disciplineRadioButton").prop("checked", true);
+        $("#docProjRadioButton").prop("checked", false);
+
+        $('#disciplineRadioButton').on('click', function () {
+            $('#docProj').selectpicker('val', ''); $('#docProj').selectpicker('refresh');
+            $("#docProjRadioButton").prop("checked", false);
+        });
+
+        $('#docProjRadioButton').on('click', function () {
+            $('#discipline').selectpicker('val', ''); $('#discipline').selectpicker('refresh');
+            $("#disciplineRadioButton").prop("checked", false);
+        });
+
+
+    });
+    //------------------//
+
+    $('#discipline').on('click', function () {
+        $("#disciplineRadioButton").prop("checked", true);
+        $("#docProjRadioButton").prop("checked", false);
+    });
+
+    $('#docProj').on('click', function () {
+        $("#docProjRadioButton").prop("checked", true);
+        $("#disciplineRadioButton").prop("checked", false);
+    });
+
+
+
+    $('#discipline').on('change', function () {
+        $("#docProj").prop("selectedIndex", 0);
+
+        var selectedDiscipline = $('#discipline').val();
+        groupSelected = "Discipline";
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                selectedDiscipline: selectedDiscipline
+            },
+            url: '@Url.Action("GetDetailsForSelectedDiscipline", "Disciplines")',
+
+            success: function (data) {
+                $("disciplineDocProjDetails").html("");
+                $("#infoPanel").show();
+                $("#disciplineDocProjDetails").html(data.result);
+                $("#mainTitle").html($('#discipline option:selected').text());
+                /*$("#mainTitle").html($('#discipline option:selected').text() + " (Employés du/des groupes " + data.result2 + " seulement)");*/
+                if ('@Session["lang"].ToString()' == 'fr') {
+                    $("#employeeTypeDescription").html("* Employés du/des groupes AD suivants seulement:<br/><b>" + data.result2 + "</b>");
+                }
+                else {
+                    $("#employeeTypeDescription").html("* Employees members of the following AD groups only:<br/><b>" + data.result2 + "</b>");
+                }
+            }
+        });
+
+    });
+
+    $('#docProj').on('change', function () {
+        $("#discipline").prop("selectedIndex", 0);
+
+        var selectedDocProj = $('#docProj').val();
+        groupSelected = "DocProj";
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                selectedDocProj: selectedDocProj
+            },
+            url: '@Url.Action("GetDetailsForSelectedDocProj", "Disciplines")',
+
+            success: function (data) {
+                $("disciplineDocProjDetails").html("");
+                $("#infoPanel").show();
+                $("#disciplineDocProjDetails").html(data.result);
+                $("#mainTitle").html($('#docProj option:selected').text());
+                /*$("#mainTitle").html($('#docProj option:selected').text() + " (Employés du/des groupes " + data.result2 + " seulement)");*/
+
+                if ('@Session["lang"].ToString()' == 'fr') {
+                    $("#employeeTypeDescription").html("* Employés du/des groupes AD suivants seulement:<br/><b>" + data.result2 + "</b>");
+                }
+                else {
+                    $("#employeeTypeDescription").html("* Employees members of the following AD groups only:<br/><b>" + data.result2 + "</b>");
+                }
+            }
+        });
+    }
+
+    );
+
+    var refreshDetailsGroupMembersSection = function () {
+        if (groupSelected == "DocProj") {
+            var selectedDocProj = $('#docProj').val();
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    selectedDocProj: selectedDocProj
+                },
+                url: '@Url.Action("GetDetailsForSelectedDocProj", "Disciplines")',
+
+                success: function (data) {
+                    $("disciplineDocProjDetails").html("");
+                    $("#infoPanel").show();
+                    $("#disciplineDocProjDetails").html(data.result);
+                    $("#mainTitle").html($('#docProj option:selected').text());
+                }
+            });
+        }
+        else {
+            var selectedDiscipline = $('#discipline').val();
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    selectedDiscipline: selectedDiscipline
+                },
+                url: '@Url.Action("GetDetailsForSelectedDiscipline", "Disciplines")',
+
+                success: function (data) {
+                    $("disciplineDocProjDetails").html("");
+                    $("#infoPanel").show();
+                    $("#disciplineDocProjDetails").html(data.result);
+                    $("#mainTitle").html($('#discipline option:selected').text());
+                }
+            });
+        }
+    };
+
+    function SubmitFormAdd() {
+
+        if (groupSelected == "DocProj") {
+             var selectedDocProj = $('#docProj').val();
+             $.ajax({
+                type: 'GET',
+                dataType: 'html',
+                 cache: false,
+                 data: {
+                     selectedDocProj: selectedDocProj
+                 },
+                url: '@Url.Action("returnListEmployeeForDocProj", "Disciplines")',
+                success: function (result) {
+                    $("#contentEmployee").html(result);
+                    $('#addEmployeeControl').modal('show');
+                }
+            });
+        }
+        else {
+            var selectedDiscipline = $('#discipline').val();
+             $.ajax({
+                type: 'GET',
+                dataType: 'html',
+                 cache: false,
+                 data: {
+                     selectedDiscipline: selectedDiscipline
+                 },
+                url: '@Url.Action("returnListEmployeeForDiscipline", "Disciplines")',
+                success: function (result) {
+                    $("#contentEmployee").html(result);
+                    $('#addEmployeeControl').modal('show');
+                }
+            });
+        }
+    }
+
+    function applyAddEmployeeModalValue() {
+        if (EmployeeNumber != "") {
+            if (groupSelected == "DocProj") {
+                var discDocProjId = $('#docProj').val();
+            }
+            else {
+                var discDocProjId = $('#discipline').val();
+            }
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("AddEmployeeToADGroup", "Disciplines")',
+                async: false,
+                cache: false,
+                data: { groupSelected: groupSelected, TTAccount: EmployeeTTAccount, discDocProjId: discDocProjId },
+                success: function (result) {
+                    refreshDetailsGroupMembersSection();
+                    if (result.result == 'Success') {
+                        $(".details-messages.alert-success span").text(result.details);
+                        $(".details-messages.alert-success").show().delay(8000).slideUp(300);
+                    }
+                }
+            });
+        }
+        EmployeeNumber = "";
+        EmployeeTTAccount = "";
+        discDocProjId = "";
+
+        $('#data_projectManagerName tr').removeClass('selected');
+        ($('input[type=search]')[0]).value = "";
+        $('#data_projectManagerName').DataTable().search('').draw();
+        $('#data_projectManagerName tr').removeClass('selected');
+        $('#addEmployeeControl').modal('toggle');
+    }
+</script>

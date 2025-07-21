@@ -1,0 +1,33 @@
+﻿@model MvcSiteMapProvider.Web.Html.Models.SiteMapPathHelperModel
+@using System.Web.Mvc.Html
+@using System.Linq
+@using MvcSiteMapProvider.Web.Html.Models
+@foreach (var node in Model)
+{
+<li>
+    @if (node.IsRootNode)
+    {
+        <a href="/"><i class="fa fa-home" aria-hidden="true"></i> @Html.DisplayFor(m => node.Title)</a>
+    }
+    else
+    {
+        if (node != Model.Last())
+        {
+            @Html.DisplayFor(m => node)
+        }
+        else
+        {
+            <a href="#">
+                @Html.DisplayFor(m => node.Title)
+                @if (node.Attributes.ContainsKey("headerInfo"))
+                {
+                    @Html.DisplayFor(m => node.Attributes["headerInfo"])
+                }
+            </a>
+
+        }
+    }
+</li>
+
+@*if (node != Model.Last()) {<text> &gt; </text>}*@
+}

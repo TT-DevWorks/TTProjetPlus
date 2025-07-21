@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f8591eba63aa4d0d8531cfad9423b913" Name="Diagram1">
+        <EntityTypeShape EntityType="SuiviMandatModelNew.C_tempTar" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.BILLING_DETAIL_IF" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.BILLING_SUMMARY" Width="1.5" PointX="5.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.BUSINESSUNIT_LIMITS" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.COST_TABLE" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.DROPDOWN_LIST" Width="1.5" PointX="9.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.DynamicColumnsForBillingSummary" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.EMPLOYEE_GRIDSTATE" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.EmployeeCommisFacturation" Width="1.5" PointX="11.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.INSTRUCTION_STATUS" Width="1.5" PointX="11.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.PERIOD_TLINX" Width="1.5" PointX="7.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.PROJECT_COMMENT_CONFIG" Width="1.5" PointX="11.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.PROJECT_COMMENT_TASK" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.PROJECT_COMMENT_TYPE" Width="1.5" PointX="13.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.PROJECT_CONTROL_OFFICER" Width="1.5" PointX="13.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.PROJECT_CONTROL_SECURITY" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.PROJECT_CONTROL_SECURITY_ROLES" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.PROJECT_RESOURCE" Width="1.5" PointX="7.5" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.PROJECT_SM_HISTORY" Width="1.5" PointX="13.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.PROJECT_TASK" Width="1.5" PointX="7.5" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.PROJECT_TASK_BRIDGE" Width="1.5" PointX="9.75" PointY="33" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.PROJECT_VERSION" Width="1.5" PointX="5.25" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.PROJECT_VERSION_COMMENT" Width="1.5" PointX="7.5" PointY="32.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.RESOURCE_HOURS" Width="1.5" PointX="9.75" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.SETTING" Width="1.5" PointX="15.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.sysdiagram" Width="1.5" PointX="15.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.TTLinxPlus_Error_Log" Width="1.5" PointX="15.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.XX_BILL_DATA" Width="1.5" PointX="7.5" PointY="38.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.XX_COSTS_DATA" Width="1.5" PointX="15.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.XX_CURRENCY_DAILY_RATES" Width="1.5" PointX="9.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.XX_PROJECT" Width="1.5" PointX="0.75" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.XX_PROJECT_DATA" Width="1.5" PointX="3" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.XX_PROJECT_KEYMEMBERS" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.XX_PROJECT_TASKS_DATA" Width="1.5" PointX="5.25" PointY="36.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.XX_PROJECT_TASKS_WBS" Width="1.5" PointX="3" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.C__Comments" Width="1.5" PointX="17.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.EMPLOYEE" Width="1.5" PointX="19.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.ProjectData_Tar_R91j" Width="1.5" PointX="21.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.TEMP_BILL_DATA" Width="1.5" PointX="11.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.TEMP_COSTS_DATA" Width="1.5" PointX="13.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.TEMP_CURRENCY_DAILY_RATES" Width="1.5" PointX="15.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.TEMP_PROJECT_DATA" Width="1.5" PointX="17.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.TEMP_PROJECT_KEYMEMBERS" Width="1.5" PointX="23.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.TEMP_PROJECT_TASKS_WBS" Width="1.5" PointX="23.75" PointY="15.75" IsExpanded="true" />
+        <AssociationConnector Association="SuiviMandatModelNew.FK_PROJECT_CONTROL_SECURITY_PROJECT_CONTROL_SECURITY_ROLES" ManuallyRouted="false" />
+        <AssociationConnector Association="SuiviMandatModelNew.FK_PROJECT_RESSOURCE_Project_Version" ManuallyRouted="false" />
+        <AssociationConnector Association="SuiviMandatModelNew.FK_RESSOURCE_HOURS_PROJECT_RESSOURCE" ManuallyRouted="false" />
+        <AssociationConnector Association="SuiviMandatModelNew.FK_PROJECT_TASK_BRIDGE_Project_Task" ManuallyRouted="false" />
+        <AssociationConnector Association="SuiviMandatModelNew.FK_Project_Task_Project_Version" ManuallyRouted="false" />
+        <AssociationConnector Association="SuiviMandatModelNew.FK_RESSOURCE_HOURS_Project_Task" ManuallyRouted="false" />
+        <AssociationConnector Association="SuiviMandatModelNew.FK_PROJECT_TASK_BRIDGE_XX_PROJECT_TASKS_DATA" ManuallyRouted="false" />
+        <AssociationConnector Association="SuiviMandatModelNew.FK_PROJECT_VERSION_COMMENT_Project_Version" ManuallyRouted="false" />
+        <AssociationConnector Association="SuiviMandatModelNew.FK_Project_Version_XX_PROJECT_DATA" ManuallyRouted="false" />
+        <AssociationConnector Association="SuiviMandatModelNew.FK_XX_BILL_DATA_XX_PROJECT_TASKS_DATA" ManuallyRouted="false" />
+        <AssociationConnector Association="SuiviMandatModelNew.FK_XX_PROJECT_DATA_XX_PROJECT1" ManuallyRouted="false" />
+        <AssociationConnector Association="SuiviMandatModelNew.FK_XX_PROJECT_KEYMEMBERS_XX_PROJECT1" ManuallyRouted="false" />
+        <AssociationConnector Association="SuiviMandatModelNew.FK_XX_PROJECT_TASKS_WBS_XX_PROJECT1" ManuallyRouted="false" />
+        <AssociationConnector Association="SuiviMandatModelNew.FK_XX_PROJECT_TASKS_DATA_XX_PROJECT_DATA" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.PROJECT_COMMENT" Width="1.5" PointX="3" PointY="5.375" />
+        <AssociationConnector Association="SuiviMandatModelNew.FK_PROJECT_COMMENT_Project2" />
+        <AssociationConnector Association="SuiviMandatModelNew.FK_XX_COSTS_DATA_XX_PROJECT_TASKS_DATA" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.RGE_Inclure_KM" Width="1.5" PointX="16.375" PointY="17.75" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.infoPermission" Width="1.5" PointX="10.375" PointY="13.75" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.TDT_Approbateurs" Width="1.5" PointX="18.375" PointY="3.75" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.TDT_Liste_de_taux_complet" Width="1.5" PointX="18.375" PointY="6.75" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.TDT_Liste_de_taux_moyen" Width="1.5" PointX="18.375" PointY="16.75" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.TDT_Liste_de_taux_partielle" Width="1.5" PointX="3.375" PointY="19.75" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.TDT_Changements" Width="1.5" PointX="20.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.EmployeeActif_Inactive" Width="1.5" PointX="20.375" PointY="3.75" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.ST_liste_envois" Width="1.5" PointX="24.375" PointY="20.75" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.ST_descriptions_listeEnvoie_types" Width="1.5" PointX="20.375" PointY="8.75" />
+        <EntityTypeShape EntityType="SuiviMandatModelNew.TDT_TablePSW" Width="1.5" PointX="22.375" PointY="5.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,569 @@
+﻿
+@{
+    ViewBag.Title = "Recherche";
+}
+@model TetraTech.TTProjetPlus.Models.BoomerangSearchModel
+@using Resources2 = TetraTech.TTProjetPlus.Views.ListeOffres
+@using ResourcesB = TetraTech.TTProjetPlus.Views.Boomerang.searchCriteria
+@using ResourcesF = TetraTech.TTProjetPlus.Views.Boomerang.fiche
+@using Resources = TetraTech.TTProjetPlus.Views.InfoProjet
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Data
+@using TetraTech.TTProjetPlus.Controllers
+@using TetraTech.TTProjetPlus.Security
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+
+<style>
+    /*ol, ul {
+        margin-top: -5px;
+        margin-bottom: -6px;
+        padding-bottom: 4px;
+    }*/
+    .multiselect-selected-text {
+        float: left;
+    }
+
+    .btn .caret {
+        margin-left: 145px;
+    }
+
+    .input-group-addon {
+        display: none;
+    }
+
+    ul {
+        margin-bottom: -4px;
+    }
+
+    .dropdown-menu {
+        width: 600px;
+    }
+
+    .datepicker-dropdown {
+        width: 200px;
+    }
+
+    .multiselect-selected-text {
+        color: #999;
+    }
+
+    table {
+        font-size: 1em;
+    }
+
+
+        table.dataTable,
+        table.dataTable th,
+        table.dataTable td {
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+        }
+
+    .boom {
+        margin-bottom: 0px;
+        background-color: cyan;
+    }
+</style>
+<body style="">
+    <div class="form-horizontal">
+        <div id="top"></div>
+
+        <div class="container " style="height: 200vh; width: 100%">
+            <div class="main">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="panel" style="border-radius: 10px; width: 106%;">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                        <li><a style=" color:#183666; font-weight: bold" href="@Url.Action("Index", "Home")">@Resources2.ListeProjetsRessources.InfoProject</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="">
+                                <div class="panel" style="border-radius: 10px; ">
+                                    <div class="panel-body">
+                                        <ul class="list-inline">
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "Home")">@Resources2.ListeProjetsRessources.GenerateProjectNumber</a>
+
+                                            </li>
+
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "ListeOffres")">@Resources2.ListeProjetsRessources.OffersList</a>
+
+                                            </li>
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("IndexProjet", "ListeOffres")">@Resources2.ListeProjetsRessources.ProjectsList</a>
+
+                                            </li>
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666;" href="@Url.Action("Index", "InfoProjet")">@Resources2.ListeProjetsRessources.InfoProject</a>
+
+                                            </li>
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "ProjectToClose")">@Resources2.ListeProjetsRessources.ProjectToCloseTitle</a>
+                                            </li>
+                                            @*<li>
+                                                &nbsp;&nbsp;&bull;
+                                                <a style="color:#183666;" href="@System.Configuration.ConfigurationManager.AppSettings["TTIndexUrl"]" target="_blank">@Resources2.ListeProjetsRessources.TTIndex</a>
+                                            </li>*@
+                                        <li>
+                                            &bull;&nbsp;
+                                            @*<a style="color:#183666;" href="@Url.Action("Home", "Boomerang")">@ResourcesF.projectSheet</a>*@
+                                            <a style="color: #183666; font-weight: bold;" href="@Url.Action("Home", "Boomerang")">Boomerang</a>
+                                        </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="panel boom" style="border-radius: 1px;border:none; border-top-right-radius:10px;border-top-left-radius:10px; ">
+                        <div class="panel-body">
+                            <ul class="list-inline">
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Home", "Boomerang")">@ResourcesF.accueil</a>
+
+                                </li>
+
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666 ;font-weight: bold;" href="@Url.Action("Index", "Boomerang")">@ResourcesF.recherche</a>
+
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("CreateFactSheet", "Boomerang")">@ResourcesF.creation_fiche</a>
+
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666;" href="@Url.Action("Carts", "Boomerang")">@ResourcesF.paniers</a>
+
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Library", "Boomerang")">@ResourcesF.phototheque</a>
+                                </li>
+                                <li>
+                                    &bull;&nbsp;<a style="color:#183666" href="@Url.Action("HelpPage", "Boomerang")">@ResourcesF.aide</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="contentBoomrang">
+
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-primary" style="border-radius: 1px;border:none; border-bottom-right-radius:10px;border-bottom-left-radius:10px; ">
+                                <div class="panel-body" style="">
+                                    <div class="row form-group" style="">
+                                        <div class=" col-lg-4">
+                                            <select data-live-search="true" class="form-control selectpicker" id="id_panier" data-size="15">
+                                                <option value="" selected style="font-size:14px">@ResourcesB.SelectCart</option>
+                                                @foreach (panier item in Model.listePaniers)
+                                                {
+                                                    <option value="@item.id_panier">@item.libelle</option>
+                                                }
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="row form-group" style="margin-top: 10px;">
+                                        <div class=" col-lg-5">
+                                            <input type="text" class="form-control formControl2" id="keywords" placeholder="@ResourcesB.keyWords" style="padding-left: 10px">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="">
+                                                <input type="checkbox" class="" id="full_expression" value="full">
+                                                <label class="form-check-label" for="full_expression">@ResourcesB.full_expression</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row form-group" style="margin-top: 10px;">
+                                        <div class=" col-lg-4">
+                                            <select data-live-search="true" class="form-control selectpicker" id="id_activite" data-size="15">
+                                                <option value="" selected style="font-size:14px">Expertises</option>
+                                                <option value="all" style="font-size:14px;background-color:#004B8C;color:white">@ResourcesB.allExpertise</option>
+
+                                                @foreach (ComplexItem item in Model.listItems)
+                                                {
+
+                                                    if (item.libelle.Contains('*') == true)
+                                                    {
+                                                        <option value="@item.id" style="background-color:@item.color;color:white; font-weight:bold">@item.libelle.Substring(1)</option>
+                                                    }
+
+                                                    else
+                                                    {
+                                                        <option value="@item.id" style="background-color:@item.color;color:white">&nbsp;&nbsp;&nbsp;&nbsp;@item.libelle</option>
+
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class=" col-lg-2">
+                                            <select class="form-control " data-size="10" data-all="false" id="etat" style="color: #999">
+                                                <option value="">@ResourcesB.state</option>
+                                                <option value="DRAFT" style="">@ResourcesB.Draft</option>
+                                                <option value="WAITING_DA" style="">@ResourcesB.WaitingDA</option>
+                                                <option value="ONLINE" style="">@ResourcesB.Online</option>
+                                                <option value="OFFLINE" style="">@ResourcesB.Offline</option>
+                                                <option value="FORBIDDEN" style="">@ResourcesB.Forbidden</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-lg-1">
+                                            <button class="btn btn-primary" type="button" id="collapseButton" onclick="showCriteria()">
+                                                @ResourcesB.MoreCriteria
+                                            </button>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="col-lg-6">
+                                                <button style="float:right" class="btn btn-primary" type="reset" value="Cancel" onclick="reinitialize()">@Resources.InfoProjectRessources.reinitialize</button>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <button class="btn btn-primary" type="submit" value="Submit" onclick="submitForm()">@Resources.InfoProjectRessources.search</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row form-group" id="collapseCriteres" style="display:none">
+                                        <br />
+                                        <div class="panel-body" style="margin-top:10px">
+                                            <div class="row form-group">
+                                                <div class="col-lg-2">
+                                                    <select data-live-search="true" class="form-control selectpicker" id="code_affaire" data-size="15">
+                                                        <option value="" selected style="font-size:14px">@ResourcesB.Project_number</option>
+
+                                                        @foreach (string item in Model.listProjects)
+                                                        {
+
+                                                            <option value="@item" style="">@item</option>
+
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <input type="text" class="form-control formControl2 datefilter" id="annee_debut" placeholder="@ResourcesB.StartYear" style="padding-left: 10px">
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <input type="text" class="form-control formControl2 datefilter" id="annee_fin" placeholder="@ResourcesB.EndYear" style="padding-left: 10px">
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <select data-live-search="true" class="form-control selectpicker" id="id_agence" data-size="15">
+                                                        <option value="" selected>@ResourcesB.offices</option>
+
+                                                        @foreach (string item in Model.listBusinessPlaces)
+                                                        {
+
+                                                            <option value="@item.Split('#')[1]" style="">@item.Split('#')[0]</option>
+
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <select data-live-search="true" class="form-control selectpickerM " id="id_type_mission" multiple="multiple" data-size="10" data-selected-text-format="count>2" data-all="false" style="color: #999" title="@ResourcesB.TypeService">
+
+                                                        @foreach (string item in Model.listBusinessPlaces)
+                                                        {
+
+                                                            <option class="opt" value="@item.Split('#')[1]" style="">@item.Split('#')[0]</option>
+
+                                                        }
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                            @* nouvelle partie 1 *@
+                                            <div class="row form-group">
+                                                @* cout global *@
+                                                <div class="col-lg-2" style="float:left">
+                                                    <select class="form-control " data-size="10" data-all="false" id="supInf" style="color: #999">
+                                                        <option value="">@ResourcesB.GlobalCost</option>
+                                                        <option value="<=" style="">@ResourcesB.Less</option>
+                                                        <option value=">=" style="">@ResourcesB.Greater</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-1">
+                                                    <input type="number" style="display: none" class="form-control formControl2" id="montant_operation" placeholder="">
+                                                </div>
+                                                @* unité de mesure *@
+                                                <div class="col-lg-2" style="float:left">
+                                                    <select class="form-control  " data-size="10" data-all="false" id="supInfUnite" style="color: #999">
+                                                        <option value="">@ResourcesB.unitMeasure</option>
+                                                        <option value="<=" style="">@ResourcesB.UnitsLesser</option>
+                                                        <option value=">=" style="">@ResourcesB.UnitsGreater</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-1">
+                                                    <input type="number" style="display: none" class="form-control formControl2" id="numUnite" placeholder="">
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <div style="display: none" id="divunitType">
+                                                        <select class="form-control selectpicker " data-size="10" data-all="false" id="unite">
+                                                            <option value="#" selected>@ResourcesB.unitType</option>
+                                                            @foreach (string item in Model.typeUnities)
+                                                            {
+
+                                                                <option class="opt" value="@item.Split('#')[1]" style="">@item.Split('#')[0]</option>
+
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                @* langues *@
+                                                <div class="col-lg-2">
+                                                    <select class="form-control  " data-size="10" data-all="false" id="langue" style="color: #999">
+                                                        <option value="" selected>@ResourcesB.Langage</option>
+                                                        <option value="en">@ResourcesB.english</option>
+                                                        <option value="esp">@ResourcesB.spanish</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            @* nouvelle partie 2 *@
+                                            <div class="row form-group">
+                                                @* cout global *@
+                                                <div class="col-lg-2">
+                                                    <input type="text" class="form-control formControl2" id="fiche_depuis" placeholder="@ResourcesB.fileCreatedInTheLast" onfocusout="changeText()">
+                                                </div>
+
+                                                @* unité de mesure *@
+                                                <div class="col-lg-4">
+                                                    <select data-live-search="true" class="form-control selectpicker " data-size="10" data-all="false" id="customers">
+                                                        <option value="" selected>@ResourcesB.Clients</option>
+                                                        <option value="all">@ResourcesB.AllClients</option>
+                                                        @foreach (string item in Model.customers)
+                                                        {
+
+                                                            <option class="opt" value="@item" style="">@item</option>
+
+                                                        }
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="">
+                                                        <select data-live-search="true" class="form-control selectpicker md-size-list" data-size="10" data-all="false" id="disciplines">
+                                                            <option value="" selected>@ResourcesB.Disciplines</option>
+                                                            <option value="all">@ResourcesB.AllDiscipline</option>
+                                                            @foreach (string item in Model.disciplines)
+                                                            {
+
+                                                                <option class="opt" value="@item" style="">@item</option>
+
+                                                            }
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                @*<div class="col-lg-2">
+                                                        <div class="">
+                                                            <select data-live-search="true" class="form-control  md-size-list" data-size="10" data-all="false" id="tris" style="color: #999">
+                                                                <option value="" selected>@ResourcesB.orderBY</option>
+                                                                <option value="localisation asc">@ResourcesB.LocAsc</option>
+                                                                <option value="localisation desc">@ResourcesB.LocDesc</option>
+                                                                <option value="annee_fin asc">@ResourcesB.AfAsc</option>
+                                                                <option value="annee_fin desc">@ResourcesB.AfDesc</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>*@
+                                            </div>
+
+                                        </div>
+                                        @* submit *@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-12">
+
+                            <div class="panel panel-primary" style="border-radius: 10px">
+
+                                <div class="panel-body">
+                                    <div class="row form-group">
+                                        <div id="searchResults" style="margin:10px">
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+<script>
+    $(document).ready(function () {
+
+        var fiche_depuis = 0
+        $(".datefilter").datepicker({
+            format: "yyyy",
+            viewMode: "years",
+            minViewMode: "years"
+        });
+
+        $('.selectpicker').selectpicker(
+
+            {
+                @*countSelectedText: '{0} '+'@Resources.InfoProjectRessources.optionChoosen' // by this default 'Nothing selected' -->will change to Please Select*@
+            }
+        );
+
+            $(".selectpicker").selectpicker('refresh');
+
+
+          //ref pour multiselect  https://www.jqueryscript.net/demo/jQuery-Multiple-Select-Plugin-For-Bootstrap-Bootstrap-Multiselect/
+            $('.selectpickerM').multiselect({
+                nonSelectedText: '@ResourcesB.TypeService',
+                allSelectedText: '@Session["lang"].ToString()' == 'fr'? 'Toutes les options sont sélectionnée':'All the options are selected',
+                numberDisplayed: 1,
+                buttonWidth: '100%',
+                includeSelectAllOption: true,
+                selectAllText: '@Session["lang"].ToString()' == 'fr' ? 'Tout sélectionner' : 'Select all',
+                nSelectedText : '@Session["lang"].ToString()' == 'fr' ? 'Sélectionné(s)' : 'Selected',
+                enableCaseInsensitiveFiltering: true,
+                maxHeight: 400,
+                filterPlaceholder: '@Session["lang"].ToString()' == 'fr'? 'Recherche':'Search'
+            });
+
+
+        });
+
+    function reinitialize() {
+        //document.getElementById("clientFinal").disabled = false;
+        //document.getElementById("organisation").disabled = false;
+        //$('[data-id=organisation]').css('background-color', '');
+        //$('[data-id=organisation]').css('color', '');
+
+        //document.getElementById("initiePar").disabled = false;
+        //document.getElementById("docPostponedDate").disabled = false;
+
+        //document.getElementById("expertises").disabled = false;
+        //$('[data-id=expertises]').css('background-color', '');
+        //$('[data-id=expertises]').css('color', '');
+
+        //document.getElementById("commentaires").disabled = false;
+
+        $(".form-control").val('');
+        $(".selectpicker").selectpicker('refresh');
+        $('#searchResults').html("");
+
+
+        //pour le multiselect
+        multiselect_deselectAll($('.selectpickerM'));
+    }
+    function multiselect_deselectAll($el) {
+        $('option', $el).each(function (element) {
+            $el.multiselect('deselect', $(this).val());
+        });
+        $('.multiselect-clear-filter').click();
+        $('.selectpickerM').val([]).multiselect('refresh')
+    }
+
+    $("#supInf").change(function () {
+        $("#montant_operation").show();
+    });
+    $("#supInfUnite").change(function () {
+        $("#numUnite").show();
+        $("#divunitType").show();
+
+    });
+
+
+    function changeText() {
+        fiche_depuis = $("#fiche_depuis").val();
+        $("#fiche_depuis").val('@ResourcesB.fileCreatedInTheLast1' + '  ' + $("#fiche_depuis").val() + ' @ResourcesB.months');
+    }
+
+    function submitForm() {
+        var sty = $('#startDate').val()
+        var endy = $('#endDate').val()
+        if (endy < sty)
+            alert('La date de fin ne peut etre plus récente que la date de début...')
+
+        else {
+        $('#loading').show();
+        $('#searchResults').html("")
+             $.ajax({
+                 type: 'GET',
+                 url: '@Url.Action("submitSearch", "Boomerang")',
+                 traditional: true,
+                 dataType: "html",
+                 data:
+                 {
+                id_panier: $('#id_panier').val(),
+                keywords          : $('#keywords').val(),
+                id_activite: ($('#id_activite').val() == 'all') ? 'all' : $('#id_activite').val(),
+                etat: $('#etat').val(),
+                code_affaire      : $('#code_affaire').val(),
+                annee_debut       :$('#annee_debut').val(),
+                annee_fin         : $('#annee_fin').val(),
+                //orderby           : $('#tris').val(),
+                id_agence         : ($('#id_agence').val() == 'all') ? 'all' : $('#id_agence').val(),
+                id_type_mission:   $ (".selectpickerM").val(),
+                supInf            : $('#supInf').val(),
+                montant_operation : $('#montant_operation').val(),
+                supInfUnite       : $('#supInfUnite').val(),
+                numUnite          : $('#numUnite').val(),
+                unite             : $('#unite').val(),
+                langue            : $('#langue').val(),
+                fiche_depuis      : fiche_depuis,
+                customers         : $('#customers').val(),
+                disciplines: $('#disciplines').val(),
+                fullExpression: $("#full_expression").is(':checked')
+                 },
+                 success: function (response) {
+                     continueSearch = "";
+
+                     $('#searchResults').html(response);
+                         $('#collapseCriteres').hide();
+                         //if (!tipsShowed) {
+                         //    $("#tips").show();
+                         //}
+
+
+                     $('#loading').hide();
+                    },
+                    error: function () {
+
+                 }
+             });
+          }
+       }
+
+    function showCriteria() {
+        if ($('#collapseCriteres').is(":visible") == true) {
+            $('#collapseCriteres').hide();
+        }
+        else {
+            $('#collapseCriteres').show();
+        }
+    }
+</script>

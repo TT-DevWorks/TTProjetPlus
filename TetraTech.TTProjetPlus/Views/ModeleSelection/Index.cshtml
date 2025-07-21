@@ -1,0 +1,190 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.ModeleSelection
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Controllers
+@using TetraTech.TTProjetPlus.Services
+@using TetraTech.TTProjetPlus.Security
+
+@model TetraTech.TTProjetPlus.Models.NewSelectionModele
+@{
+    ViewBag.Title = "Gestion des modèles";
+}
+<script type="text/javascript" src="~/Content/folderStucture/js/highchecktree.js"></script>
+<link href="~/Content/css/select2.css" rel="stylesheet" />
+<link href="~/Content/folderStucture/css/highCheckTree.css" rel="stylesheet" type="text/css">
+<script src="~/Scripts/select2.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+@* searchable *@
+@*<script type="text/javascript" src="~/Content/Searchable/jquery.searchabledropdown-1.0.8.min.js"></script>*@
+
+<style type="text/css">
+
+    #main-container {
+        width: 600px;
+        margin: 150px auto;
+    }
+
+    .inputWidth3 {
+        width: 60%;
+        display: inline
+    }
+
+    #tree-container label.hover {
+        color: red;
+    }
+
+    .redText {
+        color: red;
+    }
+
+    .center {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+</style>
+@{
+    var currentUser = UserService.CurrentUser;
+
+    var employeeSatus = FileUploadService.IsEmplopyeeAdmin(currentUser.EmployeeId);
+}
+
+<div id="loading">
+    <img id="loadingGIF2" src="~/Content/assets/img/ajax-loader.gif" alt="Loading..." />
+</div>
+<div id="top2"></div>
+<div class="container " style="height: 200vh; width: 100%">
+    @*style="width:100%; background-image: url('/Content/imageFond.jpg');"*@
+    <div class="main">
+
+        @if (ViewBag.MenuVisible == "true")
+        {
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-3" style="padding-top: -49px; ">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 75px">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                    <li style="color:white ; font-weight: bold"><a href="@Url.Action("Index", "ModeleSelection")"> @Resources.ModeleSelectionManagementRessources.General </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 75px">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666 ; font-weight: bold" href="@Url.Action("Index", "ModeleSelection", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources.ModeleSelectionManagementRessources.ModelSelectionMng</a>
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666" href="@Url.Action("Index", "FolderStructure", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources.ModeleSelectionManagementRessources.ModifyStrucFolder</a>
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666" href="@Url.Action("Index", "LecteurReseau", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources.ModeleSelectionManagementRessources.ConnectADrive</a>
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666" href="@Url.Action("IndexSpecial", "LecteurReseau" , new { displayRetourS = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources.ModeleSelectionManagementRessources.ConnectASpecialDrive</a>
+                                        </li>
+
+                                        @if (employeeSatus == 1)
+                                        {
+                                            <li>
+                                                &bull;&nbsp;
+                                                <a style="color:#183666; " href="@Url.Action("Index", "FileUpload", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources.ModeleSelectionManagementRessources.fileUpload</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="row">
+            <div class="panel panel-primary" style="border-radius: 10px; margin-top: -15px; margin-left: -10px;">
+                <div class="panel-body">
+                    <div>
+
+                        <div id="menuTabContent" class="tab-content">
+                            <div class="tab-pane fade " id="addModel">
+                                @Html.Partial("_AjoutModelePartial")
+                            </div>
+                            <div class="tab-pane fade in active" id="modifyModel">
+                                @Html.Partial("_ModifyModelePartial")
+                            </div>
+                            <div class="tab-pane fade" id="deleteModel">
+                                @Html.Partial("_DeleteModelePartial")
+                            </div>
+                        </div>
+                        <ul id="menuTabs" class="nav nav-pills">
+                            <li class=""><a class="" href="#addModel" data-toggle="tab" style="border-radius: 0px; margin-right: 8px; margin-top: 10px; color: white; background-color: #183666; padding: 8px 38px 9px 38px" onclick="hideTree()">@Resources.ModeleSelectionManagementRessources.Add</a></li>
+                            <li><a class="active" href="#modifyModel" data-toggle="tab" style="border-radius: 0px; margin-top: 10px; margin-right: 8px; color: white; background-color: #183666; padding: 8px 38px 9px 38px" onclick="hideTree()">@Resources.ModeleSelectionManagementRessources.Modify</a></li>
+                            <li><a class="" href="#deleteModel" data-toggle="tab" style="border-radius: 0px; margin-top : 10px; margin-right: 8px; color: white; background-color: #183666; padding: 8px 38px 9px 38px" onclick="hideTree()">@Resources.ModeleSelectionManagementRessources.Delete</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row noDisplay2" id="divForTreeMod">
+            <div class="panel panel-primary" style="border-radius: 10px; margin-top: -15px; margin-left: -10px;">
+                <div class="panel-body" style="margin:15px;">
+
+                    <div style="margin:15px;">
+                        <p style="color:steelblue; font-size:initial" id="tree"></p>
+                        <div class="row" style="color:steelblue; font-size:initial">
+                            <div class="form-group">
+                                <div class="col-sm-12" style="max-height: 70vh; overflow-y:auto">
+                                    <div id="">
+                                        <div id="treeContainerModify"></div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div style="text-align:right">
+                                    <button class="specialB " value="Submit" onclick="SubmitForm()">@Resources.ModeleSelectionManagementRessources.Save</button>&nbsp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+    });
+
+    function hideTree() {
+        $('#divForTreeMod').hide();
+
+        $("#modeleSelectionName").val("")
+        $("#modeleSelectionDescription").val("")
+        $("#modID").val("")
+        $("#copyingFromExistingModeleSelection").val("")
+        $("#copyingFromExistingModeleSelection").empty();
+
+        $("#treeContainerModify").html("");
+        $("#tree").text("");
+        $("#modeleSelectionNameTomodify").val("")
+
+
+        $(".alert").hide();
+
+    }
+</script>

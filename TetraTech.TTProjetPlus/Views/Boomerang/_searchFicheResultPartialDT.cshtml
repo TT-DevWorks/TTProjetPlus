@@ -1,0 +1,156 @@
+﻿@model System.Data.DataTable
+@using System.Data
+@using Resources = TetraTech.TTProjetPlus.Views.Boomerang
+<style>
+    #data_searchFichesList {
+        width: 100% !important;
+    }
+
+        #data_searchFichesList td {
+            width: auto !important;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        #data_searchFichesList th {
+            width: auto !important;
+            white-space: normal;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+    .custom-tooltip {
+        display: inline-block;
+        margin: 10px 20px;
+        opacity: 1;
+        position: relative;
+    }
+    /*select option[value="ONLINE"] {
+        background: green
+    }
+
+    select option[value="OFFLINE"] {
+        background: red;
+    }
+
+    select option[value="WAITING_DA"] {
+        background:yellow;
+    }
+
+    select option[value="FORBIDDEN"] {
+        background: orange;
+    }
+    select option[value="DRAFT"] {
+        background: gray;
+    }*/
+</style>
+
+
+@if (Model != null)
+{
+    <div class="panel pagination-grey">
+
+        <div id="data-table_wrapper2" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+            <table id="data_searchFichesList" class=" table table-bordered  data-table  dataTable display" style="margin-top:-50px ;width:100%; font-size:12px">
+                <thead>
+                    <tr>
+                        <th>
+                            @Resources.searchCriteria.Location
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                            @Resources.searchCriteria.EndYear
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                            @Resources.searchCriteria.Label
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                            @Resources.searchCriteria.state
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (DataRow row in Model.Rows)
+                    {
+                    <tr>
+                        <td>
+                            @row["localisation"]
+                        </td>
+                        <td>
+                            @row["annee_fin"]
+                        </td>
+                        <td>
+                            @row["intitule_court"]
+                        </td>
+                        <td>
+                            @row["etat"]
+                        </td>
+
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+
+<script>
+    $(document).ready(function () {
+
+        $('#data_searchFichesList').DataTable({
+            pageResize: true,
+            dom:
+                "<'row'<'col-lg-2'l><'col-lg-7 text-center'B><'col-lg-2'f>>" +
+                "<'row'<'col-lg-12'tr>>" +
+                "<'row'<'col-lg-5'i><'col-lg-7'p>>",
+                buttons: [
+                { extend: 'excel', text: '@Session["lang"].ToString()' == 'fr' ?'Exporter vers Excel' : 'Export to Excel' },
+                { extend: 'selectAll', text: '@Session["lang"].ToString()' == 'fr' ?'Tout sélectionner' : 'Select all' },
+                { extend: 'selectNone', text: '@Session["lang"].ToString()' == 'fr' ?'Tout désélectionner' : 'Deselect all' },
+
+                ],
+
+                pageLength: 10,
+            select: true,
+            scrollX: true,
+            scrollY: $(window).height() <= 722 ? $(window).height() / 7 : $(window).height() / 3,
+            scrollCollapse: true,
+            language: {
+                "url": '@Session["lang"].ToString()' == 'fr' ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+            },
+
+        });
+
+    });
+
+
+
+    $('#data_searchFichesList thead').on('keyup', ".column_search", function () {
+
+        $('#data_searchFichesList').DataTable()
+            .column($(this).parent().index())
+            .search(this.value)
+            .draw();
+    });
+
+    @*function copyFunction(itemId) {
+        copyToClipboard($("#" + itemId).text().trim());
+    }
+
+ function copyFunction2(itemId) {
+        window.location.href = '@Url.Action("createBatchFile", "InfoProjet")?folderLocation=' + $("#" + itemId).text().trim();
+    }
+
+    function copyToClipboard(text) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val(text).select();
+        document.execCommand("copy");
+        $temp.remove();
+    }*@
+
+</script>
+
+

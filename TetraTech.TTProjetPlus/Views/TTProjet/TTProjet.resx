@@ -1,0 +1,555 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Administration" xml:space="preserve">
+    <value>Administration</value>
+  </data>
+  <data name="Advanced" xml:space="preserve">
+    <value>Avancé</value>
+  </data>
+  <data name="ApplySeslectionModel" xml:space="preserve">
+    <value>Appliquer un modèle de sélection</value>
+  </data>
+  <data name="ArchiveProject" xml:space="preserve">
+    <value>Archiver un projet</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Retour</value>
+  </data>
+  <data name="CheckFolder" xml:space="preserve">
+    <value>Cochez les r&amp;eacute;pertoires que vous d&amp;eacute;sirez ajouter parmis la liste suivante :</value>
+  </data>
+  <data name="ConnecSpecialDrive" xml:space="preserve">
+    <value>Connecter un lecteur spécial</value>
+  </data>
+  <data name="ConnectDrive" xml:space="preserve">
+    <value>Connecter un lecteur réseau</value>
+  </data>
+  <data name="CreateFolderStructure" xml:space="preserve">
+    <value>Créer une structure de répertoires</value>
+  </data>
+  <data name="DisciplinesAdminList" xml:space="preserve">
+    <value>Liste des administrateurs des disciplines</value>
+  </data>
+  <data name="DisciplinesManagement" xml:space="preserve">
+    <value>Gestion des disciplines</value>
+  </data>
+  <data name="DisciplinesUsersManagement" xml:space="preserve">
+    <value>Gestion des utilisateurs pour les disciplines</value>
+  </data>
+  <data name="FolderStructureAlcan" xml:space="preserve">
+    <value>Arborescence des répertoires - Modèle Standard ALCAN</value>
+  </data>
+  <data name="FolderStructure10" xml:space="preserve">
+    <value>Arborescence des répertoires - Modèle Standard QIB</value>
+  </data>
+  <data name="FolderStructure11" xml:space="preserve">
+    <value>Arborescence des répertoires - Modèle MTQ</value>
+  </data>
+  <data name="FolderStructureProjetct" xml:space="preserve">
+    <value>Arborescence des répertoires pour un projet</value>
+  </data>
+  <data name="FolderStructure20" xml:space="preserve">
+    <value>Arborescence des répertoires - Modèle QIB Bâtiment</value>
+  </data>
+  <data name="FolderStructure12" xml:space="preserve">
+    <value>Arborescence des répertoires - Modèle Standard Tetra Tech Industries</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>Général</value>
+  </data>
+  <data name="Model" xml:space="preserve">
+    <value>Modèle</value>
+  </data>
+  <data name="Modifiy" xml:space="preserve">
+    <value>Modifier une structure de répertoires</value>
+  </data>
+  <data name="ModifyFolderStructure" xml:space="preserve">
+    <value>Modifier une structure de répertoires</value>
+  </data>
+  <data name="PeriodWeekDate" xml:space="preserve">
+    <value>Dernière mise à jour des données</value>
+  </data>
+  <data name="ProjectGroup" xml:space="preserve">
+    <value>Groupe de projets</value>
+  </data>
+  <data name="ProjectReume" xml:space="preserve">
+    <value>Résumé du projet:</value>
+  </data>
+  <data name="ProjectType" xml:space="preserve">
+    <value>Type de projet</value>
+  </data>
+  <data name="PropSubmission" xml:space="preserve">
+    <value>Proposition / Soumission</value>
+  </data>
+  <data name="Regular" xml:space="preserve">
+    <value>Régulier (ouvert comptable)</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
+  <data name="SecurityModel" xml:space="preserve">
+    <value>Modèle de sécurité</value>
+  </data>
+  <data name="SelectionModel" xml:space="preserve">
+    <value>Modèle de sélection</value>
+  </data>
+  <data name="SelectionModelManagement" xml:space="preserve">
+    <value>Gestion des modèles de sélection</value>
+  </data>
+  <data name="SelectProject" xml:space="preserve">
+    <value>Sélectionnez un projet dans la liste:</value>
+  </data>
+  <data name="Server" xml:space="preserve">
+    <value>Serveur</value>
+  </data>
+  <data name="ServerUsed" xml:space="preserve">
+    <value>Serveur utilisé pour ce projet:</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Soumettre</value>
+  </data>
+  <data name="TransferProposituon" xml:space="preserve">
+    <value>Transférer une proposition</value>
+  </data>
+  <data name="TTProjetMenu" xml:space="preserve">
+    <value>TTProjet- Menu </value>
+  </data>
+  <data name="TTProjetRepport" xml:space="preserve">
+    <value>Rapports TT Projet +  </value>
+  </data>
+  <data name="GenerateProjectNumber" xml:space="preserve">
+    <value>Génération d'un numéro de projet</value>
+  </data>
+  <data name="InfoProject" xml:space="preserve">
+    <value>Info-Projet</value>
+  </data>
+  <data name="OffersList" xml:space="preserve">
+    <value>Liste des offres de service</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projets</value>
+  </data>
+  <data name="ProjectsList" xml:space="preserve">
+    <value>Liste des projets</value>
+  </data>
+  <data name="ManageADGroupTitle" xml:space="preserve">
+    <value>Gestion des membres d'un groupe AD</value>
+  </data>
+  <data name="ProjectToCloseTitle" xml:space="preserve">
+    <value>Fermeture de projet</value>
+  </data>
+  <data name="ManageDirectoryRight" xml:space="preserve">
+    <value>Gestion des accès aux répertoires d'un projet</value>
+  </data>
+  <data name="CreateNumberAccessManagement" xml:space="preserve">
+    <value>Gestion de l'accès au lien "Génération d'un numéro de projet"</value>
+  </data>
+  <data name="FolderStructureForAProject" xml:space="preserve">
+    <value>Arborescence des répertoires pour un projet</value>
+  </data>
+  <data name="UserGuide" xml:space="preserve">
+    <value>Guide utilisateur</value>
+  </data>
+  <data name="IEUser" xml:space="preserve">
+    <value>Vous utilisez Internet Explorer.</value>
+  </data>
+  <data name="IEWarning" xml:space="preserve">
+    <value>TTProjet+ fonctionne uniquement avec les navigateurs Edge et Chrome.  Il n'est pas fonctionnel avec Internet Explorer.</value>
+  </data>
+  <data name="ChooseAModel" xml:space="preserve">
+    <value>Veuillez choisir un modèle...</value>
+  </data>
+  <data name="ChooseAProject" xml:space="preserve">
+    <value>Veuillez choisir un projet...</value>
+  </data>
+  <data name="ChooseAsecurityModel" xml:space="preserve">
+    <value>Choisir un modèle de sécurité...</value>
+  </data>
+  <data name="ChooseAServer" xml:space="preserve">
+    <value>Veuillez choisir un serveur...</value>
+  </data>
+  <data name="message1" xml:space="preserve">
+    <value>Il n y a pas de modèle de sélection pour ce modèle de serveur</value>
+  </data>
+  <data name="message10" xml:space="preserve">
+    <value>Le nom du projet ne doit pas excéder 13 caractères.</value>
+  </data>
+  <data name="message2" xml:space="preserve">
+    <value>Choisir un modèle de sélection (optionnel)...</value>
+  </data>
+  <data name="message3" xml:space="preserve">
+    <value>L'arborescence de projet n'a pu être insérée dans la base de données.</value>
+  </data>
+  <data name="message4" xml:space="preserve">
+    <value>Les dossiers demandés pour le projet n'ont pu être ajoutés.</value>
+  </data>
+  <data name="message5" xml:space="preserve">
+    <value>Les sécurités n'ont pu être appliquées aux dossiers du projet sur le serveur demandé.</value>
+  </data>
+  <data name="message6" xml:space="preserve">
+    <value>Le numéro de projet indiqué existe déjà dans la base de données.  Veuillez choisir un autre numéro.</value>
+  </data>
+  <data name="message7" xml:space="preserve">
+    <value>Merci de bien vouloir remplir tous les champs marqués d'une étoile</value>
+  </data>
+  <data name="message8" xml:space="preserve">
+    <value>Le processus de création d'arborescence sur le serveur a rencontré des problèmes!</value>
+  </data>
+  <data name="message9" xml:space="preserve">
+    <value>Le processus de création d'arborescence sur le serveur a réussi!</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Numéro (maximum de 13 caractères; ne pas indiquer le numéro de la compagnie au début)</value>
+  </data>
+  <data name="Proposal" xml:space="preserve">
+    <value>Proposition</value>
+  </data>
+  <data name="RestrictedAcces" xml:space="preserve">
+    <value>Accès restreint. Veuillez contacter l'administrateur pour accéder à cette fonctionnalité.</value>
+  </data>
+  <data name="message11" xml:space="preserve">
+    <value>Veuillez choisir un projet avant de soumettre la requête!</value>
+  </data>
+  <data name="message12" xml:space="preserve">
+    <value>Arborescence des répertoires pour un projet</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Ouvrir</value>
+  </data>
+  <data name="TreeForProject" xml:space="preserve">
+    <value>Arborescence des répertoires pour le projet numéro</value>
+  </data>
+  <data name="FolderStructure30" xml:space="preserve">
+    <value>Arborescence des répertoires - Modèle TQE - Industries et Énergie</value>
+  </data>
+  <data name="Boomerang" xml:space="preserve">
+    <value>Boomerang</value>
+  </data>
+  <data name="TTIndex" xml:space="preserve">
+    <value>TT Index (Archives)</value>
+  </data>
+  <data name="ProjectOpening" xml:space="preserve">
+    <value>Ouverture de projet</value>
+  </data>
+  <data name="projectSheet" xml:space="preserve">
+    <value>Fiches projet</value>
+  </data>
+  <data name="sheetsManagement" xml:space="preserve">
+    <value>Gestion des fiches de projet</value>
+  </data>
+  <data name="ArchiveProject1" xml:space="preserve">
+    <value>Archiver plusieurs projets</value>
+  </data>
+  <data name="TITools" xml:space="preserve">
+    <value>Outils admin TI</value>
+  </data>
+  <data name="cancelProjectClosing" xml:space="preserve">
+    <value>Annuler la fermeture d'un projet</value>
+  </data>
+  <data name="cancelThisProjectClosing" xml:space="preserve">
+    <value>Annuler la fermeture de ce  projet</value>
+  </data>
+  <data name="LitigeManagement" xml:space="preserve">
+    <value>Gestion des projets en litige</value>
+  </data>
+  <data name="cancelProjectClosing2" xml:space="preserve">
+    <value>Annuler la fermeture d'un projet (la page sera rechargée à l'issue de l'opération)</value>
+  </data>
+  <data name="fileUpload" xml:space="preserve">
+    <value>Téléversement de formulaire</value>
+  </data>
+  <data name="eraseLine" xml:space="preserve">
+    <value>Retirer un document</value>
+  </data>
+  <data name="AddCustomer" xml:space="preserve">
+    <value>Ajouter un client</value>
+  </data>
+  <data name="RapportSatisfactionClient" xml:space="preserve">
+    <value>Rapport de satisfaction client</value>
+  </data>
+  <data name="msgAcces1" xml:space="preserve">
+    <value>La création de structures de répertoires, sous le module Avancé, est une opération réservée seulement aux personnes faisant partie des groupes de sécurité « Super Utilisateurs » et « Administrateurs ».</value>
+  </data>
+  <data name="msgAcces2" xml:space="preserve">
+    <value>Vous devez obligatoirement passer par le module Projets et cliquer sur Génération d'un numéro de projet.</value>
+  </data>
+  <data name="Manage10Conf" xml:space="preserve">
+    <value>Gestion de l'accès au 10Confidentiel</value>
+  </data>
+  <data name="ActiverProjet" xml:space="preserve">
+    <value>Activer un projet</value>
+  </data>
+  <data name="ActiverProjetInfos" xml:space="preserve">
+    <value>Si un projet doit être réactivé, choisir le numéro de projet dans le menu déroulant et cliquer sur le bouton.</value>
+  </data>
+  <data name="AddCustomerInfos" xml:space="preserve">
+    <value>L'ajout d'un client dans la table afin qu'il soit disponible lors de la génération d'un numéro de projet.</value>
+  </data>
+  <data name="EmployeeInfos" xml:space="preserve">
+    <value>Recherche informations employé</value>
+  </data>
+  <data name="LitigeManagementInfos" xml:space="preserve">
+    <value>Gestion de certains projets par l'administration.</value>
+  </data>
+  <data name="msgStructure" xml:space="preserve">
+    <value>Si la structure de répertoire du numéro de projet n'a pas été créée, vous pouvez le faire via cette page.</value>
+  </data>
+  <data name="ProjectEquivalence" xml:space="preserve">
+    <value>Équivalence des projets</value>
+  </data>
+  <data name="ProjectEquivalenceInfos" xml:space="preserve">
+    <value>Permet de prendre les membres clés du projet de Tetralinx afin de les appliquer sur le répertoire 10confidentiel de la structure de projet dans TT projet.</value>
+  </data>
+  <data name="ChooseGroup" xml:space="preserve">
+    <value>Veuillez choisir un groupe...</value>
+  </data>
+  <data name="Security60Conf" xml:space="preserve">
+    <value>Sécurité 60Conf</value>
+  </data>
+  <data name="AddEmployee" xml:space="preserve">
+    <value>Ajout employé</value>
+  </data>
+  <data name="AddInfos" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="ChangeDirectoryStructure" xml:space="preserve">
+    <value>Modifier la structure du répertoire</value>
+  </data>
+  <data name="EmployeeAdded" xml:space="preserve">
+    <value>Employée ajouté</value>
+  </data>
+  <data name="EmployeeName" xml:space="preserve">
+    <value>Nom de l'employé</value>
+  </data>
+  <data name="message60Conf1" xml:space="preserve">
+    <value>Veuillez saisir le nom de l'employé et le numéro de projet</value>
+  </data>
+  <data name="message60Conf2" xml:space="preserve">
+    <value>Veuillez saisir le numéro de projet</value>
+  </data>
+  <data name="ModifyInfos" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="ProjectNumber" xml:space="preserve">
+    <value>Numéro de projet</value>
+  </data>
+  <data name="SecurityChanged" xml:space="preserve">
+    <value>Sécurité modifiée</value>
+  </data>
+  <data name="RestrictedAccess10Conf" xml:space="preserve">
+    <value>Accès restreint. Veuillez contacter un administrateur si vous avez besoin d'un accès.</value>
+  </data>
+  <data name="both" xml:space="preserve">
+    <value>Tout</value>
+  </data>
+  <data name="cp" xml:space="preserve">
+    <value>Chargé de projet</value>
+  </data>
+  <data name="CPDisplay" xml:space="preserve">
+    <value>Affichage des directeurs et/ou chargés de projets</value>
+  </data>
+  <data name="dir" xml:space="preserve">
+    <value>Directeur de projet</value>
+  </data>
+  <data name="displayInfos" xml:space="preserve">
+    <value>Afficher les informations</value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>Courriel</value>
+  </data>
+  <data name="Employee" xml:space="preserve">
+    <value>Employé</value>
+  </data>
+  <data name="info" xml:space="preserve">
+    <value>Informations supplémentaires</value>
+  </data>
+  <data name="InfoType" xml:space="preserve">
+    <value>Choisissez le type:</value>
+  </data>
+  <data name="Managers" xml:space="preserve">
+    <value>Directeurs et chargés de projets</value>
+  </data>
+  <data name="org" xml:space="preserve">
+    <value>Organisation</value>
+  </data>
+  <data name="role" xml:space="preserve">
+    <value>Rôle</value>
+  </data>
+  <data name="Manage10ConfTQE" xml:space="preserve">
+    <value>Gestion des accès TQE</value>
+  </data>
+  <data name="ListProjetEnvDiligente" xml:space="preserve">
+    <value>Liste des projets Environnement avec vérification diligente</value>
+  </data>
+  <data name="strGenerate" xml:space="preserve">
+    <value>Générer</value>
+  </data>
+  <data name="strLink" xml:space="preserve">
+    <value>Cliquer sur le lien</value>
+  </data>
+  <data name="MsgQIB1" xml:space="preserve">
+    <value>Cette liste, mise-à-jour hebdomadairement, contient tous les gestionnaires de projets, gestionnaires de programmes et directeurs généraux identifiés comme membre clé de tous les projets directs actifs.</value>
+  </data>
+  <data name="MsgQIB2" xml:space="preserve">
+    <value>Si vous désirez donner accès à une personne qui n’a pas un des rôles spécifiés plus haut, il est préférable d’ajouter cette personne à la liste Membre Autres.</value>
+  </data>
+  <data name="BusinessUnit" xml:space="preserve">
+    <value>Unité d'affaire</value>
+  </data>
+  <data name="BusinessUnitSelect" xml:space="preserve">
+    <value>Sélectionner une unité d'affaire...</value>
+  </data>
+  <data name="DateDebut" xml:space="preserve">
+    <value>Date de début</value>
+  </data>
+  <data name="DateFin" xml:space="preserve">
+    <value>Date de fin</value>
+  </data>
+  <data name="EnvoiType" xml:space="preserve">
+    <value>Type d'envoi</value>
+  </data>
+  <data name="EnvoiTypeSelect" xml:space="preserve">
+    <value>Sélectionner type d'envoi...</value>
+  </data>
+  <data name="GenerateEmail" xml:space="preserve">
+    <value>Générer et envoyer courriel</value>
+  </data>
+  <data name="ProcessusSatisfactionClient" xml:space="preserve">
+    <value>Processus Satisfaction Client</value>
+  </data>
+  <data name="EnvoiReussi" xml:space="preserve">
+    <value>Envoi réussi</value>
+  </data>
+  <data name="ModifySuccess" xml:space="preserve">
+    <value>Modification complétée avec succès</value>
+  </data>
+  <data name="ModifyMessageSecuriser" xml:space="preserve">
+    <value>Choisir un projet dans le menu déroulant pour changer le statut à "Sécurisé"</value>
+  </data>
+  <data name="MangeProjetSecuriser" xml:space="preserve">
+    <value>Gestion de l'accès aux projets sécurisés</value>
+  </data>
+  <data name="SecureProjetSecuriser" xml:space="preserve">
+    <value>Gestion des projets sécurisés</value>
+  </data>
+  <data name="SelectProjetSecuriser" xml:space="preserve">
+    <value>Veuillez choisir le groupe de sécurité de votre projet ou du répertoire de votre projet afin d'y modifier sa sécurité.</value>
+  </data>
+</root>

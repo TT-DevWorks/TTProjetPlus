@@ -1,0 +1,466 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.Dashboard.Dashboard
+@using TetraTech.TTProjetPlus.Extensions
+@using TetraTech.TTProjetPlus.Security
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    body {
+        font-family: "Lato", sans-serif;
+    }
+
+    /* Fixed sidenav, full height */
+    .sidenav {
+        height: 100%;
+        width: 200px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        overflow-x: hidden;
+        padding-top: 55px;
+    }
+
+        /* Style the sidenav links and the dropdown button */
+        .sidenav a, .dropdown-btn {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 18px;
+            color: lightslategray;
+            display: block;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            outline: none;
+        }
+
+            /* On mouse-over */
+            .sidenav a:hover, .dropdown-btn:hover {
+                color: deepskyblue;
+            }
+
+    /* Main content */
+
+
+    /* Add an active class to the active dropdown button */
+    .active {
+        background-color: lightslategray;
+        color: white;
+    }
+
+    /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+    .dropdown-container {
+        display: none;
+        background-color: white;
+        padding-left: 8px;
+    }
+
+    /* Optional: Style the caret down icon */
+    .fa-caret-down {
+        float: right;
+        padding-right: 8px;
+    }
+
+    .rcorners {
+        border-radius: 15px;
+        background-color: white;
+        background-position: left top;
+        background-repeat: repeat;
+        padding: 20px;
+    }
+
+    /* Some media queries for responsiveness */
+    @@media screen and (max-height: 450px) {
+        .sidenav {
+            padding-top: 15px;
+        }
+
+            .sidenav a {
+                font-size: 18px;
+            }
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: none;
+        text-align: left;
+        padding: 8px;
+    }
+
+    .table2 {
+        border-bottom: 1px solid #ddd;
+        font-weight: bold;
+        color: #7575a3;
+    }
+
+
+    .inner {
+        display: inline-block;
+    }
+
+    .tdSpecial {
+        color: blue;
+        font-weight: bold
+    }
+
+    a {
+        color: lightslategray
+    }
+
+    i {
+        color: lightslategray
+    }
+
+    .revenue-ratio .bc {
+        background-color: darkgoldenrod;
+        height: 15px;
+        left: 0;
+        position: absolute;
+        top: -18px;
+    }
+
+    .revenue-ratio .nf {
+        background-color: blue;
+        height: 15px;
+        left: 0;
+        position: absolute;
+        top: -3px;
+    }
+
+    .revenue-ratio .car {
+        background-color: forestgreen;
+        height: 15px;
+        left: 0;
+        position: absolute;
+        top: 12px;
+    }
+
+    .revenue-ratio .tar {
+        background-color: brown;
+        height: 15px;
+        left: 0;
+        position: absolute;
+        top: 27px;
+    }
+
+    #priorities tr {
+        height: 60px
+    }
+</style>
+@* pour un side bar vertical *@
+@*<div style="width: 20%;  float:left;">
+        <div class="sidenav">
+            <ul style="list-style-type:none">
+                <li>
+                    <input style="float:right; width: 200px;  outline: none;" type="text" placeholder= "@Resources.Search">
+                </li>
+                <li>
+                    <a href="#about">
+                        <i class="fa fa-home"></i>&nbsp;
+                        <span>
+                            @Resources.Home
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#about">
+                        <i class="fa fa-check-circle"></i>&nbsp;
+                        <span>
+                            @Resources.Projects
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#about">
+                        <i class="fa fa-file"></i>&nbsp;
+                        <span>
+                            @Resources.Reports
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#about">
+                        <i class="fa fa-dollar"></i>&nbsp;
+                        <span>
+                            @Resources.Estimates
+                        </span>
+                    </a>
+                </li>
+            </ul>
+            <button class="dropdown-btn">
+                @Resources.Favorites
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+            </div>
+            <a href="#contact">@Resources.MyProjects</a>
+        </div>
+
+    </div>*@
+
+
+<div class="main">
+    <div style="color:blue">
+        <span style="float:left; width:50%">Bonjour @UserService.CurrentUser !</span>
+        <span style="text-align:right;float:right; width:50%">@Resources.PeriodWeekDate @ViewData["CurrentPeriodWeekDate"]</span>
+    </div>
+
+    <div style="padding-top:10px">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="rcorners">
+                    <div style="color:blue">
+                        <h3 style="margin-top: 0px; float:left"><b>@Resources.GlobalView</b></h3>
+                        <i style="float:right;" class="fa fa-question-circle"></i>
+                    </div>
+                    <br />
+                    <br />
+                    <hr>
+                    <table class="tdSpecial">
+                        <tr>
+                            <td style="color:blue">2</td>
+                            <td style="color:darkslategrey">
+                                @Resources.BudgetEstimates
+                                <i style="float:right;" class="fa fa-arrow-circle-o-right"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="color:blue">3</td>
+                            <td style="color:darkslategrey">
+                                @Resources.ActiveProjects
+                                <i style="float:right;" class="fa fa-arrow-circle-o-right"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="color:blue">9</td>
+                            <td style="color:darkslategrey">
+                                @Resources.ClosingProjects
+                                <i style="float:right;" class="fa fa-arrow-circle-o-right"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="color:blue">2</td>
+                            <td style="color:darkslategrey">
+                                @Resources.ArchivingProjects
+                                <i style="float:right;" class="fa fa-arrow-circle-o-right"></i>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="rcorners">
+                    <div>
+                        <h4 style="margin-top: 0px; color:lightslategray; "><b>@Resources.YourStatistics</b></h4>
+                        <i style="float:right;" class="fa fa-question-circle"></i>
+                        <h3 style="margin-top: 0px; color:blue;"><b>@Resources.ProjectManagerSection</b></h3>
+                    </div>
+                    <hr>
+                    <table class="tdSpecial">
+                        <tr>
+                            <td style="color:blue">14.6%</td>
+                            <td style="color:darkslategrey">
+                                @Resources.ProfitToDate
+                                <i style="float:right;" class="fa fa-arrow-circle-o-right"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="color:blue">24K$</td>
+                            <td style="color:darkslategrey">
+                                @Resources.Unbilled60
+                                <i style="float:right;" class="fa fa-arrow-circle-o-right"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="color:blue">47K$</td>
+                            <td style="color:darkslategrey">
+                                @Resources.CAR90
+                                <i style="float:right;" class="fa fa-arrow-circle-o-right"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="color:blue">10K$</td>
+                            <td style="color:darkslategrey">
+                                @Resources.TAR57
+                                <i style="float:right;" class="fa fa-arrow-circle-o-right"></i>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="rcorners">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3 style="margin-top: 0px; color:blue"><b>@Resources.YourPriorities</b></h3>
+                    </div>
+                    <div class="col-sm-8">
+                        <div style="float:right">
+                            <span class="inner " style="color:white;background-color:darkgoldenrod;font-size:small; padding:2px">BC ATTEINT</span>
+                            <span class="inner " style="color:white;background-color:blue;font-size:small; padding:2px">NON FACTURÉ</span>
+                            <span class="inner " style="color:white;background-color:forestgreen;font-size:small; padding:2px">CAR</span>
+                            <span class="inner " style="color:white;background-color:brown;font-size:small; padding:2px">TAR</span>
+                            &nbsp<i style="float:right;" class="fa fa-question-circle"></i>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <table id="priorities">
+                    <tr>
+                        <th class="table2" style="color:lightslategray;"><b>@Resources.ProjectNumber</b></th>
+                        <th class="table2" style="color:lightslategray;"><b>@Resources.ProjectTitle</b></th>
+                        <th class="table2" style="color:lightslategray;"><b>@Resources.Client</b></th>
+                        <th class="table2" style="color:lightslategray;"><b>@Resources.ProjectManagerSection</b></th>
+                        <th class="table2" style="color:lightslategray;"><b>@Resources.Revenu_Cost</b></th>
+                        <th></th>
+                    </tr>
+                    <tr style="color:darkslategrey">
+                        <td class="table2">x1</td>
+                        <td class="table2">y1</td>
+                        <td class="table2">z1</td>
+                        <td class="table2">w1</td>
+                        <td class="table2">
+                            <div class="revenue-ratio">
+                                <div class="bc" style="right:63%" title="(100-63=37)K"></div>
+                                <div class="nf" style="right:71%" title="(100-71=29)K"></div>
+                                <div class="car" style="right:51%" title="(100-51=49)K"></div>
+                                <div class="tar" style="right:23%" title="(100-23=77)K"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <i style="" class="fa fa-arrow-circle-o-right"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table2">x</td>
+                        <td class="table2">y</td>
+                        <td class="table2">z</td>
+                        <td class="table2">w</td>
+                        <td class="table2">w</td>
+
+                    </tr>
+                    <tr>
+                        <td class="table2">x</td>
+                        <td class="table2">y</td>
+                        <td class="table2">z</td>
+                        <td class="table2">w</td>
+                        <td class="table2">w</td>
+
+                    </tr>
+                    <tr>
+                        <td class="table2">z</td>
+                        <td class="table2">y</td>
+                        <td class="table2">z</td>
+                        <td class="table2">w</td>
+                        <td class="table2">w</td>
+                    </tr>
+                    <tr>
+                        <td class="table2">z</td>
+                        <td class="table2">y</td>
+                        <td class="table2">z</td>
+                        <td class="table2">w</td>
+                        <td class="table2">w</td>
+                    </tr>
+                    <tr>
+                        <td class="table2">z</td>
+                        <td class="table2">y</td>
+                        <td class="table2">z</td>
+                        <td class="table2">w</td>
+                        <td class="table2">w</td>
+                    </tr>
+                    <tr>
+                        <td class="table2">z</td>
+                        <td class="table2">y</td>
+                        <td class="table2">z</td>
+                        <td class="table2">w</td>
+                        <td class="table2">w</td>
+                    </tr>
+                    <tr>
+                        <td class="table2">z</td>
+                        <td class="table2">y</td>
+                        <td class="table2">z</td>
+                        <td class="table2">w</td>
+                        <td class="table2">w</td>
+                    </tr>
+                    <tr>
+                        <td class="table2">z</td>
+                        <td class="table2">y</td>
+                        <td class="table2">z</td>
+                        <td class="table2">w</td>
+                        <td class="table2">w</td>
+                    </tr>
+                    <tr>
+                        <td class="table2">z</td>
+                        <td class="table2">y</td>
+                        <td class="table2">z</td>
+                        <td class="table2">w</td>
+                        <td class="table2">w</td>
+                    </tr>
+                    <tr>
+                        <td class="table2">z</td>
+                        <td class="table2">y</td>
+                        <td class="table2">z</td>
+                        <td class="table2">w</td>
+                        <td class="table2">w</td>
+                    </tr>
+                    <tr>
+                        <td class="table2">z</td>
+                        <td class="table2">y</td>
+                        <td class="table2">z</td>
+                        <td class="table2">w</td>
+                        <td class="table2">w</td>
+                    </tr>
+                    <tr>
+                        <td class="table2">z</td>
+                        <td class="table2">y</td>
+                        <td class="table2">z</td>
+                        <td class="table2">w</td>
+                        <td class="table2">w</td>
+                    </tr>
+                    <tr>
+                        <td class="table2">z</td>
+                        <td class="table2">y</td>
+                        <td class="table2">z</td>
+                        <td class="table2">w</td>
+                        <td class="table2">w</td>
+                    </tr>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+        dropdown[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            } else {
+                dropdownContent.style.display = "block";
+            }
+        });
+    }
+</script>

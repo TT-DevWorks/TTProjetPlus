@@ -1,0 +1,218 @@
+﻿@model List<TetraTech.TTProjetPlus.Models.researchResult>
+@using Resources = TetraTech.TTProjetPlus.Views.Boomerang
+<!--Grid Component Placement[2]-->
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    #myInput {
+        background-image: url('/css/searchicon.png');
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 10px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+
+    #myTable {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 12px;
+        height: 200px;
+        overflow: auto;
+    }
+
+        #myTable th, #myTable td {
+            text-align: left;
+            padding: 12px;
+        }
+
+        #myTable tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+            #myTable tr.header, #myTable tr:hover {
+                background-color: #f1f1f1;
+            }
+</style>
+
+
+    <h2>Results</h2>
+
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+    <div style="width:100%; height:400px; overflow:auto;">
+        <table id="myTable">
+            <tr class="header">
+                <th style="width:25%;">Location</th>
+                <th style="width:25%;">End Year</th>
+                <th style="width:25%;">Description</th>
+                <th style="width:25%;">Status</th>
+            </tr>
+            @for (var i = 0; i < Model.Count(); i++)
+            {
+
+                <tr>
+                    <td style="text-align: left;">
+                        @Model[i].localisation
+                    </td>
+                    <td style="text-align: left;">
+                        @Model[i].endYear
+                    </td>
+
+                    <td style="text-align: left;">
+                        <a href="#" style="background: none;" onclick="ViewFicheInfos(@Model[i].id_fiche)" title="Apercu">
+                            <img src="~/content/16/preview.gif" alt="" />
+                        </a>
+                        &nbsp;
+                        <a href="index.php?p=fiche.view&amp;id_fiche={$e.id_fiche}">
+                            @Model[i].intitutle_court
+                        </a>
+                        @if (Model[i].status == "FORBIDDEN")
+                        {
+                            <img src="~/content/16/security.gif" />
+                        }
+                    </td>
+                    <td style="text-align: right;">
+                        @if (Model[i].status == "ONLINE")
+                        {
+                            if (Session["current_panier"].ToString() == "0")
+                            {
+                                <a href="#" style="background: none;" onclick="TogglePanier({@Model[i].id_fiche);return false;">
+                                    <img src="~/content/16/cart-rem.gif" alt="" />
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="#" style="background: none;" onclick="TogglePanier(@Model[i].id_fiche);return false;">
+                                    <img src="~/content/16/cart-add.gif" alt="" />
+                                </a>
+                            }
+
+                            if (Model[i].nom_award != null && Model[i].nom_award != "")
+                            {
+
+                                <a href="#" style="background: none;">
+                                    <img src="~/content/16/award.gif" alt="" />
+                                </a>
+
+                            }
+                            if (Model[i].lastmod_opqibi != null && Model[i].lastmod_opqibi != "" && Model[i].lastmod_opqibi != "0000-00-00 00:00:00")
+                            {
+
+                                <a href="#" style="background: none;">
+                                    <img src="~/content/16/ref.gif" alt="" />
+                                </a>
+
+                            }
+
+
+                            if (Model[i].existInEn == "1" && Model[i].existInEsp == "0")
+                            {
+
+                                <a href="#" style="background: none;">
+                                    <img src="~/content/16/en.gif" alt="" />
+                                </a>
+
+                            }
+
+                            if (Model[i].existInEn == "0" && Model[i].existInEsp == "1")
+                            {
+
+                                <a href="#" style="background: none;">
+                                    <img src="~/content/16/esp.gif" alt="" />
+                                </a>
+
+                            }
+                            if (Model[i].existInEn == "1" && Model[i].existInEsp == "1")
+                            {
+
+                                <a href="#" style="background: none;">
+                                    <img src="~/content/16/en-esp.gif" alt="" />
+                                </a>
+
+                            }
+
+
+                            if (Model[i].phototheque == "ok")
+                            {
+
+                                <a href="#" style="background: none;">
+                                    <img src="~/content/16/phototheque.gif" alt="" />
+                                </a>
+
+                            }
+
+
+                            <a href="#" style="background: none;" id="pdf_lang_@Model[i].id_fiche"><img src="~/content/16/pdf.gif" alt="" /></a>
+
+
+                        }
+
+                        @{
+                            var id = "etat_" + Model[i].id_fiche;
+                        }
+                        <a href="#" style="background: none;" id="@id" onclick="">
+                            @if (Model[i].status == "WAITING_DA")
+                            {
+                                <img src="~/content/16/ball_yellow.gif" />
+                            }
+                            else if (Model[i].status == "WAITING_UA")
+                            {
+                                <img src="~/content/16/ball_violet.gif" />
+                            }
+
+                            else if (Model[i].status == "WAITING_COM")
+                            {
+                                <img src="~/content/16/ball_blue.gif" />
+                            }
+                            else if (Model[i].status == "DRAFT")
+                            {
+                                <img src="~/content/16/ball_white.gif" />
+                            }
+                            else if (Model[i].status == "ONLINE")
+                            {
+                                <img src="~/content/16/ball_green.gif" />
+                            }
+                            else if (Model[i].status == "OFFLINE")
+                            {
+                                <img src="~/content/16/ball_red.gif" />
+                            }
+                            else if (Model[i].status == "FORBIDDEN")
+                            {
+                                <img src="~/content/16/ball_orange.gif" />
+                            }
+                            @Model[i].status
+
+                        </a>
+                    </td>
+
+                </tr>
+            }
+        </table>
+</div>
+        <script>
+
+            function myFunction() {
+                var input, filter, table, tr, td, i, txtValue;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("myTable");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+
+        </script>

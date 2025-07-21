@@ -1,0 +1,930 @@
+﻿@model TetraTech.TTProjetPlus.Models.FileUploadModel
+@using Resource = TetraTech.TTProjetPlus.Views.FileUpload
+@using Resources2 = TetraTech.TTProjetPlus.Views.ModeleSelection
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Controllers
+@using TetraTech.TTProjetPlus.Data
+@using TetraTech.TTProjetPlus.Services
+@using TetraTech.TTProjetPlus.Security
+
+@{
+    /**/
+
+    ViewBag.Title = "Lecteur réseau";
+}
+
+@{
+    var currentUser = UserService.CurrentUser;
+    var employeeSatus = FileUploadService.IsEmplopyeeAdmin(currentUser.EmployeeId);
+}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
+
+
+<style>
+
+    #main-container {
+        width: 600px;
+        margin: 150px auto;
+    }
+
+    .inputWidth {
+        width: 100%;
+    }
+
+    .inputWidth2 {
+        width: 50%;
+        display: inline
+    }
+
+    .inputWidth3 {
+        width: 60%;
+        display: inline
+    }
+
+    .redText {
+        color: red;
+    }
+
+    #loading {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        display: block;
+        opacity: 0.7;
+        background-color: #fff;
+        z-index: 99;
+        text-align: center;
+        display: none;
+    }
+
+    #loadingGIF2 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 100;
+    }
+
+    input[type="file"] {
+        position: absolute;
+        z-index: -1;
+        top: 15px;
+        left: 20px;
+        font-size: 17px;
+        color: #b8b8b8;
+    }
+
+    .container1 {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .button-wrap {
+        position: relative;
+    }
+
+    .button {
+        display: inline-block;
+        background-color: #428bca;
+        /*border-radius: 10px;
+        border: 4px double #cccccc;*/
+        color: #ffffff;
+        text-align: center;
+        /*font-size: 20px;*/
+        padding: 8px;
+        width: 240px;
+        /*transition: all 0.5s;*/
+        cursor: pointer;
+        margin: 5px;
+    }
+
+        .button:hover {
+            background-color: #76abd9;
+        }
+
+    .filter-option-inner-inner {
+        height: 26px;
+        padding-top: 4px;
+    }
+
+    .fade {
+        opacity: 0;
+        -webkit-transition: opacity .3s linear;
+        transition: opacity .3s linear
+    }
+
+    .lightBlueSelect {
+        color: #5482ab;
+    }
+
+    .greySelect {
+        color: #e8e8e8;
+    }
+
+    .bootstrap-select > .dropdown-toggle.bs-placeholder {
+    }
+
+    textarea {
+        width: 100%;
+    }
+
+
+
+    input100 {
+        width: 100%;
+    }
+
+    .bootstrap-select > .dropdown-toggle.bs-placeholder {
+        padding-bottom: 11px;
+        font-size: 12pt;
+        color: #5482ab;
+        font-family: 'Arial';
+    }
+
+    .bootstrap-select > .dropdown-toggle {
+        padding-bottom: 12px;
+    }
+
+
+    .multiselect-selected-text {
+        float: left;
+    }
+
+    .btn .caret {
+        margin-left: 310px;
+    }
+
+    .input-group-addon {
+        display: none;
+    }
+
+    .multiselect-selected-text {
+        color: #5482ab;
+    }
+
+
+    .multiselect-container, gris {
+        color: deeppink;
+    }
+
+    button.multiselect {
+        height: 46px;
+    }
+</style>
+
+
+<div id="loading">
+    <img id="loadingGIF2" src="~/Content/assets/img/ajax-loader.gif" alt="Loading..." />
+</div>
+<div class="container " style="height: 200vh; width: 100%">
+    <div class="main">
+        @if (ViewBag.MenuVisible == "true")
+        {
+
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-3" style="padding-top: -49px; ">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 75px; ">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                    <li style="color:white ; font-weight: bold"><a href="@Url.Action("Index", "ModeleSelection")"> @Resources2.ModeleSelectionManagementRessources.General </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 75px; ">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666" href="@Url.Action("Index", "ModeleSelection", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.ModelSelectionMng</a>
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666" href="@Url.Action("Index", "FolderStructure", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.ModifyStrucFolder</a>
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666" href="@Url.Action("Index", "LecteurReseau", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.ConnectADrive</a>
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666" href="@Url.Action("IndexSpecial", "LecteurReseau" , new { displayRetourS = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.ConnectASpecialDrive</a>
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666; font-weight: bold " href="@Url.Action("Index", "FileUpload", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.fileUpload</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="row">
+            <div class="panel panel-primary" style="border-radius: 10px; height: 300px; margin-top: -15px; margin-left: -10px;">
+                <div class="panel-body" style="margin:15px;">
+                    <div class="row">
+                        <div class="">
+                            <div class="alert alert-warning" id="warningLR" hidden="hidden">
+                                <button type="button" class="close" data-hide="alert">&times;</button>
+                                <strong>erreur</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h4 style="margin-top: 0px; color:#183666; font-family: 'Arial Bold'; font-size: 18pt;"><b>@Resource.FileUpload.fileUpload</b></h4>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row" style="color:steelblue; font-size:initial">
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-sm-12" style="height: 70px;">
+                                    <div class="col-sm-3">
+                                        <label class="button" for="file" id="labelUpload" style="width:240px;    border-radius: 4px;">@Resource.FileUpload.chooseFile</label>
+                                        <input type="file" name="file" id="file" /><br><br>
+                                    </div>
+
+
+                                    <div class="col-sm-3" style="padding-top:5px; height: 150px;">
+                                        <select multiple="multiple" data-live-search="true" class="form-control selectpickerM" id="clients" title="@Resource.FileUpload.customer" data-size="15" data-selected-text-format="count" data-none-selected-text="">
+                                            @foreach (structureItem item in Model.listeAllClient)
+                                            {
+                                                <option value="@item.Value">@item.Name </option>
+                                                @*Customer name*@
+
+                                            }
+                                        </select>
+
+
+                                    </div>
+
+
+
+                                    <div class="col-sm-3" style="padding-top:5px">
+                                        <select data-live-search="true" class="form-control selectpicker" id="folders" name="repCode">
+                                            <option value="" selected style="font-size:14px">@Resource.FileUpload.rep</option>
+                                            @foreach (string item in Model.listFolders.OrderBy(x => x))
+                                            {
+                                                <option value="@item">@item</option>
+
+                                            }
+
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3" style="padding-top:5px">
+                                        <select data-live-search="true" class="form-control selectpicker" id="subfolders" name="subRepId">
+                                            <option value="" selected style="font-size:14px">@Resource.FileUpload.subRep</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4" style="padding-left: 20px;">
+                                        <input type="button" value="@Resource.FileUpload.uploadToServer" id="submitForUpload" onclick="submitToUpload('')" style="width: 240px;border-radius: 4px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                        @*}*@
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-12" style="padding-left: 20px;">
+                                        <div class="alert alert-success alert-dismissible" id="successUpload" hidden="hidden">
+                                            <button type="button" class="close" data-hide="alert">&times;</button>
+                                            <strong id="successUploadText"></strong>
+                                        </div>
+
+                                        <div class="alert alert-danger alert-dismissible" id="failedUpload" hidden="hidden">
+                                            <button type="button" class="close" data-hide="alert">&times;</button>
+                                            <strong id="failedUploadText"></strong>
+                                        </div>
+                                        <div class="alert alert-warning alert-dismissible" id="warningUpload" hidden="hidden">
+                                            <button type="button" class="close" data-hide="alert">&times;</button>
+                                            <strong>@Resource.FileUpload.alreadyExsit</strong>
+                                            <div>
+                                                <button class="btn btn-default" id="delButton" onclick="submitToUpload('process')">@Resource.FileUpload.yes</button>
+                                                <button class="btn btn-default" id="cancelButton" onclick="cancelDel()">@Resource.FileUpload.no</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="panel panel-primary" style="border-radius: 10px; height: 340px; margin-top: -15px; margin-left: -10px ">
+                        <div class="panel-body" style="margin:15px;">
+                            <div class="row">
+                                <div class="">
+                                    <div class="alert alert-warning" id="warningLR" hidden="hidden">
+                                        <button type="button" class="close" data-hide="alert">&times;</button>
+                                        <strong>erreur</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4 style="margin-top: 0px; color:#183666; font-family: 'Arial Bold'; font-size: 18pt;"><b>@Resource.FileUpload.finalRemoving</b></h4>
+                                </div>
+                            </div>
+                            <p style="margin-top: 0px; color:#183666; font-family: 'Arial'; font-size: 11pt">
+                                <b>Important</b>: @Resource.FileUpload.finalRemovingWarning
+                            </p>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="row">
+                                    <div class="row">
+                                        <div class="col-sm-12" style="height: 70px;">
+                                            <div class="col-sm-6" style="padding-top:5px; width: 52%;">
+                                                <select data-live-search="true" class="form-control selectpicker" id="formName" name="formName">
+                                                    <option value="" selected style="font-size:14px">@Resource.FileUpload.docName</option>
+                                                    @foreach (string item in Model.listDocNames.OrderBy(x => x))
+                                                    {
+                                                        <option value="@item.Split('|')[0]">@item.Split('|')[1]</option>
+
+                                                    }
+
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-4" style="padding-left: 16px;">
+                                                <input type="submit" id="finalRemove" value="@Resource.FileUpload.remove" style="width: 220px;border-radius: 4px;" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-12" style="">
+                                                <div class="alert alert-success alert-dismissible" id="successRemoveForm" hidden="hidden">
+                                                    <button type="button" class="close" data-hide="alert">&times;</button>
+                                                    <strong id="successRemoveTextForm"></strong>
+                                                </div>
+                                                <div class="alert alert-danger alert-dismissible" id="failedRemoveForm" hidden="hidden">
+                                                    <button type="button" class="close" data-hide="alert">&times;</button>
+                                                    <strong id="failedRemoveTextForm"></strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="panel panel-primary" style="border-radius: 10px; height: 340px; margin-top: -15px; margin-left: -10px ">
+                        <div class="panel-body" style="margin:15px;">
+                            <div class="row">
+                                <div class="">
+                                    <div class="alert alert-warning" id="warningLR" hidden="hidden">
+                                        <button type="button" class="close" data-hide="alert">&times;</button>
+                                        <strong>erreur</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4 style="margin-top: 0px; color:#183666; font-family: 'Arial Bold'; font-size: 18pt;"><b>@Resource.FileUpload.eraseLine</b></h4>
+                                </div>
+                            </div>
+                            <p style="margin-top: 0px; color:#183666; font-family: 'Arial'; font-size: 11pt;">
+                                <b>Important</b>: @Resource.FileUpload.removingFromFolderWarning
+                            </p>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="row">
+                                    <div class="row">
+                                        <div class="col-sm-12" style="height: 70px;">
+                                            <div class="col-sm-3" style="padding-top:5px; height: 150px;">
+
+                                                <select multiple="multiple" data-live-search="true" class="form-control selectpickerM" id="clients2" data-size="15" data-selected-text-format="count" data-none-selected-text="" data-done-button="true">
+
+                                                    @foreach (structureItem item in Model.listeAllClient)
+                                                    {
+                                                        <option value="@item.Value">@item.Name </option>
+                                                    }
+                                                </select>
+                                            </div>
+
+                                            <div class="col-sm-3" style="padding-top:5px">
+                                                <select data-live-search="true" class="form-control selectpicker" id="folders2" name="repCode">
+                                                    <option value="" selected style="font-size:14px">@Resource.FileUpload.rep</option>
+                                                    @foreach (string item in Model.listFolders.OrderBy(x => x))
+                                                    {
+                                                        <option value="@item">@item</option>
+
+                                                    }
+
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-3" style="padding-top:5px">
+                                                <select data-live-search="true" class="form-control selectpicker" id="subfolders2" name="subRepId">
+                                                    <option value="" selected style="font-size:14px">@Resource.FileUpload.subRep</option>
+                                                </select>
+
+                                            </div>
+                                            <div class="col-sm-3" style="padding-top:5px">
+                                                <select data-live-search="true" class="form-control selectpicker" id="docNames" name="subRepId">
+                                                    <option value="" selected style="font-size:14px">@Resource.FileUpload.docName</option>
+                                                </select>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-4" style="padding-left: 16px;">
+                                                <input type="submit" id="remove" value="@Resource.FileUpload.remove" style="width: 215px;border-radius: 4px;" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-12" style="">
+                                                <div class="alert alert-success alert-dismissible" id="successRemove" hidden="hidden">
+                                                    <button type="button" class="close" data-hide="alert">&times;</button>
+                                                    <strong id="successRemoveText"></strong>
+                                                </div>
+                                                <div class="alert alert-danger alert-dismissible" id="failedRemove" hidden="hidden">
+                                                    <button type="button" class="close" data-hide="alert">&times;</button>
+                                                    <strong id="failedRemoveText"></strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- ------------------------------------------------------------------>
+
+
+<script>
+    var continueProcess = ""
+    $(document).ready(function () {
+
+          $('.selectpickerM').multiselect({
+            nonSelectedText: '@Session["lang"].ToString()' == 'fr' ? 'Liste Clients' : 'Customer List' ,
+                allSelectedText: '@Session["lang"].ToString()' == 'fr'? 'Toutes les options sont sélectionnée':'All the options are selected',
+                numberDisplayed: 1,
+                buttonWidth: '100%',
+                includeSelectAllOption: true,
+                selectAllText: '@Session["lang"].ToString()' == 'fr' ? 'Tout sélectionner' : 'Select all',
+                nSelectedText : '@Session["lang"].ToString()' == 'fr' ? 'Sélectionnés' : 'Selected',
+                enableCaseInsensitiveFiltering: true,
+                maxHeight: 400,
+                filterPlaceholder: '@Session["lang"].ToString()' == 'fr'? 'Recherche':'Search'
+        });
+
+        $('.selectpicker').selectpicker(
+
+            {
+                countSelectedText: '{0} '+'@Resource.FileUpload.optionChoosen' // by this default 'Nothing selected' -->will change to Please Select
+            }
+        );
+
+        $(".form-control").val('');
+        $(".selectpicker").selectpicker('refresh');
+
+    });
+
+
+
+    function submitToUpload (process)
+    {
+     $("#submitForUpload").prop("disabled", true);
+     var fileUpload = $("#file").get(0);
+     var files = fileUpload.files;
+     var data = new FormData();
+     var customersName = "";
+     var customersNamenew = "";
+     var resultCustom;
+
+    for (var i = 0; i < files.length; i++) {
+        data.append("file", files[i]);
+    }
+
+        $('#clients option:selected').each(function () {
+            customersName += $(this).text().trimEnd() + ',';
+        });
+
+        resultCustom = customersName.endsWith(",");
+
+        if (resultCustom = true) {
+            customersNamenew = customersName.substr(0, customersName.length - 1);
+        }
+        else {
+            customersNamenew = customersName;
+        }
+
+        if (process == 'process')
+        {
+            $('#warningUpload').hide();
+
+            data.append("repCode", $("#folders").val());
+            data.append("subRepId", $("#subfolders").val());
+            data.append("customerName", customersNamenew);
+            data.append("customerNumber", $('#clients').val());
+            data.append("continueProcess", continueProcess);
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UploadFile2", "FileUpload")",
+
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function (message) {
+                    if (message == 'success') {
+                        $('#successUploadText').html('@Resource.FileUpload.form' + '  ' + $('#labelUpload').text() + ' ' + '@Resource.FileUpload.successAdd' + '  ' + '@Resource.FileUpload.forFolder' + ' ' + $('#folders').val() + '\\' + $("#subfolders option:selected").text())
+
+                        $('#successUpload').show();
+                        setTimeout(function () {
+                            $('#successUpload').fadeOut('slow');
+                        }, 7000
+                        );
+
+                    }
+                    else if (message == 'Failed') {
+                        $('#failedUploadText').html('@Resource.FileUpload.form' + '  ' + $('#labelUpload').text() + ' ' + '@Resource.FileUpload.failedAdd' + '  ' + '@Resource.FileUpload.forFolder' + ' ' + $('#folders').val() + '\\' + $("#subfolders option:selected").text())
+                        $('#failedUpload').show();
+                        setTimeout(function () {
+                            $('#failedUpload').fadeOut('slow');
+                        }, 7000
+                        );
+                    }
+                    location.reload(true);
+                },
+                error: function () {
+                    alert("There was error uploading files!");
+                }
+
+            });
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url:  "@Url.Action("checkIfFilexists", "FileUpload")",
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                cache: false,
+                data: data,
+                success: function (message)
+                {
+                    if (message == 'Exists')
+                    {
+                        $('#warningUpload').show();
+                    }
+                    else{
+                        submitToUpload('process')
+
+                    }
+                }
+            });
+        }
+
+        $("#submitForUpload").prop("disabled", false);
+
+
+    }
+
+
+    function cancelDel() {
+        $('#warningUpload').hide();
+    }
+
+    $('#file').on('change', function ()
+    {
+        var fn = $('#file').val();
+        var filename = fn.match(/[^\\/]*$/)[0]; // remove C:\fakename
+        $('#labelUpload').html(filename)
+    }
+    );
+
+    function returntoMenu()
+    {
+        window.location.href = "@Url.Action("Index", "TTProjet")";
+        }
+
+
+
+    $('#folders').on('change', function () {
+        if ($('#folders').val() != null) {
+
+//pour les modeles de selection:
+     $.ajax({
+    url: '@Url.Action("returnSubFolders", "FileUpload")',
+    type: 'GET',
+   data: {
+
+       repCode: $('#folders').val()
+    },
+
+    success:function(data)
+    {
+        $("#subfolders").empty();
+        if (data == null || data == "")
+        {
+            $("#subfolders").append('<option value="">'+'@Resource.FileUpload.noSub'+'</option >');
+        }
+        else
+        {
+
+            $("#subfolders").append('<option value="">'+'@Resource.FileUpload.subRep'+'</option >');
+            $.each(data, function (index, row) {
+
+                    $("#subfolders").append('<option value="'
+                        + row.id + '">'
+                        + row.code + '</option>');
+
+            });
+
+
+
+        }
+        $('#subfolders').selectpicker('refresh');
+        $(".dropdown-toggle").removeAttr("title");
+    }
+  });
+
+ }
+ });
+
+
+
+    $('#folders2').on('change', function () {
+        if ($('#folders2').val() != null) {
+
+//pour les modeles de selection:
+     $.ajax({
+    url: '@Url.Action("returnSubFolders", "FileUpload")',
+    type: 'GET',
+   data: {
+
+       repCode: $('#folders2').val()
+    },
+
+    success:function(data)
+    {
+        $("#subfolders2").empty();
+        if (data == null || data == "")
+        {
+            $("#subfolders2").append('<option value="">'+'@Resource.FileUpload.noSub'+'</option >');
+        }
+        else
+        {
+
+            $("#subfolders2").append('<option value="">'+'@Resource.FileUpload.subRep'+'</option >');
+            $.each(data, function (index, row) {
+
+                    $("#subfolders2").append('<option value="'
+                        + row.id + '">'
+                        + row.code + '</option>');
+
+            });
+
+
+
+        }
+        $('#subfolders2').selectpicker('refresh');
+        $(".dropdown-toggle").removeAttr("title");
+    }
+  });
+
+ }
+ });
+
+
+
+    $('#subfolders2').on('change', function () {
+        if ($('#subfolders2').val() != null) {
+
+//pour les modeles de selection:
+     $.ajax({
+    url: '@Url.Action("returnDocNames", "FileUpload")',
+    type: 'GET',
+   data: {
+
+       repCode: $('#folders2').val(),
+       repSubCode: $('#subfolders2').val()
+    },
+
+    success:function(data)
+    {
+        $("#docNames").empty();
+        if (data == null || data == "")
+        {
+            $("#docNames").append('<option value="">'+'@Resource.FileUpload.noSub'+'</option >');
+        }
+        else
+        {
+
+            $("#docNames").append('<option value="">'+'@Resource.FileUpload.docName'+'</option >');
+            $.each(data, function (index, row) {
+
+                $("#docNames").append('<option value="'
+                        + row + '">'
+                        + row + '</option>');
+
+            });
+
+        }
+        $('#docNames').selectpicker('refresh');
+        $(".dropdown-toggle").removeAttr("title");
+    }
+  });
+
+ }
+ });
+
+
+
+    $('#remove').on('click', function () {
+        var customersName = "";
+        var customersNamenew = "";
+        var resultCustom;
+
+        $('#clients2 option:selected').each(function () {
+            /*customersName += $(this).text().trimEnd() + ',';*/
+            customersName += $(this).val().trimEnd() + ',';
+        });
+
+        resultCustom = customersName.endsWith(",");
+
+        if (resultCustom = true) {
+            customersNamenew = customersName.substr(0, customersName.length - 1);
+        }
+        else {
+            customersNamenew = customersName;
+        }
+
+
+            if ($('#subfolders2').val() != null && $('#folders2').val() != null && $("#docNames").val() != null) {
+
+                //pour les modeles de selection:
+                $.ajax({
+                    url: '@Url.Action("removeDocFromDBandServer", "FileUpload")',
+                    type: 'GET',
+                    data: {
+                        repCode: $('#folders2').val(),
+                        repSubCode: $('#subfolders2').val(),
+                        nomDoc: $('#docNames').val(),
+                        customerNumber: customersNamenew
+                    },
+
+                    success: function (data)
+                    {
+                        if (data == 'successDelete') {
+
+                           $('#successRemoveText').html('@Resource.FileUpload.form' + ' ' + $('#docNames').val() + ' ' + '@Resource.FileUpload.succesDelete' + ' ' + '@Resource.FileUpload.forFolder' + ' ' + $('#folders2').val() + '\\' + $("#subfolders2 option:selected").text())
+                           $('#successRemove').show();
+                            setTimeout(function () {
+                                $('#successRemove').fadeOut('slow');
+                            }, 4000
+                            );
+
+                            location.reload(true);
+                        }
+                        else {
+                            $('#failedRemoveText').html('@Resource.FileUpload.form' + ' ' + $('#docNames').val() + ' ' + '@Resource.FileUpload.failedDelete' + ' ' + '@Resource.FileUpload.forFolder' + ' ' + $('#folders2').val() + '\\' + $("#subfolders2 option:selected").text())
+                            $('#failedRemove').show();
+                            setTimeout(function () {
+                                $('#failedRemove').fadeOut('slow');
+                            }, 4000
+                            );
+
+                        }
+                    }
+                });
+
+            }
+            else
+            {
+                alert('@Resource.FileUpload.fieldsRequired')
+            }
+ });
+
+
+    $('#finalRemove').on('click', function () {
+        if (
+            $('#formName').val() != null) {
+
+                $.ajax({
+                    url: '@Url.Action("finalRemovingOfForm", "FileUpload")',
+                    type: 'GET',
+                    data: {
+
+                        nomDoc: $('#formName').val()
+                    },
+
+                    success: function (data)
+                    {
+                        if (data == 'successDelete') {
+
+                           $('#successRemoveTextForm').html('@Resource.FileUpload.succesRemoving' )
+                           $('#successRemoveForm').show();
+                            setTimeout(function () {
+                                $('#successRemoveForm').fadeOut('slow');
+                            }, 4000
+                            );
+
+                            location.reload(true);
+                        }
+                        else {
+                            $('#failedRemoveTextForm').html('@Resource.FileUpload.failedRemoving' )
+                            $('#failedRemoveForm').show();
+                            setTimeout(function () {
+                                $('#failedRemoveForm').fadeOut('slow');
+                            }, 4000
+                            );
+
+                        }
+                    }
+                });
+
+            }
+            else
+            {
+                alert('@Resource.FileUpload.fieldsRequired')
+            }
+ });
+
+    $(".close").click(function () {
+        $(".alert").hide();
+
+    });
+
+
+</script>

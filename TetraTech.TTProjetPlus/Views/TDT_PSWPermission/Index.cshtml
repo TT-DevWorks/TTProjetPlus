@@ -1,0 +1,438 @@
+﻿
+@using Resources2 = TetraTech.TTProjetPlus.Views.Home
+@using Resources = TetraTech.TTProjetPlus.Views.TTProjet
+@model List<string>
+<style>
+</style>
+
+@{
+    ViewBag.Title = "Admin TI";
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    .ui-autocomplete {
+        z-index: 2147483647;
+    }
+</style>
+<div id="loading">
+    <img id="loadingGIF2" src="~/Content/assets/img/ajax-loader.gif" alt="Loading..." />
+</div>
+
+<div class="container " style="height: 200vh;width: 100%">
+    <div class="main">
+
+        @if (ViewBag.MenuVisible == "true")
+        {
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-4" style="padding-top: -49px;">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 100px;">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet" )">TT Projet +  /</a></li>
+                                    <li><a style="color:#183666; font-weight: bold" href="@Url.Action("Index", "TTProjet", new { selectedPanel = "collapse8" })">Informations supplémentaires</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 100px; ">
+                                <div class="panel-body">
+                                    <ul class="">
+                                        <li>
+                                            <a style="color: #183666; " href="@Url.Action("Index", "AdditionaInfo")">Liste des gestionnaires de projet et de programme</a>
+                                        </li>
+                                        <li>
+                                            <a style="color: #183666; " href="@Url.Action("Index", "TDT_PSWListe_BD")">Liste des mots de passe pour les tables de taux</a>
+                                        </li>
+                                        <li>
+                                            <a style="color:#183666 ; font-weight: bold" href="@Url.Action("Index", "TDT_PSWPermission")">Liste des permissions pour les tables de taux</a>
+                                        </li>
+                                        <li>
+                                            <a style="color: #183666; " href="@Url.Action("Index", "SaisieTemporaire")">Saisies temporaires</a>
+                                        </li>
+
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    @*<div class="col-lg-4">
+                            <div class="">
+                                <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 100px; ">
+                                    <div class="panel-body">
+                                        <ul class="list-inline">
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "SecurityProjectEquivalence")">Équivalence des projets</a>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "Litige")">@Resources.TTProjet.LitigeManagement</a>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "LocalBPR")">@Resources.TTProjet.EmployeeInfos</a>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                &bull;&nbsp;<a style="color: #183666" href="@Url.Action("Index3", "FolderStructure")">@Resources.TTProjet.Security60Conf</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>*@
+
+                </div>
+
+            </div>
+
+        }
+        <div class="row">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary" style="border-radius: 10px; margin-top: -10px; margin-bottom: 10px; margin-left: -10px;">
+                        <div class="panel-body" style="margin:15px;">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4 style="margin-top: 0px; color: #183666; font-family: 'Arial Bold'; font-size: 18pt; margin-left: 10px;">
+                                        <b>Liste des changements dans les listes de permissions</b>
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <style>
+                                        table {
+                                            font-family: arial, sans-serif;
+                                            border-collapse: collapse;
+                                            width: 100%;
+                                        }
+
+                                        td, th {
+                                            border: 1px solid #dddddd;
+                                            text-align: left;
+                                            padding: 8px;
+                                        }
+
+                                        .clickableAwesomeFont {
+                                            cursor: pointer
+                                        }
+
+                                            .clickableAwesomeFont:hover {
+                                                color: red;
+                                            }
+                                    </style>
+
+                                    <div class="" style="height: 300px; overflow-y: scroll;">
+
+                                        <table class="table table-striped">
+                                            <tr>
+
+                                                <th>Numéro</th>
+                                                <th>Courriel</th>
+                                                <th>Role</th>
+                                                <th>Période</th>
+                                                <th>Statut</th>
+                                            </tr>
+                                            @if (Model != null && Model.Count() > 0)
+                                            {
+                                                for (int i = 0; i < Model.Count(); i++)
+                                                {
+                                        <tr>
+                                            <td>@Model[i].Split('#')[0]</td>
+                                            <td>@Model[i].Split('#')[1]</td>
+                                            <td>@Model[i].Split('#')[2]</td>
+                                            <td>@Model[i].Split('#')[3]</td>
+                                            <td>@Model[i].Split('#')[4]</td>
+                                        </tr>
+                                                }
+                                            }
+
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br />
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4 style="margin-top: 0px; color: #183666; font-family: 'Arial Bold'; font-size: 18pt; margin-left: 10px;">
+                                        <b>Liste des accés au tables de taux</b>
+                                    </h4>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <select data-live-search="true" class="form-control selectpicker" id="typeList" data-size="15">
+                                                <option value="" selected style="font-size:14px">Choisir une liste...</option>
+                                                <option value="partielle">Liste de taux partielle</option>
+                                                <option value="moyenne">Liste de taux moyens</option>
+                                                <option value="complete">Liste de taux compléte</option>
+                                                <option value="approbateurs">Approbateurs</option>
+
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button class="btn btn-primary" id="displayButton" onclick="displayListe()">Afficher la liste</button>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button id="addButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal">Ajouter à la liste</button>
+
+                                            <!-- Modal -->
+                                            <div id="formModal" class="modal fade" role="dialog">
+                                                <div class="modal-dialog">
+
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <h3>Ajouter un employé a la liste "<span id="listTypeModel"></span>"</h3>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="container">
+
+                                                                <form>
+                                                                    <div class="form-group f1" style="width:45%">
+                                                                        <label for="text">Nom de l'employé:</label>
+                                                                        <input type="text" class="form-control" id="nom_emp" placeholder="Entrer le nom" name="nom_emp">
+                                                                    </div>
+                                                                    <div class="form-group f1" style="width:45%">
+                                                                        <label for="pwd">Numéro de l'employé:</label>
+                                                                        <input type="text" class="form-control" id="num_emp" placeholder="Entrer le numéro" name="num_emp">
+                                                                    </div>
+                                                                    <div class="form-group f1" style="width:45%">
+                                                                        <label for="pwd">Adresse courriel:</label>
+                                                                        <input type="text" class="form-control" id="email" placeholder="Entrer l'adresse courriel" name="email">
+                                                                    </div>
+                                                                    <div class="form-group f1" style="width:45%">
+                                                                        <label for="pwd">Titre:</label>
+                                                                        <div class="">
+                                                                            <select data-live-search="true" class="form-control selectpicker" id="titreRH" data-size="15">
+                                                                                <option value="" selected style="font-size:14px">Choisir un titre RH...</option>
+                                                                                @foreach (string item in ViewBag.TitreHRArray)
+                                                                                {
+                                                                                    <option value="@item">@item</option>
+
+                                                                                }
+
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group f1" style="width:45%">
+                                                                        <label for="pwd">Division:</label>
+                                                                        <input type="text" class="form-control" id="division" placeholder="Entrer la divison" name="division">
+                                                                    </div>
+                                                                    <div class="form-group f1" style="width:45%">
+                                                                        <label for="pwd">Commentaire:</label>
+                                                                        <input type="text" class="form-control" id="comment" placeholder="Entrer un commentaire" name="comment">
+                                                                    </div>
+
+
+
+                                                                    <div class="form-group f2" style="width:45%">
+                                                                        <label for="text">Nom de l'approbateur:</label>
+                                                                        <input type="text" class="form-control" id="nom_app" placeholder="Entrer le nom de l'approbateur" name="nom_emp">
+                                                                    </div>
+                                                                    <div class="form-group f2" style="width:45%">
+                                                                        <label for="pwd">Division de marché:</label>
+                                                                        <input type="text" class="form-control" id="divMark" placeholder="Entrer la division de marché" name="num_emp">
+                                                                    </div>
+                                                                    <div class="form-group f2" style="width:45%">
+                                                                        <label for="pwd">Autorisation:</label>
+                                                                        <input type="text" class="form-control" id="autor" placeholder="Entrer le type d'autorisation" name="email">
+                                                                    </div>
+
+                                                                    <button class="btn btn-primary" style="text-align: right" onclick="addToListOfPermission()">Soummettre</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <br />
+                            <div id="info">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+    $(document).ready(function () {
+
+        $('.selectpicker').selectpicker(
+        );
+    });
+
+
+    function displayListe() {
+                $.ajax({
+                url: '@Url.Action("displayInfo", "TDT_PSWPermission")',
+                    type: 'GET',
+                    cache: false,
+                data: {
+                    typeListe: $('#typeList').val()
+                },
+                success: function (data)
+                {
+                    $('#info').html(data)
+                }
+            });
+    }
+
+
+
+
+    $('#addButton').on('click', function () {
+        var type = $('#typeList').val() == "" ? "moyenne" : $('#typeList').val()
+        $('#listTypeModel').text(type);
+        if (type == "approbateurs") {
+            $('.f1').hide()
+            $('.f2').show()
+        }
+        else {
+            $('.f2').hide()
+            $('.f1').show()
+        }
+
+    });
+
+    //autocomplete our charge de projet dans le modal
+$(function() {
+var array = @Html.Raw(Json.Encode(@ViewBag.GestionnairesNumberArray));
+var numberArray = [];
+for (var i = 0; i < array.length; i++) {
+numberArray[i] = { value: array[i], label: array[i] };
+}
+        $( "#nom_emp" ).autocomplete({
+source: numberArray,
+focus: function( event, ui ) {
+    $( "#nom_emp" ).val( ui.item.label );
+return false;
+        }
+,
+    change: function (event, ui) {
+        if ($("#nom_emp").val() != "") {
+            if (ui.item === null || !ui.item)
+                $("#nom_emp").val("@Resources2.informations.notExistingProgramManager".replace('&#39;','\''));
+        }
+
+    }
+
+    })
+.autocomplete( "instance" )._renderItem = function( ul, item ) {
+return $( "<li>" )
+.append( "<div>" + item.label + "</div>" )
+.appendTo( ul );
+};
+});
+
+
+    $('input[name=nom_emp]').change(function ()
+    {
+
+             $.ajax({
+                url: '@Url.Action("returnEmpInfo", "TDT_PSWPermission")',
+                    type: 'GET',
+                 cache: false,
+                 dataType: "json",
+                data: {
+                    nomEmp: $('#nom_emp').val()
+                },
+                success: function (data)
+                {
+                    $('#num_emp').val(data.split('#')[0])
+                    $('#email').val(data.split('#')[1])
+                    $('#division').val(data.split('#')[2])
+
+                }
+            });
+
+
+
+    });
+
+    function addToListOfPermission() {
+        $.ajax({
+                url: '@Url.Action("insertIntoTable", "TDT_PSWPermission")',
+                    type: 'GET',
+                   cache: false,
+                dataType: "json",
+                data: {
+                    nomEmp: $('#nom_emp').val(),
+                    numEmp: $('#num_emp').val(),
+                    email: $('#email').val(),
+                    titreRH: $('#titreRH').val(),
+                    division: $('#division').val(),
+                    comment: $('#comment').val(),
+                    type: $('#typeList').val(),
+                    nom_app: $('#nom_app').val(),
+                    divMark: $('#divMark').val(),
+                    autorisation: $('#autor').val()
+                },
+                success: function (data)
+                {
+                    $('#displayButton').click();
+
+                }
+            });
+    }
+
+      function deletEmpPerm() {
+        $('#confirmModal').modal('hide');
+         $.ajax({
+            url: '@Url.Action("deletEmpPerm", "TDT_PSWPermission")',
+            type: 'GET',
+            cache: false,
+            dataType: "json",
+            data: {
+                numEmp: idToDelete,
+                type: $('#typeList').val()
+                //nom_app: $('#nom_app').val(),
+                //divMark: $('#divMark').val(),
+                //autorisation: $('#autor').val()
+
+            },
+             success: function (data) {
+                 $('#displayButton').click();
+
+            }
+        });
+
+    }
+
+</script>

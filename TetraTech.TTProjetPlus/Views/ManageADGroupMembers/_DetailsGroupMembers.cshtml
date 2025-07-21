@@ -1,0 +1,112 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.ManageADGroupMembers.ManageADRessources 
+@using TetraTech.TTProjetPlus.Models; 
+@model TetraTech.TTProjetPlus.Models.ManageADGroupMembersDetails
+
+@if (!string.IsNullOrEmpty(Model.SelectedGroup)){  
+    <div class="panel-body">    
+        @Html.HiddenFor(model=>model.SelectedGroup)
+        <div id="group-members" class="row">   
+        @if (Model != null && Model.ADGroupMembersList.Count() > 0)
+        { 
+            <div class="panel pagination-grey clearfix m-b-0">
+                <div id="table-memberslist" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+                    <table id="data_Members" class="table table-bordered  data-table  dataTable" style="width: 100%">
+                        <thead id="tableHeaderGP">
+                            <tr class="grey" role="row">  
+                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width: 25%">
+                                    ADGroup
+                                </th>
+                                <th class="sorting" tabindex="1" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width: 25%">
+                                     Number
+                                </th> 
+                               <th class="sorting" tabindex="2" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending" style="width: 25%">
+                                    @Resources.Name
+                                </th> 
+                                <th  style="width: 25%">
+                                    &nbsp; 
+                                </th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (GroupMember item in Model.ADGroupMembersList)
+                            { 
+                            <tr>
+                                <td style="text-align: left;width: 25%">
+                                    @item.ADGroup
+                                </td>
+                                <td style="text-align: left;width: 25%">
+                                    @item.Employee.EmployeeId
+                                </td> 
+                                <td >@item.Employee.DisplayName</td>
+                                <td style="text-align: left;width: 10%">  
+                                    <a href="" class="btn btn-default editor_remove"> <span class="k-icon k-i-close"></span> @Resources.Delete</a>  
+                                </td> 
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        } 
+        else
+        {
+            if (Model == null)
+            {
+                @Html.Partial("Error")
+            }
+            else
+            {
+                 <div class="alert alert-warning" role="alert">
+                    <span>@Resources.MessageNoMembersInGroup.</span>
+                </div>  
+            }
+        }
+        </div> 
+    </div>  
+} 
+else
+{
+    <div class="alert alert-warning" role="alert">
+        <span>@Resources.MessageSelectAdGroup</span>
+    </div>  
+}
+
+<script> 
+var data_MembersTable;
+$(document).ready(function () { 
+    data_MembersTable = $('#data_Members').DataTable({
+        "order": [[2, "asc"]],   
+        "columnDefs": [ { "targets": [ 3 ],  "orderable": false } , { "targets": [ 0,1 ],  "visible": false } ], 
+        "scrollY": "40vh",
+        "scrollCollapse": false,
+        "language": {
+            "url": "/Content/assets/French.json"
+        },       
+    });    
+});
+      
+     
+$('#data_Members').on('click', 'a.editor_remove', function (e) { 
+    e.preventDefault();  
+    var row =$(this).closest('tr');
+    var item=$('#data_Members').dataTable().fnGetData(row);   
+    var data = {SelectedGroup: item[0], SelectedEmployeeNumber: item[1], SelectedEmployeeName: item[2]};
+
+    $.post('@Url.Action("RemoveEmployeeFromADGroup", "ManageADGroupMembers")', data, function (result) { 
+        if (result.success) { 
+            refreshDetailsGroupMembersSection(result.selectedGroup); 
+            $(".details-messages.alert-success span").text(result.successmessage);
+            $(".details-messages.alert-success").show().delay(2000).slideUp( 300 );   
+        }
+        else
+        {
+            $(".details-messages.alert-danger span").text(result.errors.join());
+            $(".details-messages.alert-danger").show().delay(2000).slideUp( 300 );;
+        }  
+    }); 
+} );
+    
+</script>
+ 

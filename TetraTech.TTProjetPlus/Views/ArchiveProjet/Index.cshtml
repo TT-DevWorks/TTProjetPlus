@@ -1,0 +1,383 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.Securite
+@using Resources2 = TetraTech.TTProjetPlus.Views.ManageDirectoryRights
+@using ArchiveResources = TetraTech.TTProjetPlus.Views.ArchiveProjet
+@using Resources3 = TetraTech.TTProjetPlus.Views.TTProjet
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Controllers
+@using TetraTech.TTProjetPlus.Security
+@using InfoResources = TetraTech.TTProjetPlus.Views.Home.informations
+@model TetraTech.TTProjetPlus.Models.ManageDirectoryRightsViewModel
+
+<link type="text/css" href="~/Content/jQuery_UI_Multiselect/css/ui.multiselect.css" rel="stylesheet" />
+@*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>*@
+<script type="text/javascript" src="~/Content/jQuery_UI_Multiselect/js/plugins/localisation/jquery.localisation-min.js"></script>
+<script type="text/javascript" src="~/Content/jQuery_UI_Multiselect/js/plugins/scrollTo/jquery.scrollTo-min.js"></script>
+<script type="text/javascript" src="~/Content/jQuery_UI_Multiselect/js/ui.multiselect.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".multiselect").multiselect();
+    });
+</script>
+<style>
+    .connected-list {
+        height: 91%;
+    }
+
+    .actions {
+        font-size: 15px;
+    }
+
+    .ui-multiselect input.search {
+        height: 23px;
+        padding: 2px;
+        opacity: 4.5;
+        width: 289px;
+        height: 23px;
+        padding: 1px;
+    }
+
+
+    .ui-widget-header {
+        background-color: cyan;
+        border: 1px solid #e78f08;
+        /* background: #f6a828 url(images/ui-bg_gloss-wave_35_f6a828_500x100.png) 50% 50% repeat-x; */
+        color: #337ab7;
+        font-weight: bold;
+    }
+
+    .ui-state-active.ui-widget-header {
+        background-color: white;
+        color: #454545
+    }
+
+    .search.empty.ui-widget-content.ui-corner-all {
+        background-color: white;
+        color: black;
+    }
+
+
+    .ui-icon-arrowthick-2-n-s.ui-icon {
+        display: none
+    }
+
+    .multiselect {
+    }
+</style>
+@{
+    ViewBag.Title = "Archiver un projet";
+}<div id="loading">
+    <img id="loadingGIF2" src="~/Content/assets/img/ajax-loader.gif" alt="Loading..." />
+</div>
+
+<div class="container " style="height: 200vh; width: 100%">
+    <div class="main">
+
+
+        @if (ViewBag.MenuVisible == "true")
+        {
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-3" style="padding-top: -49px;">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 99px; ">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                    <li style="color:#183666 ; font-weight: bold"><a href="@Url.Action("Index2", "ArchiveProjet")"> @ArchiveResources.ArchiveProjetRessource.Administration </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 99px; ">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666 ; " href="@Url.Action("Index2", "ArchiveProjet")">@ArchiveResources.ArchiveProjetRessource.ArchiveProject</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666; font-weight: bold" href="@Url.Action("Index", "ArchiveProjet")">@ArchiveResources.ArchiveProjetRessource.ArchiveProject1</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666 ;" href="@Url.Action("Index", "Securite")">@Resources.Securite.CreateNumberAccessManagement</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666;" href="@Url.Action("Index", "GestionProjetSecuriser")">@Resources3.TTProjet.MangeProjetSecuriser</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 99px; ">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666 ;" href="@Url.Action("Index", "Gestion10ConfTQE")">@Resources3.TTProjet.Manage10ConfTQE</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666; " href="@Url.Action("Index", "Gestion10Conf")">@Resources3.TTProjet.Manage10Conf</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666;" href="@Url.Action("Index", "EnvVerifDiligente")">@Resources3.TTProjet.ListProjetEnvDiligente</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666;" href="@Url.Action("SatisfactionClient", "TTProjet")">@Resources3.TTProjet.ProcessusSatisfactionClient</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        }
+
+        <div class="row">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary" style="border-radius: 10px; margin-top: -15px; margin-left: -10px">
+                        <div class="panel-body" style="margin:15px;">
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="form-group">
+                                    <div class="col-sm-12 ">
+
+                                        @if (ViewBag.isAllowedAdministration == true)
+                                        {
+                                            <div class="row">
+                                                <div class="">
+                                                    <div class="alert alert-success alert-dismissible" id="successArchivage" hidden="hidden">
+                                                        <button type="button" class="close" data-hide="alert">&times;</button>
+                                                        <strong>@ArchiveResources.ArchiveProjetRessource.ArchiveSuccess</strong>
+                                                    </div>
+
+                                                    <div class="alert alert-danger alert-dismissible" id="failedArchivage" hidden="hidden">
+                                                        <button type="button" class="close" data-hide="alert">&times;</button>
+                                                        <strong>@ArchiveResources.ArchiveProjetRessource.ArchiveError</strong>
+                                                        <strong id="error"></strong>
+                                                    </div>
+                                                    <div class="alert alert-danger alert-dismissible" id="failMoveFolder" hidden="hidden">
+                                                        <button type="button" class="close" data-hide="alert">&times;</button>
+                                                        <strong>@ArchiveResources.ArchiveProjetRessource.ArchiveNotMoved</strong>
+                                                        <strong id="error"></strong>
+                                                    </div>
+
+                                                    <div class="alert alert-danger alert-dismissible" id="failExistOnServer" hidden="hidden">
+                                                        <button type="button" class="close" data-hide="alert">&times;</button>
+                                                        <strong>@ArchiveResources.ArchiveProjetRessource.NotExistingProject</strong>
+                                                        <strong id="error"></strong>
+                                                    </div>
+                                                    <div class="alert alert-warning alert-dismissible" id="openedWindows" hidden="hidden">
+                                                        <button type="button" class="close" data-hide="alert">&times;</button>
+                                                        <strong>
+                                                            @ArchiveResources.ArchiveProjetRessource.RepStrucInUse
+                                                        </strong>
+                                                    </div>
+
+                                                    <div class="alert alert-warning alert-dismissible" id="warningArchive" hidden="hidden">
+                                                        <button type="button" class="close" data-hide="alert">&times;</button>
+                                                        <strong>@ArchiveResources.ArchiveProjetRessource.ErrorChooseProject</strong>
+                                                    </div>
+                                                    <div class="alert alert-info" id="ConfirmDel" hidden="hidden">
+                                                        <strong>@ArchiveResources.ArchiveProjetRessource.ArchiveConfirm</strong>
+                                                        <div>
+                                                            <button class="btn btn-default" id="delButton" onclick="confirmDel()">@ArchiveResources.ArchiveProjetRessource.Confirm</button>
+                                                            <button class="btn btn-default" id="cancelButton" onclick="cancelDel()">@ArchiveResources.ArchiveProjetRessource.Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="alert alert-info" id="actionCancelled" hidden="hidden">
+                                                        <strong>@ArchiveResources.ArchiveProjetRessource.ActionCancelled</strong>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="row" style="color:steelblue; font-size:15px">
+                                                <div class="form-group">
+                                                    <div class="col-sm-12">
+                                                        <select class="multiselect" multiple="multiple" hidden id="">
+                                                            @foreach (structureItem item in ArchiveProjetController.ListeProjetsToArchive)
+                                                            {
+
+                                                                <option value="@item.Value">@item.Name</option>
+                                                            }
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <br />
+                                            <div class="row" style="color:steelblue; font-size:15px" hidden id="errorLog">
+                                                <div class="form-group">
+                                                    <div class="col-sm-12" id="errorLogInnerDiv">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <br />
+                                            <div style="text-align:right">
+                                                <button class="specialB" value="Submit" onclick="confirmDelete()" style="">@ArchiveResources.ArchiveProjetRessource.Archive</button>&nbsp;
+                                            </div>
+
+
+                                        }
+                                        else
+                                        {
+                                            <div class="row" style="color:red; font-size:initial">
+
+                                                <div class="form-group">
+                                                    <div class="col-sm-12 ">
+                                                        <h4>@ArchiveResources.ArchiveProjetRessource.RestrictedAccess</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="delButtonConfimation" hidden></div>
+<script>
+    $(document).ready(function () {
+        $('#errorLog').hide();
+        $('#errorLogInnerDiv').html("");
+
+    });
+
+    function SubmitToArchive()
+    {
+        $('#errorLog').hide();
+        $('#errorLogInnerDiv').html("");
+
+        var column1RelArray = [];
+        var projectMultiple = ""
+     $('.selected li').each(function () {
+     column1RelArray.push($(this).attr('data-selected-value'));
+     });
+        projectMultiple = column1RelArray.toString()
+
+        if (projectMultiple != null && projectMultiple!= '' )
+        {
+
+            if ($("#delButtonConfimation").html() == "delete") {
+
+
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'JSON',
+                    data: {
+                        projectId: projectMultiple,
+                    },
+                    cache: false,
+                    url: '@Url.Action("submitProjectToArchive", "ArchiveProjet")',
+                    success: function (data) {
+                        $('#errorLogInnerDiv').html("");
+                        for (var i = 0; i < data.result.length; i++) {
+                            var obj = data.result[i];
+
+                            $("#errorLogInnerDiv").append("<p>" + obj + "</p>");
+                        }
+
+                        $('#errorLog').show();
+                        //data.forEach(obj => {
+                        //    Object.entries(obj).forEach(([key, value]) => {
+                        //        $("#errorLogInnerDiv").append(" <p>" + value + "</p>.");
+                        //    });
+                        //});
+                    }
+                  });
+            }
+            else
+            {
+                $("#actionCancelled").val('')
+                setTimeout(function () {
+                    $('#actionCancelled').fadeOut('slow');
+                }, 2000
+                );
+
+            }
+ }
+        else
+{
+            $("#warningArchive").show();
+            setTimeout(function () {
+                $('#warningArchive').fadeOut('slow');
+            }, 60000
+            )
+        }
+    }
+
+    $(".close").click(function ()
+    {
+        $(".alert").hide();
+        $('#serverUsed').text("");
+        $("#projectNumber3").val('').trigger('change')
+
+    });
+
+
+    function confirmDel() {
+        $("#delButtonConfimation").html("");
+        $("#delButtonConfimation").html("delete");
+        $("#ConfirmDel").hide();
+        SubmitToArchive()
+    }
+
+    function cancelDel() {
+        $("#delButtonConfimation").html("");
+        $("#delButtonConfimation").html("cancel");
+        $("#ConfirmDel").hide();
+        SubmitToArchive()
+    }
+
+    function confirmDelete() {
+        if ($('#modeleSelectionNameToDelete').val() != "") {
+            $("#ConfirmDel").show();
+        }
+        else {
+            $("#warningDel").show();
+            setTimeout(function () {
+                $('#warningDel').fadeOut('slow');
+            }, 60000
+            )
+        }
+
+    }
+
+    //pour recuperer les valeur du multiselect
+    //var column1RelArray = [];
+    //$('.selected li').each(function () {
+    //    column1RelArray.push($(this).attr('data-selected-value'));
+    //}); alert(column1RelArray)
+</script>

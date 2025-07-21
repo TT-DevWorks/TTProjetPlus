@@ -1,0 +1,662 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.FolderStructure
+@using Resources2 = TetraTech.TTProjetPlus.Views.ModeleSelection
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Controllers
+@using TetraTech.TTProjetPlus.Services
+@using TetraTech.TTProjetPlus.Security
+
+@model TetraTech.TTProjetPlus.Models.ProjectToModifyModel
+@{
+    /**/
+
+    ViewBag.Title = "Modification de structure";
+}
+@{
+    var currentUser = UserService.CurrentUser;
+    var employeeSatus = FileUploadService.IsEmplopyeeAdmin(currentUser.EmployeeId);
+}
+
+<script type="text/javascript" src="~/Content/folderStucture/js/highchecktree.js"></script>
+
+@* searchable *@
+@*<script type="text/javascript" src="~/Content/Searchable/jquery.searchabledropdown-1.0.8.min.js"></script>*@
+
+<style type="text/css">
+
+    #main-container {
+        width: 600px;
+        margin: 150px auto;
+    }
+
+    .inputWidth3 {
+        width: 60%;
+        display: inline
+    }
+
+    #tree-container label.hover {
+        color: red;
+    }
+</style>
+<div id="loading">
+    <img id="loadingGIF2" src="~/Content/assets/img/ajax-loader.gif" alt="Loading..." />
+</div>
+<div id="top"></div>
+<div class="container " style="height: 200vh;width:100%">
+
+    <div class="main">
+        @if (ViewBag.MenuVisible == "true")
+        {
+
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-3" style="padding-top: -49px; ">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 75px">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                    <li style="color:white ; font-weight: bold"><a href="@Url.Action("Index", "ModeleSelection")"> @Resources2.ModeleSelectionManagementRessources.General </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 75px">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666" href="@Url.Action("Index", "ModeleSelection", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.ModelSelectionMng</a>
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666; font-weight: bold" href="@Url.Action("Index", "FolderStructure", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.ModifyStrucFolder</a>
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666" href="@Url.Action("Index", "LecteurReseau", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.ConnectADrive</a>
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666" href="@Url.Action("IndexSpecial", "LecteurReseau" , new { displayRetourS = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.ConnectASpecialDrive</a>
+                                        </li>
+
+                                        @if (employeeSatus == 1)
+                                        {
+                                            <li>
+                                                &bull;&nbsp;
+                                                <a style="color:#183666; " href="@Url.Action("Index", "FileUpload", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.fileUpload</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="row">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary" style="border-radius: 10px; margin-top: -15px; margin-left: -10px;">
+                        <div class="panel-body" style="margin:15px;">
+                            <div class="row">
+                                <div class="">
+                                    <div class="alert alert-success alert-dismissible" id="successMDSR" hidden="hidden">
+                                        <button type="button" class="close" data-hide="alert">&times;</button>
+                                        <strong>@Resources.FoldStructRessource.message1</strong>
+                                    </div>
+
+                                    <div class="alert alert-danger alert-dismissible" id="failedMDSR" hidden="hidden">
+                                        <button type="button" class="close" data-hide="alert">&times;</button>
+                                        <strong>
+                                            @Resources.FoldStructRessource.message2
+                                        </strong>
+                                        <strong id="error"></strong>
+                                    </div>
+                                    <div class="alert alert-warning alert-dismissible" id="warningMDSR" hidden="hidden">
+                                        <button type="button" class="close" data-hide="alert">&times;</button>
+                                        <strong>@Resources.FoldStructRessource.message3</strong>
+                                    </div>
+                                    <div class="alert alert-warning alert-dismissible" id="notExisting" hidden="hidden">
+                                        <button type="button" class="close" data-hide="alert">&times;</button>
+                                        <strong>@Resources.FoldStructRessource.message4</strong>
+                                    </div>
+                                    <div class="alert alert-warning alert-dismissible" id="successAttentionModif" hidden="hidden">
+                                        <button type="button" class="close" data-hide="alert">&times;</button>
+                                        <strong>
+                                            @Resources.FoldStructRessource.message5
+                                        </strong>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <!--<div class="row">-->
+                            @*<div class="col-sm-12">
+                                 <button class="btn btn-primary" onclick="copyFile()">test copy file from server</button>
+                                </div>*@
+
+                            <!--<div class="col-sm-12">
+                                    <h4 style="margin-top: 0px; color:#183666; font-family: 'Arial Bold'; font-size: 18pt;"><b>@Resources.FoldStructRessource.Modifiy</b></h4>
+                                </div>
+                            </div>-->
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p>
+                                        @Resources.FoldStructRessource.message6
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="form-group">
+                                    <div class="col-sm-8">
+                                        <div style="">
+                                            <div style="float:left;width:100%">
+                                                <select class="form-control select2select " style=" width : 70%" id="projetcNumber2"></select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            @*<div class="row" style="color:steelblue; font-size:initial">
+                                    <div class="form-group">
+                                        <label class="col-sm-6">@Resources.ProjectReume</label>
+                                        <div class="col-sm-6">
+                                            <div style="width:100%" id="projResume">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="form-group" style="padding-top:13px">
+                                    <label class="col-sm-3">@Resources.FoldStructRessource.ServerUsed</label>
+                                    <div class="col-sm-2">
+                                        <div style="width: 100%; margin-left: -2px" id="serverUsed">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="form-group" style="padding-top:13px">
+                                    <label class="col-sm-3">@Resources.FoldStructRessource.usedModel</label>
+                                    <div class="col-sm-2">
+                                        <div style="width: 100%; margin-left: -2px" id="ModUsed">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="form-group">
+                                    <div class="col-sm-8">
+                                        <div style="float:left;width:100%">
+                                            @Html.DropDownListFor(m => m.selectionModel, new SelectList(" "), new { @class = "form-control select-modele4 select2select select1" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        @*  ici résumé du projet *@
+        <div class="row noDisplay2" id="projResume">
+            <div>
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse11">@Resources.FoldStructRessource.ProjectResume </a><span class="caret"></span>
+                            </h4>
+                        </div>
+
+                        <div id="collapse11" class="panel-collapse collapse" style="padding:15px;">
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="form-group">
+                                    <label class="col-sm-4">@Resources.FoldStructRessource.DescriptionProjet: </label>
+                                    <div class="col-sm-8">
+                                        <p id="DescriptionProjet"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="form-group">
+                                    <label class="col-sm-4">@Resources.FoldStructRessource.Organisation: </label>
+                                    <div class="col-sm-8">
+                                        <p id="Organisation"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="form-group">
+                                    <label class="col-sm-4">@Resources.FoldStructRessource.StatutProjet: </label>
+                                    <div class="col-sm-8">
+                                        <p id="StatutProjet">
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="form-group">
+                                    <label class="col-sm-4">@Resources.FoldStructRessource.Client: </label>
+                                    <div class="col-sm-8">
+                                        <p id="Client"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="form-group">
+                                    <label class="col-sm-4">@Resources.FoldStructRessource.GestionnaireProjet: </label>
+                                    <div class="col-sm-8">
+                                        <p id="GestionnaireProjet"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="form-group">
+                                    <label class="col-sm-4">@Resources.FoldStructRessource.GestionnaireProgramme: </label>
+                                    <div class="col-sm-8">
+                                        <p id="GestionnaireProgramme"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="form-group">
+                                    <label class="col-sm-4">@Resources.FoldStructRessource.AgentFacturation: </label>
+                                    <div class="col-sm-8">
+                                        <p id="AgentFacturation"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row noDisplay2" id="noDetails">
+            <div>
+                <div class="panel-group">
+                    <div class="panel panel-default" style = "margin-top: -15px; margin-left: -10px;">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse22">@Resources.FoldStructRessource.ProjectResume <span class="glyphicon glyphicon-menu-down"></span></a>
+                            </h4>
+                        </div>
+
+                        <div id="collapse22" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <p>
+                                    @Resources.FoldStructRessource.noDetails
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* fin résumé *@
+        <div class="row noDisplay2" id="divForTree">
+            <div class="panel panel-primary" style="border-radius: 10px; margin-top: -15px; margin-left: -10px; ">
+                <div class="panel-body" style="margin:15px;">
+                    <div style="margin:15px;">
+                        <p style="color:steelblue; font-size:initial" id="tree"></p>
+                        <div class="row" style="color:steelblue; font-size:initial">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <div id="" style="max-height: 70vh; overflow-y:auto">
+                                        <div id="tree-container">
+
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div style="text-align:right;">
+                                        <button class="specialB" onclick="submitMDSR()">@Resources.FoldStructRessource.Save</button>&nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+
+        items = []
+
+    @for (var i = 0; i < FolderStructureController.ListeProjetsWSDR.Count(); i++) {
+        @:items.push({ id: '@FolderStructureController.ListeProjetsWSDR[@i].Value', text: '@FolderStructureController.ListeProjetsWSDR[@i].Name'})
+    }
+    pageSize = 50
+    jQuery.fn.select2.amd.require(["select2/data/array", "select2/utils"],
+
+    function (ArrayData, Utils) {
+        function CustomData($element, options) {
+            CustomData.__super__.constructor.call(this, $element, options);
+        }
+        Utils.Extend(CustomData, ArrayData);
+
+        CustomData.prototype.query = function (params, callback) {
+
+            results = [];
+            if (params.term && params.term !== '') {
+              results = _.filter(items, function(e) {
+                return e.text.toUpperCase().indexOf(params.term.toUpperCase()) >= 0;
+              });
+            } else {
+              results = items;
+            }
+
+            if (!("page" in params)) {
+                params.page = 1;
+            }
+            var data = {};
+            data.results = results.slice((params.page - 1) * pageSize, params.page * pageSize);
+            data.pagination = {};
+            data.pagination.more = params.page * pageSize < results.length;
+            callback(data);
+        };
+
+        $(document).ready(function () {
+           // $("#selectionModel").select2();
+                //$(".select-modele4").prepend("<option value='' disabled selected style='color:#ccc'>"+"Choisir un modèle de selection (optionel)..."+"</option>");
+            $("#tree").text("")
+            var placeHold = "@ViewBag.ProjectToModify" == "" ? "@Resources.FoldStructRessource.ChooseAProject":"@ViewBag.ProjectToModify"
+            var placeHoldVal = "@ViewBag.ProjectToModify" == "" ? "":"@ViewBag.ProjectToModify"
+
+            $('#projetcNumber2').prepend('<option selected val="' + placeHoldVal +'"></option>').select2({
+              ajax: {},
+                dataAdapter: CustomData,
+                placeholder: placeHold,
+                allowClear: false
+            });
+
+
+        });
+    })
+});
+
+
+
+//on change project: choose a server
+    $('#projetcNumber2').on('change', function () {
+        $("#notExisting").hide();
+        $('#projResume').hide();
+        $('#noDetails').hide();
+        $('#DescriptionProjet').html("");
+        $('#Organisation').html("");
+        $('#Client').html("");
+        $('#GestionnaireProjet').html("");
+        $('#GestionnaireProgramme').html("");
+        $('#AgentFacturation').html("");
+        $('#divForTree').hide();
+        $('#tree-container').html("");
+
+        if ($('#projetcNumber2').val() != null && $('#projetcNumber2').val() != '') {
+            $.ajax({
+                data: { projectNumber: $("#projetcNumber2").val() },
+                url: '@Url.Action("returnModeleSelectionAll", "FolderStructure")',
+                type: 'GET',
+                success: function (data) {
+                    $('#serverUsed').text("");
+                    $('#ModUsed').text("");
+                    if (data == null || data == "")
+                    {
+                        $("#selectionModel").empty();
+                        $("#selectionModel").append('<option value="">'+'@Resources.FoldStructRessource.message7'+'</option >');
+                    }
+                    else
+                    {
+                        $("#selectionModel").empty();
+                        $("#selectionModel").append("<option value='' disabled selected style='color: #ccc'>" + "@Resources.FoldStructRessource.message8" + "</option>");
+                        $.each(data, function (index, row) {
+
+                            $("#selectionModel").append('<option value="'
+                                + row.Value + '">'
+                                + row.Name + '</option>');
+                        });
+                    }
+
+                    $.ajax({
+                        type: 'GET',
+                        dataType: 'JSON',
+                        data: { projectNumber: $("#projetcNumber2").val() },
+                        cache: false,
+                        url: '@Url.Action("returnServerUsed", "FolderStructure")',
+                        success: function (result) {
+                            $.ajax({
+                                url: '@Url.Action("existsOnServer", "FolderStructure")',
+                                type: 'GET',
+                                dataType: 'json',
+                                traditional: true,
+                                data: {
+                                    projectNumber: $("#projetcNumber2").val(),
+                                },
+                                success: function (data) {
+
+                                    var server = result.Server
+                                    var mod = result.ModId
+                                        // completer l affichage du resume du projet
+                                    $('#serverUsed').text(server);
+                                    $('#ModUsed').text(mod);
+                            //on verifie si le projet existe reellement sur le serveur:
+                                    if (data.result == "existing") {
+
+                                        if (result.Resume == null)
+                                        {
+                                            $('#noDetails').show();
+                                        }
+                                        else {
+                                            $('#projResume').show();
+                                            $('#DescriptionProjet').html(result.Resume.Description_projet);
+                                            $('#StatutProjet').html(result.Resume.Statut_projet);
+                                            $('#Organisation').html(result.Resume.Organisation);
+                                            $('#Client').html(result.Resume.Client);
+                                            $('#GestionnaireProjet').html(result.Resume.Gestionnaire_projet);
+                                            $('#GestionnaireProgramme').html(result.Resume.Gestionnaire_programme);
+                                            $('#AgentFacturation').html(result.Resume.Agent_facturation);
+
+                                        }
+
+                                        //struture de repertoire pour le projet choisi:
+                                        $.ajax({
+                                            type: 'GET',
+                                            dataType: 'JSON',
+                                            data: {
+                                                projectNumber: $("#projetcNumber2").val(),
+                                                // modeleSelection: $("#selectionModel").val()
+                                            },
+                                            cache: false,
+                                            url: '@Url.Action("returnStructure", "FolderStructure")',
+                                            success: function (result) {
+                                                $("#tree").html('@Resources.FoldStructRessource.message9')
+
+                                                $('#tree-container').highCheckTree
+                                                    ({
+                                                        data: result
+                                                    });
+                                                $("#divForTree").show();
+                                            }
+                                        });
+                                    }
+
+                                    else {
+                                        $("#selectionModel").empty();
+                                        $('[rel="1"]').find('ul').css("display", "none");
+                                        $("#notExisting").show();
+
+                                    }
+
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+});
+
+        //si on a choisi un modele de selection:
+            $('#selectionModel').on('change', function ()
+            {
+            $('#tree-container').html("");
+                 $.ajax({
+                     type: 'GET',
+                      dataType: 'JSON',
+                      data: {
+                          projectNumber: $("#projetcNumber2").val(),
+                          modeleSelection: $("#selectionModel").val()
+                      },
+                     cache: false,
+                     url: '@Url.Action("returnStructureWMDS", "FolderStructure")',
+                      success: function (result)
+                      {
+                          $("#tree").html('@Resources.FoldStructRessource.message9')
+                          $('#tree-container').highCheckTree
+                            ({
+                               data: result
+                            });
+                         while ($('.collapsed').length >0)
+                                {
+                                $('.collapsed').trigger('click');
+                                }
+                          $('#divForTree').show();
+                      }
+                 });
+
+
+    });
+
+    function submitMDSR()
+    {
+        if ($("#projetcNumber2").val() == "")
+        {
+            $("#warningMDSR").show();
+            setTimeout(function () {
+                $('#warningMSDR').fadeOut('slow');
+            }, 2000
+            )
+        }
+
+        else
+        {
+
+            var checkedNodes = [];
+            $('.checked').each(function () {
+                checkedNodes.push($(this).parent().attr('rel') + "/" + $(this).parent().find('label').first().text());
+            });
+            $('.half_checked').each(function () {
+                checkedNodes.push($(this).parent().attr('rel') + "/" + $(this).parent().find('label').first().text());
+            });
+
+            $.ajax({
+                url: '@Url.Action("submitAction", "FolderStructure")',
+                dataType: 'json',
+                traditional: true,
+                data: {
+                    projectId: $("#projetcNumber2").val(),
+                    selectionModel: $("#selectionModel").val(),
+                    listOfNodes: checkedNodes
+                },
+                success: function (data)
+                {
+                    if (data.result == "successMDSR" || data.result == "success")
+                    {
+                        $('[rel="1"]').find('ul').css("display", "none");
+                        $("#successMDSR").show();
+                        //setTimeout(function () {
+                        //    $('#successMDSR').fadeOut('slow');
+                        //}, 2000
+                        //);
+
+                    }
+                    else if (data.result == "failedMDSR" || data.result == "fail")
+                    {
+                        $('[rel="1"]').find('ul').css("display", "none");
+                        $("#failedMDSR").show();
+                        $("#error").text(data.error);
+                        //setTimeout(function () {
+                        //    $('#failedMDSR').fadeOut('slow');
+                        //}, 5000
+                        //);
+                    }
+
+                    else if (data.result == "successAttention")
+                    {
+                        $('[rel="1"]').find('ul').css("display", "none");
+                        $("#successAttentionModif").show();
+                        //setTimeout(function () {
+                        //    $('#failedMDSR').fadeOut('slow');
+                        //}, 5000
+                        //);
+                    }
+                    $('#tree-container').html("");
+                    $('#tree').html("");
+                    $('#projetcNumber2').val("-1");
+                    $('#noDetails').hide();
+                    $('#projResume').hide();
+                    $('#divForTree').hide();
+                    $(document).scrollTop($("#top").offset().top);
+                }
+            });
+
+    }
+  }
+
+
+
+
+    function returntoMenu()
+    {
+        window.location.href = "@Url.Action("Index", "TTProjet")";
+    }
+
+    $(".close").click(function () {
+        $(".alert").hide();
+        $("#projetcNumber2").val('').trigger('change')
+        $('#serverUsed').text("");
+        $('#ModUsed').text("");
+        $("#selectionModel").empty();
+
+    });
+
+    function copyFile() {
+                         $.ajax({
+                     type: 'GET',
+                      dataType: 'JSON',
+                     cache: false,
+                     url: '@Url.Action("copyFileFromServer", "FolderStructure")',
+                      success: function (data)
+                      {
+                          if (data.result == "success") {
+                              alert("transfer successfull!")
+
+                          }
+                          else
+                              alert("transfer failed!")
+                      }
+                 });
+    }
+</script>

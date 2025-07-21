@@ -1,0 +1,252 @@
+﻿
+
+@using ResourcesTT = TetraTech.TTProjetPlus.Views.ListeOffres.ListeProjetsRessourcesTTPlus
+@using Resources = TetraTech.TTProjetPlus.Views.ListeOffres
+@using TetraTech.TTProjetPlus.Security
+
+
+@{
+    ViewBag.Title = "Liste des offres";
+
+    var currentUser = UserService.CurrentUser;
+
+}
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.0.3/js/dataTables.dateTime.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<style>
+
+    .panel-body {
+        /*margin-top: -25px;*/
+        margin-left: 30px;
+        margin-right: 30px;
+        margin-bottom: -25px
+    }
+
+    .form-control {
+        border-radius: 0px;
+    }
+
+    @@media (min-width: 768px) {
+        .modal-xl {
+            width: 90%;
+            max-width: 1200px;
+        }
+    }
+</style>
+<body style="overflow-y: hidden!important">
+    <div class="form-horizontal">
+
+        <div class="container " style="height: 100%; width: 100%">
+            <div class="main">
+                @if (ViewBag.MenuVisible == "true")
+                {
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-lg-3" style="padding-top: 7px;">
+                                <div class="panel" style="border-radius: 10px; width: 106%;">
+                                    <div class="panel-body">
+                                        <ul class="list-inline">
+                                            <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                            <li><a style=" color:#183666; font-weight: bold" href="@Url.Action("Index", "Home")">@Resources.ListeProjetsRessources.OffersList</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="">
+                                    <div class="panel" style="border-radius: 10px; ">
+                                        <div class="panel-body">
+                                            <ul class="list-inline">
+                                                <li>
+                                                    &bull;&nbsp;<a style="color:#183666 ; " href="@Url.Action("Index", "Home")">@Resources.ListeProjetsRessources.GenerateProjectNumber</a>
+
+                                                </li>
+
+                                                <li>
+                                                    &bull;&nbsp;<a style="color:#183666; font-weight: bold; " href="@Url.Action("Index", "ListeOffres")">@Resources.ListeProjetsRessources.OffersList</a>
+
+                                                </li>
+                                                <li>
+                                                    &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("IndexProjet", "ListeOffres")">@Resources.ListeProjetsRessources.ProjectsList</a>
+
+                                                </li>
+                                                <li>
+                                                    &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "InfoProjet")">@Resources.ListeProjetsRessources.InfoProject</a>
+
+                                                </li>
+                                                <li>
+                                                    &bull;&nbsp;<a style="color:#183666" href="@Url.Action("Index", "ProjectToClose")">@Resources.ListeProjetsRessources.ProjectToCloseTitle</a>
+                                                </li>
+                                                <li>
+                                                    &nbsp;&nbsp;&bull;
+                                                    <a style="color:#183666;" href="@System.Configuration.ConfigurationManager.AppSettings["TTIndexUrl"]" target="_blank">@Resources.ListeProjetsRessources.TTIndex</a>
+                                                </li>
+                                                <li>
+                                                    &bull;&nbsp;
+                                                    <a style="color:#183666;" href="@System.Configuration.ConfigurationManager.AppSettings["BoomerangUrl"]" target="_blank">@Resources.ListeProjetsRessources.Boomerang</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                }
+                @{
+                    var mask = ViewBag.MenuVisible == "true" ? Resources.ListeProjetsRessources.maskInactive : ResourcesTT.maskInactive;
+                }
+                <div class="row">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="panel panel-primary" style="border-radius: 10px; margin-top: -10px;">
+                                @*<div class="row">
+                                        <div class="col-lg-3">
+                                            <h6 style="margin-left: 25px; float:left ; color: #5482ab; font-family: 'Arial Bold'; font-size: 18pt;">
+                                                <b>@Resources.MyOffersList</b>
+                                            </h6>
+                                        </div>
+                                    </div>*@
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <label class="checkbox-inline" style="margin-left: 25px;"><input id="offerCheckbox" class="" type="checkbox" value="" checked>@mask</label>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row form-group">
+                                        <div class="row">
+                                            <div id="listeOffres">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<div class="modal fade in" id="directoryDontExist" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content" style="width:100%;">
+            <div class="modal-header" style="width:100%;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelGP">@Resources.ListeProjetsRessources.warning</h4>
+            </div>
+            <div id="topUpdate"></div>
+            <div class="modal-body" id="contentDirectory" style="width:100%;">
+                @Resources.ListeProjetsRessources.notExistingAnuMore
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="specialB" data-dismiss="modal">@Resources.ListeProjetsRessources.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade in" id="modal_OfferList" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content" style="width:100%;">
+            <div class="modal-header" style="width:100%;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelGPa"></h4>
+            </div>
+            <div id="topUpdate"></div>
+            <div class="modal-body" id="contentOffer" style="width:100%;">
+            </div>
+            @*<div class="modal-footer" style="width:100%;">
+                    <button type="button" class="specialB" data-dismiss="modal" id="cancelProjectMgr">Annuler</button>
+                    <button type="button" class="specialB" onclick="applyChangesForOffer()">OK</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var offerIdForUpdate = "";
+
+    $(document).ready(function () {
+//affichage du tableau des liste d offres
+          $.ajax({
+             type: 'GET',
+             dataType: 'html',
+              cache: false,
+              data: {
+                  userId: '@ViewBag.UserIdIFrame' == '' ? '@UserService.CurrentUser.EmployeeId' : '@ViewBag.UserIdIFrame',
+                  visible : '@ViewBag.menuVisible'
+              },
+             url: '@Url.Action("returnOffersList", "InlineEditingDemo")',
+              success: function (result) {
+
+                  $("#listeOffres").html("");
+                  $("#listeOffres").html(result);
+
+              }
+
+          });
+
+    });
+
+    //pour montrer ls offres de services inactives:
+    $("#offerCheckbox").click(function () {
+        var activeParam = $("#offerCheckbox").is(':checked')==true ? "yes" : "no"
+            $.ajax({
+                url: '@Url.Action("returnOffersList", "InlineEditingDemo")',
+                type: 'GET',
+                cache: false,
+                data: {
+                    userId: '@UserService.CurrentUser.EmployeeId',
+                    active: activeParam,
+                    visible :'@ViewBag.menuVisible'
+                },
+                success: function (result) {
+                    $('#listeOffres').html("")
+                    $("#listeOffres").html(result);
+                }
+            });
+
+    });
+
+    function openOffreModal(projectId, projectNumber) {
+        offerIdForUpdate = projectId;
+
+        $('#contentOffer').html("")
+          $.ajax({
+                url: '@Url.Action("returnDetailsForOfferInModal", "InlineEditingDemo")',
+                type: 'GET',
+                cache: false,
+              data: {
+                  Id: projectId,
+                },
+                success: function (result) {
+
+                    $('#contentOffer').html(result);
+                    $('#modalLabelGPa').html("<h4 style='font-weight:bold;color: #5482ab'>"+'@Resources.ListeProjetsRessources.offerDetails '+ projectNumber + "</h4>");
+                    $('#modal_OfferList').modal('show');
+
+                }
+            });
+    }
+
+</script>
+
+
+

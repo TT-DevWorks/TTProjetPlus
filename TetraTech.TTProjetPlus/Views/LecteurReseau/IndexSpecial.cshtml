@@ -1,0 +1,181 @@
+﻿@model TetraTech.TTProjetPlus.Controllers.LecteurReseauController.MonModeleLecteurSpecial
+@using Resources = TetraTech.TTProjetPlus.Views.LecteurReseau
+@using Resources2 = TetraTech.TTProjetPlus.Views.ModeleSelection
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Controllers
+@using TetraTech.TTProjetPlus.Services
+@using TetraTech.TTProjetPlus.Security
+
+@{
+    ViewBag.Title = "Lecteur réseau spécial";
+}
+@{
+    var currentUser = UserService.CurrentUser;
+    var employeeSatus = FileUploadService.IsEmplopyeeAdmin(currentUser.EmployeeId);
+
+}
+
+<style>
+
+    #main-container {
+        width: 600px;
+        margin: 150px auto;
+    }
+
+    .inputWidth {
+        width: 100%;
+    }
+
+    .inputWidth2 {
+        width: 50%;
+        display: inline
+    }
+
+    .inputWidth3 {
+        width: 60%;
+        display: inline
+    }
+
+    .redText {
+        color: red;
+    }
+
+    #loading {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        display: block;
+        opacity: 0.7;
+        background-color: #fff;
+        z-index: 99;
+        text-align: center;
+        display: none;
+    }
+
+    #loadingGIF2 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 100;
+    }
+</style>
+
+
+<div id="loading">
+    <img id="loadingGIF2" src="~/Content/assets/img/ajax-loader.gif" alt="Loading..." />
+</div>
+<div class="container " style="height: 200vh; width: 100%">
+    <div class="main">
+        @if (ViewBag.MenuVisible == "true")
+        {
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-3" style="padding-top: -49px; ">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 75px">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                    <li style="color:white ; font-weight: bold"><a href="@Url.Action("Index", "ModeleSelection")"> @Resources2.ModeleSelectionManagementRessources.General </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 75px">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666" href="@Url.Action("Index", "ModeleSelection", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.ModelSelectionMng</a>
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666" href="@Url.Action("Index", "FolderStructure", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.ModifyStrucFolder</a>
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666" href="@Url.Action("Index", "LecteurReseau", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.ConnectADrive</a>
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666; font-weight: bold" href="@Url.Action("IndexSpecial", "LecteurReseau" , new { displayRetourS = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.ConnectASpecialDrive</a>
+                                        </li>
+
+                                        @if (employeeSatus == 1)
+                                        {
+                                            <li>
+                                                &bull;&nbsp;
+                                                <a style="color:#183666; " href="@Url.Action("Index", "FileUpload", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources2.ModeleSelectionManagementRessources.fileUpload</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+        <div class="row">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary" style="border-radius: 10px; margin-top: -15px; margin-left: -10px">
+                        <div class="panel-body" style="margin:15px;">
+                            Montréal (Prj_Usine 3D)
+                            <br />
+                            <a href="@Model.LecteurSpecialMontrealPrj_Usine_3D" id="monLien" onclick="copierLien(this)">@Model.LecteurSpecialMontrealPrj_Usine_3D</a>
+                            <br />
+                            <br />
+                            Québec - TTI (Prj_Usine 3D)
+                            <br />
+                            <a href="@Model.LecteurSpecialQuebecTTIPrj_Usine_3D" id="monLien" onclick="copierLien(this)">@Model.LecteurSpecialQuebecTTIPrj_Usine_3D</a>
+                            <br />
+                            <br />
+                            Montréal (Suncor)
+                            <br />
+                            <a href="@Model.LecteurSpecialMontrealSuncor" id="monLien" onclick="copierLien(this)">@Model.LecteurSpecialMontrealSuncor</a>
+                            <br />
+                            <br />
+                            Jonquière (Prj_Usine 3D)
+                            <br />
+                            <a href="@Model.LecteurSpecialJonquierePrj_Usine_3D" id="monLien" onclick="copierLien(this)">@Model.LecteurSpecialJonquierePrj_Usine_3D</a>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ------------------------------------------------------------------>
+<script>
+    function copierLien(lien) {
+        // Créez un élément textarea temporaire pour stocker le lien
+        var texteAreaTemporaire = document.createElement("textarea");
+        texteAreaTemporaire.value = lien.href;
+
+        // Ajoutez l'élément textarea temporaire à la page
+        document.body.appendChild(texteAreaTemporaire);
+
+        // Sélectionnez son contenu
+        texteAreaTemporaire.select();
+
+        // Copiez le contenu dans le presse-papiers
+        document.execCommand('copy');
+
+        // Retirez l'élément textarea temporaire de la page
+        document.body.removeChild(texteAreaTemporaire);
+
+        alert("Lien copié : " + lien.href);
+    }
+
+
+</script>

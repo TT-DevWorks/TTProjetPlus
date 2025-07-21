@@ -1,0 +1,1020 @@
+﻿@model TetraTech.TTProjetPlus.Models.OSProjectModel
+@using Resources3 = TetraTech.TTProjetPlus.Views.Home
+@using Resources2 = TetraTech.TTProjetPlus.Views.ListeOffres
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Data;
+@using TetraTech.TTProjetPlus.Controllers
+@using TetraTech.TTProjetPlus.Security
+
+
+@{
+    ViewBag.Title = "Accueil";
+
+    var currentUser = UserService.CurrentUser;
+
+}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+<link href="~/Content/assets/plugins/bootstrap-datetimepicker/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
+<link href="~/Content/assets/plugins/bootstrap-datetimepicker/bootstrap/js/bootstrap.min.js" rel="stylesheet" media="screen">
+
+<link href="~/Content/assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="~/Content/assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="~/Content/assets/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+
+
+<style>
+
+
+    .panel-body {
+        /*padding-top: 30px !important;*/
+    }
+
+    /* enable absolute positioning */
+    .inner-addon {
+        position: relative;
+    }
+
+        /* style icon */
+        .inner-addon .glyphicon {
+            position: absolute;
+            padding: 10px;
+            pointer-events: none;
+        }
+
+    /* align icon */
+    .left-addon .glyphicon {
+        left: 0px;
+    }
+
+    .right-addon .glyphicon {
+        right: 0px;
+    }
+
+    /* add padding  */
+    .left-addon input {
+        padding-left: 30px;
+    }
+
+    .right-addon input {
+        padding-right: 30px;
+    }
+
+    /*i {
+        background: lightblue;
+    }*/
+
+    .redText {
+        color: red;
+    }
+
+    .inputWidth {
+        width: 100%;
+    }
+
+    .inputWidth2 {
+        width: 20%;
+        display: inline
+    }
+
+    .datetimepicker.datetimepicker-dropdown-bottom-right.dropdown-menu {
+        left: 965.53px;
+        width: 15%;
+    }
+
+    .dropdown-menu {
+        /*height: 200px;*/
+        width: 65%;
+    }
+
+    #loadingL {
+        position: fixed;
+        left: 50%;
+        top: 35%;
+        background: transparent;
+        display:none;
+        z-index: 2;
+        height: 31px;
+        width: 31px;
+    }
+</style>
+
+
+
+<div class="panel panel-primary">
+    <div class="panel-body" style="margin:5px;margin-top:-15px">
+        <br />
+        <div class="alert alert-warning" id="MissingFieldsAdd" hidden="hidden">
+            <button type="button" class="close" data-hide="alert">&times;</button>
+            <strong>@Resources3.informations.DF_message1:</strong>
+            <p id="MF1" hidden="hidden">@Resources3.informations.DF_message2</p>
+            <p id="MF5" hidden="hidden">@Resources3.informations.DF_message3</p>
+            <p id="MF6" hidden="hidden">@Resources3.informations.DF_message4</p>
+            <p id="MF7" hidden="hidden">@Resources3.informations.DF_message5</p>
+            <p id="MF8" hidden="hidden">@Resources3.informations.DF_message6</p>
+            <p id="MF9" hidden="hidden">@Resources3.informations.DF_message7</p>
+            <p id="MF10" hidden="hidden">@Resources3.informations.DF_message8</p>
+            <p id="MF11" hidden="hidden">@Resources3.informations.DF_message10</p>
+            <p id="MF12" hidden="hidden">@Resources3.informations.MissingCourriel</p>
+
+
+        </div> 
+        <div class="alert" id="longWait" hidden="hidden">
+            <div>
+                <div class="row">
+                    <div class="col-lg-3">@Resources3.informations.Treatement</div>
+                    <div class="col-lg-2" ><img id="" src="~/Content/assets/img/ajax-loader.gif" alt="en cours..." /></div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="alert alert-success" id="successUpdate" hidden="hidden">
+            <button type="button" class="close" data-hide="alert">&times;</button>
+            <strong>@Resources3.informations.DF_message9 </strong>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="row">
+                    <label class="col-sm-4">@Resources3.informations.projectDescription :</label>
+                    <div class="form-group col-sm-7">
+                        <input type="text" class="form-control" id="title" aria-describedby="emailHelp" value="@Model.Project_Description">
+                    </div>
+                    <div class="col-sm-1" style="color:red">
+                        <h3 class="star pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                    </div>
+
+                </div>
+                @if (Model.Project_Master_ID != "")
+                {
+
+                    <div id="masterProject">
+
+                        <div class="row">
+                            <label class=" col-sm-4">@Resources3.informations.Masterproject :</label>
+                            <div class="col-sm-7 border border-primary">
+                                <span id="MasterProjectNumber">@Model.Project_Master_ID</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class=" col-sm-4">@Resources3.informations.CodeOfPhase :</label>
+                            <div class="col-sm-7 border border-primary" id="PhaseCode">
+                                @Model.PhaseCode
+                            </div>
+                        </div>
+
+                    </div>
+
+                }
+                <div class="row">
+                    <label class=" col-lg-4">@Resources3.informations.ClientName :</label>
+                    <div class="form-group col-lg-7">
+                        <div class="wrapper">
+                            <select data-live-search="true" class="form-control selectpicker small userInput" id="customer" data-width="100%">
+                                @foreach (Customer item in ListeOffresController.ListeCustomers)
+                                {
+                                    if (item.Customer_Number == Model.Customer_Number)
+                                    {
+                                        <option value="@item.Customer_Number" selected>@item.Customer_Name ( @item.Customer_Number )</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Customer_Number">@item.Customer_Name ( @item.Customer_Number )</option>
+                                    }
+
+                                }
+                                @if (Model.Customer_Name == null || Model.Customer_Name == "")
+                                {
+                                    <option value="" selected disabled></option>
+                                }
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-1" style="color:red">
+                        <h3 class="star pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <label class=" col-sm-4">@Resources3.informations.Company :</label>
+                    <div class="form-group col-sm-7">
+                        <select data-live-search="true" class="form-control selectpicker small userInput" id="Company" data-width="100%">
+                            @foreach (structureItem item in ListeOffresController.ListeCompanies)
+                            {
+                                if (item.Name == Model.Company)
+                                {
+                                    <option value="@item.Name" selected>@item.Name </option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Name">@item.Name </option>
+                                }
+
+                            }
+                            @if (Model.Company == null || Model.Company == "")
+                            {
+                                <option value="" selected disabled> / </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-1" style="color:red">
+                        <h3 class="star pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <label class=" col-sm-4">@Resources3.informations.BusinessUnit :</label>
+                    <div class="form-group col-sm-7">
+                        <select data-live-search="true" class="form-control selectpicker small userInput" id="BusinessUnit" data-width="100%">
+                            @foreach (structureItem item in Model.ListeUAForCompany)
+                            {
+                                if (item.Name == Model.Acct_Group_Name)
+                                {
+                                    <option value="@item.Value" selected>@item.Name </option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value">@item.Name </option>
+                                }
+
+                            }
+                            @if (Model.Acct_Group_Name == null || Model.Acct_Group_Name == "")
+                            {
+                                <option value="" selected disabled> / </option>
+                            }
+                        </select>
+
+                    </div>
+                    <div class="col-sm-1" style="color:red">
+                        <h3 class="star pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class=" col-sm-4">@Resources3.informations.ORG:</label>
+                    <div class="form-group col-sm-7">
+                        <select data-live-search="true" class="form-control selectpicker small userInput" id="ORG" data-width="100%">
+                            @foreach (structureItem item in Model.ListeORGForUA)
+                            {
+                                if (item.Name == Model.Acct_Center_Name)
+                                {
+                                    <option value="@item.Value" selected>@item.Name </option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value">@item.Name </option>
+                                }
+
+                            }
+                            @if (Model.Acct_Center_Name == null || Model.Acct_Center_Name == "")
+                            {
+                                <option value="" selected disabled> / </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-1" style="color:red">
+                        <h3 class="star pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class=" col-sm-4">@Resources3.informations.ApproximateAmount :</label>
+                    <div class="form-group col-sm-7">
+                        <input type="text" class="form-control" id="ApproximateAmount" aria-describedby="emailHelp" value="@Model.Approx_Amount">
+                    </div>
+                </div>
+
+                @*PM details*@
+                <div class="row">
+                    <label class=" col-sm-4">@Resources3.informations.ProjectManagerName :</label>
+                    <div class="form-group col-sm-7">
+                        <input type="text" class="form-control" id="NamePM" aria-describedby="emailHelp" value="@Model.Client_ProjectManager">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="row">
+                    <label class=" col-sm-4">@Resources3.informations.ProgramMgr :</label>
+                    <div class="form-group col-sm-7">
+                        <select data-live-search="true" class="form-control selectpicker small userInput" id="ProgramMgr" data-width="100%">
+                            <option value="" selected></option>
+                            @foreach (ProjectManagerItem item in ListeOffresController.ListeGestionnaires)
+                            {
+                                if (item.Employee_Number == Model.Program_Mgr_Number)
+                                {
+                                    <option value="@item.Employee_Number" selected>@item.Full_Name.Split('(')[0] ( @item.Org.Split(' ')[0] @item.Org.Split(' ')[1] )</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Employee_Number">@item.Full_Name.Split('(')[0] ( @item.Org.Split(' ')[0] @item.Org.Split(' ')[1] )</option>
+                                }
+
+                            }
+                        </select>
+                    </div>
+                    @*<div class="col-sm-1" style="color:red">
+                <h3 class="star pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+            </div>*@
+                </div>
+
+                <div class="row">
+                    <label class=" col-sm-4">@Resources3.informations.ProjectMgr :</label>
+                    <div class="form-group col-sm-7">
+                        <select data-live-search="true" class="form-control selectpicker small userInput" id="ProjectMgr" data-width="100%">
+                            @foreach (ProjectManagerItem item in ListeOffresController.ListeGestionnaires)
+                            {
+                                if (item.Employee_Number == Model.Project_Mgr_Number)
+                                {
+                                    <option value="@item.Employee_Number" selected>@item.Full_Name.Split('(')[0] ( @item.Org.Split(' ')[0] @item.Org.Split(' ')[1] )</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Employee_Number">@item.Full_Name.Split('(')[0] ( @item.Org.Split(' ')[0] @item.Org.Split(' ')[1] )</option>
+                                }
+
+                            }
+                            @if (Model.Project_Mgr_Number == null || Model.Project_Mgr_Number == "")
+                            {
+                                <option value="" selected disabled></option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-1" style="color:red">
+                        <h3 class="star pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class=" col-sm-4">@Resources3.informations.InitiatedBy :</label>
+                    <div class="form-group col-sm-7">
+                        <select data-live-search="true" class="form-control selectpicker small userInput" id="initiatedBy" data-width="100%">
+                            @foreach (ProjectManagerItem item in ListeOffresController.ListeGestionnaires)
+                            {
+                                if (item.Employee_Number == Model.Initiated_By)
+                                {
+                                    <option value="@item.Employee_Number" selected>@item.Full_Name.Split('(')[0] ( @item.Org.Split(' ')[0] @item.Org.Split(' ')[1] )</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Employee_Number">@item.Full_Name.Split('(')[0]  ( @item.Org.Split(' ')[0] @item.Org.Split(' ')[1] )</option>
+                                }
+
+                            }
+                            @if (Model.Initiated_By == null || Model.Initiated_By == "")
+                            {
+                                <option value="" selected disabled> / </option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class=" col-sm-4">@Resources3.informations.FinalClient :</label>
+                    <div class="form-group col-sm-7">
+                        <select data-live-search="true" class="form-control selectpicker small userInput" id="FinalClient" data-width="100%">
+                            <option value="" selected></option>
+                            @foreach (Customer item in ListeOffresController.ListeCustomers)
+                            {
+                                if (item.Customer_Name == Model.End_Client_Name)
+                                {
+                                    <option value="@item.Customer_Name" selected>@item.Customer_Name ( @item.Customer_Number )</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Customer_Name">@item.Customer_Name ( @item.Customer_Number )</option>
+                                }
+
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label class=" col-sm-4">@Resources3.informations.status:</label>
+                    <div class="form-group col-sm-7">
+                        <select class="form-control" id="status">
+                            @foreach (structureItem item in ListeOffresController.ListeStatuts)
+                            {
+                                if (item.Name == Model.StatusName)
+                                {
+                                    <option value="@item.Value" selected>@item.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value">@item.Name</option>
+                                }
+
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class=" col-sm-4">@Resources3.informations.docStatus:</label>
+                    <div class="form-group col-sm-7">
+                        <select class="form-control" id="statusDoc">
+                            @foreach (structureItem item in ListeOffresController.ListeDocStatuts)
+                            {
+                                if (item.Name == Model.StatusDocName)
+                                {
+                                    <option value="@item.Value" selected>@item.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value">@item.Name</option>
+                                }
+
+                            }
+                            @if (Model.StatusDocName == null || Model.StatusDocName == "")
+                            {
+                                <option value="" selected disabled> </option>
+                            }
+
+                        </select>
+                    </div>
+                </div>
+
+
+                @*PM details*@
+            <div class="row">
+                <label class=" col-sm-4">@Resources3.informations.ProjectManagerCourriel :</label>
+                <div class="form-group col-sm-7">
+                    <input type="text" class="form-control" id="EmailPM" aria-describedby="emailHelp" value="@Model.Client_Email_ProjectManager">
+                </div>
+                <div class="col-sm-1" style="color:red">
+                    <h3 class="star pull-left" style="margin-top: 2px;margin-left: -15px">*</h3>
+                </div>
+            </div>
+
+
+                <div id="msgArchived" hidden>
+                    <p>@Resources3.informations.MsgArchived</p>
+                </div>
+                <div class="row">
+                    @*<div id="archivage" hidden>
+                <label class=" col-sm-4">Date d'archivage:</label>
+                <div class="form-group col-sm-7">
+                    <div class="form-group">
+                        <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dateArchivage" data-link-format="yyyy-mm-dd" placeholder="Date d'archivage">
+                            <input class="form-control" size="16" type="text" value="" readonly>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove" id="cancelArchiveDate"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        </div>
+                        <input type="hidden" id="dateArchivage" value="" /><br />
+                    </div>
+                </div>
+            </div>*@
+                    <div id="report" hidden>
+                        <label class=" col-sm-4">@Resources3.informations.postponeDate:</label>
+                        <div class="form-group col-sm-7">
+                            <div class="form-group">
+                                <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dateRepport" data-link-format="yyyy-mm-dd" placeholder="Date de repport">
+                                    <input class="form-control" size="16" type="text" value="">
+                                    <span class="input-group-addon" id="cancelRepportDate"><span class="glyphicon glyphicon-remove"></span></span>
+                                    <span class="input-group-addon" id="reportCalendar"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                                <input type="hidden" id="dateRepport" value="" /><br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div>
+                        <label class="col-sm-2">@Resources2.ListeProjetsRessources.ProjectModel:</label>
+                        <div class="col-sm-7 border border-primary">
+                            <span id="ProjectModId">@Model.ProjectModId</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div>
+                        <label class="col-sm-2">@Resources3.informations.RefAndComments :</label>
+                        <div class="col-sm-10 form-group ">
+                            <textarea class="form-control" id="RefAndComments" rows="3" placeholder="Commentaires" style="height:200px">@Model.Comments</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5" style="font-size:10px">
+                <span>
+                    @Resources3.informations.created: @Model.submittedDate  @Resources3.informations.By @Model.Initiated_By_Name.
+                </span>
+                <br />
+                @if (Model.Last_Modification_Date != "" && Model.Last_Modification_User != "")
+                {
+                    <span>
+                        @Resources3.informations.lastModif: @Model.Last_Modification_Date   @Resources3.informations.By @Model.Last_Modification_User
+                    </span>
+
+                }
+            </div>
+            <div class="col-sm-7">
+                <div class="pull-right">
+                    @*<button type="button" class="specialB" onclick="convertToProject()" id="">@Resources3.informations.ConvertToProject</button>*@
+                    <button type="button" class="specialB" data-dismiss="modal" id="cancelProjectMgr">@Resources3.informations.Cancel</button>
+                    <button type="button" class="specialB" onclick="applyChangesForOffer()" id="saveProjectMgr">@Resources3.informations.save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="FolderSecuritySavingAlert" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:850px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelGP">Information</h4>
+            </div>
+            <div class="modal-body" id="contentProjectsList">
+                @Resources2.ListeProjetsRessources.alertMessage
+
+            </div>
+            <div class="modal-footer">                
+                <button type="button" class="specialB" onclick="save()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="anchor"></div>
+<script>
+
+    var ProgramMgrOriginal = $('#ProgramMgr').val();
+    var ProjectMgrOriginal = $('#ProjectMgr').val();
+    var StatutOriginal = $('#status').val();
+    var StatutDocOriginal = $('#statusDoc').val();
+    var readyToSave = "";
+    var projectFolderNeedsUpdate = false;
+
+    $(document).ready(function () {
+        $('#loadingL').css('display', 'none')
+        // Documentation active
+        if ($('#statusDoc').val() == "1")
+        {
+            $('#statusDoc').empty();
+            $("#statusDoc").append('<option value="" disabled>' + '@Resources3.informations.DF_op1'+'</option >');
+            $("#statusDoc").append('<option value="1" selected>' + '@Resources3.informations.DF_op2'+'</option >');
+            $("#statusDoc").append('<option value="4">' + '@Resources3.informations.DF_op3'+'</option >');
+            $("#statusDoc").append('<option value="3">' + '@Resources3.informations.DF_op4'+'</option >');
+        }
+
+        // Aucune documentation
+        if ($('#statusDoc').val() == "5") {
+            $('#statusDoc').empty()
+            $("#statusDoc").append('<option value="5" selected >' + '@Resources3.informations.DF_op5'+'</option >');
+        }
+
+        // Report de l'archivage de la documentation
+        if ($('#statusDoc').val() == "3") {
+            $('#statusDoc').empty();
+            $("#statusDoc").append('<option value=""  disabled>' + '@Resources3.informations.DF_op1a'+'</option >');
+            $("#statusDoc").append('<option value="4">' + '@Resources3.informations.DF_op3'+'</option >');
+            $("#statusDoc").append('<option value="3" selected>' + '@Resources3.informations.DF_op4' + '</option >');
+            $('.form_date :input').attr('disabled', 'disabled');
+            $('#cancelRepportDate').unbind("click");
+            $('#reportCalendar').unbind("click");
+        }
+
+        // En attente de l'archivage
+        if ($('#statusDoc').val() == "4") {
+            $('#statusDoc').empty();
+            $("#statusDoc").append('<option value=""  disabled>' + '@Resources3.informations.DF_op1a'+'</option >');
+            $("#statusDoc").append('<option value="4" selected>' + '@Resources3.informations.DF_op3'+'</option >');
+            $("#statusDoc").append('<option value="3">' + '@Resources3.informations.DF_op4'+'</option >');
+        }
+
+        // Documentation archivée
+        if ($('#statusDoc').val() == "2") {
+            $('#statusDoc').empty();
+            $("#statusDoc").append('<option value="2" selected>' + '@Resources3.informations.DF_op6'+'</option >');
+        }
+
+        });
+
+        $('.form_date').datetimepicker({
+            language: '@Session["lang"].ToString()' == 'fr' ? 'fr' : 'en',
+            format: 'yyyy-mm-dd',
+            weekStart: 0,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0,
+            startDate: new Date(),
+            endDate: '+12m'
+        });
+    var currentDate = new Date();
+    $('.form_date').datetimepicker('update', addMonths(currentDate, 1));
+
+        @if (Model.Doc_PostponedDate != "" && Model.Doc_PostponedDate != null) {
+            @:$("#report").show();
+
+            var finalDate = Html.Raw(Model.Doc_PostponedDate);
+            @:$('.form_date :input').val('@finalDate')
+        }
+        else {
+            @:$("#report").hide();
+            }
+
+            //$("#archivage").hide();
+            $('.selectpicker').selectpicker(
+                {
+                    noneSelectedText: "@Resources3.informations.noResult2"
+                }
+        );
+
+    var ArrayStatusDoc = [];
+
+    @for (var i = 0; i < ListeOffresController.ListeDocStatuts.Count(); i++)
+    {
+         @:ArrayStatusDoc[@i] = {Name: '@ListeOffresController.ListeDocStatuts[i].Name', Value: '@ListeOffresController.ListeDocStatuts[i].Value'};
+
+    }
+
+    $('#status').on('change', function ()
+    {
+
+        if ($("#statusDoc").val() != "5")
+        {
+            // On fait ça seulement si statutDoc <> 2 (doc archivée)
+            if ($('#status').val() != null && ($('#status').val() == "2" || $('#status').val() == "3")) {
+                if ($('#statusDoc').val() != "2") {
+                    $('#statusDoc').empty();
+                    $("#statusDoc").append('<option value=""  disabled>' + '@Resources3.informations.DF_op1a'+'</option >');
+                    $("#statusDoc").append('<option value="4">' + '@Resources3.informations.DF_op3'+'</option >');
+                    $("#statusDoc").append('<option value="3">' + '@Resources3.informations.DF_op4'+'</option >');
+                }
+            }
+            else {
+                // Nouveau
+                // Si statut maj = 1 (OS tlx) et que statutDoc = 2 (doc archivée) alors
+                // on ne change pas les valeurs possibles dans le contrôle Doc et on avise l'usager suite à la sauvegarde de contacter le CSTI si besoin de désarchiver
+                if (($('#status').val() != null) && ($('#status').val() == "1") && (StatutOriginal != "1") && ($('#statusDoc').val() == "2")) {
+                    $("#msgArchived").show();
+                }
+                else {
+                    $('#statusDoc').empty()
+                    for (i = 0; i < ArrayStatusDoc.length; i++) {
+                        $("#statusDoc").append('<option value="' + ArrayStatusDoc[i].Value + '">' + ArrayStatusDoc[i].Name + '</option>');
+                    }
+                    $("#archivage").hide();
+                    $("#report").hide();
+                }
+            }
+            }
+
+
+        //}
+       // $('.loading').hide();
+    });
+
+    $('#statusDoc').on('change', function () {
+        //if ($('#statusDoc').val() == "2") {
+        //    $("#report").hide();
+        //    $("#report").val("");
+        //    $("#archivage").show();
+        //}
+        //else
+        if ($('#statusDoc').val() == "3") {
+            //$("#archivage").hide();
+            //$("#archivage").val("");
+            var aDate = new Date();
+            var newDate = new Date(aDate.setMonth(aDate.getMonth() + 1));
+            var curr_date = newDate.getDate();
+            var curr_month = newDate.getMonth();
+            curr_month = curr_month + 1;
+            var curr_year = newDate.getFullYear();
+            if (curr_month.toString().length == 1)
+                curr_month = '0' + curr_month;
+            if (curr_date.toString().length == 1)
+                curr_date = '0' + curr_date;
+
+            $('.form_date :input').val(curr_year + '-' + curr_month + '-' + curr_date);
+
+            $("#report").show();
+            var currentDate = new Date();
+            $('.form_date').datetimepicker('update', addMonths(currentDate, 1));
+
+        }
+        else if ($('#statusDoc').val() == "4") {
+            $("#report").hide();
+        }
+    });
+
+    $('#Company').on('change', function () {
+        if ($('#Company').val() != null) {
+ $.ajax({
+    url: '@Url.Action("returnSelectedUA", "Home")',
+     type: 'GET',
+   data: {
+
+       company: $('#Company').val()
+    },
+
+    success:function(data)
+    {
+        $("#BusinessUnit").empty();
+        $("#BusinessUnit").append('<option value="">'+'@Resources3.informations.BusinessUnit'+'</option>');
+
+        $.each(data, function (index, row) {
+            $("#BusinessUnit").append('<option value="'
+                + row.Value + '">'
+                + row.Name + '</option>');
+        });
+        $('#BusinessUnit').selectpicker('refresh');
+    }
+  });
+        }
+    });
+
+    $('#BusinessUnit').on('change', function () {
+        if ($('#BusinessUnit').val() != null) {
+ $.ajax({
+    url: '@Url.Action("returnSelectedORG", "Home")',
+     type: 'GET',
+   data: {
+
+       UAId: $('#BusinessUnit').val()
+    },
+
+    success:function(data)
+    {
+        $("#ORG").empty();
+        $("#ORG").append('<option value="">'+'@Resources3.informations.ORG'+'</option>');
+
+        $.each(data, function (index, row) {
+            $("#ORG").append('<option value="'
+                + row.Value + '">'
+                + row.Name + '</option>');
+        });
+        $('#ORG').selectpicker('refresh');
+    }
+  });
+        }
+    });
+
+    //partie pour formatage instantanné pour ApproximateAmount
+    var currency = [2000, 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1];
+
+    var valueRef = document.querySelector("#ApproximateAmount");
+
+    function getCurrency(value) {
+        console.clear();
+        var map = new Map();
+        let i = 0;
+        //loop unitll value 0
+        while (value) {
+            //if divide in non-zero add in map
+            if (Math.floor(value / currency[i]) != 0) {
+                map.set(currency[i], Math.floor(value / currency[i]));
+                //update value using mod
+                value = value % currency[i];
+            }
+            i++;
+        }
+
+
+    }
+
+    function getChange() {
+        // 48 - 57 (0-9)
+        var str1 = valueRef.value;
+        if (
+            str1[str1.length - 1].charCodeAt() < 48 ||
+            str1[str1.length - 1].charCodeAt() > 57
+        ) {
+            valueRef.value = str1.substring(0, str1.length - 1);
+            return;
+        }
+
+        // t.replace(/,/g,'')
+        let str = valueRef.value.replace(/,/g, "");
+        str = valueRef.value.replace(/\s/g, "");
+        let value = +str;
+        getCurrency(value)
+        valueRef.value = value.toLocaleString("fr-FR");
+    }
+
+    valueRef.addEventListener("keyup", getChange);
+
+    $('#ApproximateAmount').blur(function () {
+        var valueAppAmount = $('#ApproximateAmount').val();
+        if (valueAppAmount != "") {
+            $('#ApproximateAmount').val(valueAppAmount + " $");
+
+        }
+    });
+
+    //fin partie pour formatage instantanné pour ApproximateAmount
+
+    function applyChangesForOffer()
+    {
+
+        $("#successUpdate").hide();
+        $("#MissingFieldsAdd").hide();
+        $("#MF1").hide()
+        $("#MF5").hide()
+        $("#MF6").hide()
+        $("#MF7").hide()
+        $("#MF8").hide()
+        $("#MF9").hide()
+        $("#MF10").hide()
+        $("#MF12").hide()
+        
+
+        var invalidForm = false;
+
+        if (readyToSave == "") {
+
+            projectFolderNeedsUpdate = false;
+
+            if ($('#title').val() == "") {
+                invalidForm = true;
+                $("#MF1").show()
+            }
+
+            if ($('#customer').val() == "") {
+                invalidForm = true;
+                $("#MF6").show()
+            }
+            //
+            if ($('#Company').val() == "") {
+                invalidForm = true;
+                $("#MF7").show()
+            }
+            //
+            if ($('#BusinessUnit').val() == "") {
+                invalidForm = true;
+                $("#MF8").show()
+            }
+            //
+            if ($('#ORG').val() == "") {
+                invalidForm = true;
+                $("#MF9").show()
+            }
+            //
+            if ($('#ProjectMgr').val() == "") {
+                invalidForm = true;
+                $("#MF10").show()
+            }
+
+            if ($('#EmailPM').val() == "") {
+                invalidForm = true;
+                $("#MF12").show()
+            }
+            
+
+            //Doc_Status_ID	Description_FR
+            //1	Documentation active
+            //2	Documentation archivée
+            //3	Report de l'archivage de la documentation
+            //4	En attente de l'archivage
+            //5	Aucune documentation
+
+            // Si statut "Report de l'archivage de la documentation" sélectionné, forcer la saisie d'une date de report
+            if ($('#statusDoc').val() == "3") {
+                if ($('.form_date :input').val() == "") {
+                    invalidForm = true;
+                    $("#MF11").show()
+                }
+                else {
+                    $("#dateRepport").val($('.form_date :input').val());
+                }
+            }
+            else {
+                // On supprime la date de report au cas où il y en aurait une dans la BD
+                $("#dateRepport").val(null);
+            }
+
+            if (invalidForm == true) {
+                //$(document).scrollTop($("#topUpdate").offset().top);
+                $("#MissingFieldsAdd").show();
+                //setTimeout(function () {
+                //    $('#MissingFieldsAdd').fadeOut('slow');
+                //}, 60000
+                //)
+            }
+        }
+
+        if (!invalidForm) {
+
+            if ((readyToSave == "") && (ProjectMgrOriginal != $('#ProjectMgr').val() || ProgramMgrOriginal != $('#ProgramMgr').val())) {
+
+                $.ajax({
+                    url: '@Url.Action("isProjectSecurityNeedsUpdate", "ListeOffres")',
+                    type: 'GET',
+                    cache: false,
+                    data: {
+                        proId: '@Model.Project_Number'
+                    },
+                    success: function (data1) {
+                        if (data1.needsUpdate == "yes") {
+                            projectFolderNeedsUpdate = true;
+                            $('#FolderSecuritySavingAlert').modal('show');
+                        }
+                        else {
+                            readyToSave = "yes"
+                        }
+                    },
+                    error: function () {
+
+                    }
+                });
+
+            }
+            else {
+                readyToSave = "yes"
+            }
+
+            if (readyToSave == "yes") {
+                $("#longWait").show();
+                $.ajax({
+                    url: '@Url.Action("submitAction", "ListeOffres")',
+                    type: 'GET',
+                    cache: false,
+                    data: {
+                            os_project_id: offerIdForUpdate,
+                            title: $('#title').val(),
+                            customer: $('#customer').val(),
+                            company: $('#Company').val(),
+                            businessUnit: $('#BusinessUnit').val(),
+                            org: $('#ORG').val(),
+                            projectMgr: $('#ProjectMgr').val(),
+                            programMgr: $('#ProgramMgr').val(),
+                            finalClient: $('#FinalClient').val(),
+                            approximateAmount: $('#ApproximateAmount').val(),
+                            //refAndComments: $('#RefAndComments').val(),
+                            status: $('#status').val(),
+                            statusDoc: $('#statusDoc').val(),
+                            dateArchivage: $('#dateArchivage').val(),
+                            dateRepport: $('#dateRepport').val(),
+                            initiatedBy: $('#initiatedBy').val(),
+                            comments: $('#RefAndComments').val(),
+                            project_number: '@Model.Project_Number',
+                            NamePM: $('#NamePM').val(),
+                            EmailPM: $('#EmailPM').val(),
+                            prjFolderNeedsUpdate: projectFolderNeedsUpdate
+                            
+                    },
+                    success: function (result) {
+                        
+                    // $(document).scrollTop($("#topUpdate").offset().top);
+                        $(".specialB").css("background-color", "grey");
+                        $(".specialB").prop('disabled', true);
+                        $("#longWait").hide();
+                        $("#successUpdate").show();
+                        setTimeout(function () {
+                            $('#successUpdate').fadeOut('slow');
+                            location.href = '@Html.Raw(@Url.Action("Index", "ListeOffres", new {  @menuVisible = ViewBag.menuVisible,  userId = ViewBag.UserIdIFrame }))'
+                }, 3000
+                )
+                }
+                });
+                $('#loading').hide();
+            }
+        }
+    }
+
+    $(".close").click(function () {
+        $(".alert").hide();
+
+    });
+
+    function save() {
+        readyToSave = "yes"
+        $('#FolderSecuritySavingAlert').modal('hide');
+        //applyChangesForOffer();        
+        $("#saveProjectMgr").click();
+    }
+
+
+    function addMonths(date, months) {
+        var d = date.getDate();
+        date.setMonth(date.getMonth() + +months);
+        if (date.getDate() != d) {
+            date.setDate(0);
+        }
+        return date;
+    }
+    function convertToProject() {
+        
+        var project_number = '@Model.Project_Number';
+        var client_number = '@Model.Customer_Number';
+        var origin = 'offre';
+        var url = "/OpenProject/Index?project_number=" + project_number + '&client_number=' + client_number + '&origin=' + origin;
+        window.location.href = url;
+    }
+</script>

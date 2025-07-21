@@ -1,0 +1,126 @@
+﻿
+<style>
+    #megaMenu {
+        width: 100%;
+        background-color: #183666;
+        color: white;
+        z-index: 5000 !important;
+        position: absolute !important;
+        margin: 0 auto;
+        font-weight: bold;
+    }
+
+
+    #modal_proId {
+        z-index: 5000 !important;
+        position: absolute !important;
+    }
+
+    .sp {
+        padding-top: 10px;
+    }
+</style>
+<div id="megaMenu" hidden style="font-weight:bold">
+    <div style="padding-top: 25px">
+        <div class="animated fadeIn mega-menu">
+            <div class="mega-menu-wrap">
+                <div style="width: 90%; display: table;margin:auto; margin-bottom: 20px;">
+                    <div style="text-align: left;width: 30%; display: table-cell;">
+                        <div><span>GÉNÉRAL</span></div>
+                        <div>
+                            <div class="sp">
+                                <i class="fa fa-caret-right"></i>
+                                <a style="text-decoration-color: none; color:white" href="@Url.Action("Index", "ModeleSelection")">Gestion des modèles de sélection</a>
+                            </div>
+                            <div class="sp">
+                                <i class="fa fa-caret-right"></i>
+                                <a style=" text-decoration-color: none; color: white" href="@Url.Action("Index", "FolderStructure")">Modifier une structure de répertoire</a>
+                            </div>
+                            <div class="sp">
+                                <i class="fa fa-caret-right"></i>
+                                <a style="text-decoration-color: none;color: white" href="@Url.Action("Index", "LecteurReseau")">Connecter un lecteur réseau</a>
+                            </div>
+                            <div class="sp">
+                                <i class="fa fa-caret-right"></i>
+                                <a style="text-decoration-color: none; color: white" href="@Url.Action("IndexSpecial", "LecteurReseau")">Connecter un lecteur spécial</a>
+                            </div>
+                        </div>
+                        <div style="padding-top:20px"><span>AVANCÉ</span></div>
+                        <div>
+                            <div class="sp">
+                                <i class="fa fa-caret-right"></i>
+                                <a style="text-decoration-color: none; color:white" href="@Url.Action("TTProjetFolderStructure", "TTProjet")">Créer une structure de répertoire</a>                                
+                            </div>
+                            @*<div class="sp">
+                                    <i class="fa fa-caret-right"></i>
+                                    <a style="text-decoration-color: none; color: white" href="@Url.Action("TransfererProposition", "TTProjet")">Transférer une proposition</a>
+                                </div>*@
+                        </div>
+
+                    </div>
+
+                    <div style="text-align: left;width: 30%; display: table-cell;">
+                        <div><span>ADMINISTRATION</span></div>
+                        <div>
+                            <div class="sp">
+                                <i class="fa fa-caret-right"></i>
+                                <a style="color: white" href="@Url.Action("index", "ArchiveProjet")">Archiver un projet</a>
+                            </div>
+                        </div>
+                        <div style="padding-top:20px"><span>GESTION DES DISCIPLINES</span></div>
+                        <div>
+                            <div class="sp">
+                                <i class="fa fa-caret-right"></i>
+                                <a style="color: white" href="@Url.Action("Index", "Disciplines")">Gestion des utilisateurs pour les disciplines</a>
+                            </div>
+                            <div class="sp">
+                                <i class="fa fa-caret-right"></i>
+                                <a style="color: white" href="@Url.Action("ListeAdmin", "Disciplines")">Liste des administrateurs des disciplines</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div style="text-align: left;width: 30%; display: table-cell;">
+                        <div><span>RAPPORTS</span></div>
+                        <div>
+                            <div class="sp">
+                                <i class="fa fa-caret-right"></i>
+                                <a style="color: white" href="http://ttqcrapports.tetratech.com/ReportServer/Pages/ReportViewer.aspx?%2fTTProjet%2fTreeTTProjet&Mod_id=10&rs:Format=PDF">
+                                    Arborescence des répertoires - Modèle Standard BPR
+                                </a>
+                            </div>
+                            <div class="sp">
+                                <i class="fa fa-caret-right"></i>
+                                <a style="color: white" href="http://ttqcrapports.tetratech.com/ReportServer/Pages/ReportViewer.aspx?%2fTTProjet%2fTreeTTProjet&Mod_id=11&rs:Format=PDF">
+                                    Arborescence des répertoires - Modèle MTQ
+                                </a>
+                            </div>
+
+                          
+                            <div class="sp">
+                                <i class="fa fa-caret-right"></i>
+                                <a style="color: white" href="http://ttqcrapports.tetratech.com/ReportServer/Pages/ReportViewer.aspx?%2fTTProjet%2fTreeTTProjet&Mod_id=20&rs:Format=PDF">
+                                    Arborescence des répertoires - Modèle Tetra Tech Bâtiment
+                                </a>
+                            </div>
+
+                            <div class="sp">
+                                <i class="fa fa-caret-right"></i>
+                                <a style="color: white" href="@Url.Action("FolderStructureForProject", "TTProjet")" id="proIdHref">
+                                    Arborescence des répertoires pour un projet
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

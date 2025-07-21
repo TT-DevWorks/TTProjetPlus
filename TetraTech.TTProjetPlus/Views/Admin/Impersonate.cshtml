@@ -1,0 +1,43 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.Admin.ImpersonateResources
+@model TetraTech.TTProjetPlus.Models.Impersonate
+@using (Html.BeginForm())
+{
+    //test
+<div class="container " style="height: 200vh;padding-top: 20px;">
+    <div class="panel panel-primary" style="border-radius: 10px">
+        <div class="panel-body" style="margin:15px;">
+
+            <div class="main">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4 style="margin-top: 0px; color:#183666; font-family: 'Arial Bold'; font-size: 18pt;"><b>@Resources.Title</b></h4>
+
+                        <ul class="form">
+                            <li>
+                                @Html.LabelFor(m => m.EmployeeId)
+                                <div>
+                                    @Html.TextBoxFor(m => m.EmployeeId)
+                                </div>
+                            </li>
+                            <li>
+                                <input type="submit" value="@Resources.Submit">
+                            </li>
+                            <li>
+                                @Html.ValidationSummary()
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+        }
+        @section Scripts
+{
+            <script>
+                $(function () {
+                    $("#EmployeeId").focus();
+                });
+            </script>
+        }

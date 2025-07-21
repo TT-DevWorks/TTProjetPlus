@@ -1,0 +1,364 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.Disciplines
+@using Resources0 = TetraTech.TTProjetPlus.Views.ManageDirectoryRights
+@using Resources2 = TetraTech.TTProjetPlus.Views.Securite
+@using ArchiveResources = TetraTech.TTProjetPlus.Views.ArchiveProjet
+@using Resources3 = TetraTech.TTProjetPlus.Views.TTProjet
+
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Controllers
+@{
+    ViewBag.Title = "Gestion10ConfTQE";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
+
+<style>
+   
+    @@media (min-width: 768px) {
+        .modal-xl {
+            width: 90%;
+            max-width: 1200px;
+        }
+    }
+
+    @@media (min-width: 768px) {
+        .modal-xl1 {
+            width: 90%;
+            max-width: 1300px;
+        }
+    }
+
+  </style>
+<div class="container " style="height: 200vh; width: 100%">
+    <div class="main">
+        @if (ViewBag.MenuVisible == "true")
+        {
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-3" style="padding-top: -49px;">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 99px; ">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                    <li style="color:#183666 ; font-weight: bold"><a href="@Url.Action("Index2", "ArchiveProjet")"> @ArchiveResources.ArchiveProjetRessource.Administration </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 99px; ">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666 ; " href="@Url.Action("Index2", "ArchiveProjet")">@ArchiveResources.ArchiveProjetRessource.ArchiveProject</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666; " href="@Url.Action("Index", "ArchiveProjet")">@ArchiveResources.ArchiveProjetRessource.ArchiveProject1</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666 ;" href="@Url.Action("Index", "Securite")">@Resources2.Securite.CreateNumberAccessManagement</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666;" href="@Url.Action("Index", "GestionProjetSecuriser")">@Resources3.TTProjet.MangeProjetSecuriser</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 99px; ">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666; font-weight: bold " href="@Url.Action("Index", "Gestion10ConfTQE")">@Resources3.TTProjet.Manage10ConfTQE</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666; " href="@Url.Action("Index", "Gestion10Conf")">@Resources3.TTProjet.Manage10Conf</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666;" href="@Url.Action("Index", "EnvVerifDiligente")">@Resources3.TTProjet.ListProjetEnvDiligente</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color: #183666;" href="@Url.Action("SatisfactionClient", "TTProjet")">@Resources3.TTProjet.ProcessusSatisfactionClient</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        <div class="row">
+            <div class="panel panel-primary" style="border-radius: 10px; margin-top: -15px; margin-left: -10px; height: 120px; width: 100% ">
+                <br>
+                <div class="col-sm-12">
+                    <h4 style="margin-top: 0px; color: #183666; font-family: 'Arial Bold'; font-size: 18pt; margin-left: 30px;">
+                        <b>@Resources3.TTProjet.Manage10ConfTQE</b>
+                    </h4>
+                </div>
+                <br>
+
+                @if (ViewBag.isAllowedGestion10ConfTQE == true)
+                {
+                    <div class="form-horizontal">
+                        <div class="form-group" style="margin-top: 10px; margin-left: 10px; ">
+                            <div class="col-sm-6">
+                                <select data-live-search="true" class="selectpicker form-control" id="discipline">
+                                    <option value="">@Resources3.TTProjet.ChooseGroup</option>
+                                    @foreach (var item in Gestion10ConfTQEController.Gestion10ConfTQEItems.disciplineItem.OrderBy(d => d.DisciplineName))
+                                    {
+                                        <option value="@item.DiscId">@item.DisciplineName</option>
+                                    }
+
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="panel-body" style="color: red; font-size: initial;">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <h4>@Resources3.TTProjet.RestrictedAccess10Conf</h4>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        @if (ViewBag.isAllowedGestion10ConfTQE == true)
+        {<div class="panel panel-default" style="border-radius: 10px; margin-left: -20px; width: 101% " id="infoPanel" hidden>
+                <div class="panel-heading" style=" width: 100%">
+                    <h4 style="color: #5482ab; font-family: 'Arial Bold'; font-size: 18pt;" id="title">
+                        <b>@Resources.Discipline.PanelTitle  <span id="mainTitle"></span></b>
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <p></p>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8" id="disciplineDocProjDetails">
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading tt-h3-darkblue" id="addEmployeeDescription"> @Resources.Discipline.AddEmployee </div>
+                                <div class="panel-body">
+                                    <div class="row"><p></p></div>
+                                    <div class="row">
+                                        <div class="col-sm-5" style="margin: auto; ">
+                                            <button class="specialB" value="Submit" onclick="SubmitFormAdd()" style="">@Resources.Discipline.btnAddText</button>
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <span id="employeeTypeDescription"></span>
+                                        </div>
+                                        <div class="row"><span></span></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="row"><p></p></div>
+                                        <span style="color: red;"><i>@Resources.Discipline.ProcessTime</i></span>
+                                    </div>
+                                    <div class="row"><div class="col-sm-12"></div></div>
+                                    <div class="row"><p></p></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12" style="margin-bottom: 0.5em;">
+                                    <div class="details-messages alert alert-danger" role="alert" style="display:none;padding:.5em;margin:0;">  <span></span> </div>
+                                    <div class="details-messages alert alert-success" role="alert" style="display:none;padding:.5em;margin:0;">  <span></span> </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div id="MessageSteps" class="alert alert-info" role="alert" style="padding:.5em;margin:0;">
+                                        @if (Session["lang"].ToString() == "fr")
+                                        {
+                                            <div id="MessageSteps">
+                                                <b>Note:</b><br>&bull; Suite à l'ajout ou au retrait d'un accès, veuillez informer l’usager d’un délai d’attente d’environ 15 à 30 minutes afin que les droits soient établis dans le système.<br>&bull; De plus, l’usager en question doit redémarrer sa session Windows afin que la sécurité soit effective sur son poste.
+                                            </div>}
+                                        else
+                                        {
+                                            <div id="MessageSteps">
+                                                <b>Note:</b><br>&bull; Following the addition or removal of an access, please inform the user of a waiting period of approximately 15 to 30 minutes in order for the rights to be established in the system.<br>&bull; The user might have to restart their Windows session in order for security to be effective.
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="modal modal-message fade" id="addEmployeeControl" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-xl1" role="document">
+        <div class="modal-content" style="width:100%;">
+            <div class="modal-header" style="width:100%;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelGP">@Resources.Discipline.EmployeeList</h4>
+            </div>
+            <div class="modal-body" id="contentEmployee" style="width:100%;">
+            </div>
+            <div class="modal-footer" style="width:100%;">
+                <button type="button" class="specialB" data-dismiss="modal" id="cancelAddEmployee">@Resources.Discipline.Cancel</button>
+                <button type="button" class="specialB" onclick="applyAddEmployeeModalValue()">@Resources.Discipline.OK</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var groupSelected = "";
+    var EmployeeNumber = "";
+    var EmployeeTTAccount = "";
+    var discDocProjId = "";
+
+    $(document).ready(function () {
+        groupSelected = "";
+        $(function () {
+            $('.selectpicker').selectpicker();
+        });
+    });
+
+    function returntoMenu()
+    {
+        window.location.href = "@Url.Action("Index", "TTProjet")";
+    }
+
+
+    $(function () {
+        $("[data-hide]").on("click", function () {
+            $(this).closest("." + $(this).attr("data-hide")).hide();
+        });
+    });
+
+
+    $('#discipline').on('change', function () {
+        $("#docProj").prop("selectedIndex", 0);
+
+        var selectedGroup = $('#discipline').val();
+        groupSelected = "Discipline";
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                selectedGroup: selectedGroup
+            },
+            url: '@Url.Action("GetDetailsForSelectedGroupTQE", "Gestion10ConfTQE")',
+
+            success: function (data) {
+                $("disciplineDocProjDetails").html("");
+                $("#infoPanel").show();
+                $("#disciplineDocProjDetails").html(data.result);
+                $("#mainTitle").html($('#discipline option:selected').text() + " (" + data.result3 + ")");
+
+
+                /*$("#mainTitle").html($('#discipline option:selected').text() + " (Employés du/des groupes " + data.result2 + " seulement)");*/
+                if ('@Session["lang"].ToString()' == 'fr') {
+                    $("#employeeTypeDescription").html("* Employés du/des groupes AD suivants seulement:<br/><b>" + data.result2 + "</b>");
+                }
+                else {
+                    $("#employeeTypeDescription").html("* Employees members of the following AD groups only:<br/><b>" + data.result2 + "</b>");
+                }
+            }
+        });
+
+    });
+
+    var refreshDetailsGroupMembersSection = function () {
+        var selectedGroup = $('#discipline').val();
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    selectedGroup: selectedGroup
+                },
+                url: '@Url.Action("GetDetailsForSelectedGroup", "Gestion10ConfTQE")',
+
+                success: function (data) {
+                    $("disciplineDocProjDetails").html("");
+                    $("#infoPanel").show();
+                    $("#disciplineDocProjDetails").html(data.result);
+                    $("#mainTitle").html($('#discipline option:selected').text());
+                }
+            });
+
+    };
+
+    function SubmitFormAdd() {
+
+        var selectedGroup = $('#discipline').val();
+             $.ajax({
+                type: 'GET',
+                dataType: 'html',
+                 cache: false,
+                 data: {
+                     selectedGroup: selectedGroup
+                 },
+                url: '@Url.Action("returnListEmployeeForGestion10ConfTQE", "Gestion10ConfTQE")',
+                success: function (result) {
+                    $("#contentEmployee").html(result);
+                    $('#addEmployeeControl').modal('show');
+                }
+            });
+    }
+
+    function applyAddEmployeeModalValue() {
+        if (EmployeeNumber != "") {
+            var discGroupID = $('#discipline').val();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("AddEmployeeToADGroup10ConfTQE", "Gestion10ConfTQE")',
+                async: false,
+                cache: false,
+                data: { TTAccount: EmployeeTTAccount, discGroupID: discGroupID },
+                success: function (result) {
+                    refreshDetailsGroupMembersSection();
+                    if (result.result == 'Success') {
+                        $(".details-messages.alert-success span").text(result.details);
+                        $(".details-messages.alert-success").show().delay(8000).slideUp(300);
+                    }
+                }
+            });
+        }
+        EmployeeNumber = "";
+        EmployeeTTAccount = "";
+        discDocProjId = "";
+
+        $('#data_projectManagerName tr').removeClass('selected');
+        ($('input[type=search]')[0]).value = "";
+        $('#data_projectManagerName').DataTable().search('').draw();
+        $('#data_projectManagerName tr').removeClass('selected');
+        $('#addEmployeeControl').modal('toggle');
+    }
+</script>

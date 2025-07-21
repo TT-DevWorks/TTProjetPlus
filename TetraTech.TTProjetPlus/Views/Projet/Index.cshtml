@@ -1,0 +1,203 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.Projet.ProjectRessources
+@model TetraTech.TTProjetPlus.Models.ListOfYourProjectModel
+<style>
+    .buttons-colvis {
+        background-color: lightcyan
+    }
+
+    .active {
+        background-color: lightcyan
+    }
+
+    #data_table_YourProjectsList {
+        font-size: medium
+    }
+
+    div.container {
+        width: 80%;
+    }
+
+    td {
+        overflow: hidden;
+    }
+
+    tr {
+        overflow: hidden;
+    }
+</style>
+<div class="main">
+
+    <div style="color:white">
+        <span style="text-align:right;float:right; width:50%">@Resources.PeriodWeekDate @ViewData["CurrentPeriodWeekDate"]</span>
+    </div>
+    <div style="padding-top:26px">
+
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <h3 style="margin-top: 0px; color:blue"><b>@Resources.YourProjects</b></h3>
+                    </div>
+                    <div class="col-sm-6" style="color:steelblue; font-size:initial">
+                        <div style="float:right">
+                            <div class="dropdown">
+                                <button class=" dropdown-toggle" type="button" data-toggle="dropdown" style="padding: 0;border: none;background: none;">
+                                    <b>Paramétres</b>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">HTML</a></li>
+                                    <li><a href="#">CSS</a></li>
+                                    <li><a href="#">JavaScript</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" style="color:steelblue;text-align:right;font-size:initial">
+                        <b>Afficher les projets fermés </b>
+                    </div>
+                    <div class="col-sm-1" style="color:steelblue; text-align:left;font-size:small">
+                        <input type="checkbox" id="checkbox1" class="checkbox style-2" checked="checked" />
+                    </div>
+                    <div class="col-sm-1">
+                        <i class="fa fa-question-circle"></i>
+                    </div>
+                </div>
+
+                <br />
+                <div>
+                    <div class="panel pagination-grey clearfix m-b-0">
+                        <br />
+
+                        <div id="data-table_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            @*<p><a href="javascript:void(0);" onclick="fnClickAddRow();">Click to add a new row</a></p>*@
+                            <table id="data_table_YourProjectsList" data-page-length='10' class="table table-bordered  data-table  dataTable display " style="width:98% !important">
+                                <thead style="font-size: medium">
+                                    <tr style="font-style:italic; ">
+                                        <th>
+                                            <input type="text" placeholder="@Resources.projectNumber" class="column_search" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="@Resources.ProjectTitle" class="column_search" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder=" @Resources.Client" class="column_search" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="@Resources.ProjectManager" class="column_search" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder=" @Resources.Revenu" class="column_search" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="@Resources.Cost" class="column_search" />
+                                        </th>
+
+                                    </tr>
+                                    <tr class="grey" role="row">
+                                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                            @Resources.projectNumber
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                            @Resources.ProjectTitle
+                                        </th>
+
+                                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                            @Resources.Client
+                                        </th>
+
+                                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                            @Resources.ProjectManager
+                                        </th>
+
+
+                                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                            @Resources.Revenu
+                                        </th>
+
+                                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending">
+                                            @Resources.Cost
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody>
+
+                                    @for (var i = 0; i < Model.ListOfProjects.Count(); i++)
+                                    {
+
+                                        <tr id="@i" @*data-toggle="modal" data-target="#modal_OfferList" onclick="newLocation()"  title="Click on the row for more information" *@ style="color:steelblue">
+                                            <td style="text-align: left; width: 10%">
+                                                @Model.ListOfProjects[i].ProjectNumber
+                                                <i style="float:right; cursor:pointer" class="fa fa-arrow-circle-o-right" onclick="redirectToDetails(@Model.ListOfProjects[i].ProjectID)"></i>
+
+                                            </td>
+                                            <td style="text-align: left; width:10%">
+                                                @Model.ListOfProjects[i].ProjectTitle
+                                            </td>
+                                            <td style="text-align: left; width: 10%">
+                                                @Model.ListOfProjects[i].Client
+                                            </td>
+                                            <td style="text-align: left; width:10%">
+                                                @Model.ListOfProjects[i].ProjectManager
+                                            </td>
+
+                                            <td style="text-align: left; width:10%">
+                                                @Model.ListOfProjects[i].Revenu
+                                            </td>
+                                            <td style="text-align: left; width:10%">
+                                                @Model.ListOfProjects[i].Cost
+                                            </td>
+
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $('#data_table_YourProjectsList').DataTable({
+            "order": [[1, "asc"]],
+            "scrollX": true,
+
+            language: {
+                "url": "/Content/assets/French.json",
+                buttons: {
+                    colvis: 'Visibilité des colonnes '
+                }
+            },
+            "oLanguage": {
+                "sInfo": "Showing _START_ to _END_ of _TOTAL_ items."
+            }
+        });
+
+    });
+
+    $('#data_table_YourProjectsList').removeClass("dataTable");
+
+
+    $('#data_table_YourProjectsList thead').on('keyup', ".column_search", function () {
+
+        $('#data_table_YourProjectsList').DataTable()
+            .column($(this).parent().index())
+            .search(this.value)
+            .draw();
+    });
+
+    function redirectToDetails(projetcID) {
+        window.location.href = "../DetailsProjet/Index?projectID=" + projetcID;
+    }
+
+</script>

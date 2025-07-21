@@ -1,0 +1,89 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.ManageADGroupMembers.ManageADRessources
+@using TetraTech.TTProjetPlus.Models
+@model TetraTech.TTProjetPlus.Models.ManageADGroupMembersViewModel
+@{
+    ViewBag.Title = Resources.Title;
+}  
+<style>    
+    .fa-remove, .k-i-close {  color:red; font-weight:100; }
+    .panel{margin-bottom:8px;}.panel-body {padding:0 30px;}
+    table tr:hover{background-color:#f5f5f5;}
+</style>
+
+<div class="container" >
+    <div class="main main-menuvisible-@ViewBag.MenuVisible">
+        @if (ViewBag.MenuVisible == "true")
+        {
+                @Html.Partial("~/Views/Shared/Components/_TTProjetBreadcrumbfNodate.cshtml", Model)    
+        }  
+      
+        <div class="row form-horizontal" role="form">   
+            <div class="panel panel-default" style="min-height:75vh; margin-top:-20px;">
+                @if (Model.ADGroupsList.Count() > 0)
+                {
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-sm-3   tt-h3-darkblue" ><span style="padding-left:15px;"> @Html.DisplayNameFor(model => model.ADGroupsList)</span>    </div>
+                            <div class="col-sm-5"> 
+                            @(Html.Kendo().DropDownList().Name("ddlADGroupsList")
+                                .DataTextField("Text").DataValueField("Value")
+                                .BindTo(Model.ADGroupsList).Value(Model.Details.SelectedGroup)
+                                .OptionLabel(@Resources.SelectAdGroupLabel).OptionLabelTemplate("<span class='ddloptionlabel'>"+@Resources.SelectAdGroupLabel+"</span>")
+                                .Events(e => { e.Change("ADGroup_select");})
+                                .HtmlAttributes(new {@class = "form-control" })
+                            ) 
+                            </div> 
+                        </div> 
+                    </div>   
+                    
+                    <div class="panel-body">
+                           <div class="row">
+                            <div class="col-sm-6" id="AddEmployeeToGroupSection" style="padding:0;">  
+                                @Html.Partial("~/Views/ManageADGroupMembers/_AddEmployeeToGroup.cshtml", new EmployeeADGroup { SelectedGroup = Model.Details.SelectedGroup })    
+                            </div> 
+                            <div  class="col-sm-6">
+                                <div  class="details-messages alert alert-danger" role="alert" style="display:none;padding:.5em;margin:0;">  <span></span> </div> 
+                                <div  class="details-messages alert alert-success" role="alert" style="display:none;padding:.5em;margin:0;">  <span></span> </div> 
+                             </div> 
+                        </div> 
+                    </div> 
+
+                    <div id="DetailsGroupMembersSection">  
+                        @Html.Partial("~/Views/ManageADGroupMembers/_DetailsGroupMembers.cshtml", Model.Details)  
+                    </div>  
+                     
+                }
+                else 
+                {
+                    <div class="panel-body">  <div class="alert alert-warning" role="alert">
+                        <span>@Resources.MessageNoAdGroupForUser</span>
+                    </div> </div> 
+                }
+            </div> 
+        </div> 
+    </div>
+</div>  
+
+@Html.Partial("~/Views/Shared/Components/_SearchEmployeesModal.cshtml",
+    new SearchEmployeesViewModel { ModalDescription = "Liste des employées" 
+    , ResultIdForName = "txtEmployeeNameToAdd",ResultIdForNumber = "txtEmployeeNumberToAdd", Preload = true})   
+ 
+
+<script>  
+
+var ADGroup_select = function  () { 
+    var selectedGroup = this.value();
+    refreshDetailsGroupMembersSection(selectedGroup);
+    refreshAddEmployeeToGroupSection(selectedGroup);
+};
+var refreshDetailsGroupMembersSection = function (selectedGroup) { 
+    $.post('@Url.Action("GetDetailsForSelectedGroup", "ManageADGroupMembers")', {selectedGroup: selectedGroup}, function (result) {            
+        $("#DetailsGroupMembersSection").html(result);  
+    });    
+};   
+var refreshAddEmployeeToGroupSection = function (selectedGroup) { 
+    $.post('@Url.Action("EmployeeADGroup", "ManageADGroupMembers")', {selectedGroup: selectedGroup}, function (result) {
+        $("#AddEmployeeToGroupSection").html(result);  
+    });  
+}; 
+</script>

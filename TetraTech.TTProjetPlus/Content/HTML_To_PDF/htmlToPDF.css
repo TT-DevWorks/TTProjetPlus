@@ -1,0 +1,38 @@
+﻿/*.vertical {
+    transform: rotate(-90deg);
+    margin-top: 85vh;
+}
+.truc {
+    text-align: center;
+    color: red;
+}*/
+
+h4 {
+    color: #004b8c;
+    padding-top: 15px;
+    font-weight: bold;
+}
+.importantDiv {
+    color: #004b8c
+}
+.imgPDT {
+    content: url('data:/Content/images/TTProjetPlus_Boomerang_images/files/images/0000003623.png');
+}
+.down{
+    padding-top: 160px;
+}
+.lpp {
+    font-family: "CenturyGothic", Times, serif;
+}
+.sideDiv{
+    background-color: #004b8c;
+}
+.square {
+    padding-left: 400px;
+    padding-top: 10px;
+    color: #004b8c;
+}
+.centuryGothic {
+    font-family: "CenturyGothic", Times, serif;
+    font-size: 11px;
+}

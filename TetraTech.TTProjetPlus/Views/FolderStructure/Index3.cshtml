@@ -1,0 +1,390 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.TTProjet
+@using Resources2 = TetraTech.TTProjetPlus.Views.FolderStructure
+@model TetraTech.TTProjetPlus.Models.LocalBPRModel
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/select/1.3.4/js/dataTables.select.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
+<script type="text/javascript" src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js"></script>
+<link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" media="screen">
+<link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet" media="screen">
+<link href="https://cdn.datatables.net/select/1.3.4/css/select.dataTables.min.css" rel="stylesheet" media="screen">
+<link href="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css" rel="stylesheet" media="screen">
+<link href="https://editor.datatables.net/extensions/Editor/css/editor.dataTables.min.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
+<style>
+    #data_ListADTTLocalBPR {
+        width: 100% !important;
+    }
+
+        #data_ListADTTLocalBPR td {
+            width: auto !important;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        #data_ListADTTLocalBPR th {
+            width: auto !important;
+            white-space: normal;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+</style>
+
+<div id="loading">
+    <img id="loadingGIF2" src="~/Content/assets/img/loading-image.gif" alt="Loading..." />
+</div>
+
+<div class="container " style="height: 200vh;width: 100%;">
+    <div class="main">
+        <div class="row">
+            <div class="row">
+                <div class="col-lg-4" style="padding-top: -49px;">
+                    <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 140px;">
+                        <div class="panel-body">
+                            <ul class="list-inline">
+                                <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet" )">TT Projet +  /</a></li>
+                                <li><a style="color:#183666; font-weight: bold" href="@Url.Action("Index", "TTProjet", new { selectedPanel = "collapse8" })">@Resources.TTProjet.TITools</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 140px; ">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li>
+                                        &bull;&nbsp;<a style="color: #183666" href="@Url.Action("IndexActiverProjet", "TTProjet")">@Resources.TTProjet.ActiverProjet</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color:#183666  " href="@Url.Action("IndexAdmin", "Admin")">@Resources.TTProjet.cancelProjectClosing</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color: #183666" href="@Url.Action("Index2", "FolderStructure")">@Resources2.FoldStructRessource.ChangeServer</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "SecurityProjectEquivalence")">@Resources.TTProjet.ProjectEquivalence</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "Litige")">@Resources.TTProjet.LitigeManagement</a>
+                                    </li>
+                                    <br>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-lg-4">
+                    <div class="">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 140px; ">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li>
+                                        &bull;&nbsp;<a style="color: #183666; " href="@Url.Action("Index", "ProjetSecuriser")">Gestion des projets sécurisés</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color: #183666;" href="@Url.Action("Index", "GestionGroupeAD")">Gestion Groupe AD</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color: #183666" href="@Url.Action("Index", "LocalBPR")">@Resources.TTProjet.EmployeeInfos</a>
+                                    </li>
+                                    <br>
+                                    <li>
+                                        &bull;&nbsp;<a style="color: #183666; font-weight: bold" href="@Url.Action("Index3", "FolderStructure")">@Resources.TTProjet.Security60Conf</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="row" style="color:steelblue; font-size:initial">
+            <div class="form-group">
+                <div class="col-sm-12 ">
+                    <div class="row">
+                        <div class="row form-group">
+                            <div class="col-lg-12">
+                                <div class="panel pagination-grey" style="border-radius: 10px; margin-left: -10px; margin-top: -10px; ">
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h4 style="margin-top: 0px; color: #183666; font-family: 'Arial Bold'; font-size: 18pt; margin-left: 30px;">
+                                                <b>@Resources.TTProjet.Security60Conf</b>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div class="panel panel-default"style="margin-left: 10px; " >
+                                                <div class="panel-heading tt-h3-darkblue" id="SearchEmp"> 1 - Rechercher le compte TT de l'employé à ajouter sur le 60Conf </div>
+                                                <div class="panel-body">
+                                                    <div id="data-table_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer" style=" margin-right: 10px; margin-left: 10px">
+                                                        <table id="data_ListADTTLocalBPR" class=" table table-bordered  data-table  dataTable display" style="margin-top: -50px; width: 100%; font-size: 12px;">
+                                                            <thead id="tableHeaderGP">
+                                                                <tr style="font-style:italic; ">
+                                                                    <th>
+                                                                        <input type="text" placeholder=Numéro_Employé class="column_search" />
+                                                                    </th>
+                                                                    <th>
+                                                                        <input type="text" placeholder=cn class="column_search" />
+                                                                    </th>
+                                                                    <th>
+                                                                        <input type="text" placeholder=Compte_TT class="column_search" />
+                                                                    </th>
+                                                                    <th>
+                                                                        <input type="text" placeholder=department class="column_search" />
+                                                                    </th>
+
+                                                                </tr>
+                                                                <tr class="grey" role="row">
+                                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                        <a> Numéro d'employé </a>
+                                                                    </th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                        <a> cn </a>
+                                                                    </th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                        <a> Compte TT </a>
+                                                                    </th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                                                        <a> department </a>
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @for (var i = 0; i < Model.ListADTTLocalBPR.Count(); i++)
+                                                                {
+
+                                                                    <tr>
+                                                                        <td style="text-align: left; width:10%">
+                                                                            @Model.ListADTTLocalBPR[i].employeeID
+                                                                        </td>
+                                                                        <td style="text-align: left; width:10%">
+                                                                            @Model.ListADTTLocalBPR[i].cn
+                                                                        </td>
+                                                                        <td style="text-align: left;">
+                                                                            @Model.ListADTTLocalBPR[i].sAMAccountName
+                                                                        </td>
+                                                                        <td style="text-align: left;">
+                                                                            @Model.ListADTTLocalBPR[i].department
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="panel panel-default" style="margin-left: -20px; width:95% ">
+                                                <div class="panel-heading tt-h3-darkblue" id="AddEmp60Conf"> 2 - Assigner le compte TT de l'employé au projet demandé </div>
+                                                <div class="panel-body">
+                                                    <div class="row"><p></p></div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="row">
+                                                                <div class="col-sm-6" style=" color: #183666;font-family: 'Arial';font-size: 14pt;">
+                                                                    <b>Compte TT de l'employé</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-6" data-toggle="tooltip" data-placement="top" style="width: 100%">
+                                                                    <input type="text" class="form-control formControl2 inputWidth2 text-box single-line lightBlue" id="TTAccount" style="width: 99%" value="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+
+                                                        <div class="col-sm-12">
+                                                            <div class="row">
+                                                                <div class="col-sm-6" style=" color: #183666;font-family: 'Arial';font-size: 14pt;">
+                                                                    <b>@Resources.TTProjet.ProjectNumber</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-6" data-toggle="tooltip" data-placement="top" style="width: 100%">
+                                                                    <input type="text" class="form-control formControl2 inputWidth2 text-box single-line lightBlue" id="ProjectID" style="width: 99%" value="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div style="text-align:right">
+                                                                <button class="specialB submitButton" onclick="AddEmp60Conf()">@Resources.TTProjet.AddInfos</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default"style="margin-left: -20px; width: 95% ">
+                                                <div class="panel-heading tt-h3-darkblue" id="ModifyProject">3 - Refaire la sécurité sur le projet</div>
+                                                <div class="panel-body">
+                                                    <div class="row"><p></p></div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            @*<div class="row">
+                                                                <div class="col-sm-6" style=" color: #183666;font-family: 'Arial';font-size: 14pt;">
+                                                                    <b>@Resources.TTProjet.ProjectNumber</b>
+                                                                </div>
+                                                            </div>*@
+                                                            @*<div class="form-group row">
+                                                                <div class="col-sm-6" data-toggle="tooltip" data-placement="top" style="width: 100%">
+                                                                    <input type="text" class="form-control formControl2 inputWidth2 text-box single-line lightBlue" id="ProjectIDSecurity" style="width: 99%" value="">
+                                                                </div>
+                                                            </div>*@
+                                                            <div>
+                                                                <button class="specialB submitButton" onclick="ModifySecurityProject60Conf()">@Resources.TTProjet.ModifyInfos</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $('#data_ListADTTLocalBPR').DataTable({
+            pageResize: true,
+            pageLength: 10,
+            select: true,
+            scrollX: true,
+            scrollY: $(window).height() <= 722 ? $(window).height() / 3.5 : $(window).height() / 2,
+            scrollCollapse: true,
+            language: {
+                "url": '@Session["lang"].ToString()' == 'fr' ? "/Content/assets/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json",
+                select: {
+                    rows: '@Session["lang"].ToString()' == 'fr' ? '' : ''
+                }
+            },
+        });
+        $('#data_ListADTTLocalBPR').DataTable().draw();
+    });
+
+    $('#data_ListADTTLocalBPR thead').on('keyup', ".column_search", function () {
+
+        $('#data_ListADTTLocalBPR').DataTable()
+            .column($(this).parent().index())
+            .search(this.value)
+            .draw();
+    });
+
+
+    function AddEmp60Conf()
+    {
+        var TTAccount1 = $('#TTAccount').val()
+        var ProjectID1 = $('#ProjectID').val()
+
+        if (TTAccount1 != '' && ProjectID1 != '') {
+                        $('#loading').show();
+                        $.ajax({
+                                type: 'GET',
+                                cache: false,
+                                dataType: "JSON",
+                                data: {
+                                    TTAccount: TTAccount1,
+                                    ProjectID: ProjectID1
+                                },
+                                url: '@Url.Action("AddEmp60Conf", "FolderStructure")',
+                            })
+                            .done(function(response) {
+                                if (response.result == "success")
+                                {
+                                    var message = @Html.Raw(Json.Encode(Resources.TTProjet.EmployeeAdded));
+                                    alert(message);
+                                }
+                                else
+                                {
+                                    alert(response.details1 + " / " + response.details2)
+                                }
+                            })
+                            .fail(function() {
+                                alert(response.details1 + " / " + response.details2)
+                            })
+                            .always(function() {
+                                $('#loading').hide();
+                            });
+        }
+        else
+        {            
+            var message = @Html.Raw(Json.Encode(Resources.TTProjet.message60Conf1));
+            alert(message);
+        }
+    }
+
+    function ModifySecurityProject60Conf()
+    {
+
+        var projectId1 = $('#ProjectID').val()
+
+        if (projectId1 != '') {
+            $('#loading').show();
+            $.ajax({
+                    type: 'GET',
+                    cache: false,
+                    dataType: "JSON",
+                    data: {
+                        projectId: projectId1
+                    },
+                    url: '@Url.Action("ModifySecurityProject60Conf", "FolderStructure")',
+                })
+                .done(function(response) {
+                    if (response.result == "success")
+                    {
+                        var message = @Html.Raw(Json.Encode(Resources.TTProjet.SecurityChanged));
+                        alert(message);
+
+                    }
+                    else
+                    {
+                        alert(response.details1 + " / " + response.details2)
+                    }
+                })
+                .fail(function() {
+                    alert(response.details1 + " / " + response.details2)
+                })
+                .always(function() {
+                    $('#loading').hide();
+                });
+        }
+        else
+        {
+            var message = @Html.Raw(Json.Encode(Resources.TTProjet.message60Conf2));
+            alert(message);            
+        }
+    }
+</script>

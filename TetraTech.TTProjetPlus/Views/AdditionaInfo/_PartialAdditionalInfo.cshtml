@@ -1,0 +1,107 @@
+﻿@model List<TetraTech.TTProjetPlus.Data.usp_getProject_ProgramManager_Result>
+@using InfoResources = TetraTech.TTProjetPlus.Views.TTProjet
+@{
+    ViewBag.Title = "EmployeeListPartial";
+}
+
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="panel pagination-grey clearfix m-b-0">
+        <div id="data-table_wrapper2" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+            <table id="data_projectManagerName" class="table table-bordered  data-table  dataTable" style="width: 100%">
+                <thead id="tableHeaderGP">
+                    <tr class="grey" role="row">
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending">
+                            @InfoResources.TTProjet.Employee
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                            @InfoResources.TTProjet.email
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                            @InfoResources.TTProjet.role
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                            @InfoResources.TTProjet.org
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (TetraTech.TTProjetPlus.Data.usp_getProject_ProgramManager_Result item in Model)
+                    {
+
+                        <tr>
+                            <td style="text-align: left;">
+                                @item.Employé_e_
+                            </td>
+                            <td style="text-align: left;">
+                                @item.Courriel
+                            </td>
+                            <td style="text-align: left;  ">
+                                @item.role
+                            </td>
+                            <td style="text-align: left; ">
+                                @item.ORG
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+else
+{
+    @Html.Partial("Error")
+}
+<script>
+    $(document).ready(function () {
+
+        $('#data_projectManagerName').DataTable({
+             pageResize: true,
+            dom:
+                "<'row'<'col-lg-2'l><'col-lg-7 text-center'B><'col-lg-2'f>>" +
+                "<'row'<'col-lg-12'tr>>" +
+                "<'row'<'col-lg-5'i><'col-lg-7'p>>",
+                buttons: [
+                { extend: 'excel', text: 'Exporter vers Excel' }
+
+                ],
+
+                pageLength: 10,
+            select: true,
+            scrollX: true,
+            scrollY: $(window).height() <= 722 ? $(window).height() / 3.5 : $(window).height() / 2,
+            scrollCollapse: true,
+            "order": [[0, "asc"]],
+            "columnDefs": [{ "targets": [2], "visible": true }],
+            "language": {
+                "url": '@ViewBag.lang.ToString()' == 'fr' ? "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json" : "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+            }
+        });
+
+    });
+
+
+    $('#data_projectManagerName tbody tr  td').on('click', function () {
+
+        $('#data_projectManagerName tr').removeClass('selected');
+        $(this).closest('tr').addClass('selected');
+
+        EmployeeNumber = ($(this).closest('tr').children()[0].textContent).trim();
+        EmployeeTTAccount = ($(this).closest('tr').children()[1].textContent).trim();
+        discDocProjId = ($(this).closest('tr').children()[2].textContent).trim();
+    });
+
+    $('#cancelAddEmployee').click(function () {
+        ($('input[type=search]')[0]).value = "";
+        $('#data_projectManagerName tr').removeClass('selected');
+        $('#data_projectManagerName').DataTable().search('').draw();
+
+    });
+</script>
+
+

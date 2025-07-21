@@ -1,0 +1,475 @@
+﻿@model List<TetraTech.TTProjetPlus.Models.researchResult>
+    @using Resources = TetraTech.TTProjetPlus.Views.Boomerang
+    @{
+    ViewBag.Title = "Recherche de projet";
+    }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+
+
+
+    <style>
+            #data_searchFichesList {
+                width: 100% !important;
+            }
+
+                #data_searchFichesList td {
+                    width: auto !important;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+
+                #data_searchFichesList th {
+                    width: auto !important;
+                    white-space: normal;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+
+            .custom-tooltip {
+                display: inline-block;
+                margin: 10px 20px;
+                opacity: 1;
+                position: relative;
+            }
+            /*select option[value="ONLINE"] {
+            background: green
+        }
+
+        select option[value="OFFLINE"] {
+            background: red;
+        }
+
+        select option[value="WAITING_DA"] {
+            background:yellow;
+        }
+
+        select option[value="FORBIDDEN"] {
+            background: orange;
+        }
+        select option[value="DRAFT"] {
+            background: gray;
+        }*/
+            .dataTables_length {
+                display: none
+            }
+    </style>
+
+
+    @if (Model != null)
+    {
+    <div class="panel pagination-grey">
+
+        <div id="data-table_wrapper2" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+            <table id="data_searchFichesList" class=" table table-bordered  data-table  dataTable display" style="margin-top:-50px ;width:100%; font-size:12px">
+                <thead id="tableHeaderGP">
+                    <tr style="font-style:italic; ">
+
+                        <th>
+                            <input type="text" placeholder=" @Resources.searchCriteria.Location" class="column_search" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder=" @Resources.searchCriteria.EndYear" class="column_search" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder="@Resources.searchCriteria.Label" class="column_search" style="width: 300px;" />
+                        </th>
+                        <th>
+                            <input type="text" placeholder="@Resources.searchCriteria.state" class="column_search" style="width: 300px;" />
+                        </th>
+
+
+                    </tr>
+
+                    <tr class="grey" role="row">
+
+                        <th>
+                            @Resources.searchCriteria.Location
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                            @Resources.searchCriteria.EndYear
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                            @Resources.searchCriteria.Label
+                        </th>
+
+                        <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                            @Resources.searchCriteria.state
+                        </th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.Count(); i++)
+                    {
+
+                    <tr>
+                        <td style="text-align: left;">
+                            @Model[i].localisation
+                        </td>
+                        <td style="text-align: left;">
+                            @Model[i].endYear
+                        </td>
+
+                        <td style="text-align: left;">
+                            <a href="#" style="background: none;" onclick="ViewFicheInfos(@Model[i].id_fiche)" title="Apercu">
+                                <img src="~/content/16/preview.gif" alt="" />
+                            </a>
+                            &nbsp;
+                            <a href="#" onclick="ViewFicheInfos(@Model[i].id_fiche)">
+                                @Model[i].intitutle_court
+                            </a>
+                            @if (Model[i].status == "FORBIDDEN")
+                            {
+                            <img src="~/content/16/security.gif" />
+                            }
+                        </td>
+                        <td style="text-align: right;">
+                            @if (Model[i].status == "ONLINE")
+                            {
+                            if (Session["current_panier"].ToString() == "0")
+                            {
+                            <a href="#" style="background: none;" onclick="TogglePanier({@Model[i].id_fiche);return false;">
+                                <img src="~/content/16/cart-rem.gif" alt="" title="@Resources.searchCriteria.AddRemoveSheetFact" />
+                            </a>
+                            }
+                            else
+                            {
+                            <a href="#" style="background: none;" onclick="TogglePanier(@Model[i].id_fiche);return false;">
+                                <img src="~/content/16/cart-add.gif" alt="" title="@Resources.searchCriteria.AddRemoveSheetFact" />
+                            </a>
+                            }
+
+                            if (Model[i].nom_award != null && Model[i].nom_award != "")
+                            {
+
+                            <a href="#" style="background: none;">
+                                <img src="~/content/16/award.gif" alt="" title="@Resources.searchCriteria.Award" />
+                            </a>
+
+                            }
+                            if (Model[i].lastmod_opqibi != null && Model[i].lastmod_opqibi != "" && Model[i].lastmod_opqibi != "0000-00-00 00:00:00")
+                            {
+
+                            <a href="#" style="background: none;">
+                                <img src="~/content/16/ref.gif" alt="" title="@Resources.searchCriteria.RefLetter" />
+                            </a>
+
+                            }
+
+
+                            if (Model[i].existInEn == "1" && Model[i].existInEsp == "0")
+                            {
+
+                            <a href="#" style="background: none;">
+                                <img src="~/content/16/en.gif" alt="" title="@Resources.searchCriteria.englishVersionDispo" />
+                            </a>
+
+                            }
+
+                            if (Model[i].existInEn == "0" && Model[i].existInEsp == "1")
+                            {
+
+                            <a href="#" style="background: none;">
+                                <img src="~/content/16/esp.gif" alt="" title="@Resources.searchCriteria.spanishVersionDispo" />
+                            </a>
+
+                            }
+                            if (Model[i].existInEn == "1" && Model[i].existInEsp == "1")
+                            {
+
+                            <a href="#" style="background: none;">
+                                <img src="~/content/16/en-esp.gif" alt="" title="@Resources.searchCriteria.SpaEngVersion" />
+                            </a>
+
+                            }
+
+
+                            if (Model[i].phototheque == "ok")
+                            {
+
+                            <a href="#" style="background: none;">
+                                <img src="~/content/16/phototheque.gif" alt="" title="@Resources.searchCriteria.goToPhotoLib" />
+                            </a>
+
+                            }
+
+
+                            <a href="#" style="background: none;" id="pdf_lang_@Model[i].id_fiche"><img src="~/content/16/pdf.gif" alt="" onclick="openModalPDF('@Model[i].id_fiche', '@Model[i].existInEn', @i, '@Model[i].hasArgumentaire')" /></a>
+
+
+                            }
+
+                            @{
+                            var id = "etat_" + Model[i].id_fiche;
+                            }
+
+                            <a href="#" style="background: none;" id="@id" onclick="">
+                                @if (Model[i].status == "WAITING_DA")
+                                {
+                                <img src="~/content/16/ball_yellow.gif" />
+                                }
+                                else if (Model[i].status == "WAITING_UA")
+                                {
+                                <img src="~/content/16/ball_violet.gif" />
+                                }
+
+                                else if (Model[i].status == "WAITING_COM")
+                                {
+                                <img src="~/content/16/ball_blue.gif" />
+                                }
+                                else if (Model[i].status == "DRAFT")
+                                {
+                                <img src="~/content/16/ball_white.gif" />
+                                }
+                                else if (Model[i].status == "ONLINE")
+                                {
+                                <img src="~/content/16/ball_green.gif" />
+                                }
+                                else if (Model[i].status == "OFFLINE")
+                                {
+                                <img src="~/content/16/ball_red.gif" />
+                                }
+                                else if (Model[i].status == "FORBIDDEN")
+                                {
+                                <img src="~/content/16/ball_orange.gif" />
+                                }
+                                @*@Model[i].status*@
+
+                            </a>
+                        </td>
+
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    }
+
+    else
+    {
+    if (Model == null)
+    {
+    @Html.Partial("Error")
+    }
+    else
+    {
+    <span>  @Resources.searchCriteria.noResultForThisQuery</span>
+    }
+    }
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog" style="width: 80%;">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="ficheIdDetails"></h4>
+                </div>
+                <div class="modal-body" id="modalContent">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal fade" id="ModalPDF" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">@Resources.searchCriteria.fiche / @Resources.searchCriteria.argument</h4>
+                </div>
+                <div class="modal-body">
+                    <h3>@Resources.searchCriteria.fiche</h3>
+                    @using (Html.BeginForm("Export", "Boomerang", FormMethod.Post))
+                    {
+                    <div class="alert alert-info" role="alert">
+                        <input type="submit" id="btnSubmit" value="@Resources.searchCriteria.printPDF_Fr" />
+
+                        <input type="hidden" name="ExportData" />
+                        <input type="hidden" name="id_fiche" />
+                        <div id="PrintPDF" hidden>
+                        </div>
+                    </div>
+                    }
+
+                    @using (Html.BeginForm("ExportEn", "Boomerang", FormMethod.Post))
+                    {
+                    <div class="alert alert-info" role="alert" id="ExportEn" hidden>
+                        <div>
+                            <input type="submit" id="btnSubmit2" value="@Resources.searchCriteria.printPDF_En" />
+                        </div>
+                        <input type="hidden" name="ExportDataEn" />
+                        <input type="hidden" name="id_fiche_en" />
+                        <div id="PrintPDFEn" hidden></div>
+                    </div>
+
+                    }
+
+                    <h3>@Resources.searchCriteria.argument</h3>
+                    @using (Html.BeginForm("ExportArg", "Boomerang", FormMethod.Post))
+                    {
+                    <div class="alert alert-info" role="alert">
+                        <input type="submit" id="btnSubmit3" value="@Resources.searchCriteria.printPDF_Arg" hidden />
+
+                        <input type="hidden" name="ExportDataArg" />
+                        <input type="hidden" name="id_fiche_arg" />
+                        <div id="PrintPDFArg" hidden> </div>
+                    </div>
+                    }
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var idFicheToDownload = "0";
+        $(document).ready(function () {
+
+            $("#pdfDownloader").click(function () {
+
+                var doc = new jsPDF('p', 'pt', 'letter');
+                doc.canvas.height = 72 * 11;
+                doc.canvas.width = 72 * 8.5;
+                doc.fromHTML($('#renderMe').get(0), 15, 15, {
+                    'width': 500
+                }, function (dispose) {
+                    doc.save('thisMotion.pdf');
+                });
+            });
+
+
+
+            $('#data_searchFichesList').DataTable({
+                dom:
+                    "<'row'<'col-lg-2'l><'col-lg-7 text-center'B><'col-lg-2'f>>" +
+                    "<'row'<'col-lg-12'tr>>" +
+                    "<'row'<'col-lg-5'i><'col-lg-7'p>>",
+                buttons: [
+                    { extend: 'excel', text: '@Session["lang"].ToString()' == 'fr' ? 'Exporter vers Excel' : 'Export to Excel' },
+                    { extend: 'selectAll', text: '@Session["lang"].ToString()' == 'fr' ? 'Tout sélectionner' : 'Select all' },
+                    { extend: 'selectNone', text: '@Session["lang"].ToString()' == 'fr' ? 'Tout désélectionner' : 'Deselect all' },
+                ],
+                language: {
+                    "url": '@Session["lang"].ToString()' == 'fr' ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+                }
+            });
+        });
+
+
+        $('#data_searchFichesList thead').on('keyup', ".column_search", function () {
+
+            $('#data_searchFichesList').DataTable()
+                .column($(this).parent().index())
+                .search(this.value)
+                .draw();
+        });
+
+        function ViewFicheInfos(itemId) {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("returnFicheDetails", "Boomerang")',
+                dataType: "html",
+                data:
+                {
+                    idFiche: itemId,
+                    sForcart: "",
+                    iIdPanier: 0
+                },
+                success: function (response) {
+                    $('#modalContent').html(response)
+                    $('#ficheIdDetails').html("Fiche: " + itemId)
+                    $('#myModal').modal('show')
+
+                },
+                error: function () {
+
+                }
+            });
+        }
+
+        function openModalPDF(idFiche, existInEn, id, hasArgumentaire) {
+            $("#PrintPDF").html("")
+            idFicheToDownload = idFiche;
+            $('#ExportEn').hide()
+            $('.print').prop('href', '/Content/images/TTProjetPlus_Boomerang_images/files/OPQIBI/000000' + idFiche + '.pdf');
+            if (existInEn == "1") {
+
+                $('#ExportEn').show()
+            }
+            if (hasArgumentaire == "1") {
+
+                $('#btnSubmit3').show()
+            }
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("returnFicheDetailsPDF", "Boomerang")',
+                dataType: "html",
+                data:
+                {
+                    idFiche: idFiche,
+                    sForcart: "",
+                    iIdPanier: 0
+                },
+                success: function (response) {
+                    $("#PrintPDF").html(response)
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("returnFicheDetailsPDF_Arg", "Boomerang")',
+                        dataType: "html",
+                        data:
+                        {
+                            idFiche: idFiche,
+                            sForcart: "",
+                            iIdPanier: 0
+                        },
+                        success: function (response) {
+                            $("#PrintPDFArg").html(response)
+                        },
+                        error: function () {
+
+                        }
+                    });
+                },
+                error: function () {
+
+                }
+            });
+            $('#ModalPDF').modal('show');
+        }
+
+        $(function () {
+
+            $("#btnSubmit").click(function () {
+                $("input[name='id_fiche']").val(idFicheToDownload);
+                $("input[name='ExportData']").val($("#PrintPDF").html());
+            });
+
+        });
+
+        $(function () {
+            $("#btnSubmit3").click(function () {
+                $("input[name='id_fiche_arg']").val(idFicheToDownload);
+                $("input[name='ExportDataArg']").val($("#PrintPDFArg").html());
+            });
+        });
+    </script>
+
+

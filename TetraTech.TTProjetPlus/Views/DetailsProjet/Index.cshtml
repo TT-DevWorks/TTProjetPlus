@@ -1,0 +1,244 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.DetailsProjet.DetailsRessources
+@model TetraTech.TTProjetPlus.Models.ListOfYourProjectModel
+<style>
+    .buttons-colvis {
+        background-color: lightcyan
+    }
+
+    .active {
+        background-color: lightcyan
+    }
+
+    .rcorners {
+        border-radius: 15px;
+        background-color: white;
+        background-position: left top;
+        background-repeat: repeat;
+        padding: 20px;
+    }
+</style>
+<div class="main">
+    <div style="color:white">
+        <span style="text-align:right;float:right; width:50%">@Resources.PeriodWeekDate @ViewData["CurrentPeriodWeekDate"]</span>
+    </div>
+
+    <div style="padding-top:10px">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="rcorners">
+                    <div class="row">
+                        <div class=col-sm-6 style="text-align:left; color: steelblue">
+                            <span><b>715-1234TT | Habitations des ainés de Chandler</b></span>
+                        </div>
+                        <div class=col-sm-6 style="text-align:right; color:lightgray">
+                            <span><b>715 MUN Quebec | Ville de Québec</b></span>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row" style="text-align:left;color:darkslateblue">
+                        <div class=col-sm-3>
+                            @Resources.ProjectManager
+                        </div>
+                        <div class=col-sm-3>
+                            @Resources.ProjectDirector
+                        </div>
+                        <div class=col-sm-3>
+                            @Resources.BillingAgent
+                        </div>
+                        <div class=col-sm-3>
+                            @Resources.CostController
+                        </div>
+                    </div>
+                    <div class="row" style="text-align:left;color:darkslateblue">
+                        <div class=col-sm-3>
+                            <b>truc</b>
+                        </div>
+                        <div class=col-sm-3>
+                            <b>truc</b>
+                        </div>
+                        <div class=col-sm-3>
+                            <b>truc</b>
+                        </div>
+                        <div class=col-sm-3>
+                            <b>truc</b>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="rcorners">
+                <div class="row">
+                    <div class=col-sm-12 style="text-align:left; color: steelblue">
+                        <span><b>@Resources.FinancialResume</b></span>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="row">
+                    <div class=col-sm-4 style="text-align:left; color: darkslateblue">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col"> </th>
+                                    <th scope="col">@Resources.Budget</th>
+                                    <th scope="col">@Resources.Cumulative</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">@Resources.Revenu</th>
+                                    <td>10000</td>
+                                    <td>52345</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">@Resources.Cost</th>
+                                    <td>9000</td>
+                                    <td>48456</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">@Resources.DollarMargeNet</th>
+                                    <td>10000</td>
+                                    <td>3898</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">@Resources.DollarMargeNet</th>
+                                    <td>10%</td>
+                                    <td>7.4%</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">@Resources.Hours</th>
+                                    <td>150</td>
+                                    <td>88</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class=col-sm-8 style="text-align:left; color: darkslateblue">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col"> </th>
+                                    <th scope="col">@Resources.Total</th>
+                                    <th scope="col">@Resources.a0_30Days</th>
+                                    <th scope="col">@Resources.a31_60Days</th>
+                                    <th scope="col">@Resources.a61_90Days</th>
+                                    <th scope="col">@Resources.a91_120Days</th>
+                                    <th scope="col">@Resources.moreThan120Days</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">@Resources.Billed</th>
+                                    <td>10000</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">@Resources.AdvancedConstated</th>
+                                    <td>10000</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">@Resources.Unbilled</th>
+                                    <td>10000</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">@Resources.CAR</th>
+                                    <td>10000</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">@Resources.TAR</th>
+                                    <td>10000</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="rcorners">
+                <div class="row">
+                    <div class=col-sm-12 style="text-align:left; color: steelblue">
+                        <span><b>@Resources.Commentaries | @Resources.Commentaries | @Resources.FollowUp | @Resources.Hours | @Resources.Closing</b></span>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="row">
+                    <div class=col-sm-12 style="text-align:left; color: darkslateblue">
+                        <table class="table">
+                            <thead style="text-align:left; color:lightgray">
+                                <tr>
+                                    <th scope="col">@Resources.InChargeOfProjetc </th>
+                                    <th scope="col">@Resources.Role</th>
+                                    <th scope="col">@Resources.Hours</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>truc </td>
+                                    <td>bidule</td>
+                                    <td>machin</td>
+                                </tr>
+                                <tr>
+                                    <td>truc </td>
+                                    <td>bidule</td>
+                                    <td>machin</td>
+                                </tr>
+                                <tr>
+                                    <td>truc </td>
+                                    <td>bidule</td>
+                                    <td>machin</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+
+</script>

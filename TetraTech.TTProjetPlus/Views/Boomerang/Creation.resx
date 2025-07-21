@@ -1,0 +1,807 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="activite" xml:space="preserve">
+    <value> Unités d'affaires / Expertises</value>
+  </data>
+  <data name="addAward" xml:space="preserve">
+    <value> Ajouter un prix</value>
+  </data>
+  <data name="addCertif" xml:space="preserve">
+    <value> Ajouter une lettre de référence client (pdf)</value>
+  </data>
+  <data name="addImg" xml:space="preserve">
+    <value> Ajouter une image</value>
+  </data>
+  <data name="adress" xml:space="preserve">
+    <value> Adresse</value>
+  </data>
+  <data name="advertCertif" xml:space="preserve">
+    <value> Actuellement, aucun certificat OPQIBI n'est associé àcette fiche.&lt;br /&gt;Cliquez sur le bouton &lt;i&gt;Générer&lt;/i&gt; ci-dessus, afin d'accèder au module de pré-remplissage du formulaire OPQIBI àrenvoyer au client.</value>
+  </data>
+  <data name="agence" xml:space="preserve">
+    <value> Bureau</value>
+  </data>
+  <data name="amenagmt" xml:space="preserve">
+    <value> Aménag. ext.</value>
+  </data>
+  <data name="amenagmtFin" xml:space="preserve">
+    <value> Coût final Aménag. ext.</value>
+  </data>
+  <data name="amenagmtFinFees" xml:space="preserve">
+    <value> Hon. finaux Aménag. ext.</value>
+  </data>
+  <data name="amenagmtPrev" xml:space="preserve">
+    <value> Coût prévu Aménag. ext.</value>
+  </data>
+  <data name="amenagmtPrevFees" xml:space="preserve">
+    <value> Hon. prévus Aménag. ext.</value>
+  </data>
+  <data name="appuiPrev" xml:space="preserve">
+    <value> Appui prévu</value>
+  </data>
+  <data name="appuiReel" xml:space="preserve">
+    <value> Appui réel</value>
+  </data>
+  <data name="apresTravaux" xml:space="preserve">
+    <value> Après travaux</value>
+  </data>
+  <data name="archi" xml:space="preserve">
+    <value> Architecte(s)</value>
+  </data>
+  <data name="argCom" xml:space="preserve">
+    <value> Argumentaire commercial</value>
+  </data>
+  <data name="autre" xml:space="preserve">
+    <value> Autre</value>
+  </data>
+  <data name="autreFin" xml:space="preserve">
+    <value> Coût final Autre</value>
+  </data>
+  <data name="autreFinFees" xml:space="preserve">
+    <value> Hon. finaux Autre</value>
+  </data>
+  <data name="autrePrev" xml:space="preserve">
+    <value> Coût prévu Autre</value>
+  </data>
+  <data name="autrePrevFees" xml:space="preserve">
+    <value> Hon. prévus Autre</value>
+  </data>
+  <data name="avantTravaux" xml:space="preserve">
+    <value> Avant travaux</value>
+  </data>
+  <data name="award" xml:space="preserve">
+    <value> Prix</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value> Annuler</value>
+  </data>
+  <data name="certif" xml:space="preserve">
+    <value> Appréciation du client</value>
+  </data>
+  <data name="chargeAff" xml:space="preserve">
+    <value> Chargé de projet</value>
+  </data>
+  <data name="checkExistingFiles" xml:space="preserve">
+    <value> Vérifier les fiches existantes</value>
+  </data>
+  <data name="chgmtBPR" xml:space="preserve">
+    <value> Changements par Tt</value>
+  </data>
+  <data name="chgmtClient" xml:space="preserve">
+    <value> Changements par le client</value>
+  </data>
+  <data name="code" xml:space="preserve">
+    <value> Numéro de projet interne</value>
+  </data>
+  <data name="codeCertif" xml:space="preserve">
+    <value> Code de qualification OPQIBI</value>
+  </data>
+  <data name="conception" xml:space="preserve">
+    <value> Conception</value>
+  </data>
+  <data name="conduc" xml:space="preserve">
+    <value> Opérateur</value>
+  </data>
+  <data name="conso" xml:space="preserve">
+    <value> Conso. unitaire du bâtiment</value>
+  </data>
+  <data name="construction" xml:space="preserve">
+    <value> Construction</value>
+  </data>
+  <data name="country" xml:space="preserve">
+    <value> Pays</value>
+  </data>
+  <data name="cout" xml:space="preserve">
+    <value> Coût</value>
+  </data>
+  <data name="create" xml:space="preserve">
+    <value> Création d'une fiche de projet</value>
+  </data>
+  <data name="creePar" xml:space="preserve">
+    <value> par</value>
+  </data>
+  <data name="dateCreation" xml:space="preserve">
+    <value> Créée le</value>
+  </data>
+  <data name="dateDerniereModif" xml:space="preserve">
+    <value> Dernière modification le</value>
+  </data>
+  <data name="delAward" xml:space="preserve">
+    <value> Supprimer le prix</value>
+  </data>
+  <data name="delCertif" xml:space="preserve">
+    <value> Supprimer la lettre de référence</value>
+  </data>
+  <data name="delImg" xml:space="preserve">
+    <value> Supprimer l'image</value>
+  </data>
+  <data name="delSheet" xml:space="preserve">
+    <value> Supprimer la fiche</value>
+  </data>
+  <data name="descr" xml:space="preserve">
+    <value> Description du projet</value>
+  </data>
+  <data name="devise" xml:space="preserve">
+    <value> $</value>
+  </data>
+  <data name="disciplines" xml:space="preserve">
+    <value> Disciplines</value>
+  </data>
+  <data name="docs" xml:space="preserve">
+    <value> Documents</value>
+  </data>
+  <data name="draftSaved" xml:space="preserve">
+    <value> Le brouillon a correctement été sauvegardé.</value>
+  </data>
+  <data name="duration" xml:space="preserve">
+    <value> Durée du projet</value>
+  </data>
+  <data name="echeancier" xml:space="preserve">
+    <value> Echéancier :</value>
+  </data>
+  <data name="ecoEnergie" xml:space="preserve">
+    <value> Economies d'énergie</value>
+  </data>
+  <data name="ecoMonetaire" xml:space="preserve">
+    <value> Economies monétaires</value>
+  </data>
+  <data name="elect" xml:space="preserve">
+    <value> électricité</value>
+  </data>
+  <data name="electFin" xml:space="preserve">
+    <value> Coût final électricité</value>
+  </data>
+  <data name="electFinFees" xml:space="preserve">
+    <value> Hon. finaux électricité</value>
+  </data>
+  <data name="electPrev" xml:space="preserve">
+    <value> Coût prévu électricité</value>
+  </data>
+  <data name="electPrevFees" xml:space="preserve">
+    <value> Hon. prévus électricité</value>
+  </data>
+  <data name="equipe" xml:space="preserve">
+    <value> équipe de projet Tt</value>
+  </data>
+  <data name="estimation" xml:space="preserve">
+    <value> Estimation</value>
+  </data>
+  <data name="expertise" xml:space="preserve">
+    <value> Unités d'affaires / Expertises</value>
+  </data>
+  <data name="feesBpr" xml:space="preserve">
+    <value> Hon. Tt</value>
+  </data>
+  <data name="feesTeam" xml:space="preserve">
+    <value> Hon. de l'équipe</value>
+  </data>
+  <data name="final" xml:space="preserve">
+    <value> final</value>
+  </data>
+  <data name="finalF" xml:space="preserve">
+    <value>  Finaux</value>
+  </data>
+  <data name="FinalPeriod" xml:space="preserve">
+    <value> Dates finales</value>
+  </data>
+  <data name="finaux" xml:space="preserve">
+    <value> finaux</value>
+  </data>
+  <data name="fullPage" xml:space="preserve">
+    <value> Edition en mode pleine page</value>
+  </data>
+  <data name="gen" xml:space="preserve">
+    <value> Générer</value>
+  </data>
+  <data name="gest" xml:space="preserve">
+    <value> Gestion de projet</value>
+  </data>
+  <data name="gestFin" xml:space="preserve">
+    <value> Coût final Gestion de projet</value>
+  </data>
+  <data name="gestFinFees" xml:space="preserve">
+    <value> Hon. finaux Gestion de projet</value>
+  </data>
+  <data name="gestPrev" xml:space="preserve">
+    <value> Coût prévu Gestion de projet</value>
+  </data>
+  <data name="gestPrevFees" xml:space="preserve">
+    <value> Hon. prévus Gestion de projet</value>
+  </data>
+  <data name="help2" xml:space="preserve">
+    <value> Merci d'éviter les copier-coller depuis word, surtout si la mise en forme contient des symboles.</value>
+  </data>
+  <data name="helpAdress" xml:space="preserve">
+    <value> Sur 2 lignes maximum.</value>
+  </data>
+  <data name="helpAgence" xml:space="preserve">
+    <value> Sélectionner dans la liste.</value>
+  </data>
+  <data name="helpArgCom" xml:space="preserve">
+    <value> Insérez du texte soutenant ce projet et ayant un intér&amp;ecirc;t commercial ou de communication pour des offres de service notamment</value>
+  </data>
+  <data name="helpCertif" xml:space="preserve">
+    <value> Voir le guide OPQIBI</value>
+  </data>
+  <data name="helpChargeAff" xml:space="preserve">
+    <value> Prénom et nom du chargé de projet Tt</value>
+  </data>
+  <data name="helpChgmt" xml:space="preserve">
+    <value> Expliquer la nature et les causes de ces changements</value>
+  </data>
+  <data name="helpCode" xml:space="preserve">
+    <value> Séparer les numéros de projet par une virgule et un espace (E.g: xxxx, 1234)</value>
+  </data>
+  <data name="helpConducteur" xml:space="preserve">
+    <value> Nom de la compagnie qui assure le fonctionnement de l'ouvrage (d'un barrage, par exemple)</value>
+  </data>
+  <data name="helpCountry" xml:space="preserve">
+    <value> Sélectionner le pays dans lequel a lieu le projet parmi la liste ci-dessus.</value>
+  </data>
+  <data name="helpDateFinal" xml:space="preserve">
+    <value> Dates finales</value>
+  </data>
+  <data name="helpDatePrevu" xml:space="preserve">
+    <value> Dates prévues</value>
+  </data>
+  <data name="helpDescr" xml:space="preserve">
+    <value> Décrire de la fa&amp;ccedil;on la plus complète possible le projet. Limité à 2 000 caractères.&lt;br /&gt;Faire attention àla mise en page, elle appara&amp;icirc;tra tel quel àl'impression.</value>
+  </data>
+  <data name="helpDisciplines" xml:space="preserve">
+    <value> Indiquer les disciplines utilisées</value>
+  </data>
+  <data name="helpDuration" xml:space="preserve">
+    <value> Durée du projet, en mois</value>
+  </data>
+  <data name="helpEcart" xml:space="preserve">
+    <value> Expliquer les raisons de l'écart</value>
+  </data>
+  <data name="helpEquipe" xml:space="preserve">
+    <value> Nom, discipline et fonction des membres de l'équipe principale Tt (autre que le chargé de projet)</value>
+  </data>
+  <data name="helpFeesBpr" xml:space="preserve">
+    <value> Honoraires Tt en dollars canadiens avant taxes.</value>
+  </data>
+  <data name="helpFeesTeam" xml:space="preserve">
+    <value> Honoraires de l'équipe, incluant les partenaires (consortium, sous-traitants) en dollars canadiens avant taxes.</value>
+  </data>
+  <data name="helpHonoraire" xml:space="preserve">
+    <value> en dollars canadiens avant taxes.</value>
+  </data>
+  <data name="helpIntitule" xml:space="preserve">
+    <value> Saisir le titre du projet tel qu'il appara&amp;icirc;t dans le contrat ou l'acte d'engagement.</value>
+  </data>
+  <data name="helpLoc" xml:space="preserve">
+    <value> Saisir la ville de réalisation du projet (E.g: Montréal)</value>
+  </data>
+  <data name="helpMesurageEco" xml:space="preserve">
+    <value> Préciser si le projet a un plan de mesurage des économies, le décrire le cas échéant</value>
+  </data>
+  <data name="helpMission" xml:space="preserve">
+    <value> (Exemple: Fluides, VRD, etc...)</value>
+  </data>
+  <data name="helpName" xml:space="preserve">
+    <value> Nom de la compagnie.</value>
+  </data>
+  <data name="helpNameContact" xml:space="preserve">
+    <value> Inscrire le prénom et le nom de la référence client dans ce projet</value>
+  </data>
+  <data name="helpnumeroStructure" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="helpNumRef" xml:space="preserve">
+    <value> Inscrire le numéro de référence projet du client. Séparer les numéros de référence par une virgule et un espace (ex: xxxx, 1234)</value>
+  </data>
+  <data name="helpOthers" xml:space="preserve">
+    <value> Noms et coordonnées des autres membres du consortium et/ou des sous-traitants.</value>
+  </data>
+  <data name="helpParticular" xml:space="preserve">
+    <value> Mettre en avant une nouveauté ou une technique de pointe utilisée dans ce projet. 3 lignes maximum</value>
+  </data>
+  <data name="helpPeriode" xml:space="preserve">
+    <value> Intervalle de réalisation (Mois et Année) du projet</value>
+  </data>
+  <data name="helpPhone" xml:space="preserve">
+    <value> Saisir le code régional, le numéro de téléphone et le numéro de poste de cette façon : 555 123-4567, 8999</value>
+  </data>
+  <data name="helpProprio" xml:space="preserve">
+    <value> Inscrire le nom de la compagnie</value>
+  </data>
+  <data name="helpProvince" xml:space="preserve">
+    <value> Sélectionner la province ou l'état dans lequel a lieu le projet. S'il n'est pas dans la liste, écrivez-le ci-dessus.</value>
+  </data>
+  <data name="helpShort" xml:space="preserve">
+    <value> Saisir le titre du projet pour l'affichage dans la page des résultats de recherche</value>
+  </data>
+  <data name="helpType" xml:space="preserve">
+    <value> Cocher le(s) type(s) de services correspondant(s) parmi la liste ci-dessus</value>
+  </data>
+  <data name="helpTypeEnvironnement" xml:space="preserve">
+    <value> Cocher la(les) nature(s) des travaux correspondant(s) parmi la liste ci-dessus</value>
+  </data>
+  <data name="helpUnite" xml:space="preserve">
+    <value> Sélectionner la catégorie et l'unité voulue</value>
+  </data>
+  <data name="helpUnite2" xml:space="preserve">
+    <value>Si nécessaires remplir cette ligne comme la précédente.</value>
+  </data>
+  <data name="helpYears" xml:space="preserve">
+    <value> Intervalle représentant la période de réalisation de la mission.</value>
+  </data>
+  <data name="hon" xml:space="preserve">
+    <value> Hon.</value>
+  </data>
+  <data name="honoraire" xml:space="preserve">
+    <value> Honoraires</value>
+  </data>
+  <data name="imgAdded" xml:space="preserve">
+    <value> L'image a été ajoutée àvotre fiche.</value>
+  </data>
+  <data name="imgDeleted" xml:space="preserve">
+    <value> L'image a correctement été supprimée.</value>
+  </data>
+  <data name="imgMission" xml:space="preserve">
+    <value> Image du projet</value>
+  </data>
+  <data name="imgModified" xml:space="preserve">
+    <value> L'image a correctement été modifiée.</value>
+  </data>
+  <data name="infos" xml:space="preserve">
+    <value> Informations internes</value>
+  </data>
+  <data name="infra" xml:space="preserve">
+    <value> Infrastructure</value>
+  </data>
+  <data name="infraFin" xml:space="preserve">
+    <value> Coût final Infrastructure</value>
+  </data>
+  <data name="infraFinFees" xml:space="preserve">
+    <value> Hon. finaux Infrastructure</value>
+  </data>
+  <data name="infraPrev" xml:space="preserve">
+    <value> Coût prévu Infrastructure</value>
+  </data>
+  <data name="infraPrevFees" xml:space="preserve">
+    <value> Hon. prévus Infrastructure</value>
+  </data>
+  <data name="intitule" xml:space="preserve">
+    <value> Titre du projet</value>
+  </data>
+  <data name="intituleShort" xml:space="preserve">
+    <value> Titre court du projet</value>
+  </data>
+  <data name="linkedSheet" xml:space="preserve">
+    <value> Fiches liées</value>
+  </data>
+  <data name="loc" xml:space="preserve">
+    <value> Localisation</value>
+  </data>
+  <data name="localisation" xml:space="preserve">
+    <value> Localisation</value>
+  </data>
+  <data name="mail" xml:space="preserve">
+    <value> Courriel</value>
+  </data>
+  <data name="meca" xml:space="preserve">
+    <value> Mécanique</value>
+  </data>
+  <data name="mecaFin" xml:space="preserve">
+    <value> Coût final Mécanique</value>
+  </data>
+  <data name="mecaFinFees" xml:space="preserve">
+    <value> Hon. finaux Mécanique</value>
+  </data>
+  <data name="mecaPrev" xml:space="preserve">
+    <value> Coût prévu Mécanique</value>
+  </data>
+  <data name="mecaPrevFees" xml:space="preserve">
+    <value> Hon. prévus Mécanique</value>
+  </data>
+  <data name="mesurageEco" xml:space="preserve">
+    <value> Plan de mesurage des économies</value>
+  </data>
+  <data name="mission" xml:space="preserve">
+    <value> Mission</value>
+  </data>
+  <data name="modifiePar" xml:space="preserve">
+    <value> par</value>
+  </data>
+  <data name="montant" xml:space="preserve">
+    <value> Coût global du projet</value>
+  </data>
+  <data name="montantGen" xml:space="preserve">
+    <value> Montant</value>
+  </data>
+  <data name="month" xml:space="preserve">
+    <value> mois</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value> Nom du client</value>
+  </data>
+  <data name="nameContact" xml:space="preserve">
+    <value> Nom du contact</value>
+  </data>
+  <data name="nbCharLeft" xml:space="preserve">
+    <value> Nombre de caractères restants : </value>
+  </data>
+  <data name="newAward" xml:space="preserve">
+    <value> Nouveau prix</value>
+  </data>
+  <data name="newImg" xml:space="preserve">
+    <value> Nouvelle image</value>
+  </data>
+  <data name="nomDiscipline" xml:space="preserve">
+    <value> Autre discipline (nom)</value>
+  </data>
+  <data name="NoStructure" xml:space="preserve">
+    <value> No structure (P-xxxxxx)</value>
+  </data>
+  <data name="numeroStructure" xml:space="preserve">
+    <value> No structure (P-xxxxxx)</value>
+  </data>
+  <data name="numeroTetraLinx" xml:space="preserve">
+    <value> Numéro du projet Tetra Linx</value>
+  </data>
+  <data name="numRef" xml:space="preserve">
+    <value> Numéro de référence projet du client</value>
+  </data>
+  <data name="organisme" xml:space="preserve">
+    <value> Organisme</value>
+  </data>
+  <data name="others" xml:space="preserve">
+    <value> Autre(s) partenaire(s)</value>
+  </data>
+  <data name="paraPublic" xml:space="preserve">
+    <value> Parapublic</value>
+  </data>
+  <data name="particular" xml:space="preserve">
+    <value> Particularités du projet</value>
+  </data>
+  <data name="periode" xml:space="preserve">
+    <value> Période de réalisation</value>
+  </data>
+  <data name="phone" xml:space="preserve">
+    <value> Numéro de télephone</value>
+  </data>
+  <data name="planDevis" xml:space="preserve">
+    <value> Plans et devis</value>
+  </data>
+  <data name="planned" xml:space="preserve">
+    <value> Prévus</value>
+  </data>
+  <data name="PlannedPeriod" xml:space="preserve">
+    <value> Dates prévues</value>
+  </data>
+  <data name="prevu" xml:space="preserve">
+    <value> prévu</value>
+  </data>
+  <data name="prevue" xml:space="preserve">
+    <value> Prévue</value>
+  </data>
+  <data name="prevues" xml:space="preserve">
+    <value> Prévues</value>
+  </data>
+  <data name="prevus" xml:space="preserve">
+    <value> prévus</value>
+  </data>
+  <data name="pri" xml:space="preserve">
+    <value> PRI simple annuel</value>
+  </data>
+  <data name="prive" xml:space="preserve">
+    <value> Privé</value>
+  </data>
+  <data name="proprio" xml:space="preserve">
+    <value> Propriétaire de l'ouvrage</value>
+  </data>
+  <data name="province" xml:space="preserve">
+    <value> Province, état</value>
+  </data>
+  <data name="publiq" xml:space="preserve">
+    <value> Public</value>
+  </data>
+  <data name="reelle" xml:space="preserve">
+    <value> Réelle</value>
+  </data>
+  <data name="reelles" xml:space="preserve">
+    <value> Réelles</value>
+  </data>
+  <data name="reponseNon" xml:space="preserve">
+    <value> Non</value>
+  </data>
+  <data name="reponseOui" xml:space="preserve">
+    <value> Oui</value>
+  </data>
+  <data name="resize" xml:space="preserve">
+    <value> Recadrer l'image</value>
+  </data>
+  <data name="respectEcheancierBudget" xml:space="preserve">
+    <value> Respect des échéanciers et budget</value>
+  </data>
+  <data name="respectEcheancierBudgetNote" xml:space="preserve">
+    <value> Précisions</value>
+  </data>
+  <data name="respectFinanc" xml:space="preserve">
+    <value> Respect des appuis financiers</value>
+  </data>
+  <data name="rsi" xml:space="preserve">
+    <value> Economies d'énergie et période de retour sur investissement</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value> Enregistrer</value>
+  </data>
+  <data name="saveDraft" xml:space="preserve">
+    <value> Sauvegarder le brouillon</value>
+  </data>
+  <data name="saveInCart" xml:space="preserve">
+    <value> Enregistrer dans votre panier</value>
+  </data>
+  <data name="select" xml:space="preserve">
+    <value>  - Sélectionner - </value>
+  </data>
+  <data name="send" xml:space="preserve">
+    <value> Envoyer pour validation </value>
+  </data>
+  <data name="service" xml:space="preserve">
+    <value> Services</value>
+  </data>
+  <data name="SharepointProjet" xml:space="preserve">
+    <value> Url Sharepoint du projet</value>
+  </data>
+  <data name="sheetCartModify" xml:space="preserve">
+    <value> La fiche de votre panier a été modifiée</value>
+  </data>
+  <data name="sheetCom" xml:space="preserve">
+    <value> La fiche référence est en attente de validation auprès de l'administrateur responsable de votre unité d'affaires.</value>
+  </data>
+  <data name="sheetDA" xml:space="preserve">
+    <value> La fiche référence est en attente de validation</value>
+  </data>
+  <data name="sheetOnline" xml:space="preserve">
+    <value> La fiche référence est en ligne.</value>
+  </data>
+  <data name="sheetUA" xml:space="preserve">
+    <value> La fiche référence est en attente de validation</value>
+  </data>
+  <data name="soumission" xml:space="preserve">
+    <value> Soumission</value>
+  </data>
+  <data name="structFin" xml:space="preserve">
+    <value> Coût final Structure</value>
+  </data>
+  <data name="structFinFees" xml:space="preserve">
+    <value> Hon. finaux Structure</value>
+  </data>
+  <data name="structPrev" xml:space="preserve">
+    <value> Coût prévu Structure</value>
+  </data>
+  <data name="structPrevFees" xml:space="preserve">
+    <value> Hon. prévus Structure</value>
+  </data>
+  <data name="structure" xml:space="preserve">
+    <value> Structure</value>
+  </data>
+  <data name="team" xml:space="preserve">
+    <value> de l'équipe</value>
+  </data>
+  <data name="team2" xml:space="preserve">
+    <value> , incluant les partenaires (consortium, sous-traitants) en dollars canadiens avant taxes.</value>
+  </data>
+  <data name="theClient" xml:space="preserve">
+    <value> Le client</value>
+  </data>
+  <data name="theMission" xml:space="preserve">
+    <value> La mission</value>
+  </data>
+  <data name="theNumbers" xml:space="preserve">
+    <value> Les chiffres</value>
+  </data>
+  <data name="theServices" xml:space="preserve">
+    <value> Les services</value>
+  </data>
+  <data name="theServicesEnvironnement" xml:space="preserve">
+    <value> Nature des travaux</value>
+  </data>
+  <data name="theSheet" xml:space="preserve">
+    <value> La fiche</value>
+  </data>
+  <data name="theTeam" xml:space="preserve">
+    <value> L'équipe</value>
+  </data>
+  <data name="titre" xml:space="preserve">
+    <value> Titre court</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>à</value>
+  </data>
+  <data name="txt1" xml:space="preserve">
+    <value> Veuillez sélectionner l'unité d'affaires relative àla fiche de projet que vous souhaitez créer.</value>
+  </data>
+  <data name="txt2" xml:space="preserve">
+    <value> En cliquant sur cette dernière, une liste des expertises vous sera alors presentée, àvous de sélectionner l'expertise correspondante àvotre nouvelle fiche de projet.</value>
+  </data>
+  <data name="type" xml:space="preserve">
+    <value> Type de mission</value>
+  </data>
+  <data name="typeClient" xml:space="preserve">
+    <value> Type de client</value>
+  </data>
+  <data name="unite" xml:space="preserve">
+    <value> Unité de mesure principale</value>
+  </data>
+  <data name="unite2" xml:space="preserve">
+    <value> Unité de mesure secondaire</value>
+  </data>
+  <data name="valid" xml:space="preserve">
+    <value> Valider</value>
+  </data>
+  <data name="versEn" xml:space="preserve">
+    <value> (version anglaise)</value>
+  </data>
+  <data name="versEsp" xml:space="preserve">
+    <value> (version espagnole)</value>
+  </data>
+  <data name="versFr" xml:space="preserve">
+    <value> (version française)</value>
+  </data>
+  <data name="years" xml:space="preserve">
+    <value> Années de réalisation</value>
+  </data>
+  <data name="chooseOne" xml:space="preserve">
+    <value>- Sélectionner -</value>
+  </data>
+  <data name="chooseOneCountry" xml:space="preserve">
+    <value>- Sélectionner  un pays-</value>
+  </data>
+  <data name="chooseOneProvince" xml:space="preserve">
+    <value>- Sélectionner  une province-</value>
+  </data>
+  <data name="fiche" xml:space="preserve">
+    <value>La fiche</value>
+  </data>
+  <data name="otherPlace" xml:space="preserve">
+    <value>Autre lieu</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Oui</value>
+  </data>
+</root>

@@ -1,0 +1,49 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.ManageDirectoryRights
+@using TetraTech.TTProjetPlus.Models;
+@model TetraTech.TTProjetPlus.Models.ManageDirectoryRightsDetails
+
+@if (!string.IsNullOrEmpty(Model.SelectedProject))
+{
+        @Html.HiddenFor(model => model.SelectedProject)
+<div id="group-members">
+    @if (Model != null && Model.DirectoryList.Count() > 0)
+    {
+        <div class="col-sm-1   tt-h3-darkblue"> @Html.DisplayNameFor(model => model.DirectoryList)   </div>
+        <div class="col-sm-2">
+            @(Html.Kendo().DropDownList().Name("ddlDirectoryList")
+                                                                .DataTextField("RepCode").DataValueField("RepIdAndSecurityFolderPermissionId")
+                                                                .BindTo(Model.DirectoryList).Value(Model.SelectedDirectory)
+                                                                .OptionLabel(@Resources.MDRessources.SelectDirectory).OptionLabelTemplate("<span class='ddloptionlabel'>" + @Resources.MDRessources.SelectDirectory + "</span>")
+                                                                .Events(e => { e.Change("Directory_select"); })
+                                                                .HtmlAttributes(new { @class = "form-control" })
+                                                                .Height(800)
+            )
+        </div>        
+    }
+    else
+    {
+        if (Model == null)
+        {
+            @Html.Partial("Error")
+        }
+        else
+        {
+            <div class="alert alert-warning" role="alert">
+                <span>@Resources.MDRessources.MessageNoDirectory</span>
+            </div>
+        }
+    }
+</div>
+}
+else
+{
+    @*<div class="alert alert-warning" role="alert">
+        <span>@Resources.MessageSelectDirectory</span>
+    </div>*@
+}
+
+<script>
+
+
+</script>
+

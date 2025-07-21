@@ -1,0 +1,357 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.TTProjet
+@using Resources2 = TetraTech.TTProjetPlus.Views.FolderStructure
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Controllers
+@using TetraTech.TTProjetPlus.Services
+@using TetraTech.TTProjetPlus.Security
+
+@model TetraTech.TTProjetPlus.Models.ProjectToModifyModel
+@{
+    /**/
+
+    ViewBag.Title = "Modification de structure";
+}
+@{
+    var currentUser = UserService.CurrentUser;
+    var employeeSatus = FileUploadService.IsEmplopyeeAdmin(currentUser.EmployeeId);
+}
+
+<script type="text/javascript" src="~/Content/folderStucture/js/highchecktree.js"></script>
+
+@* searchable *@
+@*<script type="text/javascript" src="~/Content/Searchable/jquery.searchabledropdown-1.0.8.min.js"></script>*@
+
+<style type="text/css">
+
+    #main-container {
+        width: 600px;
+        margin: 150px auto;
+    }
+
+    .inputWidth3 {
+        width: 60%;
+        display: inline
+    }
+
+    #tree-container label.hover {
+        color: red;
+    }
+</style>
+<div id="loading">
+    <img id="loadingGIF2" src="~/Content/assets/img/ajax-loader.gif" alt="Loading..." />
+</div>
+<div id="top"></div>
+<div class="container " style="height: 200vh;width:100%">
+
+    <div class="main">
+        @if (ViewBag.MenuVisible == "true")
+        {
+
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-4" style="padding-top: -49px;">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 140px;">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet" )">TT Projet +  /</a></li>
+                                    <li><a style="color:#183666; font-weight: bold" href="@Url.Action("Index", "TTProjet", new { selectedPanel = "collapse8" })">@Resources.TTProjet.TITools</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 140px; ">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;<a style="color: #183666" href="@Url.Action("IndexActiverProjet", "TTProjet")">@Resources.TTProjet.ActiverProjet</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666  " href="@Url.Action("IndexAdmin", "Admin")">@Resources.TTProjet.cancelProjectClosing</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;<a style="color: #183666; font-weight: bold" href="@Url.Action("Index2", "FolderStructure")">@Resources2.FoldStructRessource.ChangeServer</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "SecurityProjectEquivalence")">@Resources.TTProjet.ProjectEquivalence</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "Litige")">@Resources.TTProjet.LitigeManagement</a>
+                                        </li>
+                                        <br>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 140px; ">
+                                <div class="panel-body">
+                                    <ul class="list-inline">                                        
+                                        <li>
+                                            &bull;&nbsp;<a style="color: #183666; " href="@Url.Action("Index", "ProjetSecuriser")">Gestion des projets sécurisés</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;<a style="color: #183666;" href="@Url.Action("Index", "GestionGroupeAD")">Gestion Groupe AD</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "LocalBPR")">@Resources.TTProjet.EmployeeInfos</a>
+                                        </li>
+                                        <br>
+                                        <li>
+                                            &bull;&nbsp;<a style="color: #183666" href="@Url.Action("Index3", "FolderStructure")">@Resources.TTProjet.Security60Conf</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        }
+
+        <div class="row">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary" style="border-radius: 10px; margin-top: -15px; margin-left: -10px;">
+                        <div class="panel-body" style="margin:15px;">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4 style="margin-top: 0px; color: #183666; font-family: 'Arial Bold'; font-size: 18pt; margin-left: 5px;">
+                                        <b>@Resources2.FoldStructRessource.ChangeServerInfos </b>
+                                    </h4>
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="">
+                                    <div class="alert alert-success alert-dismissible" id="successAdd" hidden="hidden" style="margin-left:-10px;">
+                                        <button type="button" class="close" data-hide="alert">&times;</button>
+                                        <strong>Mise à jour du serveur complétée</strong>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="form-group">
+                                    <div class="col-sm-8">
+                                        <div style="font-size: 14px;  width: 70%;">
+                                            <div style="float:left;width:100%">
+                                                <select class="form-control select2select " id="projetcNumber2"></select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="form-group" style="padding-top:13px">
+                                    <label class="col-sm-3">@Resources2.FoldStructRessource.ServerUsed</label>
+                                    <div class="col-sm-2">
+                                        <div style="width: 100%; margin-left: -2px" id="serverUsed">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="col-sm-8">
+                                    <div class="form-group row" style="font-size: 14px;  width: 88%;">
+                                        @*<i class="k-icon k-i-question" aria-hidden="true" style="color:red" title="Serveur"></i>*@
+                                        <div class="col-xs-10 divServer">
+                                            <div>
+                                                <select data-live-search="true" class="form-control selectpicker userInput " id="Server">
+                                                    <option value="" selected style="font-size:14px">Veuillez choisir le nouveau serveur...</option>
+                                                    @foreach (structureItem item in FolderStructureController.ListeServers)
+                                                    {
+                                                        <option value="@item.Value">@item.Name</option>
+
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="text-align:right;">
+                                <button class="specialB" onclick="ModifiyServer()">@Resources2.FoldStructRessource.Save</button>&nbsp;
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    $(function () {
+
+        items = []
+
+    @for (var i = 0; i < FolderStructureController.ListeProjetsWSDR.Count(); i++) {
+        @:items.push({ id: '@FolderStructureController.ListeProjetsWSDR[@i].Value', text: '@FolderStructureController.ListeProjetsWSDR[@i].Name'})
+    }
+    pageSize = 50
+    jQuery.fn.select2.amd.require(["select2/data/array", "select2/utils"],
+
+    function (ArrayData, Utils) {
+        function CustomData($element, options) {
+            CustomData.__super__.constructor.call(this, $element, options);
+        }
+        Utils.Extend(CustomData, ArrayData);
+
+        CustomData.prototype.query = function (params, callback) {
+
+            results = [];
+            if (params.term && params.term !== '') {
+              results = _.filter(items, function(e) {
+                return e.text.toUpperCase().indexOf(params.term.toUpperCase()) >= 0;
+              });
+            } else {
+              results = items;
+            }
+
+            if (!("page" in params)) {
+                params.page = 1;
+            }
+            var data = {};
+            data.results = results.slice((params.page - 1) * pageSize, params.page * pageSize);
+            data.pagination = {};
+            data.pagination.more = params.page * pageSize < results.length;
+            callback(data);
+        };
+
+        $(document).ready(function () {
+            
+            var placeHold = "@ViewBag.ProjectToModify" == "" ? "@Resources2.FoldStructRessource.ChooseAProject":"@ViewBag.ProjectToModify"
+            var placeHoldVal = "@ViewBag.ProjectToModify" == "" ? "":"@ViewBag.ProjectToModify"
+
+            $('#projetcNumber2').prepend('<option selected val="' + placeHoldVal +'"></option>').select2({
+              ajax: {},
+                dataAdapter: CustomData,
+                placeholder: placeHold,
+                allowClear: false
+            });
+
+            storeInitialServerOptions();
+
+        });
+    })
+});
+
+
+
+//on change project: choose a server
+    $('#projetcNumber2').on('change', function () {              
+        if ($('#projetcNumber2').val() != null && $('#projetcNumber2').val() != '') {
+              $.ajax({
+                        type: 'GET',
+                        dataType: 'JSON',
+                        data: { projectNumber: $("#projetcNumber2").val() },
+                        cache: false,
+                        url: '@Url.Action("returnServerUsed", "FolderStructure")',
+                        success: function (result) {
+                            $('#serverUsed').text(result.Server);
+                        }
+              });
+
+            restoreInitialServerOptions();
+        }
+        
+});
+
+    function ModifiyServer()
+    {
+        if ($("#projetcNumber2").val() == "")
+        {
+            $("#warningMDSR").show();
+            setTimeout(function () {
+                $('#warningMSDR').fadeOut('slow');
+            }, 2000
+            )
+        }
+
+        else
+        {
+            
+            $.ajax({
+                url: '@Url.Action("ModifiyServer", "FolderStructure")',
+                type: 'GET',
+                cache: false,
+                async: false,
+                dataType: "JSON",
+                data: {
+                    projectNumber: $("#projetcNumber2").val(),
+                    newServer: $("#Server").val()
+                },
+                success: function (response)
+                {
+                    if (response.result == "success" )
+                    {                          
+                        $("#successAdd").show();
+                        setTimeout(function () {
+                            $('#successAdd').fadeOut('slow');
+                        }, 500000
+                        );
+                        location.reload(true);
+                    }
+                    else {
+                        alert(response.details1 + " / " + response.details2)
+                    }                    
+                   
+                }
+            });
+
+    }
+  }
+
+
+    $(".close").click(function () {
+        $(".alert").hide();
+        $("#projetcNumber2").val('').trigger('change')
+        $('#serverUsed').text("");
+
+    });
+
+
+    // Fonction pour stocker le contenu initial du deuxième menu déroulant
+    function storeInitialServerOptions() {
+        var serverSelect = $('#Server');
+        serverSelect.data('initialOptions', serverSelect.html());
+    }
+
+    // Fonction pour recharger le contenu initial du deuxième menu déroulant
+    function restoreInitialServerOptions() {
+        var serverSelect = $('#Server');
+        serverSelect.empty().append(serverSelect.data('initialOptions'));
+        serverSelect.selectpicker('refresh');
+    }
+
+
+</script>

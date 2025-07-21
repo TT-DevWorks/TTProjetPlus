@@ -1,0 +1,77 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.ModeleSelection
+@model TetraTech.TTProjetPlus.Models.numberGenerationModel
+@using TetraTech.TTProjetPlus.Models
+@using TetraTech.TTProjetPlus.Controllers
+@using TetraTech.TTProjetPlus.Security
+@using ResourcesTTProjet = TetraTech.TTProjetPlus.Views.TTProjet
+@using Resources1 = TetraTech.TTProjetPlus.Views.TTProjet
+
+<div class="form-horizontal">
+    <div id="top"></div>
+
+    <div class="container " style="height: 200vh; width: 100%">
+        <div class="main">
+            @if (ViewBag.MenuVisible == "true")
+            {
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-3" style="padding-top: -49px; ">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 75px">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                        <li style="color:white ; font-weight: bold"><a href="@Url.Action("Index", "ModeleSelection")"> @Resources.ModeleSelectionManagementRessources.General </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="">
+                                <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 75px">
+                                    <div class="panel-body">
+                                        <ul class="list-inline">
+                                            <li>
+                                                &bull;&nbsp;
+                                                <a style="color:#183666 ; font-weight: bold" href="@Url.Action("Index", "ModeleSelection", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources.ModeleSelectionManagementRessources.ModelSelectionMng</a>
+                                            </li>
+
+                                            <li>
+                                                &bull;&nbsp;
+                                                <a style="color:#183666" href="@Url.Action("Index", "FolderStructure", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources.ModeleSelectionManagementRessources.ModifyStrucFolder</a>
+                                            </li>
+
+                                            <li>
+                                                &bull;&nbsp;
+                                                <a style="color:#183666" href="@Url.Action("Index", "LecteurReseau", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources.ModeleSelectionManagementRessources.ConnectADrive</a>
+                                            </li>
+
+                                            <li>
+                                                &bull;&nbsp;
+                                                <a style="color:#183666" href="@Url.Action("IndexSpecial", "LecteurReseau" , new { displayRetourS = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources.ModeleSelectionManagementRessources.ConnectASpecialDrive</a>
+                                            </li>
+
+                                            @*@if (employeeSatus == 1)
+                                            {*@
+                                            <li>
+                                                &bull;&nbsp;
+                                                <a style="color:#183666; " href="@Url.Action("Index", "FileUpload", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources.ModeleSelectionManagementRessources.fileUpload</a>
+                                            </li>
+                                            @*}*@
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>   
+
+        
+
+    </div>
+
+</div>
+
+
+

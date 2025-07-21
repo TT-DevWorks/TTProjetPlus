@@ -1,0 +1,12 @@
+﻿@using GlobalResources = Resources.TTProjetPlusResource
+@model TetraTech.TTProjetPlus.Models.BaseViewModel
+
+<div class="myBreadCrumbs row">
+    <div class="col-sm-12 ">
+        <span class="tt-h4" style="float:right;margin-top: .3em;margin-right:35px;">@GlobalResources.PeriodWeekDate <b>@Model.CurrentPeriodWeekLongDate</b></span>  
+        <ul class="breadcrumbf" style="padding-top:0;">
+            <li><a href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+            <li style="color:white ; font-weight: bold"><a href="@Model.Url">@ViewBag.Title </a></li>
+        </ul> 
+    </div>
+</div>  

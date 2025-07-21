@@ -1,0 +1,203 @@
+﻿@using TetraTech.TTProjetPlus.Data
+@using Resources = TetraTech.TTProjetPlus.Views.Disciplines
+@using TetraTech.TTProjetPlus.Controllers
+
+
+@{
+    ViewBag.Title = "Administrateurs";
+}
+<script type="text/javascript" src="~/Content/folderStucture/js/highchecktree.js"></script>
+<link href="~/Content/css/select2.css" rel="stylesheet" />
+<link href="~/Content/folderStucture/css/highCheckTree.css" rel="stylesheet" type="text/css">
+<script src="~/Scripts/select2.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+<style type="text/css">
+
+    #main-container {
+        width: 600px;
+        margin: 150px auto;
+    }
+
+    .inputWidth3 {
+        width: 60%;
+        display: inline
+    }
+
+    #tree-container label.hover {
+        color: red;
+    }
+
+    .redText {
+        color: red;
+    }
+
+    .center {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+
+    .borderColor {
+        border: 1px solid blue;
+        border-radius: 5px;
+    }
+
+    .panel-body {
+        margin-top: -15px;
+        margin-left: 30px;
+        margin-right: 30px;
+        margin-bottom: -15px;
+        padding-top: 30px !important;
+    }
+</style>
+<div id="top"></div>
+<div class="container " style="height: 200vh; width: 100%">
+    <div class="main">
+        @if (ViewBag.MenuVisible == "true")
+        {
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-3" style="padding-top: -49px;">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; width: 100%; ">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet")">TT Projet +  /</a></li>
+                                    <li><a style=" color:#183666; font-weight: bold" href="@Url.Action("Index", "Disciplines", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources.Discipline.disciplinesManagement</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="">
+                            <div class="panel" style="border-radius: 10px; margin-left: -10px; width: 100%; ">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666 " href="@Url.Action("Index", "Disciplines", new { displayRetour = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources.Discipline.disciplinesUsersManagement</a>
+                                        </li>
+
+                                        <li>
+                                            &bull;&nbsp;
+                                            <a style="color:#183666; font-weight: bold" href="@Url.Action("ListeAdmin", "Disciplines" , new { displayRetourLM = ViewBag.displayRetour, menuVisible = ViewBag.MenuVisible })">@Resources.Discipline.disciplinesAdminList</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row">
+            <div class="panel pagination-grey clearfix m-b-0; col-sm-12" style=" margin: -10px; padding: 15px;">
+                <div id="data-table_wrapper3" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+                    <table id="data_AdminList" class="table table-bordered  data-table  dataTable display" style="width:100%; font-size:12px">
+                        <thead id="tableHeader">
+                            <tr style="font-style:italic; ">
+                                <th>
+                                    <input type="text" placeholder=" @Resources.Discipline.Company" class="column_search" />
+                                </th>
+                                <th>
+                                    <input type="text" placeholder=" @Resources.Discipline.DisciplineTitle" class="column_search" />
+                                </th>
+                                <th>
+                                    <input type="text" placeholder=" @Resources.Discipline.AdministratorName" class="column_search" />
+                                </th>
+                                <th>
+                                    <input type="text" placeholder="  @Resources.Discipline.Email" class="column_search" />
+                                </th>
+                            </tr>
+                            <tr class="grey" role="row">
+
+                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Run ID: activate to sort column ascending">
+                                    @Resources.Discipline.Company
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                    @Resources.Discipline.DisciplineTitle
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                    @Resources.Discipline.AdministratorName
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">
+                                    @Resources.Discipline.Email
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (usp_getDisciplineAdminList_Result item in DisciplinesController.ListeAdmins)
+                            {
+
+                                <tr>
+                                    <td style="text-align: left;">
+                                        @item.Company
+                                    </td>
+                                    <td style="text-align:left ">
+                                        @item.Discipline
+                                    </td>
+                                    <td style="text-align:left ">
+                                        @item.FullName
+                                    </td>
+                                    <td title=@Resources.Discipline.SendEmailToAdmin id="">
+                                        @if (Session["lang"].ToString() == "fr")
+                                        {
+
+                                            var title = "Demande d'accès à une discipline de TT Projet +";
+
+                                            <a href='mailto:@item.Email?subject=@title&body=Bonjour,%0D%0A%0D%0APouvez-vous me donner accès à cette discipline svp: @item.Discipline%0D%0A%0D%0ARappel: L&apos;accès se donne via la page « Gestion des utilisateurs pour les disciplines » disponible sous la section « Gestion des disciplines » dans TT Projet +.%0D%0A%0D%0AMerci'><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                                        }
+                                        else
+                                        {
+
+                                            var title = "Discipline access request in TT Projet +";
+
+                                            <a href='mailto:@item.Email?subject=@title&body=Hi,%0D%0A%0D%0ACan you give me access to this discipline please: @item.Discipline%0D%0A%0D%0AReminder: Access is given via the "Managing access to disciplines" page available under the "Disciplines management" section in TT Projet +.%0D%0A%0D%0AThank you'><i class="fa fa-envelope" aria-hidden="true"></i></a>
+
+                                        }
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+         function returntoMenu()
+    {
+        window.location.href = "@Url.Action("Index", "TTProjet")";
+    }
+
+     $(document).ready(function () {
+
+        $('#data_AdminList').DataTable({
+            "order": [[0, "asc"]],
+            pageLength: 25,
+            scrollX: true,
+            "language": {
+                "url": '@Session["lang"].ToString()' == 'fr' ? "/Content/assets/French.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+            }
+        });
+
+         $('#data_AdminList thead').on('keyup', ".column_search", function () {
+
+             $('#data_AdminList').DataTable()
+                 .column($(this).parent().index())
+                 .search(this.value)
+                 .draw();
+         });
+
+        //$('#data_AdminList').DataTable().draw();
+    });
+</script>
