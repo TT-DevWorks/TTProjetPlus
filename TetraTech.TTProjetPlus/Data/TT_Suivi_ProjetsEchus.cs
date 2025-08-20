@@ -12,13 +12,13 @@ namespace TetraTech.TTProjetPlus.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class TTIndex_FilesListDetails
+    public partial class TT_Suivi_ProjetsEchus
     {
-        public string parentFolder { get; set; }
-        public string fileName { get; set; }
-        public string fileType { get; set; }
-        public string fileDateCreation { get; set; }
-        public string fileLastModificationDate { get; set; }
-        public int itemId { get; set; }
+        public string cpNumber { get; set; }
+        public string cpName { get; set; }
+        public string DateDeRappel { get; set; }
+        public string DateDeReponseCP { get; set; }
+        public string projectNum { get; set; }
+        public int Id { get; set; }
     }
 }

@@ -10,16 +10,9 @@
 namespace TetraTech.TTProjetPlus.Data
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class TTIndex_FilesListDetails_auto
+    public partial class usp_ReturnTableVerificationKM_ColumnsName_Result
     {
-        public string projectNumber { get; set; }
-        public string parentFolder { get; set; }
-        public string fileName { get; set; }
-        public string fileType { get; set; }
-        public string fileDateCreation { get; set; }
-        public string fileLastModificationDate { get; set; }
-        public int itemId { get; set; }
+        public string COLUMN_NAME { get; set; }
     }
 }

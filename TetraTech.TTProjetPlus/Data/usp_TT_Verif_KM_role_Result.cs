@@ -10,12 +10,9 @@
 namespace TetraTech.TTProjetPlus.Data
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class TTIndex_Trees_Doc_Proj
+    public partial class usp_TT_Verif_KM_role_Result
     {
-        public int TreeId { get; set; }
-        public string TreeName { get; set; }
-        public string Tree { get; set; }
+        public string project_number { get; set; }
     }
 }

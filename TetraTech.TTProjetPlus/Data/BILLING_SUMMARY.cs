@@ -62,5 +62,6 @@ namespace TetraTech.TTProjetPlus.Data
         public string Comment9_label { get; set; }
         public Nullable<byte> Comment9_isVisible { get; set; }
         public Nullable<System.DateTime> DueDate_TAR { get; set; }
+        public Nullable<System.DateTime> EstimatedContratDate { get; set; }
     }
 }

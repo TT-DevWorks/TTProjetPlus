@@ -135,11 +135,11 @@ namespace TetraTech.TTProjetPlus.Services
 
         public OperationStatus AddEmployeeToGroupGestionProjetSecuriser(string TTAccount, string discGroupID)
         {
-            var discGroupName = _entities.Gestion10Conf_ADGroup
+            var discGroupName = _entities.ProjetSecuriser_GroupAD
                                 .Where
-                                    (p => p.Disc_ID.ToString() == discGroupID)
+                                    (p => p.id.ToString() == discGroupID)
                                 .Select
-                                    (p => p.ADGroup_Write).FirstOrDefault();
+                                    (p => p.GroupAD).FirstOrDefault();
             //LogAction("Add", TTAccount, Int32.Parse(discGroupID));
             return _directoryServiceForAD.AddEmployeeToADGroup(TTAccount, discGroupName);
         }

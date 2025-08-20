@@ -20,11 +20,6 @@ namespace TetraTech.TTProjetPlus.Data
         public TTProjetPlusEntitiesNew()
             : base("name=TTProjetPlusEntitiesNew")
         {
-            // Get the ObjectContext related to this DbContext
-            var objectContext = (this as IObjectContextAdapter).ObjectContext;
-
-            // Sets the command timeout for all the commands
-            objectContext.CommandTimeout = 0;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -50,7 +45,6 @@ namespace TetraTech.TTProjetPlus.Data
         public virtual DbSet<C__LastModifUser> C__LastModifUser { get; set; }
         public virtual DbSet<C__SMprojet> C__SMprojet { get; set; }
         public virtual DbSet<C__Vprojet> C__Vprojet { get; set; }
-        public virtual DbSet<OS_Project_2020_05_25> OS_Project_2020_05_25 { get; set; }
         public virtual DbSet<Program_old> Program_old { get; set; }
         public virtual DbSet<OS_Project> OS_Project { get; set; }
         public virtual DbSet<ProjectsToClose> ProjectsToCloses { get; set; }
@@ -69,10 +63,6 @@ namespace TetraTech.TTProjetPlus.Data
         public virtual DbSet<type_unite> type_unite { get; set; }
         public virtual DbSet<utilisateur> utilisateurs { get; set; }
         public virtual DbSet<ville> villes { get; set; }
-        public virtual DbSet<TTIndex_Trees_Doc_Proj> TTIndex_Trees_Doc_Proj { get; set; }
-        public virtual DbSet<TTIndex_FilesExtensions> TTIndex_FilesExtensions { get; set; }
-        public virtual DbSet<TTIndex_FilesListDetails_auto> TTIndex_FilesListDetails_auto { get; set; }
-        public virtual DbSet<TTIndex_FilesListDetails_auto_withSecurity> TTIndex_FilesListDetails_auto_withSecurity { get; set; }
         public virtual DbSet<OpeningProject> OpeningProjects { get; set; }
         public virtual DbSet<Distribution_Rule> Distribution_Rule { get; set; }
         public virtual DbSet<Work_Location> Work_Location { get; set; }
@@ -97,28 +87,15 @@ namespace TetraTech.TTProjetPlus.Data
         public virtual DbSet<AssClient> AssClients { get; set; }
         public virtual DbSet<ExpenditureMethod> ExpenditureMethods { get; set; }
         public virtual DbSet<FeesMethod> FeesMethods { get; set; }
-        public virtual DbSet<fiche_en_forcart_old> fiche_en_forcart_old { get; set; }
-        public virtual DbSet<fiche_en_old> fiche_en_old { get; set; }
-        public virtual DbSet<fiche_esp_forcart_old> fiche_esp_forcart_old { get; set; }
-        public virtual DbSet<fiche_esp_old> fiche_esp_old { get; set; }
-        public virtual DbSet<fiche_forcart_old> fiche_forcart_old { get; set; }
-        public virtual DbSet<fiche_old> fiche_old { get; set; }
         public virtual DbSet<myProjFinal> myProjFinals { get; set; }
         public virtual DbSet<OpeningProject_InfoClient> OpeningProject_InfoClient { get; set; }
         public virtual DbSet<OpeningProject_Task> OpeningProject_Task { get; set; }
-        public virtual DbSet<OS_Project_old> OS_Project_old { get; set; }
         public virtual DbSet<User_ADGroup> User_ADGroup { get; set; }
         public virtual DbSet<C__initiatedByFinal> C__initiatedByFinal { get; set; }
         public virtual DbSet<C__Job00111> C__Job00111 { get; set; }
         public virtual DbSet<C__LastModifUserFinal> C__LastModifUserFinal { get; set; }
         public virtual DbSet<C__SubmitByFinal> C__SubmitByFinal { get; set; }
         public virtual DbSet<OS_Project_GP> OS_Project_GP { get; set; }
-        public virtual DbSet<OS_Project2_BK_2020_09_02> OS_Project2_BK_2020_09_02 { get; set; }
-        public virtual DbSet<OS_Project2_BK_2020_09_03> OS_Project2_BK_2020_09_03 { get; set; }
-        public virtual DbSet<TTIndex_ElasticSearch> TTIndex_ElasticSearch { get; set; }
-        public virtual DbSet<TTIndex_FilesListDetails> TTIndex_FilesListDetails { get; set; }
-        public virtual DbSet<TTIndex_FilesListDetailsTest> TTIndex_FilesListDetailsTest { get; set; }
-        public virtual DbSet<TTIndex_FilesListDetailsTest2> TTIndex_FilesListDetailsTest2 { get; set; }
         public virtual DbSet<TT_EmployeesPermissions> TT_EmployeesPermissions { get; set; }
         public virtual DbSet<Gestion10Conf> Gestion10Conf { get; set; }
         public virtual DbSet<Gestion10Conf_ADGroup> Gestion10Conf_ADGroup { get; set; }
@@ -136,6 +113,9 @@ namespace TetraTech.TTProjetPlus.Data
         public virtual DbSet<tbl_Excel_SatisfactionClient_TQE> tbl_Excel_SatisfactionClient_TQE { get; set; }
         public virtual DbSet<ProjetSecuriser_GroupAD> ProjetSecuriser_GroupAD { get; set; }
         public virtual DbSet<ProjetSecuriser_Manager> ProjetSecuriser_Manager { get; set; }
+        public virtual DbSet<TT_Suivi_ProjetsEchus> TT_Suivi_ProjetsEchus { get; set; }
+        public virtual DbSet<TableChgtKM> TableChgtKMs { get; set; }
+        public virtual DbSet<TableVerificationKM> TableVerificationKMs { get; set; }
     
         [DbFunction("TTProjetPlusEntitiesNew", "SplitString")]
         public virtual IQueryable<SplitString_Result> SplitString(string list, string delim)
@@ -1035,6 +1015,11 @@ namespace TetraTech.TTProjetPlus.Data
                 new ObjectParameter("ListeUsersNames", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Update_ProjetSecuriser", idParameter, projetParameter, repertoireParameter, groupeADParameter, cheminParameter, listeUsersParameter, listeUsersNamesParameter);
+        }
+    
+        public virtual ObjectResult<usp_ReturnTableVerificationKM_ColumnsName_Result> usp_ReturnTableVerificationKM_ColumnsName()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ReturnTableVerificationKM_ColumnsName_Result>("usp_ReturnTableVerificationKM_ColumnsName");
         }
     }
 }

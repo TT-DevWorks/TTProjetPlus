@@ -33,12 +33,13 @@
                         </div>
                     </div>
                     <div class="col-lg-8">
-                        <div class="">
-                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 100px; ">
+
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 100px; ">
+                            <div class="col-lg-6">
                                 <div class="panel-body">
                                     <ul class="">
                                         <li>
-                                            <a style="color: #183666; " href="@Url.Action("Index", "AdditionaInfo")">Listes des gestionnaire de projet et de programme</a>
+                                            <a style="color: #183666; " href="@Url.Action("Index", "AdditionaInfo")">Liste des gestionnaires de projet et de programme</a>
                                         </li>
                                         <li>
                                             <a style="color: #183666; font-weight: bold" href="@Url.Action("Index", "TDT_PSWListe_BD")">Liste des mots de passe pour les tables de taux</a>
@@ -53,8 +54,30 @@
                                     </ul>
                                 </div>
                             </div>
+
+                            <div class="col-lg-6">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "VerificationKM")">Vérification des Membres clés des projets</a>
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "emailCP")">Courriel aux chargés de projets</a>
+                                        </li>
+                                        @*<li>
+                                            &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "LocalBPR")">@Resources.TTProjet.EmployeeInfos</a>
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;<a style="color: #183666" href="@Url.Action("Index3", "FolderStructure")">@Resources.TTProjet.Security60Conf</a>
+                                        </li>*@
+                                    </ul>
+                                </div>
+                            </div>
+
                         </div>
+
                     </div>
+
                 </div>
             </div>
         }

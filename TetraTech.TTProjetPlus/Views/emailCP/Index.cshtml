@@ -1,0 +1,656 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.TTProjet
+@using Resources2 = TetraTech.TTProjetPlus.Views.ListeOffres
+@using System.Data
+@model  TetraTech.TTProjetPlus.Models.getProjetAvecDateDepasseModel
+<style></style>
+
+
+@{
+    ViewBag.Title = "Admin TI";
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #ccc;
+        padding: 8px;
+        max-width: 150px; /* Limit cell width */
+        white-space: nowrap; /* Prevent wrapping */
+        overflow: hidden; /* Hide overflow text */
+        text-overflow: ellipsis; /* Show "..." */
+    }
+
+        td[title] {
+            cursor: help;
+        }
+
+    .scroll-wrapper {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .top-scroll {
+        overflow-x: auto;
+        overflow-y: hidden;
+        height: 20px;
+    }
+
+
+    .bottom-scroll {
+        overflow-x: auto;
+    }
+
+    /* Make the datepicker look like Bootstrap 4 */
+    .ui-datepicker {
+        background: #fff;
+        border: 1px solid #ced4da;
+        padding: .5rem;
+        border-radius: .25rem;
+        box-shadow: 0 .25rem .5rem rgba(0,0,0,.1);
+    }
+
+    .ui-datepicker-header {
+        background: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        color: #495057;
+        font-weight: 500;
+        text-align: center;
+        padding: .25rem 0;
+    }
+
+    .ui-datepicker table {
+        width: 100%;
+        font-size: .875rem;
+        margin: 0;
+        border-collapse: collapse;
+    }
+
+    .ui-datepicker th {
+        color: #495057;
+        font-weight: 500;
+        padding: .25rem 0;
+    }
+
+    .ui-datepicker td {
+        text-align: center;
+        padding: .25rem;
+    }
+
+        .ui-datepicker td a {
+            display: block;
+            padding: .25rem;
+            border-radius: .25rem;
+            text-decoration: none;
+            color: #495057;
+        }
+
+            .ui-datepicker td a:hover,
+            .ui-datepicker td a.ui-state-hover {
+                background: #007bff;
+                color: #fff;
+            }
+</style>
+
+<div id="loading">
+    <img id="loadingGIF2" src="~/Content/assets/img/ajax-loader.gif" alt="Loading..." />
+</div>
+
+<div class="container " style="height: 200vh;width: 100%">
+    <div class="main">
+
+        @if (ViewBag.MenuVisible == "true")
+        {
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-4" style="padding-top: -49px;">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 100px;">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet" )">TT Projet +  /</a></li>
+                                    <li><a style="color:#183666; font-weight: bold" href="@Url.Action("Index", "TTProjet", new { selectedPanel = "collapse8" })">Informations supplémentaires</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 100px; ">
+                            <div class="col-lg-6">
+                                <div class="panel-body">
+                                    <ul class="">
+                                        <li>
+                                            <a style="color: #183666; " href="@Url.Action("Index", "AdditionaInfo")">Liste des gestionnaires de projet et de programme</a>
+                                        </li>
+                                        <li>
+                                            <a style="color: #183666; " href="@Url.Action("Index", "TDT_PSWListe_BD")">Liste des mots de passe pour les tables de taux</a>
+                                        </li>
+                                        <li>
+                                            <a style="color:#183666 ; " href="@Url.Action("Index", "TDT_PSWPermission")">Liste des permissions pour les tables de taux</a>
+                                        </li>
+                                        <li>
+                                            <a style="color: #183666; " href="@Url.Action("Index", "SaisieTemporaire")">Saisies temporaires</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "VerificationKM")">Vérification des Membres clés des projets</a>
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 ;font-weight: bold" href="@Url.Action("Index", "emailCP")">Courriel aux chargés de projets</a>
+                                        </li>
+                                        @*<li>
+                                                &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "LocalBPR")">@Resources.TTProjet.EmployeeInfos</a>
+                                            </li>
+                                            <li>
+                                                &bull;&nbsp;<a style="color: #183666" href="@Url.Action("Index3", "FolderStructure")">@Resources.TTProjet.Security60Conf</a>
+                                            </li>*@
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        }
+        <div class="row">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary" style="border-radius: 10px; margin-top: -10px; margin-bottom: 10px; margin-left: -10px;">
+                        <div class="panel-body" style="margin:15px;">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4 style="margin-top: 0px; color: #183666; font-family: 'Arial Bold'; font-size: 18pt; margin-left: 10px;">
+                                        <b>Projets échus ou arrivant à échéance</b>@*@Resources.TTProjet.CPDisplay*@
+                                    </h4>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="panel pagination-grey clearfix m-b-0">
+                                    <div id="data-table_wrapper2" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+
+
+                                        <div id="phase1" class="" style="display: block;">
+                                            <br />
+
+
+                                            <div style=" max-height: 600px; max-width: 100%;">
+                                                <div class="row mb-2">
+
+                                                    @if (ViewBag.isAdminInfo == true)
+                                                    {
+                                                        <div class="col-lg-2">
+                                                            <input type="text" id="tableSearch2" class="form-control" placeholder="Rechercher...">
+
+                                                        </div>
+
+
+                                                        <div class="col-lg-2">
+                                                            <select data-live-search="true" class="selectpicker form-control" id="empToSendMail">
+                                                                <option value="">Choisir un chargé de projets</option>
+                                                                @for (int i = 0; i < Model.listeCP.Count; i++)
+                                                                {
+                                                                    <option value="@Model.listeCP[i].CP_num">@Model.listeCP[i].CP_name (@Model.listeCP[i].CP_num)</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-2">
+                                                            <button class="btn btn-primary" onclick="sendEmail_ToCP('one')">Envoyer courriel au CP</button>
+                                                        </div>
+                                                        <div class="col-lg-2">
+                                                            <button class="btn btn-primary" onclick="sendEmail_ToCP('many')">Envoie groupé</button>
+                                                        </div>
+                                                        <div class="col-lg-2">
+                                                            <button class="btn btn-primary" onclick="responsesStatus()">État des réponse</button>
+
+                                                        </div>
+
+
+                                                    }
+
+                                                    <div class="col-lg-2">
+                                                        <button class="btn-info" onclick="sendEmail_ByCP()">Envoyer réponse (CP)</button>
+
+                                                    </div>
+
+                                                    <br />
+                                                </div>
+                                                <br />
+                                                <div class="row mb-2">
+                                                    <div class="col-lg-3">
+                                                        <label for="rowsPerPage">
+                                                            Afficher
+                                                            <select id="rowsPerPage">
+                                                                <option value="10">10</option>
+                                                                <option value="20">20</option>
+                                                                <option value="50">50</option>
+                                                                <option value="100">100</option>
+                                                            </select> lignes par page
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div style="overflow: auto; max-height: 600px; max-width: 100%;">
+                                                @if (Model != null && Model.listeProjects.Count > 0)
+                                                {
+
+
+                                                    <div class="scroll-wrapper">
+                                                        <!-- Scroll du haut -->
+                                                        <div class="top-scroll">
+                                                            <div></div>
+                                                        </div>
+
+                                                        <!-- Scroll bas (vrai) -->
+                                                        <div class="bottom-scroll" id="bottomScrollContainer">
+
+                                                            <table id="editableTable2" class="table table-bordered sticky-table" style="font-size: 10px;">
+                                                                <thead>
+                                                                    <tr id="tableHeader">
+                                                                        <td>project_mgr_num</td>
+                                                                        <td>project_mgr_name</td>
+                                                                        <td># Projet</td>
+                                                                        <td>Titre</td>
+                                                                        <td>Client</td>
+                                                                        <td>Numéro agent de facturation</td>
+                                                                        <td>Agent de facturation</td>
+                                                                        <td>Budget de revenu</td>
+                                                                        <td>RevReconnu</td>
+                                                                        <td>% Dépensé</td>
+                                                                        <td>Vendant cumulatif</td>
+                                                                        <td>Facturé à date</td>
+                                                                        <td>% Facturé</td>
+                                                                        <td>Date de fin de projet</td>
+                                                                        <td>Semaine Inactive</td>
+                                                                        <td>Nouvelle date de fin</td>
+                                                                        <td>A fermer</td>
+                                                                        <td>Commentaire</td>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="tableBody">
+                                                                    @foreach (TetraTech.TTProjetPlus.Data.usp_TT_getProjetAvecDateDepasse_Result item in Model.listeProjects)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>@item.project_mgr_num</td>
+                                                                            <td>@item.project_mgr_name</td>
+                                                                            <td>@item.C__Projet</td>
+                                                                            <td>@item.Titre</td>
+                                                                            <td>@item.Client</td>
+                                                                            <td>@item.Numéro_agent_de_facturation</td>
+                                                                            <td>@item.Agent_de_facturation</td>
+                                                                            <td>@item.Budget_de_revenu</td>
+                                                                            <td>@item.RevReconnu</td>
+                                                                            <td>@Math.Round((double)(item.C__Dépensé * 100), 2)</td>
+                                                                            <td>@item.Vendant_cumulatif</td>
+                                                                            <td>@item.Facturé_à_date</td>
+                                                                            <td>@Math.Round((double)(item.C__Facturé * 100), 2)</td>
+                                                                            <td>@item.Date_de_fin_de_projet</td>
+                                                                            <td>@item.Semaine_Inactive</td>
+                                                                            <td>
+                                                                                <input rows="1" cols="30" class="datepicker" placeholder="nouvelle date...">
+                                                                            </td>
+                                                                            <td>
+                                                                                <textarea rows="1" cols="30" placeholder="A fermer..."></textarea>
+                                                                            </td>
+                                                                            <td>
+                                                                                <textarea rows="1" cols="30" placeholder="Commentaire..."></textarea>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+
+                                                        </div>
+                                                        <!-- Pagination controls -->
+                                                    </div>
+
+                                                }
+                                                else
+                                                {
+                                                    <p>Aucune donnée disponible.</p>
+                                                }
+                                            </div>
+                                            <div id="paginationControls" style="margin-top: 10px;">
+                                                <button id="prevPage" class="btn btn-sm btn-primary">Précédent</button>
+                                                <span id="pageInfo"></span>
+                                                <button id="nextPage" class="btn btn-sm btn-primary">Suivant</button>
+                                            </div>
+
+                                        </div>
+
+
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <br />
+                            <div id="info">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div id="reponsesStatusModal" class="modal fade"  tabindex="-1" role="dialog" aria-hidden="true" >
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content p-3">
+            <div class="modal-header">
+                <h5 class="modal-title">État des reponses</h5>
+            </div>
+            <div class="modal-body">
+                <div id="contentStatus">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeReponsesStatusModal()">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function responsesStatus() {
+        $('#reponsesStatusModal').modal('show');
+        $.ajax({
+            url: '/emailCP/responsesStatus',
+            method: 'GET',  // corrigé ici
+            contentType: 'application/json',
+            data: {
+            },
+            success: function (response) {
+                $('#contentStatus').html(response)
+            },
+            error: function (xhr, status, error) {
+                console.error("Erreur ");
+            }
+        });
+    }
+
+    function closeReponsesStatusModal() {
+        $('#reponsesStatusModal').modal('hide');  // closes and removes backdrop
+    }
+
+    $(function () {
+        $(".datepicker").datepicker({
+            ...$.datepicker.regional["fr"], // French localization
+            changeYear: true,               // show year dropdown
+            yearRange: "2025:2050",         // range of years
+            changeMonth: true,              // optional: show month dropdown
+            showButtonPanel: true,          // optional: today/close buttons
+            dateFormat: 'yy-mm-dd'          // French style
+        });
+    });
+
+
+    $(document).ready(function () {
+        $(function () {
+            $('.selectpicker').selectpicker();
+        });
+
+        // Marquer la ligne comme modifiée quand l'utilisateur change un textarea
+        $("#editableTable2 tbody tr").each(function () {
+            var $row = $(this);
+            $row.find("td textarea").on("input", function () {
+                $row.data("modified", true); // flag ligne modifiée
+            });
+        });
+
+
+    });
+
+
+    // Synchronisation des scrolls
+    const topScroll = document.querySelector('.top-scroll');
+    const bottomScroll = document.querySelector('.bottom-scroll');
+
+    function syncScroll(source, target) {
+        source.addEventListener('scroll', () => {
+            target.scrollLeft = source.scrollLeft;
+        });
+    }
+
+    // Synchroniser les deux directions
+    syncScroll(topScroll, bottomScroll);
+    syncScroll(bottomScroll, topScroll);
+
+    // Ajuster la largeur du faux scroll (top)
+    window.addEventListener('load', () => {
+        const table = document.getElementById('editableTable2');
+        const scrollDiv = document.querySelector('.top-scroll div');
+        scrollDiv.style.width = table.scrollWidth + 'px';
+    });
+
+
+
+    document.querySelectorAll("#editableTable2 td").forEach(cell => {
+        if (cell.scrollWidth > cell.clientWidth) {
+            cell.setAttribute("title", cell.textContent.trim());
+        }
+    });
+
+    function searchTable() {
+        let input = document.getElementById("tableSearch2");
+        let filter = input.value.toLowerCase();
+        let table = document.getElementById("editableTable2");
+        let tbody = table.getElementsByTagName("tbody")[0];
+        let rows = tbody.getElementsByTagName("tr");
+
+        for (let i = 0; i < rows.length; i++) {
+            let cells = rows[i].getElementsByTagName("td");
+            let found = false;
+
+            for (let j = 0; j < cells.length; j++) {
+                if (cells[j].textContent.toLowerCase().includes(filter)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            rows[i].style.display = found ? "" : "none";
+        }
+    }
+
+
+    document.getElementById("empToSendMail").addEventListener("change", function () {
+        // Put the selected value into the search box
+        document.getElementById("tableSearch2").value = this.value;
+
+        // Call your existing search function
+        searchTable();
+    });
+
+    document.getElementById("tableSearch2").addEventListener("keyup", searchTable);
+
+
+    function sendEmail_ToCP(param) {
+        //on liste les projets dan l;e cas ou l on a choisi une seules personne
+        //let projects = [];
+
+        //if (param == 'one') {
+        //    $("#projectTable tbody tr:visible").each(function () {
+        //        let projectId = $(this).find("td:first").text().trim();
+        //        if (projectId) projects.push(projectId);
+        //}
+
+
+
+        $.ajax({
+            url: '/emailCP/sendEmail_ToCP',
+            method: 'GET',  // corrigé ici
+            contentType: 'application/json',
+            data: {
+                empNum: param == 'one' ? $('#empToSendMail').val() : null
+            },
+            success: function (response) {
+                alert(response);
+                // location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error("Erreur lors de l'envoi :", error);
+            }
+        });
+    }
+
+
+    function sendEmail_ToCP_Group() {
+        $.ajax({
+            url: '/emailCP/sendEmail_ToCP_Group',
+            method: 'GET',  // corrigé ici
+            contentType: 'application/json',
+            success: function (response) {
+                alert(response);
+                // location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error("Erreur lors de l'envoi :", error);
+            }
+        });
+    }
+
+
+    function sendEmail_ByCP() {
+        var allData = [];
+        var empNum = "";
+        $("#editableTable2 tbody tr").each(function () {
+            var $row = $(this);
+
+            // Ne considérer que les lignes modifiées
+            if ($row.data("modified")) {
+                var empNum = $row.find("td").eq(0).text().trim();  // première cellule
+                var empName = $row.find("td").eq(1).text().trim();  // première cellule
+                var projetNum = $row.find("td").eq(2).text().trim();
+
+                // Les 3 dernières cellules contiennent les textarea
+                var newDate = $row.find("td").eq(-3).find("input").val().trim();
+                var toClose = $row.find("td").eq(-2).find("textarea").val().trim();
+                var comment = $row.find("td").eq(-1).find("textarea").val().trim();
+
+                // Crée une ligne unique séparée par "|"
+                var ligneStr = [empNum, empName, projetNum, newDate, toClose, comment].join("|");
+
+                allData.push(ligneStr);
+            }
+        });
+
+        if (allData.length === 0) {
+            alert("Aucune ligne modifiée à envoyer !");
+            return;
+        }
+
+        // Crée une seule chaîne pour tout le tableau
+        var finalStr = allData.join("\n");
+
+        // Envoi AJAX
+        $.ajax({
+            url: '/emailCP/sendEmail_ByCP',
+            type: 'POST',
+            data: { allData: finalStr }, // POST simple, pas besoin de JSON
+            success: function (response) {
+                alert("Données envoyées avec succès !");
+                console.log(response);
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
+
+
+
+
+
+    //pagination
+    document.addEventListener("DOMContentLoaded", function () {
+        let currentPage = 1;
+        const table = document.getElementById("editableTable2");
+        const tbody = table.querySelector("tbody");
+        let allRows = Array.from(tbody.querySelectorAll("tr"));
+
+        function getRowsPerPage() {
+            return parseInt(document.getElementById("rowsPerPage").value, 10);
+        }
+
+        function filterRows() {
+            const filter = document.getElementById("tableSearch2").value.toLowerCase();
+            return allRows.filter(row => {
+                const cells = Array.from(row.querySelectorAll("td"));
+                return cells.some(cell => cell.textContent.toLowerCase().includes(filter));
+            });
+        }
+
+        function showPage(page) {
+            const filteredRows = filterRows();
+            const rowsPerPage = getRowsPerPage();
+            const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+
+            if (page < 1) page = 1;
+            if (page > totalPages) page = totalPages;
+            currentPage = page;
+
+            allRows.forEach(r => r.style.display = "none");
+
+            const start = (page - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            for (let i = start; i < end && i < filteredRows.length; i++) {
+                filteredRows[i].style.display = "";
+            }
+
+            document.getElementById("pageInfo").textContent = ` Page ${currentPage} de ${totalPages} `;
+        }
+
+        // Pagination buttons
+        document.getElementById("prevPage").addEventListener("click", function () {
+            showPage(currentPage - 1);
+        });
+        document.getElementById("nextPage").addEventListener("click", function () {
+            showPage(currentPage + 1);
+        });
+
+        // Search box
+        document.getElementById("tableSearch2").addEventListener("input", function () {
+            showPage(1);
+        });
+
+        // Rows per page selector
+        document.getElementById("rowsPerPage").addEventListener("change", function () {
+            showPage(1); // go back to first page when changing rows per page
+        });
+
+        // Initial display
+        showPage(1);
+    });
+</script>

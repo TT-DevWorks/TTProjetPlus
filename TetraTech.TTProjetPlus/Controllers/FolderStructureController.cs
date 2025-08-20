@@ -22,6 +22,8 @@ namespace TetraTech.TTProjetPlus.Controllers
         private readonly LocalBPRService _LocalBPRService = new LocalBPRService();
 
         // GET: testFolderStructure
+        //pour passer numero de projet: http://localhost:53460/FolderStructure/Index?projectToModify=00150
+
         public ActionResult Index(string displayRetour = "true", string menuVisible = "true", string projectToModify ="")
         {
            // ViewData["CurrentPeriodWeekDate"] = _DashboardService.GetCurrentPeriodWeekDate();
@@ -32,6 +34,11 @@ namespace TetraTech.TTProjetPlus.Controllers
             ViewBag.displayRetour = displayRetour;
             ViewBag.MenuVisible = menuVisible;
             ViewBag.ProjectToModify = projectToModify;
+            ViewBag.lauchnEvent = false; 
+            if (projectToModify != "" && projectToModify != null)
+            {
+                ViewBag.lauchnEvent = true;
+            }
             return View();
         }
 

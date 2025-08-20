@@ -32,14 +32,15 @@
                             <div class="panel-body">
                                 <ul class="list-inline">
                                     <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet" )">TT Projet +  /</a></li>
-                                    <li><a style="color:#183666; font-weight: bold" href="@Url.Action("Index", "TTProjet", new { selectedPanel = "collapse8" })">Informations supplémentaires</a></li>
+                                    <li><a style="color:#183666; " href="@Url.Action("Index", "TTProjet", new { selectedPanel = "collapse8" })">Informations supplémentaires</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-8">
-                        <div class="">
-                            <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 100px; ">
+
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 100px; ">
+                            <div class="col-lg-6">
                                 <div class="panel-body">
                                     <ul class="">
                                         <li>
@@ -49,13 +50,31 @@
                                             <a style="color: #183666; " href="@Url.Action("Index", "TDT_PSWListe_BD")">Liste des mots de passe pour les tables de taux</a>
                                         </li>
                                         <li>
-                                            <a style="color:#183666 ; font-weight: bold" href="@Url.Action("Index", "TDT_PSWPermission")">Liste des permissions pour les tables de taux</a>
+                                            <a style="color:#183666 ;font-weight: bold " href="@Url.Action("Index", "TDT_PSWPermission")">Liste des permissions pour les tables de taux</a>
                                         </li>
                                         <li>
                                             <a style="color: #183666; " href="@Url.Action("Index", "SaisieTemporaire")">Saisies temporaires</a>
                                         </li>
 
+                                    </ul>
+                                </div>
+                            </div>
 
+                            <div class="col-lg-6">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "VerificationKM")">Vérification des Membres clés des projets</a>
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "emailCP")">Courriel aux chargés de projets</a>
+                                        </li>
+                                        @*<li>
+                                            &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "LocalBPR")">@Resources.TTProjet.EmployeeInfos</a>
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;<a style="color: #183666" href="@Url.Action("Index3", "FolderStructure")">@Resources.TTProjet.Security60Conf</a>
+                                        </li>*@
                                     </ul>
                                 </div>
                             </div>
@@ -63,36 +82,8 @@
                         </div>
 
                     </div>
-                    @*<div class="col-lg-4">
-                            <div class="">
-                                <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 100px; ">
-                                    <div class="panel-body">
-                                        <ul class="list-inline">
-                                            <li>
-                                                &bull;&nbsp;<a style="color:#183666 " href="@Url.Action("Index", "SecurityProjectEquivalence")">Équivalence des projets</a>
-                                            </li>
-                                            <br>
-                                            <li>
-                                                &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "Litige")">@Resources.TTProjet.LitigeManagement</a>
-                                            </li>
-                                            <br>
-                                            <li>
-                                                &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "LocalBPR")">@Resources.TTProjet.EmployeeInfos</a>
-                                            </li>
-                                            <br>
-                                            <li>
-                                                &bull;&nbsp;<a style="color: #183666" href="@Url.Action("Index3", "FolderStructure")">@Resources.TTProjet.Security60Conf</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>*@
 
                 </div>
-
             </div>
 
         }
@@ -147,13 +138,13 @@
                                             {
                                                 for (int i = 0; i < Model.Count(); i++)
                                                 {
-                                        <tr>
-                                            <td>@Model[i].Split('#')[0]</td>
-                                            <td>@Model[i].Split('#')[1]</td>
-                                            <td>@Model[i].Split('#')[2]</td>
-                                            <td>@Model[i].Split('#')[3]</td>
-                                            <td>@Model[i].Split('#')[4]</td>
-                                        </tr>
+                                                    <tr>
+                                                        <td>@Model[i].Split('#')[0]</td>
+                                                        <td>@Model[i].Split('#')[1]</td>
+                                                        <td>@Model[i].Split('#')[2]</td>
+                                                        <td>@Model[i].Split('#')[3]</td>
+                                                        <td>@Model[i].Split('#')[4]</td>
+                                                    </tr>
                                                 }
                                             }
 

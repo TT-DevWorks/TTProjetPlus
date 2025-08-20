@@ -1,0 +1,1265 @@
+﻿@using Resources = TetraTech.TTProjetPlus.Views.TTProjet
+@using Resources2 = TetraTech.TTProjetPlus.Views.ListeOffres
+@using System.Data
+@model List<DataTable>
+<style></style>
+
+
+@{
+    ViewBag.Title = "Admin TI";
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<style>
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+            color: black;
+        }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+                background-color: #ddd;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+                background-color: #ccc;
+            }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+
+
+    .modal {
+        position: fixed;
+        z-index: 1050;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.5);
+    }
+
+
+    .scroll-wrapper {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .top-scroll {
+        overflow-x: auto;
+        overflow-y: hidden;
+        height: 20px;
+    }
+
+        .top-scroll div {
+            height: 1px;
+        }
+
+    .bottom-scroll {
+        overflow-x: auto;
+    }
+
+    /* Fixer les 3 premières colonnes */
+    .sticky-table th,
+    .sticky-table td {
+        white-space: nowrap;
+    }
+
+        .sticky-table th:nth-child(1),
+        .sticky-table td:nth-child(1),
+        .sticky-table th:nth-child(2),
+        .sticky-table td:nth-child(2),
+        .sticky-table th:nth-child(3),
+        .sticky-table td:nth-child(3) {
+            position: sticky;
+            left: 0;
+            background-color: white;
+            z-index: 1;
+        }
+
+        .sticky-table th:nth-child(2),
+        .sticky-table td:nth-child(2) {
+            left: 150px;
+        }
+
+        .sticky-table th:nth-child(3),
+        .sticky-table td:nth-child(3) {
+            left: 310px;
+        }
+
+
+
+</style>
+<div id="loading">
+    <img id="loadingGIF2" src="~/Content/assets/img/ajax-loader.gif" alt="Loading..." />
+</div>
+
+<div class="container " style="height: 200vh;width: 100%">
+    <div class="main">
+
+        @if (ViewBag.MenuVisible == "true")
+        {
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-4" style="padding-top: -49px;">
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 100px;">
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                    <li><a style=" color:#183666;" href="@Url.Action("Index", "TTProjet" )">TT Projet +  /</a></li>
+                                    <li><a style="color:#183666; font-weight: bold" href="@Url.Action("Index", "TTProjet", new { selectedPanel = "collapse8" })">Informations supplémentaires</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+
+                        <div class="panel" style="border-radius: 10px; margin-left: -10px; height: 100px; ">
+                            <div class="col-lg-6">
+                                <div class="panel-body">
+                                    <ul class="">
+                                        <li>
+                                            <a style="color: #183666; " href="@Url.Action("Index", "AdditionaInfo")">Liste des gestionnaires de projet et de programme</a>
+                                        </li>
+                                        <li>
+                                            <a style="color: #183666; " href="@Url.Action("Index", "TDT_PSWListe_BD")">Liste des mots de passe pour les tables de taux</a>
+                                        </li>
+                                        <li>
+                                            <a style="color:#183666 ; " href="@Url.Action("Index", "TDT_PSWPermission")">Liste des permissions pour les tables de taux</a>
+                                        </li>
+                                        <li>
+                                            <a style="color: #183666; " href="@Url.Action("Index", "SaisieTemporaire")">Saisies temporaires</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="panel-body">
+                                    <ul class="list-inline">
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 ;font-weight: bold" href="@Url.Action("Index", "VerificationKM")">Vérification des Membres clés des projets</a>
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "emailCP")">Courriel aux chargés de projets</a>
+                                        </li>
+                                        @*<li>
+                                            &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "LocalBPR")">@Resources.TTProjet.EmployeeInfos</a>
+                                        </li>
+                                        <li>
+                                            &bull;&nbsp;<a style="color: #183666" href="@Url.Action("Index3", "FolderStructure")">@Resources.TTProjet.Security60Conf</a>
+                                        </li>*@
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        }
+        <div class="row">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary" style="border-radius: 10px; margin-top: -10px; margin-bottom: 10px; margin-left: -10px;">
+                        <div class="panel-body" style="margin:15px;">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4 style="margin-top: 0px; color: #183666; font-family: 'Arial Bold'; font-size: 18pt; margin-left: 10px;">
+                                        <b>Vérification des Membres clés des projets</b>@*@Resources.TTProjet.CPDisplay*@
+                                    </h4>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row" style="color:steelblue; font-size:initial">
+                                <div class="panel pagination-grey clearfix m-b-0">
+                                    <div id="data-table_wrapper2" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+
+                                        @{
+                                            var columnNames = Model[0]?.Columns.Cast<DataColumn>().Select(c => c.ColumnName).ToList();
+                                        }
+
+                                        <div class="tab">
+                                            <button class="tablinks" onclick="openPhase(event, 'phase1')">Tableau KM vs Org</button>
+                                            <button class="tablinks" onclick="openPhase(event, 'phase2')">Suivi modifications</button>
+                                        </div>
+
+
+                                        <div id="phase1" class="tabcontent" style="display: block;">
+                                            <br />
+                                            <div style=" max-height: 600px; max-width: 100%;">
+                                                <div class="row mb-2">
+
+                                                    <div class="col-lg-2">
+                                                        <input type="text" id="tableSearch" class="form-control" placeholder="Rechercher...">
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <button class="btn btn-warning btn-sm" onclick="exportTableToExcel()">Exporter vers Excel</button>
+                                                    </div>
+                                                    <div class="col-lg-3">
+
+                                                        <label for="rowsPerPage">
+                                                            Afficher
+                                                            <select id="rowsPerPage">
+                                                                <option value="10">10</option>
+                                                                <option value="20">20</option>
+                                                                <option value="50">50</option>
+                                                                <option value="100">100</option>
+                                                            </select> lignes par page
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div>
+                                                    <div class="col-lg-2">
+                                                        <button class="btn btn-primary" type="button" onclick="performValidation()">Valider</button>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <button class="btn btn-primary" onclick="sendEditedDataToServer()">Sauvegarder</button>
+                                                    </div>
+
+                                                    <div class="col-lg-2">
+                                                        <button class="btn btn-info btn-sm" onclick="openAddKMModal()">Ajouter un membre clé</button>
+
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <button id="openRemoveKMModal" class="btn btn-danger btn-sm">Retirer un membre clé</button>
+                                                    </div>
+
+
+                                                    <div class="col-lg-2">
+                                                        <button class="btn btn-info btn-sm" onclick="openAddOrganizationModal()">Ajouter une Org</button>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <button onclick="openRemoveColumnModal()" class="btn btn-danger btn-sm">Supprimer une Org</button>
+                                                    </div>
+
+                                                </div>
+                                                <br />
+
+                                            </div>
+                                            <br />
+                                            <div style="overflow: auto; max-height: 600px; max-width: 100%;">
+                                                @if (Model != null && Model[0].Rows.Count > 0)
+                                                {
+
+
+
+                                                    <div class="scroll-wrapper">
+                                                        <!-- Scroll du haut -->
+                                                        <div class="top-scroll">
+                                                            <div></div>
+                                                        </div>
+
+                                                        <!-- Scroll bas (vrai) -->
+                                                        <div class="bottom-scroll" id="bottomScrollContainer">
+                                                            <table id="editableTable" class="table table-bordered sticky-table" style="font-size: 10px;">
+                                                                <thead>
+                                                                    <tr id="tableHeader">
+                                                                        @for (int j = 0; j < Model[0].Columns.Count; j++)
+                                                                        {
+                                                                            <th data-column="@Model[0].Columns[j].ColumnName">@Model[0].Columns[j].ColumnName</th>
+                                                                        }
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="tableBody">
+                                                                    @foreach (System.Data.DataRow row in Model[0].Rows)
+                                                                    {
+                                                                        <tr>
+                                                                            @{
+                                                                                var items = row.ItemArray;
+                                                                            }
+                                                                            @for (int colIndex = 0; colIndex < items.Length; colIndex++)
+                                                                            {
+                                                                                var cell = items[colIndex];
+                                                                                <td>
+                                                                                    <input type="text"
+                                                                                           class="form-control form-control-sm"
+                                                                                           value="@cell"
+                                                                                           data-original="@cell"
+                                                                                           style="font-size: 10px; border: none; box-shadow: none; color: black"
+                                                                                           @(colIndex < 3 ? "disabled" : "") />
+                                                                                    @*@if (colIndex == 2)
+                                                {
+                                                    <button type="button" class="btn btn-link p-0 ml-2" onclick="removeCell(this)" title="Remove value">
+                                                        <span class="text-danger">&#x2716;</span>
+                                                    </button>
+                                                }*@
+                                                                                </td>
+                                                                            }
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div> }
+                                                else
+                                                {
+                                                    <p>Aucune donnée disponible.</p>
+                                                }
+                                            </div>
+                                            <div id="paginationControls" style="margin-top: 10px;">
+                                                <button id="prevPage" class="btn btn-sm btn-primary">Précédent</button>
+                                                <span id="pageInfo"></span>
+                                                <button id="nextPage" class="btn btn-sm btn-primary">Suivant</button>
+                                            </div>
+
+                                        </div>
+
+                                        <div id="phase2" class="tabcontent" style="display: none;">
+                                            <br />
+                                            <div style="overflow: auto; max-height: 600px; max-width: 100%;">
+                                                @if (Model != null && Model[1].Rows.Count > 0)
+                                                {
+                                                <div class="row mb-2">
+                                                    <div class="col-lg-2">
+                                                        <input type="text" id="tableSearch2" class="form-control" placeholder="Rechercher...">
+                                                    </div>
+                                                    <div class="col-lg-3">
+
+                                                        <label for="rowsPerPage">
+                                                            Afficher
+                                                            <select id="rowsPerPage2">
+                                                                <option value="10">10</option>
+                                                                <option value="20">20</option>
+                                                                <option value="50">50</option>
+                                                                <option value="100">100</option>
+                                                            </select> lignes par page
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="col-lg-2">
+                                                        <button class="btn btn-primary" onclick="sendEditedDataToServerTab2()">Sauvegarder</button>
+                                                    </div>
+                                                    @*<div class="col-lg-2">
+            <button class="btn btn-success btn-sm" onclick="addRow('tableBody2', 'tableHeader2') ">Ajouter une ligne</button>
+        </div>
+        <div class="col-lg-2">
+            <button class="btn btn-info btn-sm" onclick="addColumn('tableBody2', 'tableHeader2')">Ajouter une colonne</button>
+        </div>*@
+                                                    <div class="col-lg-2">
+                                                        <button class="btn btn-warning btn-sm" onclick="exportTableToExcel()">Exporter vers Excel</button>
+                                                    </div>
+                                                </div>
+                                                    <br />
+                                                    <table id="editableTable2" class="table table-bordered" style="width: 100%; font-size: 10px;">
+                                                        <thead>
+                                                            <tr id="tableHeader2">
+                                                                <th style="width: 30px; white-space: nowrap;">Date</th>
+                                                                <th style="width: 30px; white-space: nowrap;"># Employé</th>
+                                                                <th style="width: 30px; white-space: nowrap;">Nom</th>
+                                                                <th style="width: 30px; white-space: nowrap;">Prénom</th>
+                                                                <th style="width: 30px; white-space: nowrap;">Date de début</th>
+                                                                <th style="width: 30px; white-space: nowrap;">Date de fin</th>
+                                                                <th style="width: 30px; white-space: nowrap;">Aouter/supprimer de l'Annexe A</th>
+                                                                <th style="width: 30px; white-space: nowrap;">Org</th>
+                                                                <th style="width: 5px; ">Id</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tableBody2">
+                                                            @foreach (System.Data.DataRow row in Model[1].Rows)
+                                                            {
+                                                            <tr>
+                                                                @{
+                                                                    var items = row.ItemArray;
+                                                                }
+                                                                <td style="white-space: nowrap; width: 30px;">
+                                                                    @items[0]
+                                                                </td>
+                                                                @for (int colIndex = 1; colIndex < items.Length; colIndex++)
+                                                                {
+                                                                    var cell = items[colIndex];
+
+                                                                    <td style="white-space: nowrap; width: 30px;">
+                                                                        <input type="text"
+                                                                               class="form-control form-control-sm inputPhase2"
+                                                                               value="@cell"
+                                                                               data-original="@cell"
+                                                                               style="font-size: 10px; border: none; box-shadow: none;color: black" />
+                                                                    </td>
+                                                                }
+
+                                                                @{
+                                                                    var cell7 = items[7];
+                                                                }
+
+                                                                <td style="">
+                                                                    @cell7
+                                                                </td>
+                                                            </tr>
+                                                            }
+
+                                                        </tbody>
+
+                                                    </table>
+                                                }
+                                                else
+                                                {
+                                                    <p>Aucune donnée disponible.</p>
+                                                }
+                                            </div>
+                                            <div id="paginationControls" style="margin-top: 10px;">
+                                                <button id="prevPage2" class="btn btn-sm btn-primary">Précédent</button>
+                                                <span id="pageInfo2"></span>
+                                                <button id="nextPage2" class="btn btn-sm btn-primary">Suivant</button>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <br />
+                            <div id="info">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div id="addOrgModal" class="modal fade"  tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content p-3">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajouter une organisation</h5>
+            </div>
+            <div class="modal-body">
+                <label for="orgNameInput" class="form-label">Quelle nouvelle organisation voulez-vous ajouter ?</label>
+                <input type="text" class="form-control" id="orgNameInput" />
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeAddOrganizationModal()">Fermer</button>
+                <button class="btn btn-primary" onclick="validateOrganization()">Valider</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Bootstrap -->
+<!--<div class="modal fade" id="removeColumnModal" tabindex="-1" aria-labelledby="removeColumnModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="font-size: 12px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="removeColumnModalLabel">Choisir une colonne à supprimer</h5>
+            </div>
+            <div class="modal-body">
+                <select id="columnsToRemove" class="form-select">-->
+                    <!-- Options seront ajoutées dynamiquement -->
+                <!--</select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-danger btn-sm" id="confirmRemoveColumn">Supprimer</button>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+<div id="removeColumnModal" class="modal fade"  tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content p-3">
+            <div class="modal-header">
+                <h5 class="modal-title">Choisir une colonne à supprime</h5>
+            </div>
+            <div class="modal-body">
+                <label for="columnsToRemove" class="form-label">Choisir une colonne a supprimer :</label>
+                <select id="columnsToRemove" class="form-select">
+                    <!-- Options seront ajoutées dynamiquement -->
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeRemoveColumnModal()">Fermer</button>
+                <button class="btn btn-danger" onclick="removeColumn()">Valider</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div id="addKMModal" class="modal fade"  tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content p-3">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajouter un membre clé</h5>
+            </div>
+            <div class="modal-body">
+                <label for="km_NameInput" class="form-label">Quel membre clé voulez-vous ajouter ?</label>
+                <input type="text" class="form-control" id="km_NameInput" />
+            </div>
+            <div class="modal-body">
+                <label for="km_RoleInput" class="form-label">Quel role ?</label>
+                <input type="text" class="form-control" id="km_RoleInput" />
+            </div>
+            <div class="modal-body">
+                <label for="km_TitreInput" class="form-label">Quel titre ?</label>
+                <input type="text" class="form-control" id="km_TitreInput" />
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeAddKMModal()">Fermer</button>
+                <button class="btn btn-primary" onclick="validateKM()">Valider</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="removeKMModal" class="modal fade"  tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content p-3">
+            <div class="modal-header">
+                <h5 class="modal-title">Retirer un membre clé</h5>
+            </div>
+            <div class="modal-body">
+                <label for="km_NameSelect" class="form-label">Choisir un nom :</label>
+                <select id="km_NameSelect" class="form-select">
+                    <!-- Options ajoutées dynamiquement via JavaScript -->
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeRemoveKMModal()">Fermer</button>
+                <button class="btn btn-danger" onclick="removeKM()">Valider</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $('.selectpicker').selectpicker(
+        );
+    });
+
+    // Synchronisation des scrolls
+    const topScroll = document.querySelector('.top-scroll');
+    const bottomScroll = document.querySelector('.bottom-scroll');
+
+    function syncScroll(source, target) {
+        source.addEventListener('scroll', () => {
+            target.scrollLeft = source.scrollLeft;
+        });
+    }
+
+    // Synchroniser les deux directions
+    syncScroll(topScroll, bottomScroll);
+    syncScroll(bottomScroll, topScroll);
+
+    // Ajuster la largeur du faux scroll (top)
+    window.addEventListener('load', () => {
+        const table = document.getElementById('editableTable');
+        const scrollDiv = document.querySelector('.top-scroll div');
+        scrollDiv.style.width = table.scrollWidth + 'px';
+    });
+
+    function openPhase(evt, phaseName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(phaseName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+
+    //document.getElementById("tableSearch").addEventListener("input", function () {
+    //    const filter = this.value.toLowerCase();
+    //    const rows = document.querySelectorAll("#editableTable tbody tr");
+
+    //    rows.forEach(function (row) {
+    //        let rowText = "";
+
+    //        // Récupère toutes les valeurs des inputs de la ligne
+    //        const inputs = row.querySelectorAll("input");
+    //        inputs.forEach(function (input) {
+    //            rowText += input.value.toLowerCase() + " ";
+    //        });
+
+    //        // Affiche ou masque la ligne selon si le filtre est présent
+    //        row.style.display = rowText.includes(filter) ? "" : "none";
+    //    });
+    //});
+
+
+    //document.getElementById("tableSearch2").addEventListener("input", function () {
+    //    const filter = this.value.toLowerCase();
+    //    const rows = document.querySelectorAll("#editableTable2 tbody tr");
+
+    //    rows.forEach(function (row) {
+    //        let rowText = "";
+
+    //        // Récupère toutes les valeurs des inputs de la ligne
+    //        const inputs = row.querySelectorAll("input");
+    //        inputs.forEach(function (input) {
+    //            rowText += input.value.toLowerCase() + " ";
+    //        });
+
+    //        // Affiche ou masque la ligne selon si le filtre est présent
+    //        row.style.display = rowText.includes(filter) ? "" : "none";
+    //    });
+    //});
+
+    function displayInfo() {
+                $.ajax({
+                url: '@Url.Action("displayInfo", "AdditionaInfo")',
+                    type: 'GET',
+                    cache: false,
+                data: {
+                    typeInfo: $('#typeList').val()
+                },
+                success: function (data)
+                {
+                    $('#info').html(data)
+                }
+            });
+    }
+
+    function performValidation() {
+                $.ajax({
+                url: '@Url.Action("performValidation", "VerificationKM")',
+                    type: 'GET',
+                    cache: false,
+                data: {
+                },
+                success: function (data)
+                {
+                    if (data == "success") {
+                        
+                        alert("Le rapport de validation a été envoyé par courriel")
+                    }
+                }
+            });
+    }
+
+    function markCellAsEdited(input) {
+        input.style.backgroundColor = '#fff3cd'; // pale yellow
+        input.setAttribute('data-edited', 'true');
+    }
+
+
+    //ajouter une organisation dans le tableau
+    function openAddOrganizationModal() {
+        //document.getElementById('addOrgModal').style.display = 'block';
+        $('#addOrgModal').modal('show');  // opens with backdrop
+    }
+
+    function closeAddOrganizationModal() {
+        //document.getElementById('addOrgModal').style.display = 'none';
+        $('#addOrgModal').modal('hide');  //
+        document.getElementById('orgNameInput').value = '';
+    }
+
+    function validateOrganization() {
+        const orgName = document.getElementById('orgNameInput').value.trim();
+
+        if (orgName === "") {
+            alert("Veuillez entrer un nom d'organisation.");
+            return;
+        }
+
+              // TODO: You can send orgName to the server here using fetch/ajax
+        $.ajax({
+            url: '/VerificationKM/AddColumnToTable', // Replace 'YourController' with the actual name
+            type: 'GET',
+            dataType: 'json',
+            data: { columnName: $('#orgNameInput').val() },
+            success: function (response) {
+                alert(response);
+                closeAddOrganizationModal();
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error("Erreur:", error);
+                alert("Une erreur est survenue lors de l’ajout.");
+            }
+        });
+
+        closeAddOrganizationModal();
+    }
+
+    //pour supprimer une colonne
+
+    // Ouvrir la modal et remplir la liste
+    function openRemoveColumnModal () {
+        var $select = $("#columnsToRemove");
+        $select.empty();
+
+        // Récupérer colonnes sauf les 3 premières
+        $("#tableHeader th").slice(3).each(function () {
+            var colName = $(this).data("column") || $(this).text().trim();
+            $select.append($("<option>").val(colName).text(colName));
+        });
+
+        // Ouvrir la modal via jQuery + Bootstrap
+        //$("#removeColumnModal").show();
+        $('#removeColumnModal').modal('show');
+    }
+
+    // Valider suppression colonne
+    function removeColumn () {
+        var columnName = $("#columnsToRemove").val();
+
+        if (!columnName) {
+            alert("Veuillez sélectionner une colonne.");
+            return;
+        }
+
+        $.ajax({
+            url: '/VerificationKM/RemoveColumnFromTable', // Replace 'YourController' with the actual name
+            type: 'GET',
+            dataType: 'json',
+            data: { columnName: $("#columnsToRemove").val() },
+            success: function (response) {
+                alert(response);
+                closeAddOrganizationModal();
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error("Erreur:", error);
+                alert("Une erreur est survenue lors de l’ajout.");
+            }
+        });
+
+        // Fermer la modal
+        //$("#removeColumnModal").hide();
+        $('#removeColumnModal').modal('hide');
+    }
+
+    ////fin supression colonne
+
+    //ajouter un km  dans le tableau
+    function openAddKMModal() {
+        //document.getElementById('addKMModal').style.display = 'block';
+        $('#addKMModal').modal('show');
+    }
+
+    function closeAddKMModal() {
+        //document.getElementById('addKMModal').style.display = 'none';
+        $('#addKMModal').modal('hide');
+        document.getElementById('km_NameInput').value = '';
+        document.getElementById('km_RoleInput').value = '';
+        document.getElementById('km_TitreInput').value = '';
+    }
+
+
+    function closeRemoveColumnModal() {
+        //document.getElementById('removeColumnModal').style.display = 'none';
+        $('#removeColumnModal').modal('hide');
+        document.getElementById('columnsToRemove').value = '';
+    }
+
+    function validateKM() {
+        const name = $("#km_NameInput").val().trim();
+        const role = $("#km_RoleInput").val().trim();
+        const titre = $("#km_TitreInput").val().trim();
+
+        if (!name || !role || !titre) {
+            alert("Tous les champs sont requis.");
+            return;
+        }
+
+        $.ajax({
+            url: '/VerificationKM/AddKMToTable',  // Remplace 'TonController' par le vrai nom du contrôleur
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                KMName: name,
+                KMRole: role,
+                KMTitre: titre
+            },
+            success: function (response) {
+                alert(response);
+                $("#addKMModal").hide(); // Fermer le modal
+                // Tu peux ici actualiser la table ou recharger les données
+                location.reload(); // Option simple
+            },
+            error: function (xhr, status, error) {
+                console.error("Erreur :", error);
+                alert("Erreur lors de l'ajout.");
+            }
+        });
+    }
+
+    //supprimer km de la table
+
+    $("#openRemoveKMModal").on("click", function openRemoveKMModal() {
+        const nomsSet = new Set();
+
+        $('#editableTable tbody tr').each(function () {
+            const input = $(this).find('td').eq(2).find('input');
+            if (input.length) {
+                const nom = input.val().trim();
+                if (nom) {
+                    nomsSet.add(nom);
+                }
+            }
+        });
+
+        const noms = Array.from(nomsSet);
+        noms.sort((a, b) => a.localeCompare(b, 'fr', { ignorePunctuation: true, sensitivity: 'base' }));
+
+        const select = $('#km_NameSelect');
+        select.empty();
+
+        if (noms.length === 0) {
+            select.append('<option disabled>Aucun nom trouvé</option>');
+        } else {
+            noms.forEach(nom => {
+                select.append(`<option value="${nom}">${nom}</option>`);
+            });
+        }
+
+        //$('#removeKMModal').show();
+        $('#removeKMModal').modal('show');
+
+    });
+
+    function closeRemoveKMModal() {
+        //$('#removeKMModal').hide();
+        $('#removeKMModal').modal('hide');
+
+    }
+
+    function removeKM() {
+        const selectedName = $('#km_NameSelect').val();
+
+        if (!selectedName) {
+            alert("Veuillez sélectionner un nom.");
+            return;
+        }
+
+        $.ajax({
+            url: '/VerificationKM/RemoveKMFromTable', // Remplace par le bon nom
+            type: 'GET',
+            dataType: 'json',
+            data: { KMName: selectedName },
+            success: function (response) {
+                alert(response)
+                $('#removeKMModal').hide();
+                location.reload(); // Ou retirer dynamiquement de la table
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+                alert("Erreur lors du retrait.");
+            }
+        });
+    }
+
+
+    //fin suppression km
+
+
+    function sendEditedDataToServer() {
+        const table = document.getElementById("editableTable");
+        const rows = Array.from(table.querySelectorAll("tbody tr"));
+        const headers = Array.from(table.querySelectorAll("thead th")).map(th => th.dataset.column);
+
+        const changedData = [];
+
+
+
+        rows.forEach((row, rowIndex) => {
+            const inputs = row.querySelectorAll("input");
+            // Get text content of the first and second cell (not just inputs)
+            const firstCellText = inputs[0]?.value.trim() || "";
+            const secondCellText = inputs[1]?.value.trim() || "";
+            inputs.forEach((input, colIndex) => {
+                const empName = inputs[2].Value
+                if (input.classList.contains("cell-modified")) {
+                    const originalValue = input.dataset.original;
+                    const newValue = input.value;
+
+
+                    changedData.push({
+                        RowIndex: rowIndex,
+                        ColumnName: headers[colIndex],
+                        OldValue: originalValue,
+                        NewValue: newValue,
+                        empName: empName,
+                        role: firstCellText, // Assuming this is the employee name
+                        titre: secondCellText
+                    });
+                }
+            });
+        });
+
+        console.log("Objets modifiés envoyés au contrôleur :", changedData);
+
+        // Envoi AJAX
+        $.ajax({
+            url: '/VerificationKM/SaveTableData',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(changedData),
+            success: function (response) {
+                alert("Modifications sauvegardées !");
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error("Erreur lors de l'envoi :", error);
+            }
+        });
+    }
+
+    function getChangedRows() {
+        let changedRows = [];
+
+        document.querySelectorAll("#editableTable2 tbody tr").forEach(function (row) {
+            if (row.querySelector("input.cell-modified")) { // only modified
+                let rowData = [];
+
+                row.querySelectorAll("td").forEach(function (cell) {
+                    let input = cell.querySelector("input");
+                    if (input) {
+                        rowData.push(input.value.trim()); // get updated value
+                    } else {
+                        rowData.push(cell.textContent.trim());
+                    }
+                });
+
+                changedRows.push(rowData);
+            }
+        });
+
+        return changedRows;
+    }
+
+
+    function sendEditedDataToServerTab2() {
+        //const table = document.getElementById("editableTable2");
+        //const rows = Array.from(table.querySelectorAll("tbody tr"));
+        //const headers = Array.from(table.querySelectorAll("thead th")).map(th => th.dataset.column);
+
+        //const changedRows = [];
+
+        //rows.forEach((row, rowIndex) => {
+        //    const inputs = row.querySelectorAll("input");
+        //    let rowChanged = false;
+
+        //    // Check if at least one cell is modified
+        //    inputs.forEach((input) => {
+        //        if (input.classList.contains("cell-modified")) {
+        //            rowChanged = true;
+        //        }
+        //    });
+
+        //    if (rowChanged) {
+        //        // Build a full row object with all current values
+        //        const rowData = {};
+        //        inputs.forEach((input, colIndex) => {
+        //            rowData[headers[colIndex]] = input.value;
+        //        });
+
+        //        // Include RowIndex if useful for the backend
+        //        changedRows.push({
+        //            RowIndex: rowIndex,
+        //            RowData: rowData
+        //        });
+        //    }
+        //});
+
+        //console.log("Lignes modifiées envoyées au contrôleur :", changedRows);
+
+        let changedRows = getChangedRows();
+
+        // Send AJAX
+        $.ajax({
+            url: '/VerificationKM/SaveTableDataTab2',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(changedRows),
+            success: function (response) {
+                alert(response);
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error("Erreur lors de l'envoi :", error);
+            }
+        });
+    }
+
+
+    document.addEventListener("input", function (e) {
+        if (e.target.tagName === "INPUT") {
+            e.target.classList.add("cell-modified");
+            e.target.style.backgroundColor = "#ffffcc"; // Jaune pâle
+        }
+    });
+
+    document.addEventListener("input", function (e) {
+        if (e.target.tagName === "INPUT" && e.target.classList.contains("inputPhase2")) {
+            e.target.classList.add("cell-modified");
+            e.target.style.backgroundColor = "cyan"; // pale yellow
+        }
+    });
+
+
+    function exportTableToExcel() {
+        const table = document.getElementById("editableTable");
+        const wb = XLSX.utils.book_new();
+        const ws_data = [];
+
+        // Get headers
+        const headerCells = table.querySelectorAll("thead th");
+        const headers = Array.from(headerCells).map(th => th.innerText.trim());
+        ws_data.push(headers);
+
+        // Get data rows
+        const rows = table.querySelectorAll("tbody tr");
+        rows.forEach(row => {
+            const rowData = [];
+            const inputs = row.querySelectorAll("input");
+            inputs.forEach(input => {
+                rowData.push(input.value);
+            });
+            ws_data.push(rowData);
+        });
+
+        // Create worksheet
+        const ws = XLSX.utils.aoa_to_sheet(ws_data);
+
+        // Add auto filter
+        const range = XLSX.utils.decode_range(ws['!ref']);
+        ws['!autofilter'] = { ref: XLSX.utils.encode_range(range) };
+
+        // Add style to header (yellow background)
+        headerCells.forEach((cell, i) => {
+            const colLetter = XLSX.utils.encode_col(i);
+            const cellAddress = colLetter + "1";
+            if (!ws[cellAddress]) return;
+            ws[cellAddress].s = {
+                fill: { fgColor: { rgb: "FFFF00" } },
+                font: { bold: true }
+            };
+        });
+
+        // Add worksheet to workbook
+        XLSX.utils.book_append_sheet(wb, ws, "Tableau");
+
+        // Export to file
+        XLSX.writeFile(wb, "RapportKM.xlsx");
+    }
+
+    //pagination phase 1
+    document.addEventListener("DOMContentLoaded", function () {
+        let currentPage = 1;
+
+        const table = document.getElementById("editableTable");
+        if (!table) return console.error("Table not found!");
+
+        const tbody = table.querySelector("tbody");
+        if (!tbody) return console.error("Table body not found!");
+
+        // Get all valid <tr> rows
+        let allRows = Array.from(tbody.querySelectorAll("tr"))
+            .filter(row => row instanceof HTMLTableRowElement);
+
+        // Get rows per page from selector
+        function getRowsPerPage() {
+            const val = parseInt(document.getElementById("rowsPerPage").value, 10);
+            return isNaN(val) || val <= 0 ? 10 : val; // default 10 if invalid
+        }
+
+        // Filter rows based on search input
+        function filterRows() {
+            const filter = document.getElementById("tableSearch").value.toLowerCase();
+            return allRows.filter(row => {
+                const cells = Array.from(row.querySelectorAll("td"));
+                return cells.some(cell => {
+                    // Use input value if present, otherwise textContent
+                    const input = cell.querySelector("input");
+                    const text = input ? input.value : cell.textContent;
+                    return text.toLowerCase().includes(filter);
+                });
+            });
+        }
+
+        // Show a specific page
+        function showPage(page) {
+            const filteredRows = filterRows();
+            const rowsPerPage = getRowsPerPage();
+            const totalPages = Math.max(1, Math.ceil(filteredRows.length / rowsPerPage));
+
+            // Clamp page number
+            if (page < 1) page = 1;
+            if (page > totalPages) page = totalPages;
+            currentPage = page;
+
+            // Hide all rows first
+            allRows.forEach(r => {
+                if (r) r.style.display = "none";
+            });
+
+            // Show rows for current page
+            const start = (page - 1) * rowsPerPage;
+            const end = Math.min(start + rowsPerPage, filteredRows.length);
+
+            for (let i = start; i < end; i++) {
+                const row = filteredRows[i];
+                if (row) row.style.display = "";
+            }
+
+            // Update page info
+            const pageInfo = document.getElementById("pageInfo");
+            if (pageInfo) {
+                pageInfo.textContent = ` Page ${currentPage} de ${totalPages} `;
+            }
+        }
+
+        // Pagination buttons
+        const prevBtn = document.getElementById("prevPage");
+        const nextBtn = document.getElementById("nextPage");
+
+        if (prevBtn) prevBtn.addEventListener("click", () => showPage(currentPage - 1));
+        if (nextBtn) nextBtn.addEventListener("click", () => showPage(currentPage + 1));
+
+        // Search box
+        const searchInput = document.getElementById("tableSearch");
+        if (searchInput) searchInput.addEventListener("input", () => showPage(1));
+
+        // Rows per page selector
+        const rowsPerPageInput = document.getElementById("rowsPerPage");
+        if (rowsPerPageInput) rowsPerPageInput.addEventListener("change", () => showPage(1));
+
+        // Initial display
+        showPage(1);
+    });
+
+
+
+
+    //pagination phase 2
+    document.addEventListener("DOMContentLoaded", function () {
+        let currentPage = 1;
+
+        const table = document.getElementById("editableTable2");
+        if (!table) return console.error("Table not found!");
+
+        const tbody = table.querySelector("tbody");
+        if (!tbody) return console.error("Table body not found!");
+
+        // Get all valid <tr> rows
+        let allRows = Array.from(tbody.querySelectorAll("tr"))
+            .filter(row => row instanceof HTMLTableRowElement);
+
+        // Get rows per page from selector
+        function getRowsPerPage() {
+            const val = parseInt(document.getElementById("rowsPerPage2").value, 10);
+            return isNaN(val) || val <= 0 ? 10 : val; // default 10 if invalid
+        }
+
+        // Filter rows based on search input
+        function filterRows() {
+            const filter = document.getElementById("tableSearch2").value.toLowerCase();
+            return allRows.filter(row => {
+                const cells = Array.from(row.querySelectorAll("td"));
+                return cells.some(cell => {
+                    // Use input value if present, otherwise textContent
+                    const input = cell.querySelector("input");
+                    const text = input ? input.value : cell.textContent;
+                    return text.toLowerCase().includes(filter);
+                });
+            });
+        }
+
+        // Show a specific page
+        function showPage(page) {
+            const filteredRows = filterRows();
+            const rowsPerPage = getRowsPerPage();
+            const totalPages = Math.max(1, Math.ceil(filteredRows.length / rowsPerPage));
+
+            // Clamp page number
+            if (page < 1) page = 1;
+            if (page > totalPages) page = totalPages;
+            currentPage = page;
+
+            // Hide all rows first
+            allRows.forEach(r => {
+                if (r) r.style.display = "none";
+            });
+
+            // Show rows for current page
+            const start = (page - 1) * rowsPerPage;
+            const end = Math.min(start + rowsPerPage, filteredRows.length);
+
+            for (let i = start; i < end; i++) {
+                const row = filteredRows[i];
+                if (row) row.style.display = "";
+            }
+
+            // Update page info
+            const pageInfo = document.getElementById("pageInfo2");
+            if (pageInfo) {
+                pageInfo.textContent = ` Page ${currentPage} de ${totalPages} `;
+            }
+        }
+
+        // Pagination buttons
+        const prevBtn = document.getElementById("prevPage2");
+        const nextBtn = document.getElementById("nextPage2");
+
+        if (prevBtn) prevBtn.addEventListener("click", () => showPage(currentPage - 1));
+        if (nextBtn) nextBtn.addEventListener("click", () => showPage(currentPage + 1));
+
+        // Search box
+        const searchInput = document.getElementById("tableSearch2");
+        if (searchInput) searchInput.addEventListener("input", () => showPage(1));
+
+        // Rows per page selector
+        const rowsPerPageInput = document.getElementById("rowsPerPage2");
+        if (rowsPerPageInput) rowsPerPageInput.addEventListener("change", () => showPage(1));
+
+        // Initial display
+        showPage(1);
+    });
+
+
+</script>

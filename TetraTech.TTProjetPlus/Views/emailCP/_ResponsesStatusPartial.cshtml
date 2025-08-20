@@ -1,0 +1,47 @@
+﻿@model List<TetraTech.TTProjetPlus.Data.TT_Suivi_ProjetsEchus>
+
+@{
+    ViewBag.Title = "_ResponsesStatusPartial";
+}
+<style>
+    .table-wrapper {
+        max-height: 300px; /* adjust height as you need */
+        overflow-y: auto;
+        display: block;
+    }
+
+        .table-wrapper thead tr {
+            position: sticky;
+            top: 0;
+            background: #fff; /* keep header visible */
+            z-index: 2;
+        }
+</style>
+<div class="table-wrapper">
+    <table id="editableTable2" class="table table-bordered sticky-table" style="font-size: 10px; width: 100%;">
+        <thead>
+            <tr id="tableHeader">
+                <td>#CP</td>
+                <td>Name</td>
+                <td>Date de rappel</td>
+                <td>Date de réponse</td>
+                <td>#Projet</td>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            @foreach (TetraTech.TTProjetPlus.Data.TT_Suivi_ProjetsEchus item in Model)
+            {
+                <tr>
+                    <td>@item.cpNumber</td>
+                    <td>@item.cpName</td>
+                    <td>@item.DateDeRappel</td>
+                    <td>@item.DateDeReponseCP</td>
+                    <td>@item.projectNum</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+

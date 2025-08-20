@@ -36,5 +36,7 @@ namespace TetraTech.TTProjetPlus.Data
         public string commentaire { get; set; }
         public Nullable<System.DateTime> dateInfoRecu { get; set; }
         public string EMAIL_ADDRESS_Project_Mgr { get; set; }
+        public System.DateTime EFFECTIVE_START_DATE_Project_Mgr { get; set; }
+        public System.DateTime EFFECTIVE_END_DATE_Project_Mgr { get; set; }
     }
 }

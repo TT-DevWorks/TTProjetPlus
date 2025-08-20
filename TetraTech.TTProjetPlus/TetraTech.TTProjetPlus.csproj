@@ -277,6 +277,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ConnectionToEs.cs" />
+    <Compile Include="Controllers\emailCPController.cs" />
     <Compile Include="Controllers\GestionProjetSecuriserController.cs" />
     <Compile Include="Controllers\ProjetSecuriserController.cs" />
     <Compile Include="Controllers\GestionGroupeADController.cs" />
@@ -299,6 +300,7 @@
     <Compile Include="Controllers\SpecialDocsByCustomerController.cs" />
     <Compile Include="Controllers\TTIndexController.cs" />
     <Compile Include="Controllers\TDT_PSWPermissionController.cs" />
+    <Compile Include="Controllers\VerificationKMController.cs" />
     <Compile Include="Data\Acct_Group_Center_Email.cs">
       <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
     </Compile>
@@ -407,28 +409,10 @@
     <Compile Include="Data\fiche_en_forcart.cs">
       <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\fiche_en_forcart_old.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\fiche_en_old.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Data\fiche_esp_forcart.cs">
       <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\fiche_esp_forcart_old.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\fiche_esp_old.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Data\fiche_forcart.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\fiche_forcart_old.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\fiche_old.cs">
       <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Gestion10Conf.cs">
@@ -482,22 +466,10 @@
     <Compile Include="Data\OpeningProject_Task.cs">
       <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\OS_Project2_BK_2020_09_02.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\OS_Project2_BK_2020_09_03.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\OS_Project_2020_05_25.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Data\OS_Project_Env.cs">
       <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\OS_Project_GP.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\OS_Project_old.cs">
       <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\panier.cs">
@@ -551,6 +523,12 @@
     <Compile Include="Data\ST_liste_envois.cs">
       <DependentUpon>SuiviMandatNew.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\TableChgtKM.cs">
+      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\TableVerificationKM.cs">
+      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\tbAD_TT_Local_BPR.cs">
       <DependentUpon>AD_TT_LOCAL_BPR1.tt</DependentUpon>
     </Compile>
@@ -587,31 +565,10 @@
     <Compile Include="Data\TQEDocsToInsertInSubForlders_Sly.cs">
       <DependentUpon>BPRProjetNew.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\TTIndex_ElasticSearch.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\TTIndex_FilesExtensions.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\TTIndex_FilesListDetails.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\TTIndex_FilesListDetailsTest.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\TTIndex_FilesListDetailsTest2.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\TTIndex_FilesListDetails_auto.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\TTIndex_FilesListDetails_auto_withSecurity.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\TTIndex_Trees_Doc_Proj.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Data\TT_EmployeesPermissions.cs">
+      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\TT_Suivi_ProjetsEchus.cs">
       <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\type_mission.cs">
@@ -748,6 +705,9 @@
     <Compile Include="Data\usp_PotentialProjectsToClose_Result.cs">
       <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\usp_ReturnTableVerificationKM_ColumnsName_Result.cs">
+      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\usp_ssrsGetProjetAFermer_Result.cs">
       <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
     </Compile>
@@ -765,6 +725,12 @@
     </Compile>
     <Compile Include="Data\usp_TTIndex_getFiles_Result.cs">
       <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\usp_TT_getProjetAvecDateDepasse_Result.cs">
+      <DependentUpon>SuiviMandatNew.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\usp_TT_Verif_KM_role_Result.cs">
+      <DependentUpon>SuiviMandatNew.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\utilisateur.cs">
       <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
@@ -790,6 +756,8 @@
     <Compile Include="Models\Discipline.cs" />
     <Compile Include="Models\FicheModel.cs" />
     <Compile Include="Models\GestionProjetSecuriser.cs" />
+    <Compile Include="Models\getProjetAvecDateDepasseModel.cs" />
+    <Compile Include="Models\KM_EmailModel.cs" />
     <Compile Include="Models\ProjetSecuriserModel.cs" />
     <Compile Include="Models\FileUploadModel.cs" />
     <Compile Include="Models\GestionGroupeAD.cs" />
@@ -812,6 +780,7 @@
     <Compile Include="Models\SpecialDocsByCustomerModel.cs" />
     <Compile Include="Models\ttindexsearch.cs" />
     <Compile Include="Models\pswPermissionModel.cs" />
+    <Compile Include="Models\verificationKMModel.cs" />
     <Compile Include="Ressources\TTProjet.en.designer.cs">
       <DependentUpon>TTProjet.en.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -951,7 +920,7 @@
       <DependentUpon>SuiviMandatNew.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\EmployeeActif_Inactive.cs">
-      <DependentUpon>SuiviMandatNew.tt</DependentUpon>
+      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\EmployeeCommisFacturation.cs">
       <DependentUpon>SuiviMandatNew.tt</DependentUpon>
@@ -1456,6 +1425,7 @@
     <Compile Include="Security\TetraTechUser.cs" />
     <Compile Include="Security\TetraTechUserPrincipal.cs" />
     <Compile Include="Security\UserService.cs" />
+    <Compile Include="Services\emailCPService.cs" />
     <Compile Include="Services\GestionProjetSecuriserService.cs" />
     <Compile Include="Services\ProjetSecuriserService.cs" />
     <Compile Include="Services\GestionGroupeADService.cs" />
@@ -1494,6 +1464,7 @@
     <Compile Include="Services\TTIndexService.cs" />
     <Compile Include="Services\TDT_PSWPermissionService.cs" />
     <Compile Include="Services\TTProjetMenuService.cs" />
+    <Compile Include="Services\VeirificationKMService.cs" />
     <Compile Include="Views\Admin\ImpersonateResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -6374,6 +6345,9 @@
     <Content Include="Views\GestionProjetSecuriser\EmployeeListPartialGestionProjetSecuriser.cshtml" />
     <Content Include="Views\GestionProjetSecuriser\Index.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\VerificationKM\Index.cshtml" />
+    <Content Include="Views\emailCP\Index.cshtml" />
+    <Content Include="Views\emailCP\_ResponsesStatusPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

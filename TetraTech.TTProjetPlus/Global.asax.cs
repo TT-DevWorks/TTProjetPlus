@@ -18,6 +18,9 @@ namespace TetraTech.TTProjetPlus
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            serializer.MaxJsonLength = Int32.MaxValue; // ~2 Go
         }
 
         protected void Application_AcquireRequestState(Object sender, EventArgs e)

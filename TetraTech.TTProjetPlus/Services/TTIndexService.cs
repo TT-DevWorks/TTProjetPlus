@@ -23,30 +23,30 @@ namespace TetraTech.TTProjetPlus.Services
             return query.Distinct().ToList().Count();
         }
 
-        public string getTreeFromDB(string newName)
+        //public string getTreeFromDB(string newName)
 
-        {
-            return _entities.TTIndex_Trees_Doc_Proj.Where(p => p.TreeName == newName).Select(p => p.Tree).FirstOrDefault();
-        }
+        //{
+        //    return _entities.TTIndex_Trees_Doc_Proj.Where(p => p.TreeName == newName).Select(p => p.Tree).FirstOrDefault();
+        //}
 
-        public bool insertTreeInDB(string newName, string tree)
+        //public bool insertTreeInDB(string newName, string tree)
 
-        {
-            try
-            {
-                TTIndex_Trees_Doc_Proj itemToInsert = new TTIndex_Trees_Doc_Proj();
-                itemToInsert.TreeName = newName;
-                itemToInsert.Tree = tree;
-                _entities.TTIndex_Trees_Doc_Proj.Add(itemToInsert);
-                _entities.SaveChanges();
-                return true;
+        //{
+        //    try
+        //    {
+        //        TTIndex_Trees_Doc_Proj itemToInsert = new TTIndex_Trees_Doc_Proj();
+        //        itemToInsert.TreeName = newName;
+        //        itemToInsert.Tree = tree;
+        //        _entities.TTIndex_Trees_Doc_Proj.Add(itemToInsert);
+        //        _entities.SaveChanges();
+        //        return true;
 
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return false;
+        //    }
+        //}
 
         public List<string> getFilesExtensions()
         {

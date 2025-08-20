@@ -20,14 +20,8 @@ namespace TetraTech.TTProjetPlus.Data
         public SuiviMandatEntitiesNew2()
             : base("name=SuiviMandatEntitiesNew2")
         {
-            // Get the ObjectContext related to this DbContext
-            var objectContext = (this as IObjectContextAdapter).ObjectContext;
-
-            // Sets the command timeout for all the commands
-            objectContext.CommandTimeout = 0;
-
         }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -681,6 +675,32 @@ namespace TetraTech.TTProjetPlus.Data
         public virtual ObjectResult<usp_TDT__getProject_ProgramManager_Precedent_vs_Current_PeriodWeekDate_Result> usp_TDT__getProject_ProgramManager_Precedent_vs_Current_PeriodWeekDate()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_TDT__getProject_ProgramManager_Precedent_vs_Current_PeriodWeekDate_Result>("usp_TDT__getProject_ProgramManager_Precedent_vs_Current_PeriodWeekDate");
+        }
+    
+        public virtual ObjectResult<usp_TT_Verif_KM_role_Result> usp_TT_Verif_KM_role(string acct_center, string role, Nullable<int> empNum)
+        {
+            var acct_centerParameter = acct_center != null ?
+                new ObjectParameter("acct_center", acct_center) :
+                new ObjectParameter("acct_center", typeof(string));
+    
+            var roleParameter = role != null ?
+                new ObjectParameter("role", role) :
+                new ObjectParameter("role", typeof(string));
+    
+            var empNumParameter = empNum.HasValue ?
+                new ObjectParameter("empNum", empNum) :
+                new ObjectParameter("empNum", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_TT_Verif_KM_role_Result>("usp_TT_Verif_KM_role", acct_centerParameter, roleParameter, empNumParameter);
+        }
+    
+        public virtual ObjectResult<usp_TT_getProjetAvecDateDepasse_Result> usp_TT_getProjetAvecDateDepasse(string empRGE)
+        {
+            var empRGEParameter = empRGE != null ?
+                new ObjectParameter("empRGE", empRGE) :
+                new ObjectParameter("empRGE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_TT_getProjetAvecDateDepasse_Result>("usp_TT_getProjetAvecDateDepasse", empRGEParameter);
         }
     }
 }
