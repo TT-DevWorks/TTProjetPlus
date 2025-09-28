@@ -1,6 +1,7 @@
 ﻿@using Resources = TetraTech.TTProjetPlus.Views.TTProjet
 @using Resources2 = TetraTech.TTProjetPlus.Views.ListeOffres
 @using System.Data
+@using System.Globalization;
 @model  TetraTech.TTProjetPlus.Models.getProjetAvecDateDepasseModel
 <style></style>
 
@@ -98,6 +99,11 @@
                 background: #007bff;
                 color: #fff;
             }
+
+    .dropdown-menu{
+        font-size: 11px;
+    }
+ 
 </style>
 
 <div id="loading">
@@ -195,22 +201,30 @@
 
 
                                             <div style=" max-height: 600px; max-width: 100%;">
+
+                                                <div class="row mb-2">
+                                                    <div class="col-lg-2">
+                                                        <button class="btn btn-warning btn-sm" onclick="exportTableToExcel('editableTable2', 'RapportProjetsEchus.xlsx')">Exporter vers Excel</button>
+                                                    </div>
+
+                                                </div>
+                                                <br />
                                                 <div class="row mb-2">
 
                                                     @if (ViewBag.isAdminInfo == true)
                                                     {
-                                                        <div class="col-lg-2">
+                                                        @*<div class="col-lg-2">
                                                             <input type="text" id="tableSearch2" class="form-control" placeholder="Rechercher...">
 
-                                                        </div>
+                                                        </div>*@
 
 
                                                         <div class="col-lg-2">
-                                                            <select data-live-search="true" class="selectpicker form-control" id="empToSendMail">
+                                                            <select data-live-search="true" class="selectpicker form-control" id="empToSendMail" data-width="220px">
                                                                 <option value="">Choisir un chargé de projets</option>
                                                                 @for (int i = 0; i < Model.listeCP.Count; i++)
                                                                 {
-                                                                    <option value="@Model.listeCP[i].CP_num">@Model.listeCP[i].CP_name (@Model.listeCP[i].CP_num)</option>
+                                                                    <option value="@Model.listeCP[i].CP_name">@Model.listeCP[i].CP_name @*(@Model.listeCP[i].CP_num*@)</option>
                                                                 }
                                                             </select>
                                                         </div>
@@ -268,50 +282,57 @@
                                                             <table id="editableTable2" class="table table-bordered sticky-table" style="font-size: 10px;">
                                                                 <thead>
                                                                     <tr id="tableHeader">
-                                                                        <td>project_mgr_num</td>
-                                                                        <td>project_mgr_name</td>
-                                                                        <td># Projet</td>
-                                                                        <td>Titre</td>
-                                                                        <td>Client</td>
-                                                                        <td>Numéro agent de facturation</td>
-                                                                        <td>Agent de facturation</td>
-                                                                        <td>Budget de revenu</td>
-                                                                        <td>RevReconnu</td>
-                                                                        <td>% Dépensé</td>
-                                                                        <td>Vendant cumulatif</td>
-                                                                        <td>Facturé à date</td>
-                                                                        <td>% Facturé</td>
-                                                                        <td>Date de fin de projet</td>
-                                                                        <td>Semaine Inactive</td>
-                                                                        <td>Nouvelle date de fin</td>
-                                                                        <td>A fermer</td>
-                                                                        <td>Commentaire</td>
+                                                                        @*<td>project_mgr_num</td>*@
+                                                                        <th>Gestionnaire de projet</th>
+                                                                        <th># Projet</th>
+                                                                        <th>Titre</th>
+                                                                        <th>Client</th>
+                                                                        @*<td>Numéro agent de facturation</td>*@
+                                                                        <th>Technicienne à la facturation</th>
+                                                                        <th>Budget de revenu</th>
+                                                                        <th>RevReconnu</th>
+                                                                        <th>% Dépensé</th>
+                                                                        <th>Vendant cumulatif</th>
+                                                                        <th>Facturé à date</th>
+                                                                        <th>% Facturé</th>
+                                                                        <th>Date de fin de projet</th>
+                                                                        <th>Semaine Inactive</th>
+                                                                        <th>Nouvelle date de fin</th>
+                                                                        <th> fermer</th>
+                                                                        <th>Commentaire</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tableBody">
                                                                     @foreach (TetraTech.TTProjetPlus.Data.usp_TT_getProjetAvecDateDepasse_Result item in Model.listeProjects)
                                                                     {
                                                                         <tr>
-                                                                            <td>@item.project_mgr_num</td>
+                                                                            @*<td>@item.project_mgr_num</td>*@
                                                                             <td>@item.project_mgr_name</td>
                                                                             <td>@item.C__Projet</td>
                                                                             <td>@item.Titre</td>
                                                                             <td>@item.Client</td>
-                                                                            <td>@item.Numéro_agent_de_facturation</td>
+                                                                            @*<td>@item.Numéro_agent_de_facturation</td>*@
                                                                             <td>@item.Agent_de_facturation</td>
-                                                                            <td>@item.Budget_de_revenu</td>
-                                                                            <td>@item.RevReconnu</td>
-                                                                            <td>@Math.Round((double)(item.C__Dépensé * 100), 2)</td>
-                                                                            <td>@item.Vendant_cumulatif</td>
-                                                                            <td>@item.Facturé_à_date</td>
-                                                                            <td>@Math.Round((double)(item.C__Facturé * 100), 2)</td>
-                                                                            <td>@item.Date_de_fin_de_projet</td>
-                                                                            <td>@item.Semaine_Inactive</td>
+                                                                            <td style="text-align: right">@Math.Ceiling(item.Budget_de_revenu).ToString("N0", new CultureInfo("fr-FR")) $</td>
+                                                                            <td style="text-align: right">@Math.Ceiling((decimal)item.RevReconnu).ToString("N0", new CultureInfo("fr-FR")) $</td>
+                                                                            <td style="text-align: right">@Math.Round((double)(item.C__Dépensé * 100), 3).ToString("N0", new CultureInfo("fr-FR")) %</td>
+                                                                            <td style="text-align: right">@Math.Ceiling((decimal)item.Vendant_cumulatif).ToString("N0", new CultureInfo("fr-FR")) $</td>
+                                                                            <td style="text-align: right">@Math.Ceiling((decimal)item.Facturé_à_date).ToString("N0", new CultureInfo("fr-FR")) $</td>
+                                                                            <td style="text-align: right">@Math.Round((double)(item.C__Facturé * 100), 1).ToString("N0", new CultureInfo("fr-FR")) %</td>
+                                                                            <td>@item.Date_de_fin_de_projet.ToString("yyyy-MM-dd")</td>
+                                                                            <td style="text-align: right">@Math.Round((double)(item.Semaine_Inactive), 1).ToString("N0", new CultureInfo("fr-FR"))</td>
                                                                             <td>
                                                                                 <input rows="1" cols="30" class="datepicker" placeholder="nouvelle date...">
                                                                             </td>
                                                                             <td>
-                                                                                <textarea rows="1" cols="30" placeholder="A fermer..."></textarea>
+                                                                                @*<textarea rows="1" cols="30" placeholder="A fermer..."></textarea>*@
+                                                                                <div class="form-group">
+                                                                                    <select class="form-control" id="ouiNonSelect" name="ouiNonSelect" style="font-size:10px">
+                                                                                        <option value="">Sélectionnez</option>
+                                                                                        <option value="Oui">Oui</option>
+                                                                                        <option value="Non">Non</option>
+                                                                                    </select>
+                                                                                </div>
                                                                             </td>
                                                                             <td>
                                                                                 <textarea rows="1" cols="30" placeholder="Commentaire..."></textarea>
@@ -364,7 +385,7 @@
 </div>
 
 
-<div id="reponsesStatusModal" class="modal fade"  tabindex="-1" role="dialog" aria-hidden="true" >
+<div id="reponsesStatusModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content p-3">
             <div class="modal-header">
@@ -382,6 +403,75 @@
 </div>
 
 <script>
+
+    //pagination
+    let currentPage = 1;
+    const rowsPerPage = 10; // adjust as needed
+
+
+    function updatePagination() {
+        let rows = $("#editableTable2 tbody tr:visible"); // only visible rows
+        let totalRows = rows.length;
+        let totalPages = Math.ceil(totalRows / rowsPerPage);
+
+        // Hide all rows, then show only current page
+        rows.hide();
+        rows.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage).show();
+
+        // Update page info
+        $("#pageInfo").text("Page " + currentPage + " / " + totalPages);
+
+        // Enable/disable buttons
+        //$("#prevPage").prop("disabled", currentPage === 1);
+        //$("#nextPage").prop("disabled", currentPage === totalPages || totalPages === 0);
+
+    }
+
+    // === Navigation buttons ===
+    $("#prevPage").on("click", function () {
+        if (currentPage >= 1) {
+            currentPage--;
+            updatePagination();
+        }
+    });
+    $("#nextPage").on("click", function () {
+        let totalRows = $("#editableTable2 tbody tr:visible").length;
+        let totalPages = Math.ceil(totalRows / rowsPerPage);
+        if (currentPage <= totalPages) {
+            currentPage++;
+            updatePagination();
+        }
+    });
+
+    // === Search filter ===
+    //$("#tableSearch2").on("keyup", function () {
+    //    var searchTerm = $(this).val().toLowerCase();
+    //    $("#editableTable2 tbody tr").each(function () {
+    //        var rowText = $(this).text().toLowerCase();
+    //        $(this).toggle(rowText.indexOf(searchTerm) > -1);
+    //    });
+    //    currentPage = 1; // reset to first page
+    //    updatePagination();
+    //});
+
+    // === Dropdown filter ===
+    $("#empToSendMail").on("change", function () {
+        var selected = $(this).val();
+        $("#editableTable2 tbody tr").each(function () {
+            var cellText = $(this).find("td:first").text().trim();
+            if (selected === "" || cellText === selected) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+        currentPage = 1; // reset to first page
+        updatePagination();
+    });
+
+
+
+
     function responsesStatus() {
         $('#reponsesStatusModal').modal('show');
         $.ajax({
@@ -429,6 +519,36 @@
         });
 
 
+
+
+        //// === Filtre via la recherche ===
+        //$("#tableSearch2").on("keyup", function () {
+        //    var searchTerm = $(this).val().toLowerCase();
+        //    $("#editableTable2 tbody tr").each(function () {
+        //        var rowText = $(this).text().toLowerCase();
+        //        $(this).toggle(rowText.indexOf(searchTerm) > -1);
+        //    });
+        //});
+
+        //// === Filtre via le dropdown ===
+        //$("#empToSendMail").on("change", function () {
+        //    var selected = $(this).val();
+        //    $("#editableTable2 tbody tr").each(function () {
+        //        var cellText = $(this).find("td:first").text().trim();
+        //        if (selected === "" || cellText === selected) {
+        //            $(this).show();
+        //        } else {
+        //            $(this).hide();
+        //        }
+        //    });
+        //});
+
+
+        /* updatePagination();*/
+        //$("#prevPage").prop("disabled", false);
+        //$("#nextPage").prop("disabled", false);
+
+
     });
 
 
@@ -461,38 +581,58 @@
         }
     });
 
-    function searchTable() {
-        let input = document.getElementById("tableSearch2");
-        let filter = input.value.toLowerCase();
-        let table = document.getElementById("editableTable2");
-        let tbody = table.getElementsByTagName("tbody")[0];
-        let rows = tbody.getElementsByTagName("tr");
+    //function searchTable() {
+    //    let input = document.getElementById("tableSearch2");
+    //    let filter = input.value.toLowerCase();
+    //    let table = document.getElementById("editableTable2");
+    //    let tbody = table.getElementsByTagName("tbody")[0];
+    //    let rows = tbody.getElementsByTagName("tr");
 
-        for (let i = 0; i < rows.length; i++) {
-            let cells = rows[i].getElementsByTagName("td");
-            let found = false;
+    //    for (let i = 0; i < rows.length; i++) {
+    //        let cells = rows[i].getElementsByTagName("td");
+    //        let found = false;
 
-            for (let j = 0; j < cells.length; j++) {
-                if (cells[j].textContent.toLowerCase().includes(filter)) {
-                    found = true;
-                    break;
-                }
-            }
+    //        for (let j = 0; j < cells.length; j++) {
+    //            if (cells[j].textContent.toLowerCase().includes(filter)) {
+    //                found = true;
+    //                break;
+    //            }
+    //        }
 
-            rows[i].style.display = found ? "" : "none";
-        }
-    }
+    //        rows[i].style.display = found ? "" : "none";
+    //    }
+    //}
 
 
-    document.getElementById("empToSendMail").addEventListener("change", function () {
-        // Put the selected value into the search box
-        document.getElementById("tableSearch2").value = this.value;
+    //function searchTable2(item) {
+    //    let filter = item;
+    //    let table = document.getElementById("editableTable2");
+    //    let tbody = table.getElementsByTagName("tbody")[0];
+    //    let rows = tbody.getElementsByTagName("tr");
 
-        // Call your existing search function
-        searchTable();
-    });
+    //    for (let i = 0; i < rows.length; i++) {
+    //        let cells = rows[i].getElementsByTagName("td");
+    //        let found = false;
 
-    document.getElementById("tableSearch2").addEventListener("keyup", searchTable);
+    //            if (cells[0].textContent.toLowerCase().includes(filter)) {
+    //                found = true;
+    //                break;
+    //            }
+
+    //        rows[i].style.display = found ? "" : "none";
+    //    }
+    //}
+
+
+    //document.getElementById("empToSendMail").addEventListener("change", function () {
+    //    // Put the selected value into the search box
+    //   // document.getElementById("tableSearch2").value = this.value;
+
+    //    // Call your existing search function
+    //    searchTable2($('#empToSendMail').val());
+    //});
+
+    //document.getElementById("tableSearch2").addEventListener("keyup", searchTable);
 
 
     function sendEmail_ToCP(param) {
@@ -555,7 +695,7 @@
 
                 // Les 3 dernières cellules contiennent les textarea
                 var newDate = $row.find("td").eq(-3).find("input").val().trim();
-                var toClose = $row.find("td").eq(-2).find("textarea").val().trim();
+                var toClose = $row.find("td").eq(-2).find("select").val().trim();
                 var comment = $row.find("td").eq(-1).find("textarea").val().trim();
 
                 // Crée une ligne unique séparée par "|"
@@ -605,7 +745,7 @@
         }
 
         function filterRows() {
-            const filter = document.getElementById("tableSearch2").value.toLowerCase();
+            const filter = document.getElementById("empToSendMail").value.toLowerCase();
             return allRows.filter(row => {
                 const cells = Array.from(row.querySelectorAll("td"));
                 return cells.some(cell => cell.textContent.toLowerCase().includes(filter));
@@ -641,7 +781,7 @@
         });
 
         // Search box
-        document.getElementById("tableSearch2").addEventListener("input", function () {
+        document.getElementById("empToSendMail").addEventListener("input", function () {
             showPage(1);
         });
 
@@ -653,4 +793,49 @@
         // Initial display
         showPage(1);
     });
+
+
+    //excel:
+    function exportTableToExcel(tableID, filename = 'export.xlsx') {
+        let table = document.getElementById(tableID);
+        let wb = XLSX.utils.book_new();
+        let ws_data = [];
+
+        // Loop through table rows
+        for (let i = 0; i < table.rows.length; i++) {
+            let row = [];
+            for (let j = 0; j < table.rows[i].cells.length; j++) {
+                let cell = table.rows[i].cells[j];
+                let value = "";
+
+                // Handle inputs/selects/textareas
+                let input = cell.querySelector("input, select, textarea");
+                if (input) {
+                    if (input.tagName === "SELECT") {
+                        value = input.options[input.selectedIndex]?.text || "";
+                    } else {
+                        value = input.value || input.placeholder || "";
+                    }
+                } else {
+                    value = cell.innerText.trim();
+                }
+
+                row.push(value);
+            }
+            ws_data.push(row);
+        }
+
+        // Create worksheet
+        let ws = XLSX.utils.aoa_to_sheet(ws_data);
+
+        // Append worksheet to workbook
+        XLSX.utils.book_append_sheet(wb, ws, "Projets");
+
+        // Save to file
+        XLSX.writeFile(wb, filename);
+    }
+
+
+
+
 </script>

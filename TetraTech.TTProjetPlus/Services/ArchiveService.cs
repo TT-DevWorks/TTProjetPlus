@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -14,168 +16,237 @@ namespace TetraTech.TTProjetPlus.Services
         private readonly SuiviMandatEntitiesNew2 _entitiesSuiviMandat = new SuiviMandatEntitiesNew2();
         private readonly HomeService _HomeService = new HomeService();
 
-        public List<string> ArchiveProject(List<string> listProjects, List<string> pathPartageList)
+        public string ArchiveProject(List<string> listProjects, List<string> pathPartageList)
         {
             //String strPathServer = "";
-            String strPathProject = "";
-            String strPathArchiveProject = "";
-            int projctHas10Confidentiel = 0;
+            //String strPathProject = "";
+            //String strPathArchiveProject = "";
+            //int projctHas10Confidentiel = 0;
             List<string> errorList = new List<string>();
-            for(int i=0; i< listProjects.Count; i++)
-            {
-                    try
-                    {
+            //for(int i=0; i< listProjects.Count; i++)
+            //{
+            //        try
+            //        {
 
-                    //1)
-                    //Récupérer le path partage du serveur où se retrouve le projet
-                      var server = returnPathPartage2(listProjects[i]);
-                    //strPathServer = @"\\tts349test03\Prj_Reg\"; //pathPartage
-                    strPathProject = server + "\\" + listProjects[i];
-                    strPathArchiveProject = server + "\\" + @"_Ferme\" + listProjects[i];
+            //        //1)
+            //        //Récupérer le path partage du serveur où se retrouve le projet
+            //          var server = returnPathPartage2(listProjects[i]);
+            //        //strPathServer = @"\\tts349test03\Prj_Reg\"; //pathPartage
+            //        strPathProject = server + "\\" + listProjects[i];
+            //        strPathArchiveProject = server + "\\" + @"_Ferme\" + listProjects[i];
 
-                    //strPathProject = @"C:\test1";
-                    //strPathArchiveProject = @"C:\test2\test.txt";
-                    //marche bien avec ces parametres mais pas avec les parametres veritables a cause de problémes de permission
+            //        //strPathProject = @"C:\test1";
+            //        //strPathArchiveProject = @"C:\test2\test.txt";
+            //        //marche bien avec ces parametres mais pas avec les parametres veritables a cause de problémes de permission
 
 
-                    if (Directory.Exists(strPathProject))
-                    {
-                            if (Directory.Exists(strPathProject + @"\DOC-PROJ\10\10CONFIDENTIEL"))
-                            {
-                            projctHas10Confidentiel = 1;
-                            }
-                            //2)
-                            //BPR Projet: Update eta_pro_id = 2
-                            //TT Projet + +: Date archivage de la structure ?
-                            //on essaye de deplacer le projet vers le folder _ferme
-                            var moveProjectFolder = MoveProjectFolder(strPathProject, strPathArchiveProject, listProjects[i]);
-                                    if (moveProjectFolder == "0")
-                                    {
-                                            //3)
-                                            //mettre a jour le statut
-                                            var updateProjectState = UpdateProjectState(listProjects[i]);
-                                            if (updateProjectState == "0")
-                                            {
-                                            //4)
-                                            //Refaire la sécurité            
-                                            var secureArchiveFolder = SecureArchiveFolder(listProjects[i], projctHas10Confidentiel);
-                                            if (secureArchiveFolder == "0")
-                                                {
-                                       errorList.Add( "Succés pour " + listProjects[i]);
-                                                }
-                                                else
-                                                {
-                                    //une erreur a été loguée a cause d un probleme dans SecureArchiveFolder
-                                    errorList.Add("Échec pour " + listProjects[i] + "( voir error log dans BD )");
-                                                }
+            //        if (Directory.Exists(strPathProject))
+            //        {
+            //                if (Directory.Exists(strPathProject + @"\DOC-PROJ\10\10CONFIDENTIEL"))
+            //                {
+            //                projctHas10Confidentiel = 1;
+            //                }
+            //                //2)
+            //                //BPR Projet: Update eta_pro_id = 2
+            //                //TT Projet + +: Date archivage de la structure ?
+            //                //on essaye de deplacer le projet vers le folder _ferme
+            //                var moveProjectFolder = MoveProjectFolder(strPathProject, strPathArchiveProject, listProjects[i]);
+            //                        if (moveProjectFolder == "0")
+            //                        {
+            //                                //3)
+            //                                //mettre a jour le statut
+            //                                var updateProjectState = UpdateProjectState(listProjects[i]);
+            //                                if (updateProjectState == "0")
+            //                                {
+            //                                //4)
+            //                                //Refaire la sécurité            
+            //                                var secureArchiveFolder = SecureArchiveFolder(listProjects[i], projctHas10Confidentiel);
+            //                                if (secureArchiveFolder == "0")
+            //                                    {
+            //                           errorList.Add( "Succés pour " + listProjects[i]);
+            //                                    }
+            //                                    else
+            //                                    {
+            //                        //une erreur a été loguée a cause d un probleme dans SecureArchiveFolder
+            //                        errorList.Add("Échec pour " + listProjects[i] + "( voir error log dans BD )");
+            //                                    }
 
-                                            }
-                                            else
-                                            {
-                                //une erreur a été loguée a cause d un probleme dans UpdateProjectState
-                                errorList.Add("Échec pour " + listProjects[i] + "( voir error log dans BD )");
+            //                                }
+            //                                else
+            //                                {
+            //                    //une erreur a été loguée a cause d un probleme dans UpdateProjectState
+            //                    errorList.Add("Échec pour " + listProjects[i] + "( voir error log dans BD )");
 
-                                            }
+            //                                }
 
-                                    }
+            //                        }
 
-                                    else
-                                    {
-                                    //une erreur a été loguée a cause d un probleme dans MoveProjectFolder
-                                    if (moveProjectFolder == "-1")
-                                errorList.Add("Échec pour " + listProjects[i] + "( dossier non déplacé - voir error log dans BD )");
-                                    else
-                                errorList.Add("Échec pour " + listProjects[i] + "( Windows Explorer ou une autre application pointe vers la structure de répertoires demandée - voir error log dans BD )");
-                                    }
-                    }
+            //                        else
+            //                        {
+            //                        //une erreur a été loguée a cause d un probleme dans MoveProjectFolder
+            //                        if (moveProjectFolder == "-1")
+            //                    errorList.Add("Échec pour " + listProjects[i] + "( dossier non déplacé - voir error log dans BD )");
+            //                        else
+            //                    errorList.Add("Échec pour " + listProjects[i] + "( Windows Explorer ou une autre application pointe vers la structure de répertoires demandée - voir error log dans BD )");
+            //                        }
+            //        }
 
-                    else
-                    {
-                        //une erreur a été loguée a cause d un probleme dans MoveProjectFolder
-                        errorList.Add("Échec pour " + listProjects[i] + "( Le projet demandé n'existe pas sur le serveur. Pour plus de détails, veuillez communiquer avec l'administrateur - voir error log dans BD )");
-                       
-                    }
+            //        else
+            //        {
+            //            //une erreur a été loguée a cause d un probleme dans MoveProjectFolder
+            //            errorList.Add("Échec pour " + listProjects[i] + "( Le projet demandé n'existe pas sur le serveur. Pour plus de détails, veuillez communiquer avec l'administrateur - voir error log dans BD )");
 
-                    }
-                    catch (Exception e)
-                    {
-                    _HomeService.addErrorLog(e, "ArchiveService", "ArchiveProject", listProjects[i]);
-                    errorList.Add("Échec pour " + listProjects[i] + " ( voir error log dans BD )");
+            //        }
 
-                }
+            //        }
+            //        catch (Exception e)
+            //        {
+            //        _HomeService.addErrorLog(e, "ArchiveService", "ArchiveProject", listProjects[i]);
+            //        errorList.Add("Échec pour " + listProjects[i] + " ( voir error log dans BD )");
 
-             }
-            return errorList;
-}
+            //    }
 
-        public string ArchiveProject2(string strProjectNo, string pathPartage)
-        {
-            String strPathServer = "";
-            String strPathProject = "";
-            String strPathArchiveProject = "";
-            int projctHas10Confidentiel = 0;
+            // }
 
             try
             {
-                //1)
-                //Récupérer le path partage du serveur où se retrouve le projet
-                var server = returnPathPartage2(strProjectNo);
-                strPathServer = @"\\tts349test03\Prj_Reg\"; //pathPartage, cette variable n est pas utilisée
-                strPathProject = server + "\\" + strProjectNo;
-                strPathArchiveProject = server + "\\" + @"_Ferme\" + strProjectNo;
+            string connectionString = @"data source=tts349test02;initial catalog=BPRProjet;persist security info=True;user id=BPRProjetUser;password=BPRProjetUser;MultipleActiveResultSets=True;App=EntityFramework";
 
-                if (Directory.Exists(strPathProject))
-                {
-                    if (Directory.Exists(strPathProject + @"\DOC-PROJ\10\10CONFIDENTIEL"))
-                    {
-                        projctHas10Confidentiel = 1;
-                    }
-                    //2)
-                    //BPR Projet: Update eta_pro_id = 2
-                    //TT Projet + +: Date archivage de la structure ?
-                    //on essaye de deplacer le projet vers le folder _ferme
-                    var moveProjectFolder = MoveProjectFolder(strPathProject, strPathArchiveProject, strProjectNo);
-                    if (moveProjectFolder == "0")
-                    {
-                        //3)
-                        //mettre a jour le statut
-                        var updateProjectState = UpdateProjectState(strProjectNo);
-                        if (updateProjectState == "0")
-                        {
-                            //4)
-                            //Refaire la sécurité            
-                            var secureArchiveFolder = SecureArchiveFolder(strProjectNo, projctHas10Confidentiel);
-                            if (secureArchiveFolder == "0")
-                            {
-                                return "success";
-                            }
-                            else
-                            {
-                                //une erreur a été loguée a cause d un probleme dans SecureArchiveFolder
-                                return "fail";
-                            }
-                        }
-                        else
-                        {
-                            //une erreur a été loguée a cause d un probleme dans UpdateProjectState
-                            return "fail";
-                        }
-                    }
-                    else
-                    {
-                        //une erreur a été loguée a cause d un probleme dans MoveProjectFolder
-                        if (moveProjectFolder == "-1")
-                            return "failMoveFolder";
-                        else
-                            return "openedWindows";
-                    }
-                }
-                else
-                {
-                    //une erreur a été loguée a cause d un probleme dans MoveProjectFolder
-                    return "failExistOnServer";
+            // 1. Build a DataTable that matches dbo.lstProj2Archive
+            DataTable projTable = new DataTable();
+            projTable.Columns.Add("Pro_id", typeof(string));
 
+            // Add rows (list of projects to archive)
+            foreach (string item in listProjects)
+            {
+                projTable.Rows.Add(item);
+
+            }
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand("dbo.usp_ArchiveProjet", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandTimeout = 300;
+                // 2. Add the table-valued parameter
+                SqlParameter tvpParam = cmd.Parameters.AddWithValue("@lstProj2Archive", projTable);
+                tvpParam.SqlDbType = SqlDbType.Structured;
+                tvpParam.TypeName = "dbo.lstProj2Archive"; // must match the SQL type
+
+                conn.Open();
+
+                // 3. Execute the procedure
+                cmd.ExecuteNonQuery();
+               
+            }
+                return "sucess";
+
+            }
+
+            catch (Exception e)
+            {
+                _HomeService.addErrorLog(e, "ArchiveService", "ArchiveProject", "");
+                return "fail";
+            }
+
+        }
+
+        public string ArchiveProject2(string strProjectNo, string pathPartage)
+        {
+            //String strPathServer = "";
+            //String strPathProject = "";
+            //String strPathArchiveProject = "";
+            //int projctHas10Confidentiel = 0;
+
+            try
+            {
+                string connectionString = @"data source=tts349test02;initial catalog=BPRProjet;persist security info=True;user id=BPRProjetUser;password=BPRProjetUser;MultipleActiveResultSets=True;App=EntityFramework";
+
+                // 1. Build a DataTable that matches dbo.lstProj2Archive
+                DataTable projTable = new DataTable();
+                projTable.Columns.Add("Pro_id", typeof(string));
+
+                // Add rows (list of projects to archive)
+                projTable.Rows.Add(strProjectNo);
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlCommand cmd = new SqlCommand("dbo.usp_ArchiveProjet", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandTimeout = 300;
+                    // 2. Add the table-valued parameter
+                    SqlParameter tvpParam = cmd.Parameters.AddWithValue("@lstProj2Archive", projTable);
+                    tvpParam.SqlDbType = SqlDbType.Structured;
+                    tvpParam.TypeName = "dbo.lstProj2Archive"; // must match the SQL type
+
+                    conn.Open();
+
+                    // 3. Execute the procedure
+                    cmd.ExecuteNonQuery();
                 }
+
+
+                ////1)
+                ////Récupérer le path partage du serveur où se retrouve le projet
+                //var server = returnPathPartage2(strProjectNo);
+                //strPathServer = @"\\tts349test03\Prj_Reg\"; //pathPartage, cette variable n est pas utilisée
+                //strPathProject = server + "\\" + strProjectNo;
+                //strPathArchiveProject = server + "\\" + @"_Ferme\" + strProjectNo;
+
+                //if (Directory.Exists(strPathProject))
+                //{
+                //    if (Directory.Exists(strPathProject + @"\DOC-PROJ\10\10CONFIDENTIEL"))
+                //    {
+                //        projctHas10Confidentiel = 1;
+                //    }
+                //    //2)
+                //    //BPR Projet: Update eta_pro_id = 2
+                //    //TT Projet + +: Date archivage de la structure ?
+                //    //on essaye de deplacer le projet vers le folder _ferme
+                //    var moveProjectFolder = MoveProjectFolder(strPathProject, strPathArchiveProject, strProjectNo);
+                //    if (moveProjectFolder == "0")
+                //    {
+                //        //3)
+                //        //mettre a jour le statut
+                //        var updateProjectState = UpdateProjectState(strProjectNo);
+                //        if (updateProjectState == "0")
+                //        {
+                //            //4)
+                //            //Refaire la sécurité            
+                //            var secureArchiveFolder = SecureArchiveFolder(strProjectNo, projctHas10Confidentiel);
+                //            if (secureArchiveFolder == "0")
+                //            {
+                //                return "success";
+                //            }
+                //            else
+                //            {
+                //                //une erreur a été loguée a cause d un probleme dans SecureArchiveFolder
+                //                return "fail";
+                //            }
+                //        }
+                //        else
+                //        {
+                //            //une erreur a été loguée a cause d un probleme dans UpdateProjectState
+                //            return "fail";
+                //        }
+                //    }
+                //    else
+                //    {
+                //        //une erreur a été loguée a cause d un probleme dans MoveProjectFolder
+                //        if (moveProjectFolder == "-1")
+                //            return "failMoveFolder";
+                //        else
+                //            return "openedWindows";
+                //    }
+                //}
+                //else
+                //{
+                //    //une erreur a été loguée a cause d un probleme dans MoveProjectFolder
+                //    return "failExistOnServer";
+
+                //}
+
+                return "success";
             }
             catch (Exception e)
             {

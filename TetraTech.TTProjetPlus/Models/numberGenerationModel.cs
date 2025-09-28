@@ -117,6 +117,7 @@ namespace TetraTech.TTProjetPlus.Models
         public string Description { get; set; }
         public string Value { get; set; }
         public string email { get; set; }
+       public DateTime PRO_Date_Creation { get; set; }
     }
 
     public class masterProjectItem

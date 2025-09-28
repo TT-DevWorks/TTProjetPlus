@@ -38,29 +38,17 @@ namespace TetraTech.TTProjetPlus.Services
 
                     totalListModel = returnProjectDatePasseListe(null);
 
-
-
-                  //var  list_CP_Num_Name = returnProjectDatePasseListe(null);
-                    //foreach(CP item in list_CP_Num_Name.listeCP)
-                    //{
-                    //    listNumFinal.Add(item.CP_num);
-                       
-                    //    listName.Add(item.CP_name); //en prevision d un rapport a sylvie
-                    //}
                 }
                 else
                 {
                     var cpNum = listCP[0];
-                    totalListModel = returnProjectDatePasseListe(cpNum);
+                    var cpNumEmp = _entitiesSuiviMandat.EmployeeActif_Inactive.Where(x => x.FULL_NAME == cpNum).Select(x => x.EMPLOYEE_NUMBER).FirstOrDefault();
+                    totalListModel = returnProjectDatePasseListe(cpNumEmp);
                     //listNumFinal.Add(listCP[0]);
                     
-                    //var empName = _entitiesSuiviMandat.EmployeeActif_Inactive.Where(p => p.EMPLOYEE_NUMBER == cpNum ).Select(x => x.FULL_NAME).FirstOrDefault();
-                    //listName.Add(empName);
-
-
                 }
                
-                    foreach (usp_TT_getProjetAvecDateDepasse_Result itemProject in totalListModel.listeProjects)
+                    foreach (CP item in totalListModel.listeCP)
                     { 
                         MailMessage NewEmail = new System.Net.Mail.MailMessage();
                         string emailMessage = "";
@@ -69,7 +57,7 @@ namespace TetraTech.TTProjetPlus.Services
                         emailMessage += "</br>";
 
                         emailMessage += "<p> Merci de remplir les informations dans le tableau, a l'dresse suivante :</p> ";
-                        emailMessage += "<a href='http://localhost:53460/emailCP/Index?empNum=" + itemProject.project_mgr_num + "'>Projets échus ou qui arrivent a échéance</a>";
+                        emailMessage += "<a href='http://ttprojetplusdev.tetratech.com//emailCP/Index?empNum=" + item.CP_num  + "'>Projets échus ou qui arrivent a échéance</a>";
                         emailMessage += "</body>";
                         ///////////////////////////////////////////////////////////////////////
                         //NewEmail.Attachments.AddFileAttachment(FileNameForEmp);
@@ -77,11 +65,10 @@ namespace TetraTech.TTProjetPlus.Services
                         contentType.MediaType = System.Net.Mime.MediaTypeNames.Application.Octet;
 
 
-
-                        NewEmail.To.Add("frederic.ohnona@tetratech.com");//mail
+                        NewEmail.To.Add("sylvie.lambert@tetratech.com");//mail to sylvie.lambert@tetratech.com
 
                         NewEmail.From = new System.Net.Mail.MailAddress("rapport@tetratech.com");
-                        NewEmail.Subject = "email CP test";
+                        NewEmail.Subject = "informations à compléter par le chargé de projet  - (" + item.CP_name + ") ";
                         NewEmail.Body = new MessageBody(BodyType.HTML, emailMessage);
                         NewEmail.IsBodyHtml = true;
 
@@ -107,6 +94,7 @@ namespace TetraTech.TTProjetPlus.Services
                             emailMessage2 += "<tr style='font-family: arial; font-size:14px;background-color: #aab1b1;' >";
                             emailMessage2 += "<th style='width:8%;border: 1px solid black; border-collapse: collapse;text-align: left; padding: 4px;' > Numéro de CP </th>";
                             emailMessage2 += "<th style='width:8%;border: 1px solid black; border-collapse: collapse;text-align: left; padding: 4px;' > Nom cP </th>";
+                            emailMessage2 += "<th style='width:8%;border: 1px solid black; border-collapse: collapse;text-align: left; padding: 4px;' > Liste des projets concernés</th>";
                             emailMessage2 += " </tr>";
                             emailMessage2 += "</thead>";
                             emailMessage2 += "<tbody>";
@@ -115,7 +103,23 @@ namespace TetraTech.TTProjetPlus.Services
                             emailMessage2 += "<tr style='font-family: arial; font-size:14px;;'>";
                             emailMessage2 += "<td  style='border: 1px solid black; border-collapse: collapse;vertical-align: top;text-align: left; padding: 4px;'>" + itemCP.CP_num + "</td>";
                             emailMessage2 += "<td  style='border: 1px solid black; border-collapse: collapse;vertical-align: top;text-align: left; padding: 4px;'>" + itemCP.CP_name + "</td>";
-                            emailMessage2+= "</tr>";
+                    emailMessage2 += "<td  style='border: 1px solid black; border-collapse: collapse;vertical-align: top;text-align: left; padding: 4px;'>";
+                            emailMessage2 += "<ul>";
+
+                    var listPRojetForCP = totalListModel.listeProjects.Where(x => x.project_mgr_num == itemCP.CP_num).ToList();
+
+
+                    foreach (usp_TT_getProjetAvecDateDepasse_Result project in listPRojetForCP)
+                            {
+                                    emailMessage2 += "<li>";
+                                    emailMessage2 += project.C__Projet;
+                                    emailMessage2 += "</li>";
+
+                            }
+                        emailMessage2 += "</ul>";
+                        emailMessage2 += "</td>";
+
+                    emailMessage2 += "</tr>";
                             }
                             emailMessage2 += "</tbody>";
                             emailMessage2 += "</table>";
@@ -127,7 +131,7 @@ namespace TetraTech.TTProjetPlus.Services
 
 
 
-                        NewEmail2.To.Add("frederic.ohnona@tetratech.com");//mail
+                        NewEmail2.To.Add("sylvie.lambert@tetratech.com");//mail sylvie.lambert@tetratech.com
 
                         NewEmail2.From = new System.Net.Mail.MailAddress("rapport@tetratech.com");
                         NewEmail2.Subject = "Rapport d'envoie aux CP test";
@@ -155,7 +159,10 @@ namespace TetraTech.TTProjetPlus.Services
 
         public void save_EmailSent_ToCP(getProjetAvecDateDepasseModel totalListModel)
         {
-            string connectionString = @"data source=TQCS349SQL1\BPRSQL;initial catalog=TTProjetPlus;persist security info=True;user id=BPRProjetUser;password=BPRProjetUser;MultipleActiveResultSets=True;App=EntityFramework";
+          //DECOMMNETER AVANT MISE EN PROD
+          //  string connectionString = @"data source=TQCS349SQL1\BPRSQL;initial catalog=TTProjetPlus;persist security info=True;user id=BPRProjetUser;password=BPRProjetUser;MultipleActiveResultSets=True;App=EntityFramework";
+          //POUR DEV
+            string connectionString = @"data source=tts349test02;initial catalog=TTProjetPlus;persist security info=True;user id=BPRProjetUser;password=BPRProjetUser;MultipleActiveResultSets=True;App=EntityFramework";
 
 
             var dateToday = DateTime.Now.ToString("yyyy-MM-dd");
@@ -262,7 +269,9 @@ namespace TetraTech.TTProjetPlus.Services
 
 
 
-                NewEmail.To.Add("frederic.ohnona@tetratech.com");//mail
+                NewEmail.To.Add("sylvie.lambert@tetratech.com");//mail sylvie.lambert@tetratech.com
+
+                NewEmail.CC.Add("rapports@tetratech.com");//mail
 
 
                 NewEmail.From = new System.Net.Mail.MailAddress("rapport@tetratech.com");
@@ -279,7 +288,14 @@ namespace TetraTech.TTProjetPlus.Services
 
                 //ic on va mnettre a jour la table [TT_Suivi_ProjetsEchus] pour ajouter la date de reponse
 
-                string connectionString = @"data source=TQCS349SQL1\BPRSQL;initial catalog=TTProjetPlus;persist security info=True;user id=BPRProjetUser;password=BPRProjetUser;MultipleActiveResultSets=True;App=EntityFramework";
+                //DECOMMNETER POUR MISE EN PROD
+               // string connectionString = @"data source=TQCS349SQL1\BPRSQL;initial catalog=TTProjetPlus;persist security info=True;user id=BPRProjetUser;password=BPRProjetUser;MultipleActiveResultSets=True;App=EntityFramework";
+              
+                //DEV  
+                string connectionString = @"data source=tts349test02;initial catalog=TTProjetPlus;persist security info=True;user id=BPRProjetUser;password=BPRProjetUser;MultipleActiveResultSets=True;App=EntityFramework";
+
+
+
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
@@ -290,13 +306,6 @@ namespace TetraTech.TTProjetPlus.Services
                       string sqlQuery = "UPDATE [TTProjetPlus].[dbo].[TT_Suivi_ProjetsEchus] ";
                     sqlQuery += " SET [DateDeReponseCP]= '" + dateToday + "' ";
                     sqlQuery += " WHERE [cpNumber] = '" + empNum + "' and [projectNum] = '" + item.ProjetNum + "' "; 
-
-
-                        //string sqlQuery2 = "INSERT INTO [TTProjetPlus].[dbo].[TableChgtKM]";
-                        //sqlQuery2 += "([DateChgt],[employeeNum],[Nom],[Prenom],[dateDebut],[dateFin],[Aouter/supprimer de l'Annexe A],[Org])";
-                        //sqlQuery2 += "VALUES ( '" + dateChgt + "' , '" + employeeName.TrimStart().Split('-')[1] + "' , '" + employeeName.TrimStart().Split('-')[0].Split(' ')[0] + "' , '" + employeeName.TrimStart().Split('-')[0].Split(' ')[1] + "' , '" + dateDebut + "' , '" + dateFin + "' , '' , '' )";
-
-
 
 
                         using (SqlCommand cmd = new SqlCommand(sqlQuery, conn))

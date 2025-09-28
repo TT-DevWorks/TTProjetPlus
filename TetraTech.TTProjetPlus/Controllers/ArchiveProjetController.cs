@@ -22,7 +22,7 @@ namespace TetraTech.TTProjetPlus.Controllers
             DirectoryService obj = new DirectoryService();
             ViewBag.isAllowedAdministration = obj.isAllowedAdministration();
             ViewBag.MenuVisible = menuVisible;
-            ListeProjetsToArchive = _HomeService.getListWSDR2(); //with structure de repertoire
+            ListeProjetsToArchive = _HomeService.getListWSDR(); //with structure de repertoire
             
 
             return View();
@@ -47,9 +47,9 @@ namespace TetraTech.TTProjetPlus.Controllers
         }
 
 
-        public ActionResult submitProjectToArchive(string projectId)
+        public ActionResult submitProjectToArchive(string projectId) //pour multi archivage
         {
-            var resultF = new List<string>();
+            var resultF = "";
             try
             {
                 

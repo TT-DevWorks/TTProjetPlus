@@ -290,7 +290,8 @@
         if (projectMultiple != null && projectMultiple!= '' )
         {
 
-            if ($("#delButtonConfimation").html() == "delete") {
+            if ($("#delButtonConfimation").html() == "delete")
+            {
 
 
                 $.ajax({
@@ -302,20 +303,29 @@
                     cache: false,
                     url: '@Url.Action("submitProjectToArchive", "ArchiveProjet")',
                     success: function (data) {
-                        $('#errorLogInnerDiv').html("");
-                        for (var i = 0; i < data.result.length; i++) {
-                            var obj = data.result[i];
+                        //$('#errorLogInnerDiv').html("");
+                        //for (var i = 0; i < data.result.length; i++) {
+                        //    var obj = data.result[i];
 
-                            $("#errorLogInnerDiv").append("<p>" + obj + "</p>");
-                        }
+                        //    $("#errorLogInnerDiv").append("<p>" + obj + "</p>");
+                        //}
 
-                        $('#errorLog').show();
+                        //$('#errorLog').show();
                         //data.forEach(obj => {
                         //    Object.entries(obj).forEach(([key, value]) => {
                         //        $("#errorLogInnerDiv").append(" <p>" + value + "</p>.");
                         //    });
                         //});
+                       // pour relaoder la liste mise a jour des projets que l on peut archiver
+                        //mise a jour de la liste des projet sur la page "modifier une structure de repertoires"
+                        $('#successArchivage').show();
+                        setTimeout(function () {
+                            $('#successArchivage').fadeOut('slow');
+                        }, 60000
+                        )
+                        //location.reload();
                     }
+                    
                   });
             }
             else

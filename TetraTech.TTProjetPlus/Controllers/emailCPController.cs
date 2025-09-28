@@ -24,7 +24,7 @@ namespace TetraTech.TTProjetPlus.Controllers
             ViewBag.isAdminInfo = _TTMService.returnAdditionalInfoPermission(UserService.CurrentUser.EmployeeId);
 
             var result = _emailCPService.returnProjectDatePasseListe (empNum);
-            
+            result.listeCP = result.listeCP.OrderBy(x => x.CP_name).ToList();
             return View(result);
         }
 

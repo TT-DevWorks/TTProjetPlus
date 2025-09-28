@@ -355,15 +355,18 @@
         $('#AgentFacturation').html("");
         $('#divForTree').hide();
         $('#tree-container').html("");
-
-        if (($('#projetcNumber2').val() != null && $('#projetcNumber2').val() != '') || (preselectedValue != null)) {
+        
+        //if (($('#projetcNumber2').val() != null && $('#projetcNumber2').val() != '') || (preselectedValue != null))
+        //{
+           
             if (preselectedValue != null)
             {
 
-                $('#projetcNumber2').append('<option selected val="' + preselectedValue +'"></option>')
+                $('#projetcNumber2').append('<option selected val="' + preselectedValue + '">'+preselectedValue+'</option>')
 
 
-                 }
+            }
+                
             $.ajax({
                 data: { projectNumber: preselectedValue != null ? preselectedValue : $("#projetcNumber2").val() },
                 url: '@Url.Action("returnModeleSelectionAll", "FolderStructure")',
@@ -464,7 +467,8 @@
                     });
                 }
             });
-        }
+
+        //}
 
 
     }
@@ -589,7 +593,6 @@
 
 
     $(function () {
-
         items = []
 
     @for (var i = 0; i < FolderStructureController.ListeProjetsWSDR.Count(); i++) {
@@ -635,26 +638,25 @@
             $('#projetcNumber2').val("@ViewBag.ProjectToModify")
 
 
-            //$('#projetcNumber2').prepend('<option selected val="' + placeHoldVal +'"></option>').select2({
-            //  ajax: {},
-            //    dataAdapter: CustomData,
-            //    placeholder: placeHold,
-            //    allowClear: false
-            //});
+            $('#projetcNumber2').prepend('<option selected val="' + placeHoldVal +'"></option>').select2({
+              ajax: {},
+                dataAdapter: CustomData,
+                placeholder: placeHold,
+                allowClear: false
+            });
 
                 var launchEvent = @ViewBag.lauchnEvent.ToString().ToLower();
 
 
-             if (launchEvent )
-             {
-                 //// Wait until element actually exists in DOM
-                 //var checkExist = setInterval(function () {
-                 //    if ($('#projetcNumber2').length == 1) {
-                 //        console.log('Element found, triggering change...');
-                     //    $('#projetcNumber2').trigger('change');
-                     //    clearInterval(checkExist);
-                 triggeredChange("@ViewBag.ProjectToModify")
-                     }
+            if (launchEvent) {
+                //// Wait until element actually exists in DOM
+                //var checkExist = setInterval(function () {
+                //    if ($('#projetcNumber2').length == 1) {
+                //        console.log('Element found, triggering change...');
+                //    $('#projetcNumber2').trigger('change');
+                //    clearInterval(checkExist);
+                triggeredChange("@ViewBag.ProjectToModify")
+            }
                  //}, 100); // checks every 100ms
 
 

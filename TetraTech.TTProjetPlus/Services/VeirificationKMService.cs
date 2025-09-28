@@ -18,6 +18,44 @@ namespace TetraTech.TTProjetPlus.Services
         private readonly TTProjetPlusEntitiesNew _entities = new TTProjetPlusEntitiesNew();
         private readonly SuiviMandatEntitiesNew2 _entitiesSuiviMandat = new SuiviMandatEntitiesNew2();
 
+
+        public List<Gestion10ConfEmployeeItem> GetListEmployeeForGestion10Conf(string selectedGroup)
+        {
+            try
+            {
+                var query = _entities.usp_getGestion10ConfADGroupMembers(Int32.Parse(selectedGroup));
+
+                var aList = from p in query
+                            select new Gestion10ConfEmployeeItem
+                            {
+                                Full_Name = p.displayName,
+                                TTAccount = p.sAMAccountName,
+                                discDocProjId = selectedGroup
+                            };
+             
+                
+                  foreach (Gestion10ConfEmployeeItem item in aList)
+                {
+                   item.Employee_Number = _entitiesSuiviMandat.EmployeeActif_Inactive
+                                            .Where(p => p.FULL_NAME == item.Full_Name)
+                                            .Select(p => p.EMPLOYEE_NUMBER)
+                                            .FirstOrDefault();
+                }
+              
+                return aList.ToList();
+
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+
+
+
+
+
         public List< TableVerificationKM> returnVerificationKMList()
         {
             var list = _entities.TableVerificationKMs.ToList();
@@ -180,7 +218,7 @@ namespace TetraTech.TTProjetPlus.Services
 
                 //prod:                                    
                 NewEmail.From = new MailAddress("rapports@tetratech.com");
-                NewEmail.To.Add("frederic.ohnona@tetratech.com");
+                NewEmail.To.Add("sylvie.lambert@tetratech.com");
                 NewEmail.CC.Add("rapports@tetratech.com");
 
                 NewEmail.Subject = "Rapport de vérification KM " ;

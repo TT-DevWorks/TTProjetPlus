@@ -1698,5 +1698,10 @@ namespace TetraTech.TTProjetPlus.Data
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ListeProjetaSecuriser_Result>("usp_ListeProjetaSecuriser");
         }
+    
+        public virtual int usp_ArchiveProjet()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_ArchiveProjet");
+        }
     }
 }

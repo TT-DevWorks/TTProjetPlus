@@ -20,6 +20,11 @@ namespace TetraTech.TTProjetPlus.Data
         public TTProjetPlusEntitiesNew()
             : base("name=TTProjetPlusEntitiesNew")
         {
+            // Get the ObjectContext related to this DbContext
+            var objectContext = (this as IObjectContextAdapter).ObjectContext;
+
+            // Sets the command timeout for all the commands
+            objectContext.CommandTimeout = 0;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -112,6 +112,48 @@
             left: 310px;
         }
 
+    .custom-multiselect, .custom-multiselect2{
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        position: relative;
+        cursor: pointer;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .select-box ,  .select-box2{
+        padding: 0.375rem 0.75rem;
+        min-height: 38px;
+        line-height: 1.5;
+    }
+
+    .checkbox-container, .checkbox-container2 {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        background: white;
+        max-height: 200px;
+        overflow-y: auto;
+        z-index: 1000;
+        padding: 0.5rem;
+    }
+
+
+
+
+    .custom-multiselect.open .checkbox-container  {
+        display: block;
+    }
+
+    .custom-multiselect2.open .checkbox-container2 {
+        display: block;
+    }   
+
+
 
 
 </style>
@@ -169,11 +211,11 @@
                                             &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "emailCP")">Courriel aux chargés de projets</a>
                                         </li>
                                         @*<li>
-                                            &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "LocalBPR")">@Resources.TTProjet.EmployeeInfos</a>
-                                        </li>
-                                        <li>
-                                            &bull;&nbsp;<a style="color: #183666" href="@Url.Action("Index3", "FolderStructure")">@Resources.TTProjet.Security60Conf</a>
-                                        </li>*@
+                                                &bull;&nbsp;<a style="color:#183666 ;" href="@Url.Action("Index", "LocalBPR")">@Resources.TTProjet.EmployeeInfos</a>
+                                            </li>
+                                            <li>
+                                                &bull;&nbsp;<a style="color: #183666" href="@Url.Action("Index3", "FolderStructure")">@Resources.TTProjet.Security60Conf</a>
+                                            </li>*@
                                     </ul>
                                 </div>
                             </div>
@@ -244,7 +286,10 @@
                                                         <button class="btn btn-primary" type="button" onclick="performValidation()">Valider</button>
                                                     </div>
                                                     <div class="col-lg-2">
-                                                        <button class="btn btn-primary" onclick="sendEditedDataToServer()">Sauvegarder</button>
+                                                        <button class="btn btn-primary" onclick="sendEditedDataToServer()" style="font-size:10px">
+                                                            Sauvergarder<br>
+                                                            (pour modification manuelle)
+                                                        </button>
                                                     </div>
 
                                                     <div class="col-lg-2">
@@ -285,38 +330,54 @@
                                                             <table id="editableTable" class="table table-bordered sticky-table" style="font-size: 10px;">
                                                                 <thead>
                                                                     <tr id="tableHeader">
+                                                                        @{ 
+                                                                            var counter = 0;
+                                                                            var counter2 = 0;
+                                                                        }
                                                                         @for (int j = 0; j < Model[0].Columns.Count; j++)
                                                                         {
-                                                                            <th data-column="@Model[0].Columns[j].ColumnName">@Model[0].Columns[j].ColumnName</th>
-                                                                        }
+                                                                            if (Model[0].Columns[j].ColumnName == "id")
+                                                                            {
+                                                                                counter2 = counter;
+                                                                                continue;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <th data-column="@Model[0].Columns[j].ColumnName">@Model[0].Columns[j].ColumnName</th>
+                                                                                counter++;
+                                                                            }
+
+                                                                    }
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tableBody">
                                                                     @foreach (System.Data.DataRow row in Model[0].Rows)
                                                                     {
-                                                                        <tr>
-                                                                            @{
-                                                                                var items = row.ItemArray;
-                                                                            }
-                                                                            @for (int colIndex = 0; colIndex < items.Length; colIndex++)
+                                                                    <tr>
+                                                                        @{
+                                                                            var items = row.ItemArray;//.OrderBy(x => x).ToList();
+                                                                        }
+                                                                        @for (int colIndex = 0; colIndex < items.Length; colIndex++)
+                                                                        {
+                                                                            var cell = items[colIndex];
+                                                                            if (colIndex == counter2)
                                                                             {
-                                                                                var cell = items[colIndex];
+                                                                                continue;
+                                                                            }
+                                                                            else
+                                                                            {
                                                                                 <td>
                                                                                     <input type="text"
                                                                                            class="form-control form-control-sm"
-                                                                                           value="@cell"
+                                                                                           value="@(cell.ToString()== "NULL"? "": cell)"
                                                                                            data-original="@cell"
                                                                                            style="font-size: 10px; border: none; box-shadow: none; color: black"
                                                                                            @(colIndex < 3 ? "disabled" : "") />
-                                                                                    @*@if (colIndex == 2)
-                                                {
-                                                    <button type="button" class="btn btn-link p-0 ml-2" onclick="removeCell(this)" title="Remove value">
-                                                        <span class="text-danger">&#x2716;</span>
-                                                    </button>
-                                                }*@
                                                                                 </td>
+
                                                                             }
-                                                                        </tr>
+                                                                        }
+                                                                    </tr>
                                                                     }
                                                                 </tbody>
                                                             </table>
@@ -340,36 +401,36 @@
                                             <div style="overflow: auto; max-height: 600px; max-width: 100%;">
                                                 @if (Model != null && Model[1].Rows.Count > 0)
                                                 {
-                                                <div class="row mb-2">
-                                                    <div class="col-lg-2">
-                                                        <input type="text" id="tableSearch2" class="form-control" placeholder="Rechercher...">
-                                                    </div>
-                                                    <div class="col-lg-3">
+                                                    <div class="row mb-2">
+                                                        <div class="col-lg-2">
+                                                            <input type="text" id="tableSearch2" class="form-control" placeholder="Rechercher...">
+                                                        </div>
+                                                        <div class="col-lg-3">
 
-                                                        <label for="rowsPerPage">
-                                                            Afficher
-                                                            <select id="rowsPerPage2">
-                                                                <option value="10">10</option>
-                                                                <option value="20">20</option>
-                                                                <option value="50">50</option>
-                                                                <option value="100">100</option>
-                                                            </select> lignes par page
-                                                        </label>
-                                                    </div>
+                                                            <label for="rowsPerPage">
+                                                                Afficher
+                                                                <select id="rowsPerPage2">
+                                                                    <option value="10">10</option>
+                                                                    <option value="20">20</option>
+                                                                    <option value="50">50</option>
+                                                                    <option value="100">100</option>
+                                                                </select> lignes par page
+                                                            </label>
+                                                        </div>
 
-                                                    <div class="col-lg-2">
-                                                        <button class="btn btn-primary" onclick="sendEditedDataToServerTab2()">Sauvegarder</button>
+                                                        <div class="col-lg-2">
+                                                            <button class="btn btn-primary" onclick="sendEditedDataToServerTab2()">Sauvegarder</button>
+                                                        </div>
+                                                        @*<div class="col-lg-2">
+                                                                <button class="btn btn-success btn-sm" onclick="addRow('tableBody2', 'tableHeader2') ">Ajouter une ligne</button>
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                <button class="btn btn-info btn-sm" onclick="addColumn('tableBody2', 'tableHeader2')">Ajouter une colonne</button>
+                                                            </div>*@
+                                                        <div class="col-lg-2">
+                                                            <button class="btn btn-warning btn-sm" onclick="exportTableToExcel()">Exporter vers Excel</button>
+                                                        </div>
                                                     </div>
-                                                    @*<div class="col-lg-2">
-            <button class="btn btn-success btn-sm" onclick="addRow('tableBody2', 'tableHeader2') ">Ajouter une ligne</button>
-        </div>
-        <div class="col-lg-2">
-            <button class="btn btn-info btn-sm" onclick="addColumn('tableBody2', 'tableHeader2')">Ajouter une colonne</button>
-        </div>*@
-                                                    <div class="col-lg-2">
-                                                        <button class="btn btn-warning btn-sm" onclick="exportTableToExcel()">Exporter vers Excel</button>
-                                                    </div>
-                                                </div>
                                                     <br />
                                                     <table id="editableTable2" class="table table-bordered" style="width: 100%; font-size: 10px;">
                                                         <thead>
@@ -388,34 +449,34 @@
                                                         <tbody id="tableBody2">
                                                             @foreach (System.Data.DataRow row in Model[1].Rows)
                                                             {
-                                                            <tr>
-                                                                @{
-                                                                    var items = row.ItemArray;
-                                                                }
-                                                                <td style="white-space: nowrap; width: 30px;">
-                                                                    @items[0]
-                                                                </td>
-                                                                @for (int colIndex = 1; colIndex < items.Length; colIndex++)
-                                                                {
-                                                                    var cell = items[colIndex];
-
+                                                                <tr>
+                                                                    @{
+                                                                        var items = row.ItemArray;
+                                                                    }
                                                                     <td style="white-space: nowrap; width: 30px;">
-                                                                        <input type="text"
-                                                                               class="form-control form-control-sm inputPhase2"
-                                                                               value="@cell"
-                                                                               data-original="@cell"
-                                                                               style="font-size: 10px; border: none; box-shadow: none;color: black" />
+                                                                        @items[0]
                                                                     </td>
-                                                                }
+                                                                    @for (int colIndex = 1; colIndex < items.Length; colIndex++)
+                                                                    {
+                                                                        var cell = items[colIndex];
 
-                                                                @{
-                                                                    var cell7 = items[7];
-                                                                }
+                                                                        <td style="white-space: nowrap; width: 30px;">
+                                                                            <input type="text"
+                                                                                   class="form-control form-control-sm inputPhase2"
+                                                                                   value="@cell"
+                                                                                   data-original="@cell"
+                                                                                   style="font-size: 10px; border: none; box-shadow: none;color: black" />
+                                                                        </td>
+                                                                    }
 
-                                                                <td style="">
-                                                                    @cell7
-                                                                </td>
-                                                            </tr>
+                                                                    @{
+                                                                        var cell7 = items[7];
+                                                                    }
+
+                                                                    <td style="">
+                                                                        @cell7
+                                                                    </td>
+                                                                </tr>
                                                             }
 
                                                         </tbody>
@@ -457,7 +518,7 @@
 
 </div>
 
-<div id="addOrgModal" class="modal fade"  tabindex="-1" role="dialog" aria-hidden="true">
+<div id="addOrgModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content p-3">
             <div class="modal-header">
@@ -485,8 +546,8 @@
             </div>
             <div class="modal-body">
                 <select id="columnsToRemove" class="form-select">-->
-                    <!-- Options seront ajoutées dynamiquement -->
-                <!--</select>
+<!-- Options seront ajoutées dynamiquement -->
+<!--</select>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
@@ -496,7 +557,7 @@
     </div>
 </div>-->
 
-<div id="removeColumnModal" class="modal fade"  tabindex="-1" role="dialog" aria-hidden="true">
+<div id="removeColumnModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content p-3">
             <div class="modal-header">
@@ -519,45 +580,146 @@
 
 
 
-<div id="addKMModal" class="modal fade"  tabindex="-1" role="dialog" aria-hidden="true">
+<div id="addKMModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content p-3">
             <div class="modal-header">
                 <h5 class="modal-title">Ajouter un membre clé</h5>
             </div>
+
             <div class="modal-body">
-                <label for="km_NameInput" class="form-label">Quel membre clé voulez-vous ajouter ?</label>
-                <input type="text" class="form-control" id="km_NameInput" />
+                <div class="input-group " style="width: 100%">
+                    <select id="km_NameInput" class="form-control form-select">
+                        <option selected disabled>Choisir un membre clé</option>
+                        @foreach (System.Data.DataRow row in Model[4].Rows)
+                        {
+                            var items = row.ItemArray;
+                            <option value="@items[0]">@items[0]</option>
+                        }
+                    </select>
+                </div>
             </div>
+
+            <!-- Role Section -->
             <div class="modal-body">
-                <label for="km_RoleInput" class="form-label">Quel role ?</label>
-                <input type="text" class="form-control" id="km_RoleInput" />
+                <div class="input-group " style="width: 100%">
+                    <select id="km_RoleInput" class="form-control form-select">
+                        <option selected disabled>Choisir un rôle</option>
+                        @foreach (System.Data.DataRow row in Model[2].Rows)
+                        {
+                            var items = row.ItemArray;
+                            <option value="@items[0]">@items[0]</option>
+                        }
+                    </select>
+                    <br />
+                    <button type="button" class="btn btn-outline-primary" id="addRoleBtn">Ajouter un role</button>
+                </div>
+                <div id="addRoleForm" class="mt-2" style="display:none;">
+                    <input type="text" id="newRole" class="form-control" placeholder="Nouveau rôle">
+                    <button class="btn btn-success btn-sm mt-2" id="saveRoleBtn">Enregistrer rôle</button>
+                </div>
             </div>
+
+            <!-- Titre Section -->
             <div class="modal-body">
-                <label for="km_TitreInput" class="form-label">Quel titre ?</label>
-                <input type="text" class="form-control" id="km_TitreInput" />
+                <div class="input-group" style="width: 100%">
+                    <select id="km_TitreInput" class="form-control form-select">
+                        <option selected disabled>Choisir un titre</option>
+                        @foreach (System.Data.DataRow row in Model[3].Rows)
+                        {
+                            var items = row.ItemArray;
+                            <option value="@items[0]">@items[0]</option>
+                        }
+                    </select>
+                    <br />
+                    <button type="button" class="btn btn-outline-primary" id="addTitreBtn">Ajouter un titre</button>
+                </div>
+                <div id="addTitreForm" class="mt-2" style="display:none;">
+                    <input type="text" id="newTitre" class="form-control" placeholder="Nouveau titre">
+                    <button class="btn btn-success btn-sm mt-2" id="saveTitreBtn">Enregistrer titre</button>
+                </div>
+            </div>
+            <!-- Département Section -->
+            <div class="modal-body">
+                <div class="custom-multiselect" tabindex="0">
+                    <div class="select-box">Sélectionner une ou des organisations</div>
+                    <div class="checkbox-container">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Toutes" id="Toutes">
+                            <label class="form-check-label" for="Toutes">Toutes</label>
+                        </div>
+                        @{ 
+                            List<string> modelListeOrg = new List<string>();
+                            for(int p = 3; p < Model[0].Columns.Count; p++)
+                            {
+                                modelListeOrg.Add(Model[0].Columns[p].ColumnName);
+                            }
+                            modelListeOrg = modelListeOrg.OrderBy(x => x).ToList();
+                        }
+                        @for (int j = 3; j < modelListeOrg.Count ; j++)
+                        {
+                            if (modelListeOrg[j]== "id")
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input option-checkbox" type="checkbox"
+                                           value="@modelListeOrg[j]"
+                                           id="@modelListeOrg[j]">
+                                    <label class="form-check-label" for="@modelListeOrg[j]">
+                                        @modelListeOrg[j]
+                                    </label>
+                                </div>
+                            }
+
+                        }
+                    </div>
+                </div>
             </div>
 
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeAddKMModal()">Fermer</button>
                 <button class="btn btn-primary" onclick="validateKM()">Valider</button>
             </div>
+
         </div>
     </div>
 </div>
 
 
-<div id="removeKMModal" class="modal fade"  tabindex="-1" role="dialog" aria-hidden="true">
+
+<div id="removeKMModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content p-3">
             <div class="modal-header">
                 <h5 class="modal-title">Retirer un membre clé</h5>
             </div>
             <div class="modal-body">
-                <label for="km_NameSelect" class="form-label">Choisir un nom :</label>
-                <select id="km_NameSelect" class="form-select">
-                    <!-- Options ajoutées dynamiquement via JavaScript -->
-                </select>
+                <div class="input-group " style="width: 100%">
+                    <select id="km_NameInputRemove" class="form-control form-select">
+                        <option selected disabled>Choisir un membre clé</option>
+                        @foreach (var row in Model[4].Rows.Cast<System.Data.DataRow>()
+          .OrderBy(r => r[0].ToString()))
+                        {
+                            var items = row.ItemArray;
+                            var item = items[0] + " / " + items[1] + " / " + items[2];
+                    <option value="@item">@item</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-body">
+
+                <div id="km_SecondListContainer" class="custom-multiselect2" tabindex="0">
+                    <div class="select-box2">Sélectionner une ou des organisations</div>
+
+                    <div class="checkbox-container2">
+                        <!-- Dynamic checkboxes will be injected here -->
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeRemoveKMModal()">Fermer</button>
@@ -572,6 +734,378 @@
 
         $('.selectpicker').selectpicker(
         );
+
+
+        $("#addRoleBtn").on("click", function () {
+            $("#addRoleForm").toggle();
+        });
+
+        // Toggle Titre input
+        $("#addTitreBtn").on("click", function () {
+            $("#addTitreForm").toggle();
+        });
+
+        // Save Role
+        $("#saveRoleBtn").on("click", function () {
+            const newRole = $("#newRole").val().trim();
+            if (!newRole) return;
+
+            $.ajax({
+                url: "/VerificationKM/AddRole",  // adjust controller name/path
+                type: "get",
+                data: { role: newRole },
+                success: function (roles) {
+                    if (roles.error) {
+                        alert(roles.error);
+                        return;
+                    }
+
+                    // Clear input & hide form
+                    $("#newRole").val("");
+                    $("#addRoleForm").hide();
+
+                    // Refresh select
+                    const roleSelect = $("#km_RoleInput");
+                    roleSelect.empty();
+                    roleSelect.append(`<option selected disabled>Choisir un rôle</option>`);
+                    roles.forEach(r => {
+                        roleSelect.append(`<option value="${r}">${r}</option>`);
+                    });
+
+                    // Auto-select the new one
+                    roleSelect.val(newRole);
+                },
+                error: function () {
+                    alert("Erreur AJAX lors de l’ajout du rôle");
+                }
+            });
+        });
+
+        // Save Titre
+        $("#saveTitreBtn").on("click", function () {
+            const newTitre = $("#newTitre").val().trim();
+            if (!newTitre) return;
+
+            $.ajax({
+                url: "/VerificationKM/AddTitre",  // adjust controller name/path
+                type: "get",
+                data: { titre: newTitre },
+                success: function (titres) {
+                    if (titres.error) {
+                        alert(titres.error);
+                        return;
+                    }
+
+                    // Clear input & hide form
+                    $("#newTitre").val("");
+                    $("#addTitreForm").hide();
+
+                    // Refresh select
+                    const titreSelect = $("#km_TitreInput");
+                    titreSelect.empty();
+                    titreSelect.append(`<option selected disabled>Choisir un titre</option>`);
+                    titres.forEach(r => {
+                        titreSelect.append(`<option value="${r}">${r}</option>`);
+                    });
+
+                    // Auto-select the new one
+                    titreSelect.val(newTitre);
+                },
+                error: function () {
+                    alert("Erreur AJAX lors de l’ajout du titre");
+                }
+            });
+        });
+
+
+        document.querySelectorAll('.custom-multiselect').forEach(select => {
+            const box = select.querySelector('.select-box');
+            const checkboxes = select.querySelectorAll('.form-check-input');
+
+            // Open/close dropdown
+            box.addEventListener('click', () => {
+                select.classList.toggle('open');
+            });
+
+            // Close when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!select.contains(e.target)) {
+                    select.classList.remove('open');
+                }
+            });
+
+            // Update displayed text whenever a checkbox is clicked
+            checkboxes.forEach(cb => {
+                cb.addEventListener('change', () => {
+                    const selected = Array.from(checkboxes)
+                        .filter(chk => chk.checked)
+                        .map(chk => chk.value);
+                    if (selected.length === 0) {
+                        box.textContent = "Sélectionner les départements";
+                    } else {
+                        box.textContent = selected.join(", ");
+                    }
+                });
+            });
+        });
+
+        //code pour mise a jour de la liste des org  dans le modal de suppression d un km (on n affiche que les org qui lui sont attribués dan la table) de la bd
+   @*$("#km_NameInputRemove").change(function () {
+            var selectedValue = $(this).val();
+
+            $.ajax({
+                url: '@Url.Action("GetSecondList", "VerificationKM")', // Update controller name
+                type: 'GET', // or POST if needed
+                data: { searchValue: selectedValue },
+                success: function (data) {
+                    var secondSelect = $("#km_SecondList");
+                    secondSelect.empty(); // clear old options
+                    secondSelect.append('<option selected disabled>Choisir une ou des Org</option>');
+
+                    $.each(data, function (index, item) {
+                        if (index != 0) {
+                            secondSelect.append('<option value="' + item + '">' + item + '</option>');
+                        }
+                    });
+                },
+                error: function () {
+                    alert("Error loading data!");
+                }
+            });
+        });*@
+
+
+        //pour retire un km et certaines ou toutes ses org
+        // Toggle checkbox container
+    //$("#km_SecondListContainer .select-box2").click(function () {
+    //   $("#km_SecondListContainer").toggleClass("open");
+    //});
+
+    @*$("#km_NameInputRemove").change(function () {
+        var selectedValue = $(this).val();
+
+        $.ajax({
+            url: '@Url.Action("GetSecondList", "VerificationKM")',
+            type: 'GET',
+            data: { searchValue: selectedValue },
+            success: function (data) {
+                var container = $(".checkbox-container2");
+
+                container.empty(); // clear old checkboxes
+
+                // Add "Toutes" checkbox
+                container.append(`
+                    <div class="form-check">
+                        <input class="form-check-input2" type="checkbox" value="Toutes" id="Toutes2">
+                        <label class="form-check-label" for="Toutes2">Toutes</label>
+                    </div>
+                `);
+
+                // Add dynamic checkboxes from data
+                $.each(data, function (index, item) {
+                    if (index != 0) {
+                        container.append(`
+                        <div class="form-check">
+                            <input class="form-check-input2 option-checkbox2" type="checkbox"
+                                   value="${item}" id="${item.replace(/\s/g, '_')}">
+                            <label class="form-check-label" for="${item.replace(/\s/g, '_')}">
+                                ${item}
+                            </label>
+                        </div>
+                    `);
+                    }
+
+                });
+            },
+            error: function () {
+                alert("Error loading data!");
+            }
+        });
+    //});
+
+    //// Optional: Handle "Toutes" checkbox behavior
+    ////$(document).on('change', '#Toutes2', function () {
+    ////    var checked = $(this).prop('checked');
+    ////    $("#km_SecondListContainer .option-checkbox2").prop('checked', checked);
+    ////});
+
+    //    document.querySelectorAll('.custom-multiselect2').forEach(select2 => {
+    //        const box2 = select2.querySelector('.select-box2');
+    //        const checkboxes2 = select2.querySelectorAll('.form-check-input2');
+
+    //        // Open/close dropdown
+    //        box2.addEventListener('click', () => {
+    //            select2.classList.toggle('open');
+    //        });
+
+    //        // Close when clicking outside
+    //        document.addEventListener('click', (e) => {
+    //            if (!select2.contains(e.target)) {
+    //                select2.classList.remove('open');
+    //            }
+    //        });
+
+
+
+    //        // Update displayed text whenever a checkbox is clicked
+    //            checkboxes2.forEach(cb => {
+    //                cb.addEventListener('change', () =>
+    //                {
+    //                const selected2 = Array.from(checkboxes2)
+    //                    .filter(chk => chk.checked)
+    //                    .map(chk => chk.value);
+    //                if (selected2.length === 0)
+    //                {
+    //                    box2.textContent ="Sélectionner une ou des organisations";
+    //                }
+    //                else
+    //                {
+    //                    box2.textContent =  selected2.join(", ");
+    //                }
+    //            });
+    //        });
+        });*@
+
+
+
+        ///pour modal de retrait de km:
+
+     // --- 1. AJAX populate checkboxes ---
+    $("#km_NameInputRemove").change(function () {
+        var selectedValue = $(this).val();
+
+        $.ajax({
+            url: '@Url.Action("GetSecondList", "VerificationKM")',
+            type: 'GET',
+            data: { searchValue: selectedValue },
+            success: function (data) {
+                var container = $(".checkbox-container2");
+                container.empty();
+
+                // Add "Toutes" checkbox
+                container.append(`
+                    <div class="form-check">
+                        <input class="form-check-input2" type="checkbox" value="Toutes" id="Toutes2">
+                        <label class="form-check-label" for="Toutes2">Toutes</label>
+                    </div>
+                `);
+
+                // Add dynamic checkboxes
+                $.each(data, function (index, item) {
+                    if (index != 0) {
+                        var safeId = item.replace(/\s/g, '_');
+                        container.append(`
+                            <div class="form-check">
+                                <input class="form-check-input2 option-checkbox2" type="checkbox"
+                                       value="${item}" id="${safeId}">
+                                <label class="form-check-label" for="${safeId}">${item}</label>
+                            </div>
+                        `);
+                    }
+                });
+
+                // Reset select-box2 text
+                $(".custom-multiselect2 .select-box2").text("Sélectionner une ou des organisations");
+            },
+            error: function () {
+                alert("Error loading data!");
+            }
+        });
+    });
+
+    // --- 2. Open/close dropdown when clicking the box ---
+    $(document).on('click', '.custom-multiselect2 .select-box2', function (e) {
+        e.stopPropagation(); // prevent document click from closing
+        var container = $(this).closest('.custom-multiselect2');
+        container.toggleClass('open');
+        $('.custom-multiselect2').not(container).removeClass('open'); // close others
+    });
+
+    // --- 3. Prevent clicks inside checkbox container from closing ---
+    $(document).on('click', '.custom-multiselect2 .checkbox-container2', function (e) {
+        e.stopPropagation();
+    });
+
+    // --- 4. Click outside closes all dropdowns ---
+    $(document).click(function () {
+        $('.custom-multiselect2').removeClass('open');
+    });
+
+    // --- 5. Update select-box2 text and handle "Toutes" ---
+    $(document).on('change', '.form-check-input2', function () {
+        var container = $(this).closest('.custom-multiselect2');
+        var box2 = container.find('.select-box2');
+
+        // "Toutes" logic
+        if ($(this).val() === "Toutes") {
+            if ($(this).is(':checked')) {
+                container.find('.form-check-input2').not(this).prop('checked', false);
+            }
+        } else {
+            if ($(this).is(':checked')) {
+                container.find('#Toutes2').prop('checked', false);
+            }
+        }
+
+        // Update displayed text
+        var selected = container.find('.form-check-input2:checked')
+            .map((_, cb) => cb.value)
+            .get();
+
+        box2.text(selected.length ? selected.join(', ') : 'Sélectionner une ou des organisations');
+    });
+
+
+
+    });
+
+    ///////////////////////
+    const tousCheckbox2 = document.getElementById("Toutes2");
+    const optionCheckboxes2 = document.querySelectorAll(".option-checkbox2");
+
+    // If an option is checked, uncheck "Tous"
+    // Only proceed if "Toutes2" exists
+    if (tousCheckbox2) {
+        // If an option is checked, uncheck "Toutes2"
+        optionCheckboxes2.forEach(cb => {
+            cb.addEventListener("change", function () {
+                if (this.checked) {
+                    tousCheckbox2.checked = false;
+                }
+            });
+        });
+    }
+
+    // If "Tous" is checked, uncheck all other options
+    if (tousCheckbox2) {
+        tousCheckbox2.addEventListener("change", function () {
+            if (this.checked) {
+                optionCheckboxes2.forEach(cb => cb.checked = false);
+            }
+        });
+    }
+
+
+    ///////////////////////////////////////
+
+
+    const tousCheckbox = document.getElementById("Toutes");
+    const optionCheckboxes = document.querySelectorAll(".option-checkbox");
+
+    // If an option is checked, uncheck "Tous"
+    optionCheckboxes.forEach(cb => {
+        cb.addEventListener("change", function () {
+            if (this.checked) {
+                tousCheckbox.checked = false;
+            }
+        });
+    });
+
+    // If "Tous" is checked, uncheck all other options
+    tousCheckbox.addEventListener("change", function () {
+        if (this.checked) {
+            optionCheckboxes.forEach(cb => cb.checked = false);
+        }
     });
 
     // Synchronisation des scrolls
@@ -672,7 +1206,7 @@
                 success: function (data)
                 {
                     if (data == "success") {
-                        
+
                         alert("Le rapport de validation a été envoyé par courriel")
                     }
                 }
@@ -733,10 +1267,23 @@
         $select.empty();
 
         // Récupérer colonnes sauf les 3 premières
-        $("#tableHeader th").slice(3).each(function () {
-            var colName = $(this).data("column") || $(this).text().trim();
-            $select.append($("<option>").val(colName).text(colName));
-        });
+
+        let headers = $("#tableHeader th").slice(3);
+
+        // Convert to array of texts and sort alphabetically
+        let sorted = headers.map(function () {
+            return $(this).text().trim();
+        }).get().sort();
+
+        for (j = 0; j < sorted.length; j++)
+        {
+            $select.append($("<option>").val(sorted[j]).text(sorted[j]));
+        }
+
+        //sorted.each(function () {
+        //    var colName = $(this).data("column") || $(this).text().trim();
+        //    $select.append($("<option>").val(colName).text(colName));
+        //});
 
         // Ouvrir la modal via jQuery + Bootstrap
         //$("#removeColumnModal").show();
@@ -778,6 +1325,7 @@
     //ajouter un km  dans le tableau
     function openAddKMModal() {
         //document.getElementById('addKMModal').style.display = 'block';
+
         $('#addKMModal').modal('show');
     }
 
@@ -797,53 +1345,75 @@
     }
 
     function validateKM() {
-        const name = $("#km_NameInput").val().trim();
-        const role = $("#km_RoleInput").val().trim();
-        const titre = $("#km_TitreInput").val().trim();
+        const kmName = document.getElementById("km_NameInput").value.trim();
+        const kmRole = document.getElementById("km_RoleInput").value;
+        const kmTitre = document.getElementById("km_TitreInput").value;
+        const departments = getSelectedDepartments(); // array of selected departments
 
-        if (!name || !role || !titre) {
-            alert("Tous les champs sont requis.");
-            return;
+        // Simple validation
+        const regex = /^[A-Za-zÀ-ÖØ-öø-ÿ]+ [A-Za-zÀ-ÖØ-öø-ÿ]+ - \d+$/;
+        if (!regex.test(kmName)) {
+            alert("Veuillez entrer le membre clé au format : Nom Prénom - numéro (ex: Jean Dupont - 12345).");
+            return false;
         }
 
+        // Prepare data to send
+        const data = {
+            KMName: kmName,
+            KMRole: kmRole,
+            KMTitre: kmTitre,
+            KMDepartments: departments // pass as array
+        };
+
+        // Send data to controller via AJAX
         $.ajax({
-            url: '/VerificationKM/AddKMToTable',  // Remplace 'TonController' par le vrai nom du contrôleur
-            type: 'GET',
-            dataType: 'json',
+            url: '/VerificationKM/AddKMToTable2', // adjust to your route
+            type: 'get',
             data: {
-                KMName: name,
-                KMRole: role,
-                KMTitre: titre
+                KMName: kmName,
+                KMRole: kmRole,
+                KMTitre: kmTitre,
+                KMDepartments: departments // this will be an array,
             },
+            traditional: true,
+            contentType: 'application/json; charset=utf-8',
             success: function (response) {
                 alert(response);
-                $("#addKMModal").hide(); // Fermer le modal
-                // Tu peux ici actualiser la table ou recharger les données
-                location.reload(); // Option simple
+                // optionally close modal
+                closeAddKMModal();
+                location.reload();
             },
-            error: function (xhr, status, error) {
-                console.error("Erreur :", error);
-                alert("Erreur lors de l'ajout.");
+            error: function () {
+                alert("Une erreur est survenue lors de l'ajout.");
             }
         });
+    }
+    function getSelectedDepartments() {
+        const checkboxes = document.querySelectorAll('.custom-multiselect .form-check-input');
+        const selected = Array.from(checkboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.value);
+        return selected;
     }
 
     //supprimer km de la table
 
     $("#openRemoveKMModal").on("click", function openRemoveKMModal() {
-        const nomsSet = new Set();
+        const noms = []; // use an array instead of Set
 
         $('#editableTable tbody tr').each(function () {
             const input = $(this).find('td').eq(2).find('input');
-            if (input.length) {
+            const input2 = $(this).find('td').eq(0).find('input');
+            if (input.length && input2.length) {
                 const nom = input.val().trim();
+                const role = input2.val().trim();
                 if (nom) {
-                    nomsSet.add(nom);
+                    noms.push(nom + ' / ' + role); // push into array, allows duplicates
                 }
             }
         });
 
-        const noms = Array.from(nomsSet);
+        // Sort alphabetically, case/accents insensitive
         noms.sort((a, b) => a.localeCompare(b, 'fr', { ignorePunctuation: true, sensitivity: 'base' }));
 
         const select = $('#km_NameSelect');
@@ -857,9 +1427,7 @@
             });
         }
 
-        //$('#removeKMModal').show();
         $('#removeKMModal').modal('show');
-
     });
 
     function closeRemoveKMModal() {
@@ -869,18 +1437,40 @@
     }
 
     function removeKM() {
-        const selectedName = $('#km_NameSelect').val();
-
+        const selectedName = $('#km_NameInputRemove').val();
+        var allValues;
+        var flag = false;
         if (!selectedName) {
             alert("Veuillez sélectionner un nom.");
             return;
+        }
+        //logique pour ajouter les org desquelles on va retirer le km, ou bien toutes celles qui sont dans le dropdown
+        //toutes les valeur du dropdown:
+        if ($('.select-box2')[0].innerText == 'Toutes') {
+            // allValues = $(".form-check-input2").map(function () {
+            //    return $(this).val();
+            // }).get();
+            //puisque toutes les org ont été selectionnées cela signifie que l on veut completement retirer le km de la table
+            selectedValue = null
+            flag = true;
+        }
+        else{
+            allValues = $(".form-check-input2:checked").map(function () {
+                return $(this).val();
+            }).get();
+            flag = false;
         }
 
         $.ajax({
             url: '/VerificationKM/RemoveKMFromTable', // Remplace par le bon nom
             type: 'GET',
             dataType: 'json',
-            data: { KMName: selectedName },
+            traditional: true,
+            data: {
+                KMName: selectedName,
+                selectedValues: allValues,
+                flag: flag
+            },
             success: function (response) {
                 alert(response)
                 $('#removeKMModal').hide();
@@ -906,16 +1496,16 @@
 
 
 
-        rows.forEach((row, rowIndex) => {
-            const inputs = row.querySelectorAll("input");
-            // Get text content of the first and second cell (not just inputs)
-            const firstCellText = inputs[0]?.value.trim() || "";
-            const secondCellText = inputs[1]?.value.trim() || "";
-            inputs.forEach((input, colIndex) => {
-                const empName = inputs[2].Value
-                if (input.classList.contains("cell-modified")) {
-                    const originalValue = input.dataset.original;
-                    const newValue = input.value;
+    rows.forEach((row, rowIndex) => {
+    const inputs = row.querySelectorAll("input");
+    // Get text content of the first and second cell (not just inputs)
+    const firstCellText = inputs[0]?.value.trim() || "";
+    const secondCellText = inputs[1]?.value.trim() || "";
+    inputs.forEach((input, colIndex) => {
+    const empName = inputs[2].Value
+    if (input.classList.contains("cell-modified")) {
+    const originalValue = input.dataset.original;
+    const newValue = input.value;
 
 
                     changedData.push({

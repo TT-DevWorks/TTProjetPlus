@@ -384,18 +384,19 @@ namespace TetraTech.TTProjetPlus.Services
         {
 
             var query = from p in _entitiesBPR.Projets
-                        select new structureItem { Name = p.PRO_Id, Value = p.PRO_Id.ToString() };
+                        select new structureItem { Name = p.PRO_Id, Value = p.PRO_Id.ToString() }
+                        ;
             return query.Distinct().ToList();
 
         }
 
         public List<structureItem> getListWSDR()
         {
-
+            //liste de projet problematique sans structure de repertoire
             var query = from p in _entitiesBPR.Projets
-                        where p.ETA_PRO_ID == 1
-                        select new structureItem { Name = p.PRO_Id, Value = p.PRO_Id.ToString() };
-            var list = query.Distinct().ToList();
+                        where p.ETA_PRO_ID == 1 
+                        select new structureItem { Name = p.PRO_Id, Value = p.PRO_Id.ToString() , PRO_Date_Creation = p.PRO_Date_Creation};
+            var list = query.Distinct().OrderByDescending(x => x.PRO_Date_Creation).ToList();
             return list;
 
         }
@@ -1782,30 +1783,70 @@ fred:rep_parent-sousrepertoire	rep_id of sub folder
 
                         try
                         {
-                            var valueTTProjetPlusUserNasuni = UserService.TTProjetPlusUserNasuni(); 
-                            var valueTTProjetPlusPwdNasuni = UserService.TTProjetPlusPwdNasuni();
-                            var valueTTProjetPlusEnvrNasuni = UserService.TTProjetPlusEnvrNasuni();
+                            //A DECOMMENTER POUR LA DEV!!!!! NE PAS OUBLIER!!!!!!!!!!!
+                            //var valueTTProjetPlusUserNasuni = UserService.TTProjetPlusUserNasuni(); 
+                            //var valueTTProjetPlusPwdNasuni = UserService.TTProjetPlusPwdNasuni();
+                            //var valueTTProjetPlusEnvrNasuni = UserService.TTProjetPlusEnvrNasuni();
 
-                            bool loggedOn = LogonUser(valueTTProjetPlusUserNasuni,
-                                       valueTTProjetPlusEnvrNasuni,
-                                       valueTTProjetPlusPwdNasuni,
-                                       2,
-                                       0,
-                                       ref userHandle);
+                            //bool loggedOn = LogonUser(valueTTProjetPlusUserNasuni,
+                            //           valueTTProjetPlusEnvrNasuni,
+                            //           valueTTProjetPlusPwdNasuni,
+                            //           2,
+                            //           0,
+                            //           ref userHandle);
 
-                            if (!loggedOn)
-                            {
-                                Console.WriteLine("Exception impersonating user, error code: " + Marshal.GetLastWin32Error());
+                            //if (!loggedOn)
+                            //{
+                            //    Console.WriteLine("Exception impersonating user, error code: " + Marshal.GetLastWin32Error());
 
-                            }
-                            else
-                            {
+                            //}
+                            //else
+                            //{
                                 // Begin impersonating the user
-                                impersonationContext = WindowsIdentity.Impersonate(userHandle);
+
+                                //A DECOMMENTER POUR DEV!!! NE PAS OUBLIER!!!!!!!!!!!!
+                                //impersonationContext = WindowsIdentity.Impersonate(userHandle);
 
                                 //run the program with elevated privileges (like file copying from a domain server)
                                 Directory.CreateDirectory(item.Folder);//item.Folder                                
+                                                                       // }
+
+                            if (System.Web.HttpContext.Current.Request.IsLocal)
+                            {
+                                Directory.CreateDirectory(item.Folder);
                             }
+                            else
+                            {
+                                //A DECOMMENTER POUR LA DEV!!!!! NE PAS OUBLIER!!!!!!!!!!!
+                                var valueTTProjetPlusUserNasuni = UserService.TTProjetPlusUserNasuni();
+                                var valueTTProjetPlusPwdNasuni = UserService.TTProjetPlusPwdNasuni();
+                                var valueTTProjetPlusEnvrNasuni = UserService.TTProjetPlusEnvrNasuni();
+
+                                bool loggedOn = LogonUser(valueTTProjetPlusUserNasuni,
+                                           valueTTProjetPlusEnvrNasuni,
+                                           valueTTProjetPlusPwdNasuni,
+                                           2,
+                                           0,
+                                           ref userHandle);
+
+                                if (!loggedOn)
+                                {
+                                    Console.WriteLine("Exception impersonating user, error code: " + Marshal.GetLastWin32Error());
+
+                                }
+                                else
+                                {
+                                //    Begin impersonating the user
+
+                             //   A DECOMMENTER POUR DEV!!!NE PAS OUBLIER!!!!!!!!!!!!
+                               impersonationContext = WindowsIdentity.Impersonate(userHandle);
+
+                                   // run the program with elevated privileges(like file copying from a domain server)
+                                Directory.CreateDirectory(item.Folder);                                
+                                }
+                            }
+
+
                         }
                         catch (Exception ex)
                         {
@@ -2375,13 +2416,13 @@ fred:rep_parent-sousrepertoire	rep_id of sub folder
             catch (Exception e)
             {
                 string info = "ProjetID: " + ProjetID + "; " +
-                    "ModeleSecuriteId: " + ModeleSecuriteId.ToString() + "; " +
-                    "ServeurID: " + ServeurID.ToString() + "; " +
-                    "ServerModel: " + ServerModel + "; " +
-                    "TypeProjet: " + TypeProjet.ToString() + "; " +
-                    "UtilisateurId: " + UtilisateurId + "; " +
-                   "EtatProjetID: " + EtatProjetID.ToString() + "; " +
-                    "SelectionModel: " + SelectionModel;
+                "ModeleSecuriteId: " + ModeleSecuriteId.ToString() + "; " +
+                "ServeurID: " + ServeurID.ToString() + "; " +
+                "ServerModel: " + ServerModel + "; " +
+                "TypeProjet: " + TypeProjet.ToString() + "; " +
+                "UtilisateurId: " + UtilisateurId + "; " +
+                "EtatProjetID: " + EtatProjetID.ToString() + "; " +
+                "SelectionModel: " + SelectionModel;
                 addErrorLog(e, "HomeService", "AddProjectInTTProjet", ProjetID, info);
                 if (e.InnerException.ToString().Contains("Un projet existe deja dans la table projet"))
                 {

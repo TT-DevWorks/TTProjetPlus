@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Khounata.Fahmi\source\Workspace\TTProjetPlus\2022-11-02\DEV\TetraTech.TTProjetPlus\Data\BPRProjetNew.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\frederic.ohnona\source\repos\DEV-TTRProjet+\DEV2- version a jour\DEV\DEV\TetraTech.TTProjetPlus\Data\BPRProjetNew.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

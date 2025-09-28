@@ -697,6 +697,7 @@ warning 6002: The table/view 'BPRProjet.dbo.testRepertoire' does not have a prim
           <Parameter Name="RemotePath" Type="varchar" Mode="In" />
           <Parameter Name="MapperSeulement" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_ArchiveProjet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_ArchiverProjet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ProjetID" Type="varchar" Mode="In" />
         </Function>
@@ -941,11 +942,6 @@ warning 6002: The table/view 'BPRProjet.dbo.testRepertoire' does not have a prim
         </Function>
         <Function Name="usp_TransfererProjet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ProjetId" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="usp_TT_Security_Archive_TTProjetPlus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="projctid" Type="varchar" Mode="In" />
-          <Parameter Name="projctHas10Confidentiel" Type="tinyint" Mode="In" />
-          <Parameter Name="DoDelBatFile" Type="tinyint" Mode="In" />
         </Function>
         <EntityContainer Name="BPRProjetModelStoreContainer">
           <EntitySet Name="dtproperties" EntityType="Self.dtproperties" Schema="dbo" store:Type="Tables" />
@@ -2180,6 +2176,7 @@ warning 6002: The table/view 'BPRProjet.dbo.testRepertoire' does not have a prim
           <Parameter Name="Projet" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_ListeProjetaSecuriser" ReturnType="Collection(BPRProjetModel.usp_ListeProjetaSecuriser_Result)" />
+          <FunctionImport Name="usp_ArchiveProjet" />
         </EntityContainer>
         <ComplexType Name="dt_getpropertiesbyid_Result">
           <Property Type="String" Name="property" Nullable="false" MaxLength="64" />
@@ -3573,7 +3570,6 @@ warning 6002: The table/view 'BPRProjet.dbo.testRepertoire' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_TT_Security_Archive_TTProjetPlus" FunctionName="BPRProjetModel.Store.usp_TT_Security_Archive_TTProjetPlus" />
           <FunctionImportMapping FunctionImportName="usp_NEW_TT_Security_INPROGRESS_TTProjetPlus" FunctionName="BPRProjetModel.Store.usp_NEW_TT_Security_INPROGRESS_TTProjetPlus" />
           <FunctionImportMapping FunctionImportName="usp_isProject_TTPlus" FunctionName="BPRProjetModel.Store.usp_isProject_TTPlus" />
           <FunctionImportMapping FunctionImportName="usp_ObtenirRepertoireParProjetEtModSelectionTTProjetPlus" FunctionName="BPRProjetModel.Store.usp_ObtenirRepertoireParProjetEtModSelectionTTProjetPlus">
@@ -3831,6 +3827,7 @@ warning 6002: The table/view 'BPRProjet.dbo.testRepertoire' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ArchiveProjet" FunctionName="BPRProjetModel.Store.usp_ArchiveProjet" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
