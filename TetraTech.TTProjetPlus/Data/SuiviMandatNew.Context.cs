@@ -20,11 +20,6 @@ namespace TetraTech.TTProjetPlus.Data
         public SuiviMandatEntitiesNew2()
             : base("name=SuiviMandatEntitiesNew2")
         {
-            // Get the ObjectContext related to this DbContext
-            var objectContext = (this as IObjectContextAdapter).ObjectContext;
-
-            // Sets the command timeout for all the commands
-            objectContext.CommandTimeout = 0;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -697,6 +692,15 @@ namespace TetraTech.TTProjetPlus.Data
                 new ObjectParameter("empNum", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_TT_Verif_KM_role_Result>("usp_TT_Verif_KM_role", acct_centerParameter, roleParameter, empNumParameter);
+        }
+    
+        public virtual int usp_getProjetAvecDateDepasse(string empRGE)
+        {
+            var empRGEParameter = empRGE != null ?
+                new ObjectParameter("empRGE", empRGE) :
+                new ObjectParameter("empRGE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_getProjetAvecDateDepasse", empRGEParameter);
         }
     
         public virtual ObjectResult<usp_TT_getProjetAvecDateDepasse_Result> usp_TT_getProjetAvecDateDepasse(string empRGE)

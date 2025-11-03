@@ -73,5 +73,7 @@ namespace TetraTech.TTProjetPlus.Data
         public string CC_MUN_J_715 { get; set; }
         public string CC_TRA_J_715 { get; set; }
         public int ID { get; set; }
+        public string A_BAT { get; set; }
+        public string CC_BAT { get; set; }
     }
 }

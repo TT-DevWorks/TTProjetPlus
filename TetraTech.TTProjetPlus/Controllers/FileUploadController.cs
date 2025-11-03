@@ -56,77 +56,160 @@ namespace TetraTech.TTProjetPlus.Controllers
                 return Json("Transfer failed: "+ e.InnerException.Message, JsonRequestBehavior.AllowGet);
             }
         }
+        //[HttpPost]
+        //public ActionResult UploadFile2(HttpPostedFileBase file, string repCode, string subRepId, string customerName, string customerNumber, string continueProcess = "")
+        //{
+        //    try
+        //    {
+        //        BinaryReader b = new BinaryReader(file.InputStream);
+        //        byte[] binData = b.ReadBytes((int)file.InputStream.Length);
+
+
+        //        string[] itemsName = customerName.Split(',');
+        //        string[] itemsNumber = customerNumber.Split(',');                
+
+        //        //System.IO.File.WriteAllBytes(@"\\tts349test04\D$\TTProjetPlus\TQEDocs\"+ file.FileName, binData); //dev
+        //        System.IO.File.WriteAllBytes(@"\\tqcs349iis1\D$\TTProjetPlus\TQEDocs\" + file.FileName, binData); // prod
+
+
+        //        var rep_id = _FLService.returnRepId(repCode);
+        //        var subRepCode = _FLService.returnSubRepCode(subRepId);
+        //        var sub_RepId = Int32.Parse(subRepId);
+        //        ///////////////////////////////////////////////////////////////////
+        //        ///TRES IMPORTANT : pour prod changer C: par D: dans fullname///////////////////
+        //        ///////////////////////////////////////////////////////////////////
+        //        //var fullName = @"\\tts349test04\D$\TTProjetPlus\TQEDocs\" + file.FileName; //dev
+        //        var fullName = @"\\tqcs349iis1\D$\TTProjetPlus\TQEDocs\" + file.FileName; //prod
+
+        //        if (customerNumber.Length == 0 )
+        //        {
+
+        //            var insertStatus = _FLService.insertIntoTable(repCode, rep_id, subRepCode, sub_RepId, fullName, "NULL", "NULL");
+        //        }
+        //        else
+        //        {
+        //            for (int i = 0; i < itemsNumber.Length; i++)
+        //            {
+        //                var insertStatus = _FLService.insertIntoTable(repCode, rep_id, subRepCode, sub_RepId, fullName, itemsName[i].ToString(), itemsNumber[i].ToString());
+
+        //            }
+        //        }
+
+        //        Session["message"] = "Success";
+        //        return Json("success", JsonRequestBehavior.AllowGet);
+        //        //var insertStatus =  _FLService.insertIntoTable(repCode, rep_id, subRepCode, sub_RepId, fullName, customerName);
+        //        //Session["message"]  = "Success";
+        //        //return Json("success", JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Session["message"] = "Failed";
+        //        return Json("failed", JsonRequestBehavior.AllowGet);
+        //    }
+        //}
+
         [HttpPost]
-        public ActionResult UploadFile2(HttpPostedFileBase file, string repCode, string subRepId, string customerName, string customerNumber, string continueProcess = "")
+        public ActionResult UploadFile2()
         {
+            if (Request.Files.Count == 0 || Request.Files[0].ContentLength == 0)
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+
+            var file = Request.Files[0];
+
             try
             {
-                BinaryReader b = new BinaryReader(file.InputStream);
-                byte[] binData = b.ReadBytes((int)file.InputStream.Length);
+                // Read other parameters
+                string repCode = Request.Form["repCode"];
+                string subRepId = Request.Form["subRepId"];
+                string customerName = Request.Form["customerName"];
+                string customerNumber = Request.Form["customerNumber"];
+                string continueProcess = Request.Form["continueProcess"];
 
-                                             
-                string[] itemsName = customerName.Split(',');
-                string[] itemsNumber = customerNumber.Split(',');                
+                // Folder + file saving
+                string targetFolder = @"\\tqcs349iis1\D$\TTProjetPlus\TQEDocs";
+                if (!Directory.Exists(targetFolder))
+                    Directory.CreateDirectory(targetFolder);
 
-                //System.IO.File.WriteAllBytes(@"\\tts349test04\D$\TTProjetPlus\TQEDocs\"+ file.FileName, binData); //dev
-                System.IO.File.WriteAllBytes(@"\\tts349iis\D$\TTProjetPlus\TQEDocs\"+ file.FileName, binData); // prod
+                string safeFileName = Path.GetFileName(file.FileName);
+                string fullPath = Path.Combine(targetFolder, safeFileName);
 
+                file.SaveAs(fullPath);
 
+                // Split customer info
+                string[] itemsName = string.IsNullOrEmpty(customerName) ? new string[0] : customerName.Split(',');
+                string[] itemsNumber = string.IsNullOrEmpty(customerNumber) ? new string[0] : customerNumber.Split(',');
+
+                int sub_RepId = int.TryParse(subRepId, out var temp) ? temp : 0;
                 var rep_id = _FLService.returnRepId(repCode);
                 var subRepCode = _FLService.returnSubRepCode(subRepId);
-                var sub_RepId = Int32.Parse(subRepId);
-                ///////////////////////////////////////////////////////////////////
-                ///TRES IMPORTANT : pour prod changer C: par D: dans fullname///////////////////
-                ///////////////////////////////////////////////////////////////////
-                //var fullName = @"\\tts349test04\D$\TTProjetPlus\TQEDocs\" + file.FileName; //dev
-                var fullName = @"\\tts349iis\D$\TTProjetPlus\TQEDocs\" + file.FileName; //prod
 
-                if (customerNumber.Length == 0 )
+                // Insert records into DB
+                if (itemsNumber.Length == 0)
                 {
-
-                    var insertStatus = _FLService.insertIntoTable(repCode, rep_id, subRepCode, sub_RepId, fullName, "NULL", "NULL");
+                    _FLService.insertIntoTable(repCode, rep_id, subRepCode, sub_RepId, fullPath, "NULL", "NULL");
                 }
                 else
                 {
-                    for (int i = 0; i < itemsNumber.Length; i++)
+                    for (int i = 0; i < itemsNumber.Length && i < itemsName.Length; i++)
                     {
-                        var insertStatus = _FLService.insertIntoTable(repCode, rep_id, subRepCode, sub_RepId, fullName, itemsName[i].ToString(), itemsNumber[i].ToString());
-
+                        _FLService.insertIntoTable(repCode, rep_id, subRepCode, sub_RepId, fullPath, itemsName[i], itemsNumber[i]);
                     }
                 }
-               
-                Session["message"] = "Success";
+
                 return Json("success", JsonRequestBehavior.AllowGet);
-                //var insertStatus =  _FLService.insertIntoTable(repCode, rep_id, subRepCode, sub_RepId, fullName, customerName);
-                //Session["message"]  = "Success";
-                //return Json("success", JsonRequestBehavior.AllowGet);
             }
-            catch (Exception e)
+            catch
             {
-                Session["message"] = "Failed";
-                return Json("failed", JsonRequestBehavior.AllowGet);
+                return Json("Failed", JsonRequestBehavior.AllowGet);
             }
         }
 
-       
+
+
         public JsonResult returnSubFolders(string repCode)
         {
             var list = _FLService.GetSubFolders(repCode);
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-       [HttpPost]
-        public JsonResult checkIfFilexists(HttpPostedFileBase file)
-        {
-            //string path = @"\\tts349test04\D$\TTProjetPlus\TQEDocs\" + file.FileName; //dev
-            string path = @"\\tts349iis\D$\TTProjetPlus\TQEDocs\" + file.FileName; //prod
+        //[HttpPost]
+        // public JsonResult checkIfFilexists(HttpPostedFileBase file)
+        // {
+        //     //string path = @"\\tts349test04\D$\TTProjetPlus\TQEDocs\" + file.FileName; //dev
+        //     string path = @"\\tqcs349iis1\D$\TTProjetPlus\TQEDocs\" + file.FileName; //prod
+        //     try
+        //     {
+        //     if (System.IO.File.Exists(path))
+        //     {
+        //         return Json("Exists", JsonRequestBehavior.AllowGet);
+        //     }
+        //     else
+        //     return Json("NotExisting", JsonRequestBehavior.AllowGet);
 
-            if (System.IO.File.Exists(path))
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         return Json("NotExisting", JsonRequestBehavior.AllowGet);
+        //     }
+        // }
+
+
+        [HttpPost]
+        public JsonResult checkIfFilexists(string fileName)
+        {
+            string path = @"\\tqcs349iis1\D$\TTProjetPlus\TQEDocs\" + fileName;
+
+            try
             {
-                return Json("Exists", JsonRequestBehavior.AllowGet);
+                if (System.IO.File.Exists(path))
+                    return Json("Exists", JsonRequestBehavior.AllowGet);
+                else
+                    return Json("NotExisting", JsonRequestBehavior.AllowGet);
             }
-            else
-            return Json("NotExisting", JsonRequestBehavior.AllowGet);
+            catch
+            {
+                return Json("NotExisting", JsonRequestBehavior.AllowGet);
+            }
         }
 
         public JsonResult returnDocNames(string repCode, string repSubCode)

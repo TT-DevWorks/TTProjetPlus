@@ -185,7 +185,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <h4 style="margin-top: 0px; color: #183666; font-family: 'Arial Bold'; font-size: 18pt; margin-left: 10px;">
-                                        <b>Projets échus ou arrivant à échéance</b>@*@Resources.TTProjet.CPDisplay*@
+                                        <b>Projets – date de fin dépassée ou échéance dans les 30 prochains jours</b>@*@Resources.TTProjet.CPDisplay*@
                                     </h4>
                                 </div>
                             </div>
@@ -298,7 +298,7 @@
                                                                         <th>Date de fin de projet</th>
                                                                         <th>Semaine Inactive</th>
                                                                         <th>Nouvelle date de fin</th>
-                                                                        <th> fermer</th>
+                                                                        <th> Projet à fermer</th>
                                                                         <th>Commentaire</th>
                                                                     </tr>
                                                                 </thead>
@@ -796,19 +796,58 @@
 
 
     //excel:
+    //function exportTableToExcel(tableID, filename = 'export.xlsx') {
+    //    let table = document.getElementById(tableID);
+    //    let wb = XLSX.utils.book_new();
+    //    let ws_data = [];
+
+    //    // Loop through table rows
+    //    for (let i = 0; i < table.rows.length; i++) {
+    //        let row = [];
+    //        for (let j = 0; j < table.rows[i].cells.length; j++) {
+    //            let cell = table.rows[i].cells[j];
+    //            let value = "";
+
+    //            // Handle inputs/selects/textareas
+    //            let input = cell.querySelector("input, select, textarea");
+    //            if (input) {
+    //                if (input.tagName === "SELECT") {
+    //                    value = input.options[input.selectedIndex]?.text || "";
+    //                } else {
+    //                    value = input.value || input.placeholder || "";
+    //                }
+    //            } else {
+    //                value = cell.innerText.trim();
+    //            }
+
+    //            row.push(value);
+    //        }
+    //        ws_data.push(row);
+    //    }
+
+    //    // Create worksheet
+    //    let ws = XLSX.utils.aoa_to_sheet(ws_data);
+
+    //    // Append worksheet to workbook
+    //    XLSX.utils.book_append_sheet(wb, ws, "Projets");
+
+    //    // Save to file
+    //    XLSX.writeFile(wb, filename);
+    //}
+
+
     function exportTableToExcel(tableID, filename = 'export.xlsx') {
         let table = document.getElementById(tableID);
         let wb = XLSX.utils.book_new();
         let ws_data = [];
 
-        // Loop through table rows
         for (let i = 0; i < table.rows.length; i++) {
             let row = [];
             for (let j = 0; j < table.rows[i].cells.length; j++) {
                 let cell = table.rows[i].cells[j];
                 let value = "";
 
-                // Handle inputs/selects/textareas
+                // Récupérer la valeur brute
                 let input = cell.querySelector("input, select, textarea");
                 if (input) {
                     if (input.tagName === "SELECT") {
@@ -820,22 +859,30 @@
                     value = cell.innerText.trim();
                 }
 
-                row.push(value);
+                // Enlever le symbole $ et espaces pour conversion
+                let cleaned = value.replace(/[\$\s ]/g, "").replace(",", ".");
+
+                if (cleaned !== "" && !isNaN(cleaned)) {
+                    // Valeur numérique (monétaire)
+                    let num = parseFloat(cleaned);
+                    row.push({ v: num, t: "n", z: '"$"#,##0.00' }); // format monétaire Excel
+                } else {
+                    // Valeur texte
+                    row.push({ v: value, t: "s" });
+                }
             }
             ws_data.push(row);
         }
 
-        // Create worksheet
+        // Création de la feuille avec prise en compte des objets {v, t, z}
         let ws = XLSX.utils.aoa_to_sheet(ws_data);
 
-        // Append worksheet to workbook
+        // Ajout au classeur
         XLSX.utils.book_append_sheet(wb, ws, "Projets");
 
-        // Save to file
+        // Sauvegarde
         XLSX.writeFile(wb, filename);
     }
-
-
 
 
 </script>

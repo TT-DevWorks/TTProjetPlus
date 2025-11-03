@@ -1,4 +1,4 @@
-﻿not@using Resources2 = TetraTech.TTProjetPlus.Views.ListeOffres
+﻿@using Resources2 = TetraTech.TTProjetPlus.Views.ListeOffres
 @using ResourcesB = TetraTech.TTProjetPlus.Views.Boomerang.searchCriteria
 @using Resources = TetraTech.TTProjetPlus.Views.InfoProjet
 @using TetraTech.TTProjetPlus.Controllers
@@ -284,7 +284,7 @@
             dataType: "html",
             data:
             {
-                folder : $('.selectpicker').val(),
+                folder: $('#id_fileType').val(),
                 pathKeyword: $('#pathKeyword').val(),
                 fileKeyword: $('#fileKeyword').val(),
                 extensionsArray: $(".selectpickerM").val(),

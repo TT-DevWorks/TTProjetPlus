@@ -25,8 +25,9 @@ namespace TetraTech.TTProjetPlus.Data
 
             // Sets the command timeout for all the commands
             objectContext.CommandTimeout = 0;
+
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -499,31 +500,6 @@ namespace TetraTech.TTProjetPlus.Data
                 new ObjectParameter("dateEnd", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_TTIndex_getFiles_Result>("usp_TTIndex_getFiles", folderParameter, folderKWParameter, fileKWParameter, dateStartParameter, dateEndParameter);
-        }
-    
-        public virtual ObjectResult<usp_TTIndex_getFiles2_Result> usp_TTIndex_getFiles2(string folder, string folderKW, string fileKW, string dateStart, string dateEnd)
-        {
-            var folderParameter = folder != null ?
-                new ObjectParameter("folder", folder) :
-                new ObjectParameter("folder", typeof(string));
-    
-            var folderKWParameter = folderKW != null ?
-                new ObjectParameter("folderKW", folderKW) :
-                new ObjectParameter("folderKW", typeof(string));
-    
-            var fileKWParameter = fileKW != null ?
-                new ObjectParameter("fileKW", fileKW) :
-                new ObjectParameter("fileKW", typeof(string));
-    
-            var dateStartParameter = dateStart != null ?
-                new ObjectParameter("dateStart", dateStart) :
-                new ObjectParameter("dateStart", typeof(string));
-    
-            var dateEndParameter = dateEnd != null ?
-                new ObjectParameter("dateEnd", dateEnd) :
-                new ObjectParameter("dateEnd", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_TTIndex_getFiles2_Result>("usp_TTIndex_getFiles2", folderParameter, folderKWParameter, fileKWParameter, dateStartParameter, dateEndParameter);
         }
     
         public virtual int usp_SendProjectEstimatedEndDate(Nullable<int> oS_Project_ID)
@@ -1025,6 +1001,11 @@ namespace TetraTech.TTProjetPlus.Data
         public virtual ObjectResult<usp_ReturnTableVerificationKM_ColumnsName_Result> usp_ReturnTableVerificationKM_ColumnsName()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ReturnTableVerificationKM_ColumnsName_Result>("usp_ReturnTableVerificationKM_ColumnsName");
+        }
+    
+        public virtual ObjectResult<TTIndex_getProjectsList_Result> TTIndex_getProjectsList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TTIndex_getProjectsList_Result>("TTIndex_getProjectsList");
         }
     }
 }

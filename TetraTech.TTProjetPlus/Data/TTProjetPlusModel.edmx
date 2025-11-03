@@ -5,18 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TTProjetPlusModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TTProjetPlus.dbo._____Emp_all_BPR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="_____Emp_all_BPR">
           <Key>
-            
+            <PropertyRef Name="EMPLOYEE_NUMBER" />
             <PropertyRef Name="EMP_STARTDATE" />
             <PropertyRef Name="EMP_ENDDATE" />
-            
-            
             <PropertyRef Name="ASSGNMT_START" />
             <PropertyRef Name="ASSGNMT_END" />
-            <PropertyRef Name="EMPLOYEE_NUMBER" />
           </Key>
           <Property Name="FIRST_NAME" Type="nvarchar" MaxLength="150" />
           <Property Name="LAST_NAME" Type="nvarchar" MaxLength="150" Nullable="false" />
@@ -34,11 +29,8 @@ warning 6002: The table/view 'TTProjetPlus.dbo._____Emp_all_BPR' does not have a
           <Property Name="ASSGNMT_START" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ASSGNMT_END" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TTProjetPlus.dbo._____Emp_all_BPRFinal' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="_____Emp_all_BPRFinal">
           <Key>
-            
             <PropertyRef Name="EMPLOYEE_NUMBER" />
           </Key>
           <Property Name="FIRST_NAME" Type="nvarchar" MaxLength="150" />
@@ -48,12 +40,8 @@ warning 6002: The table/view 'TTProjetPlus.dbo._____Emp_all_BPRFinal' does not h
           <Property Name="ADPNUMBER" Type="nvarchar" MaxLength="150" />
           <Property Name="rn" Type="bigint" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TTProjetPlus.dbo.__BUP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="__BUP">
           <Key>
-            
-            
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="BusinessUnit" Type="varchar" MaxLength="50" Nullable="false" />
@@ -263,32 +251,32 @@ warning 6002: The table/view 'TTProjetPlus.dbo.__SMprojet' does not have a prima
           <Property Name="acct_center_id" Type="int" />
           <Property Name="project_start_date" Type="smalldatetime" Nullable="false" />
           <Property Name="project_end_date" Type="datetime" Nullable="false" />
-          <Property Name="cost_budget" Type="numeric" Precision="20" Scale="2" Nullable="false" />
-          <Property Name="revenue_budget" Type="numeric" Precision="20" Scale="2" Nullable="false" />
-          <Property Name="hrs_budget" Type="numeric" Precision="20" Scale="2" />
-          <Property Name="cost_ptd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="revenue_ptd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="profit_ptd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="cost_budget" Type="decimal" Precision="20" Scale="2" Nullable="false" />
+          <Property Name="revenue_budget" Type="decimal" Precision="20" Scale="2" Nullable="false" />
+          <Property Name="hrs_budget" Type="decimal" Precision="20" Scale="2" />
+          <Property Name="cost_ptd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="revenue_ptd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="profit_ptd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="profit_pct_ptd" Type="float" Nullable="false" />
-          <Property Name="hrs_ptd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="cost_qtd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="revenue_qtd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="profit_qtd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="hrs_ptd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="cost_qtd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="revenue_qtd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="profit_qtd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="profit_pct_qtd" Type="float" Nullable="false" />
-          <Property Name="hrs_qtd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="cost_ytd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="revenue_ytd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="profit_ytd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="hrs_qtd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="cost_ytd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="revenue_ytd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="profit_ytd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="profit_pct_ytd" Type="float" Nullable="false" />
-          <Property Name="hrs_ytd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="cost_itd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="revenue_itd" Type="numeric" Precision="20" Scale="2" Nullable="false" />
-          <Property Name="profit_itd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="hrs_ytd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="cost_itd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="revenue_itd" Type="decimal" Precision="20" Scale="2" Nullable="false" />
+          <Property Name="profit_itd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="profit_pct_itd" Type="float" Nullable="false" />
-          <Property Name="hrs_itd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="lbr_cost_itd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="sub_cost_itd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="odc_cost_itd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="hrs_itd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="lbr_cost_itd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="sub_cost_itd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="odc_cost_itd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="cost_pct_complete" Type="float" Nullable="false" />
           <Property Name="customer_name" Type="varchar" MaxLength="360" Nullable="false" />
           <Property Name="customer_number" Type="varchar" MaxLength="30" Nullable="false" />
@@ -297,38 +285,38 @@ warning 6002: The table/view 'TTProjetPlus.dbo.__SMprojet' does not have a prima
           <Property Name="programs" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="po_number" Type="varchar" MaxLength="120" />
           <Property Name="project_desc" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="total_billed" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="total_invoiced" Type="numeric" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="total_billed" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="total_invoiced" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="inv_pct_complete" Type="float" Nullable="false" />
-          <Property Name="total_unbilled" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="unbilled_0_30" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="unbilled_31_60" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="unbilled_61_90" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="unbilled_91_120" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="unbilled_120" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="total_unearned" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="wip_itd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="nonbill_itd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="total_ar" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="ar_0_30" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="ar_31_60" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="ar_61_90" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="ar_91_120" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="ar_120" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="total_billable" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="lbr_billable" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="sub_billable" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="odc_billable" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="event_billable" Type="numeric" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="nonbill_hrs_itd" Type="numeric" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="total_unbilled" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="unbilled_0_30" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="unbilled_31_60" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="unbilled_61_90" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="unbilled_91_120" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="unbilled_120" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="total_unearned" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="wip_itd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="nonbill_itd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="total_ar" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ar_0_30" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ar_31_60" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ar_61_90" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ar_91_120" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ar_120" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="total_billable" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="lbr_billable" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="sub_billable" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="odc_billable" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="event_billable" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="nonbill_hrs_itd" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="creation_date" Type="datetime" Nullable="false" />
           <Property Name="Period_Week_Date" Type="smalldatetime" Nullable="false" />
           <Property Name="pa_period_end_date" Type="datetime" Nullable="false" />
           <Property Name="PROJECT_NAME" Type="varchar" MaxLength="250" />
-          <Property Name="JV_AMT_PTD" Type="numeric" Precision="10" Scale="2" />
-          <Property Name="JV_AMT_QTD" Type="numeric" Precision="10" Scale="2" />
-          <Property Name="JV_AMT_YTD" Type="numeric" Precision="10" Scale="2" />
-          <Property Name="JV_AMT_ITD" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="JV_AMT_PTD" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="JV_AMT_QTD" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="JV_AMT_YTD" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="JV_AMT_ITD" Type="decimal" Precision="10" Scale="2" />
           <Property Name="projctid" Type="varchar" MaxLength="25" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -375,8 +363,6 @@ warning 6002: The table/view 'TTProjetPlus.dbo.__Vprojet' does not have a primar
           <Property Name="RealisationSite" Type="nvarchar" MaxLength="150" />
           <Property Name="GPProjectNo" Type="varchar" MaxLength="14" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TTProjetPlus.dbo._From_GP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="_From_GP">
           <Key>
             <PropertyRef Name="projectno" />
@@ -457,9 +443,9 @@ warning 6002: The table/view 'TTProjetPlus.dbo._From_GP' does not have a primary
 warning 6002: The table/view 'TTProjetPlus.dbo.Boomerang_tempFicheLang' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Boomerang_tempFicheLang">
           <Key>
+            <PropertyRef Name="id_fiche" />
             <PropertyRef Name="libelle_createur" />
             <PropertyRef Name="libelle_charge_affaire" />
-            <PropertyRef Name="id_fiche" />
           </Key>
           <Property Name="id_fiche" Type="int" Nullable="false" />
           <Property Name="id_createur" Type="int" />
@@ -699,44 +685,28 @@ warning 6002: The table/view 'TTProjetPlus.dbo.Boomerang_tempFicheLang' does not
           <Property Name="CreatedBy" Type="varchar" MaxLength="255" />
           <Property Name="Reference" Type="varchar" MaxLength="255" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TTProjetPlus.dbo.Discipline' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Discipline">
           <Key>
             <PropertyRef Name="Disc_ID" />
-            
-            
           </Key>
-          <Property Name="Disc_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Disc_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="isActive" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TTProjetPlus.dbo.Discipline_ADGroup' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Discipline_ADGroup">
           <Key>
             <PropertyRef Name="Disc_ADGroup_ID" />
-            
-            
-            
-            
           </Key>
-          <Property Name="Disc_ADGroup_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Disc_ADGroup_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Disc_ID" Type="int" Nullable="false" />
           <Property Name="ADGroup_Write" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ADGroup_Read" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="isActive" Type="bit" Nullable="false" />
           <Property Name="AvailableToEmployeesMembersOf" Type="varchar" MaxLength="1000" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TTProjetPlus.dbo.Discipline_Admin' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Discipline_Admin">
           <Key>
             <PropertyRef Name="Disc_Admin_ID" />
-            
-            
-            
-            
           </Key>
           <Property Name="Disc_Admin_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Disc_ID" Type="int" Nullable="false" />
@@ -793,7 +763,7 @@ warning 6002: The table/view 'TTProjetPlus.dbo.DocProj_ADGroup' does not have a 
             <PropertyRef Name="DocProj_ID" />
             <PropertyRef Name="isActive" />
           </Key>
-          <Property Name="DocProj_ADGroup_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DocProj_ADGroup_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DocProj_ID" Type="int" Nullable="false" />
           <Property Name="ADGroup_Write" Type="varchar" MaxLength="100" />
           <Property Name="ADGroup_Read" Type="varchar" MaxLength="100" />
@@ -1655,19 +1625,9 @@ warning 6002: The table/view 'TTProjetPlus.dbo.fiche_forcart' does not have a pr
           <Property Name="Full_Name" Type="varchar" MaxLength="240" Nullable="false" />
           <Property Name="Hidden" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TTProjetPlus.dbo.myProjFinal' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="myProjFinal">
           <Key>
-            
-            
             <PropertyRef Name="ProjectNo" />
-            
-            
-            
-            
-            
-            
           </Key>
           <Property Name="RequestID" Type="int" Nullable="false" />
           <Property Name="ProjectTitle" Type="varchar" MaxLength="31" Nullable="false" />
@@ -1964,8 +1924,8 @@ warning 6002: The table/view 'TTProjetPlus.dbo.Program_old' does not have a prim
             <PropertyRef Name="Project_Number" />
           </Key>
           <Property Name="Project_Number" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="DateAdded" Type="nvarchar" MaxLength="50" />
-          <Property Name="Comments" Type="varchar" MaxLength="500" />
+          <Property Name="DateAdded" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Comments" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="Dossier_Clos" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ProjetSecuriser_GroupAD">
@@ -2064,8 +2024,6 @@ warning 6002: The table/view 'TTProjetPlus.dbo.Program_old' does not have a prim
           <Property Name="Parent_Status_ID" Type="tinyint" />
           <Property Name="isActive" Type="bit" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TTProjetPlus.dbo.TableChgtKM' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TableChgtKM">
           <Key>
             <PropertyRef Name="id" />
@@ -2090,23 +2048,22 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TableChgtKM' does not have a prim
           <Property Name="715 BAT QC Électricité" Type="nvarchar" MaxLength="255" />
           <Property Name="715 BAT QC Structure" Type="nvarchar" MaxLength="255" />
           <Property Name="715 BAT QC Mécanique" Type="nvarchar" MaxLength="255" />
-          <Property Name="715 BAT QC Méc-Élec" Type="nvarchar" MaxLength="255" />
-          <Property Name="715 BAT Bouch# Méc# Élec#" Type="nvarchar" MaxLength="255" />
-          <Property Name="715 BAT Laval Méc# Élec#" Type="nvarchar" MaxLength="255" />
-          <Property Name="715 BAT Ouest Mécanique" Type="nvarchar" MaxLength="255" />
+          <Property Name="715 BAT QC Méc-Élect." Type="nvarchar" MaxLength="255" />
+          <Property Name="715 BAT Bouch. Méc. Élec." Type="nvarchar" MaxLength="255" />
+          <Property Name="715 BAT Laval Méc. Élec." Type="nvarchar" MaxLength="255" />
+          <Property Name="715 BAT MTL Méc-Élect. " Type="nvarchar" MaxLength="255" />
           <Property Name="715 BAT Ouest Structure" Type="nvarchar" MaxLength="255" />
           <Property Name="715 BAT Ouest Électrique" Type="nvarchar" MaxLength="255" />
           <Property Name="715 BAT Ouest Efficacité énergétique" Type="nvarchar" MaxLength="255" />
-          <Property Name="715 ENV Mat# Résiduelles" Type="nvarchar" MaxLength="255" />
+          <Property Name="715 ENV Mat. Résiduelles" Type="nvarchar" MaxLength="255" />
           <Property Name="715 ENV Milieu Naturel" Type="nvarchar" MaxLength="255" />
           <Property Name="715 ENV Sols Contaminés" Type="nvarchar" MaxLength="255" />
           <Property Name="715 MUN Boucherville" Type="nvarchar" MaxLength="255" />
           <Property Name="715 MUN Solutions Technologiques" Type="nvarchar" MaxLength="255" />
           <Property Name="715 MUN Gaspé-Chandler" Type="nvarchar" MaxLength="255" />
           <Property Name="715 MUN Granby" Type="nvarchar" MaxLength="255" />
-          <Property Name="715 MUN Laval" Type="nvarchar" MaxLength="255" />
           <Property Name="715 MUN Québec" Type="nvarchar" MaxLength="255" />
-          <Property Name="715 MUN Ressource Eau" Type="nvarchar" MaxLength="255" />
+          <Property Name="715 Ressources hydriques" Type="nvarchar" MaxLength="255" />
           <Property Name="715 MUN Rimouski" Type="nvarchar" MaxLength="255" />
           <Property Name="715 TRA Est Québec" Type="nvarchar" MaxLength="255" />
           <Property Name="715 TRA Est Rivière-du-Loup" Type="nvarchar" MaxLength="255" />
@@ -2120,6 +2077,8 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TableChgtKM' does not have a prim
           <Property Name="715 TRA Aéroportuaire et Électrotechnique" Type="nvarchar" MaxLength="255" />
           <Property Name="715 TRA Gestion de projet" Type="nvarchar" MaxLength="255" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="715 BAT Structure" Type="nvarchar" MaxLength="255" />
+          <Property Name="715 BAT Direction" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tbl_Excel_SatisfactionClient">
           <Key>
@@ -2141,12 +2100,12 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TableChgtKM' does not have a prim
           <Key>
             <PropertyRef Name="itemId" />
           </Key>
+          <Property Name="itemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Role_Id" Type="int" />
           <Property Name="employeeNumber" Type="int" />
           <Property Name="EmployeeFullName" Type="nvarchar" MaxLength="100" />
           <Property Name="Role Description" Type="nvarchar" MaxLength="100" />
           <Property Name="Company" Type="nvarchar" MaxLength="50" />
-          <Property Name="itemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2159,7 +2118,7 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
           <Property Name="DateDeRappel" Type="nvarchar" MaxLength="50" />
           <Property Name="DateDeReponseCP" Type="nvarchar" MaxLength="50" />
           <Property Name="projectNum" Type="nchar" MaxLength="100" />
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="TTProjetPlus_Error_Log">
           <Key>
@@ -2262,6 +2221,7 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
             </CollectionType>
           </ReturnType>
         </Function>
+        <Function Name="TTIndex_getProjectsList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_AnnulerFermetureProjet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Project_Number" Type="varchar" Mode="In" />
         </Function>
@@ -2410,7 +2370,6 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
         </Function>
         <Function Name="usp_RenderSearchCriterias" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_ReturnNumberOfMasterProjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="usp_ReturnTableVerificationKM_ColumnsName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_SatisfactionClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ProjectSartDate" Type="date" Mode="In" />
           <Parameter Name="ProjectEndDate" Type="date" Mode="In" />
@@ -2434,6 +2393,13 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
           <Parameter Name="OS_Project_ID" Type="int" Mode="In" />
         </Function>
         <Function Name="usp_ssrsGetProjetAFermer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_TTIndex_getFiles2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="folder" Type="varchar" Mode="In" />
+          <Parameter Name="folderKW" Type="varchar" Mode="In" />
+          <Parameter Name="fileKW" Type="varchar" Mode="In" />
+          <Parameter Name="dateStart" Type="varchar" Mode="In" />
+          <Parameter Name="dateEnd" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="usp_Update_ProjetSecuriser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="varchar" Mode="In" />
           <Parameter Name="Projet" Type="varchar" Mode="In" />
@@ -2450,6 +2416,10 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
         <Function Name="usp_UpdateStatusID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspMAJ_OS_Project_TLinxProjectNumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="TTProjetPlusModelStoreContainer">
+          <EntitySet Name="_____Emp_all_BPR" EntityType="Self._____Emp_all_BPR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_____Emp_all_BPRFinal" EntityType="Self._____Emp_all_BPRFinal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="__BUP" EntityType="Self.__BUP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_From_GP" EntityType="Self._From_GP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Acct_Center" EntityType="Self.Acct_Center" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Acct_Group" EntityType="Self.Acct_Group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Acct_Group_Center_Email" EntityType="Self.Acct_Group_Center_Email" Schema="dbo" store:Type="Tables" />
@@ -2461,6 +2431,9 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
           <EntitySet Name="Contract_Type" EntityType="Self.Contract_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Currency" EntityType="Self.Currency" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Discipline" EntityType="Self.Discipline" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Discipline_ADGroup" EntityType="Self.Discipline_ADGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Discipline_Admin" EntityType="Self.Discipline_Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Discipline_Logs" EntityType="Self.Discipline_Logs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Distribution_Rule" EntityType="Self.Distribution_Rule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Doc_Status" EntityType="Self.Doc_Status" Schema="dbo" store:Type="Tables" />
@@ -2477,6 +2450,7 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
           <EntitySet Name="GestionGroupeAD" EntityType="Self.GestionGroupeAD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GestionGroupeAD_ADGroup" EntityType="Self.GestionGroupeAD_ADGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GestionGroupeAD_Admin" EntityType="Self.GestionGroupeAD_Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="myProjFinal" EntityType="Self.myProjFinal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Office_Address" EntityType="Self.Office_Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OpeningProject" EntityType="Self.OpeningProject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OpeningProject_InfoClient" EntityType="Self.OpeningProject_InfoClient" Schema="dbo" store:Type="Tables" />
@@ -2498,6 +2472,7 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
           <EntitySet Name="SatisfactionClient" EntityType="Self.SatisfactionClient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SatisfactionClient_TQE" EntityType="Self.SatisfactionClient_TQE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableChgtKM" EntityType="Self.TableChgtKM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TableVerificationKM" EntityType="Self.TableVerificationKM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Excel_SatisfactionClient" EntityType="Self.tbl_Excel_SatisfactionClient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Excel_SatisfactionClient_TQE" EntityType="Self.tbl_Excel_SatisfactionClient_TQE" Schema="dbo" store:Type="Tables" />
@@ -2511,43 +2486,6 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
           <EntitySet Name="ville" EntityType="Self.ville" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Work_Location" EntityType="Self.Work_Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Work_Type" EntityType="Self.Work_Type" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="_____Emp_all_BPR" EntityType="Self._____Emp_all_BPR" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [_____Emp_all_BPR].[FIRST_NAME] AS [FIRST_NAME], 
-    [_____Emp_all_BPR].[LAST_NAME] AS [LAST_NAME], 
-    [_____Emp_all_BPR].[FULL_NAME] AS [FULL_NAME], 
-    [_____Emp_all_BPR].[EMPLOYEE_NUMBER] AS [EMPLOYEE_NUMBER], 
-    [_____Emp_all_BPR].[EMP_STARTDATE] AS [EMP_STARTDATE], 
-    [_____Emp_all_BPR].[EMP_ENDDATE] AS [EMP_ENDDATE], 
-    [_____Emp_all_BPR].[ORG] AS [ORG], 
-    [_____Emp_all_BPR].[LOCATION_CODE] AS [LOCATION_CODE], 
-    [_____Emp_all_BPR].[ADPNUMBER] AS [ADPNUMBER], 
-    [_____Emp_all_BPR].[PERSON_TYPE_ID] AS [PERSON_TYPE_ID], 
-    [_____Emp_all_BPR].[FOREIGNPAYROLL] AS [FOREIGNPAYROLL], 
-    [_____Emp_all_BPR].[CONSULTANT] AS [CONSULTANT], 
-    [_____Emp_all_BPR].[EMAIL_ADDRESS] AS [EMAIL_ADDRESS], 
-    [_____Emp_all_BPR].[ASSGNMT_START] AS [ASSGNMT_START], 
-    [_____Emp_all_BPR].[ASSGNMT_END] AS [ASSGNMT_END]
-    FROM [dbo].[_____Emp_all_BPR] AS [_____Emp_all_BPR]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="_____Emp_all_BPRFinal" EntityType="Self._____Emp_all_BPRFinal" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [_____Emp_all_BPRFinal].[FIRST_NAME] AS [FIRST_NAME], 
-    [_____Emp_all_BPRFinal].[LAST_NAME] AS [LAST_NAME], 
-    [_____Emp_all_BPRFinal].[FULL_NAME] AS [FULL_NAME], 
-    [_____Emp_all_BPRFinal].[EMPLOYEE_NUMBER] AS [EMPLOYEE_NUMBER], 
-    [_____Emp_all_BPRFinal].[ADPNUMBER] AS [ADPNUMBER], 
-    [_____Emp_all_BPRFinal].[rn] AS [rn]
-    FROM [dbo].[_____Emp_all_BPRFinal] AS [_____Emp_all_BPRFinal]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="__BUP" EntityType="Self.__BUP" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [__BUP].[BusinessUnit] AS [BusinessUnit], 
-    [__BUP].[IsShortNumber] AS [IsShortNumber], 
-    [__BUP].[Description] AS [Description], 
-    [__BUP].[Id] AS [Id]
-    FROM [dbo].[__BUP] AS [__BUP]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="__initiatedBy" EntityType="Self.__initiatedBy" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [__initiatedBy].[EMPLOYEE_NUMBER] AS [EMPLOYEE_NUMBER], 
@@ -2749,24 +2687,6 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
     [__Vprojet].[GPProjectNo] AS [GPProjectNo]
     FROM [dbo].[__Vprojet] AS [__Vprojet]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="_From_GP" EntityType="Self._From_GP" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [_From_GP].[projectno] AS [projectno], 
-    [_From_GP].[GP_ProjectID] AS [GP_ProjectID], 
-    [_From_GP].[GP_ShorProjectName] AS [GP_ShorProjectName], 
-    [_From_GP].[GP_DeptID] AS [GP_DeptID], 
-    [_From_GP].[GP_Dept_Desc] AS [GP_Dept_Desc], 
-    [_From_GP].[GP_Custnmbr] AS [GP_Custnmbr], 
-    [_From_GP].[GP_CP] AS [GP_CP], 
-    [_From_GP].[GP_DP] AS [GP_DP], 
-    [_From_GP].[GP_JobStatus] AS [GP_JobStatus], 
-    [_From_GP].[GP_CurrID] AS [GP_CurrID], 
-    [_From_GP].[GP_JMarketID] AS [GP_JMarketID], 
-    [_From_GP].[GP_Market_Desc] AS [GP_Market_Desc], 
-    [_From_GP].[GP_JBusinessID] AS [GP_JBusinessID], 
-    [_From_GP].[GP_deptShortID] AS [GP_deptShortID]
-    FROM [dbo].[_From_GP] AS [_From_GP]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="Boomerang_tempFicheLang" EntityType="Self.Boomerang_tempFicheLang" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Boomerang_tempFicheLang].[id_fiche] AS [id_fiche], 
@@ -2948,32 +2868,6 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
     [Boomerang_tempFicheLang].[libelle_pole] AS [libelle_pole], 
     [Boomerang_tempFicheLang].[couleur] AS [couleur]
     FROM [dbo].[Boomerang_tempFicheLang] AS [Boomerang_tempFicheLang]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Discipline" EntityType="Self.Discipline" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Discipline].[Disc_ID] AS [Disc_ID], 
-    [Discipline].[Name] AS [Name], 
-    [Discipline].[isActive] AS [isActive]
-    FROM [dbo].[Discipline] AS [Discipline]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Discipline_ADGroup" EntityType="Self.Discipline_ADGroup" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Discipline_ADGroup].[Disc_ADGroup_ID] AS [Disc_ADGroup_ID], 
-    [Discipline_ADGroup].[Disc_ID] AS [Disc_ID], 
-    [Discipline_ADGroup].[ADGroup_Write] AS [ADGroup_Write], 
-    [Discipline_ADGroup].[ADGroup_Read] AS [ADGroup_Read], 
-    [Discipline_ADGroup].[isActive] AS [isActive], 
-    [Discipline_ADGroup].[AvailableToEmployeesMembersOf] AS [AvailableToEmployeesMembersOf]
-    FROM [dbo].[Discipline_ADGroup] AS [Discipline_ADGroup]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Discipline_Admin" EntityType="Self.Discipline_Admin" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Discipline_Admin].[Disc_Admin_ID] AS [Disc_Admin_ID], 
-    [Discipline_Admin].[Disc_ID] AS [Disc_ID], 
-    [Discipline_Admin].[Employee_Number] AS [Employee_Number], 
-    [Discipline_Admin].[Full_Name] AS [Full_Name], 
-    [Discipline_Admin].[Hidden] AS [Hidden]
-    FROM [dbo].[Discipline_Admin] AS [Discipline_Admin]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="DocProj" EntityType="Self.DocProj" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -3533,30 +3427,6 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
     [fiche_forcart].[ProjectURLSharepoint] AS [ProjectURLSharepoint]
     FROM [dbo].[fiche_forcart] AS [fiche_forcart]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="myProjFinal" EntityType="Self.myProjFinal" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [myProjFinal].[RequestID] AS [RequestID], 
-    [myProjFinal].[ProjectTitle] AS [ProjectTitle], 
-    [myProjFinal].[ProjectNo] AS [ProjectNo], 
-    [myProjFinal].[PhaseCode] AS [PhaseCode], 
-    [myProjFinal].[GPCustID] AS [GPCustID], 
-    [myProjFinal].[OfficeID] AS [OfficeID], 
-    [myProjFinal].[BUID] AS [BUID], 
-    [myProjFinal].[Comments] AS [Comments], 
-    [myProjFinal].[InitiatedBy] AS [InitiatedBy], 
-    [myProjFinal].[SubmitBy] AS [SubmitBy], 
-    [myProjFinal].[SubmitDate] AS [SubmitDate], 
-    [myProjFinal].[StatusID] AS [StatusID], 
-    [myProjFinal].[IsMaster] AS [IsMaster], 
-    [myProjFinal].[MasterProject] AS [MasterProject], 
-    [myProjFinal].[LastModificationUser] AS [LastModificationUser], 
-    [myProjFinal].[LastModificationDate] AS [LastModificationDate], 
-    [myProjFinal].[MarketDivision] AS [MarketDivision], 
-    [myProjFinal].[ActivitySector] AS [ActivitySector], 
-    [myProjFinal].[RealisationSite] AS [RealisationSite], 
-    [myProjFinal].[GPProjectNo] AS [GPProjectNo]
-    FROM [dbo].[myProjFinal] AS [myProjFinal]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="OS_Project_GP" EntityType="Self.OS_Project_GP" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [OS_Project_GP].[Project_Number] AS [Project_Number], 
@@ -3582,19 +3452,6 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
     [Program_old].[Program_Description] AS [Program_Description], 
     [Program_old].[Work_Type_ID] AS [Work_Type_ID]
     FROM [dbo].[Program_old] AS [Program_old]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="TableChgtKM" EntityType="Self.TableChgtKM" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [TableChgtKM].[DateChgt] AS [DateChgt], 
-    [TableChgtKM].[employeeNum] AS [employeeNum], 
-    [TableChgtKM].[Nom] AS [Nom], 
-    [TableChgtKM].[Prenom] AS [Prenom], 
-    [TableChgtKM].[dateDebut] AS [dateDebut], 
-    [TableChgtKM].[dateFin] AS [dateFin], 
-    [TableChgtKM].[Aouter/supprimer de l'Annexe A] AS [Aouter/supprimer de l'Annexe A], 
-    [TableChgtKM].[Org] AS [Org], 
-    [TableChgtKM].[id] AS [id]
-    FROM [dbo].[TableChgtKM] AS [TableChgtKM]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="TT_Suivi_ProjetsEchus" EntityType="Self.TT_Suivi_ProjetsEchus" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -4132,13 +3989,6 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
             <Parameter Name="dateStart" Mode="In" Type="String" />
             <Parameter Name="dateEnd" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="usp_TTIndex_getFiles2" ReturnType="Collection(TTProjetPlusModel.usp_TTIndex_getFiles2_Result)">
-            <Parameter Name="folder" Mode="In" Type="String" />
-            <Parameter Name="folderKW" Mode="In" Type="String" />
-            <Parameter Name="fileKW" Mode="In" Type="String" />
-            <Parameter Name="dateStart" Mode="In" Type="String" />
-            <Parameter Name="dateEnd" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="usp_SendProjectEstimatedEndDate">
           <Parameter Name="OS_Project_ID" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -4330,6 +4180,7 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
           <FunctionImport Name="usp_ReturnTableVerificationKM_ColumnsName" ReturnType="Collection(TTProjetPlusModel.usp_ReturnTableVerificationKM_ColumnsName_Result)" />
           <EntitySet Name="TT_Suivi_ProjetsEchus" EntityType="TTProjetPlusModel.TT_Suivi_ProjetsEchus" />
           <EntitySet Name="TableChgtKMs" EntityType="TTProjetPlusModel.TableChgtKM" />
+          <FunctionImport Name="TTIndex_getProjectsList" ReturnType="Collection(TTProjetPlusModel.TTIndex_getProjectsList_Result)" />
           <EntitySet Name="TableVerificationKMs" EntityType="TTProjetPlusModel.TableVerificationKM" />
         </EntityContainer>
         <ComplexType Name="usp_getProjectSummary_Result">
@@ -4703,15 +4554,6 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
           <Property Type="String" Name="fileDateCreation" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="fileLastModificationDate" Nullable="true" MaxLength="100" />
           <Property Type="Guid" Name="pathFileId_" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="usp_TTIndex_getFiles2_Result">
-          <Property Type="String" Name="projectNumber" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="parentFolder" Nullable="false" MaxLength="1000" />
-          <Property Type="String" Name="fileName" Nullable="false" MaxLength="1000" />
-          <Property Type="String" Name="fileType" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="fileDateCreation" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="fileLastModificationDate" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="itemId" Nullable="false" />
         </ComplexType>
         <EntityType Name="OpeningProject">
           <Key>
@@ -6192,8 +6034,8 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
             <PropertyRef Name="Project_Number" />
           </Key>
           <Property Name="Project_Number" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="DateAdded" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Comments" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DateAdded" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Dossier_Clos" Type="Boolean" Nullable="false" />
         </EntityType>
         <ComplexType Name="usp_AnnulerFermetureProjet_Result">
@@ -6901,6 +6743,10 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
           <Property Name="Org" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
+        <ComplexType Name="TTIndex_getProjectsList_Result">
+          <Property Type="String" Name="serverName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="folderName" Nullable="true" MaxLength="100" />
+        </ComplexType>
         <EntityType Name="TableVerificationKM">
           <Key>
             <PropertyRef Name="id" />
@@ -6911,10 +6757,10 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
           <Property Name="C715_BAT_QC_Électricité" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="C715_BAT_QC_Structure" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="C715_BAT_QC_Mécanique" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="C715_BAT_QC_Méc_Élec" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="C715_BAT_QC_Méc_Élect_" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="C715_BAT_Bouch__Méc__Élec_" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="C715_BAT_Laval_Méc__Élec_" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="C715_BAT_Ouest_Mécanique" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="C715_BAT_MTL_Méc_Élect__" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="C715_BAT_Ouest_Structure" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="C715_BAT_Ouest_Électrique" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="C715_BAT_Ouest_Efficacité_énergétique" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -6925,9 +6771,8 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
           <Property Name="C715_MUN_Solutions_Technologiques" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="C715_MUN_Gaspé_Chandler" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="C715_MUN_Granby" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="C715_MUN_Laval" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="C715_MUN_Québec" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="C715_MUN_Ressource_Eau" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="C715_Ressources_hydriques" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="C715_MUN_Rimouski" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="C715_TRA_Est_Québec" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="C715_TRA_Est_Rivière_du_Loup" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -6941,6 +6786,8 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
           <Property Name="C715_TRA_Aéroportuaire_et_Électrotechnique" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="C715_TRA_Gestion_de_projet" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="C715_BAT_Structure" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="C715_BAT_Direction" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -9948,13 +9795,6 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_Update_ProjetSecuriser" FunctionName="TTProjetPlusModel.Store.usp_Update_ProjetSecuriser" />
-          <FunctionImportMapping FunctionImportName="usp_ReturnTableVerificationKM_ColumnsName" FunctionName="TTProjetPlusModel.Store.usp_ReturnTableVerificationKM_ColumnsName">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TTProjetPlusModel.usp_ReturnTableVerificationKM_ColumnsName_Result">
-                <ScalarProperty Name="COLUMN_NAME" ColumnName="COLUMN_NAME" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="TT_Suivi_ProjetsEchus">
             <EntityTypeMapping TypeName="TTProjetPlusModel.TT_Suivi_ProjetsEchus">
               <MappingFragment StoreEntitySet="TT_Suivi_ProjetsEchus">
@@ -9982,9 +9822,19 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="TTIndex_getProjectsList" FunctionName="TTProjetPlusModel.Store.TTIndex_getProjectsList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TTProjetPlusModel.TTIndex_getProjectsList_Result">
+                <ScalarProperty Name="serverName" ColumnName="serverName" />
+                <ScalarProperty Name="folderName" ColumnName="folderName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <EntitySetMapping Name="TableVerificationKMs">
             <EntityTypeMapping TypeName="TTProjetPlusModel.TableVerificationKM">
               <MappingFragment StoreEntitySet="TableVerificationKM">
+                <ScalarProperty Name="C715_BAT_Direction" ColumnName="715 BAT Direction" />
+                <ScalarProperty Name="C715_BAT_Structure" ColumnName="715 BAT Structure" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="C715_TRA_Gestion_de_projet" ColumnName="715 TRA Gestion de projet" />
                 <ScalarProperty Name="C715_TRA_Aéroportuaire_et_Électrotechnique" ColumnName="715 TRA Aéroportuaire et Électrotechnique" />
@@ -9998,23 +9848,22 @@ warning 6002: The table/view 'TTProjetPlus.dbo.TT_Suivi_ProjetsEchus' does not h
                 <ScalarProperty Name="C715_TRA_Est_Rivière_du_Loup" ColumnName="715 TRA Est Rivière-du-Loup" />
                 <ScalarProperty Name="C715_TRA_Est_Québec" ColumnName="715 TRA Est Québec" />
                 <ScalarProperty Name="C715_MUN_Rimouski" ColumnName="715 MUN Rimouski" />
-                <ScalarProperty Name="C715_MUN_Ressource_Eau" ColumnName="715 MUN Ressource Eau" />
+                <ScalarProperty Name="C715_Ressources_hydriques" ColumnName="715 Ressources hydriques" />
                 <ScalarProperty Name="C715_MUN_Québec" ColumnName="715 MUN Québec" />
-                <ScalarProperty Name="C715_MUN_Laval" ColumnName="715 MUN Laval" />
                 <ScalarProperty Name="C715_MUN_Granby" ColumnName="715 MUN Granby" />
                 <ScalarProperty Name="C715_MUN_Gaspé_Chandler" ColumnName="715 MUN Gaspé-Chandler" />
                 <ScalarProperty Name="C715_MUN_Solutions_Technologiques" ColumnName="715 MUN Solutions Technologiques" />
                 <ScalarProperty Name="C715_MUN_Boucherville" ColumnName="715 MUN Boucherville" />
                 <ScalarProperty Name="C715_ENV_Sols_Contaminés" ColumnName="715 ENV Sols Contaminés" />
                 <ScalarProperty Name="C715_ENV_Milieu_Naturel" ColumnName="715 ENV Milieu Naturel" />
-                <ScalarProperty Name="C715_ENV_Mat__Résiduelles" ColumnName="715 ENV Mat# Résiduelles" />
+                <ScalarProperty Name="C715_ENV_Mat__Résiduelles" ColumnName="715 ENV Mat. Résiduelles" />
                 <ScalarProperty Name="C715_BAT_Ouest_Efficacité_énergétique" ColumnName="715 BAT Ouest Efficacité énergétique" />
                 <ScalarProperty Name="C715_BAT_Ouest_Électrique" ColumnName="715 BAT Ouest Électrique" />
                 <ScalarProperty Name="C715_BAT_Ouest_Structure" ColumnName="715 BAT Ouest Structure" />
-                <ScalarProperty Name="C715_BAT_Ouest_Mécanique" ColumnName="715 BAT Ouest Mécanique" />
-                <ScalarProperty Name="C715_BAT_Laval_Méc__Élec_" ColumnName="715 BAT Laval Méc# Élec#" />
-                <ScalarProperty Name="C715_BAT_Bouch__Méc__Élec_" ColumnName="715 BAT Bouch# Méc# Élec#" />
-                <ScalarProperty Name="C715_BAT_QC_Méc_Élec" ColumnName="715 BAT QC Méc-Élec" />
+                <ScalarProperty Name="C715_BAT_MTL_Méc_Élect__" ColumnName="715 BAT MTL Méc-Élect. " />
+                <ScalarProperty Name="C715_BAT_Laval_Méc__Élec_" ColumnName="715 BAT Laval Méc. Élec." />
+                <ScalarProperty Name="C715_BAT_Bouch__Méc__Élec_" ColumnName="715 BAT Bouch. Méc. Élec." />
+                <ScalarProperty Name="C715_BAT_QC_Méc_Élect_" ColumnName="715 BAT QC Méc-Élect." />
                 <ScalarProperty Name="C715_BAT_QC_Mécanique" ColumnName="715 BAT QC Mécanique" />
                 <ScalarProperty Name="C715_BAT_QC_Structure" ColumnName="715 BAT QC Structure" />
                 <ScalarProperty Name="C715_BAT_QC_Électricité" ColumnName="715 BAT QC Électricité" />

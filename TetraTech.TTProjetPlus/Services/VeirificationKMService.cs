@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Web;
 using TetraTech.TTProjetPlus.Data;
 using TetraTech.TTProjetPlus.Models;
 
@@ -91,12 +90,12 @@ namespace TetraTech.TTProjetPlus.Services
                         List<usp_TT_Verif_KM_role_Result> item = new List<usp_TT_Verif_KM_role_Result>();
                         var role = liste[0].Split('#')[0];
                         var roleEnglish = "";
-                        switch (role)
+                        switch (role.Split('.')[1].Trim())
                         {
                             case "Administrateur de projet":
                                 roleEnglish = "Project Administrator";
                                 break;
-                            case "Directeur d'opération": //a valider avec sylvie
+                            case "Directeur d’opération": //a valider avec sylvie
                                 roleEnglish = "Ops Mgr / Director";
                                 break;
                         }
@@ -117,7 +116,7 @@ namespace TetraTech.TTProjetPlus.Services
                                 model.titre = titre;
                                 listeAllCorrection.Add(model);
 
-        // listeAllCorrection.Add(liste[2].Split('#')[0] + "( titre: "+ titre + " ) n'est pas membre clé en tant que "+ role + " ( "+ roleEnglish + " ) dans le projet " + obj.project_number + " de l'ORG " + acc_center);
+                                // listeAllCorrection.Add(liste[2].Split('#')[0] + "( titre: "+ titre + " ) n'est pas membre clé en tant que "+ role + " ( "+ roleEnglish + " ) dans le projet " + obj.project_number + " de l'ORG " + acc_center);
 
                             }
                         }
@@ -251,5 +250,121 @@ namespace TetraTech.TTProjetPlus.Services
                 return false;
             }
         }
+   
+    
+    public bool sendRemovedMail (string KMName, List<string> selectedValues)
+        {
+            try
+            {
+                string folderPath = @"C:\TTRapport\FilesForTTProjetPlus_RetraitKM\";
+                string filePath = Path.Combine(folderPath, "rapportExcel_RetraitKM_"+ KMName.Split('/')[0]+".xlsx");
+
+                // 1. Vider le dossier (supprimer tous les fichiers)
+                if (Directory.Exists(folderPath))
+                {
+                    foreach (string file in Directory.GetFiles(folderPath))
+                    {
+                        File.Delete(file);
+                    }
+                }
+                else
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                //on envoie un courriel avec un excel en attachement
+                //creation de l excel:
+                using (SLDocument sl = new SLDocument())
+                {
+                    // Define headers
+                    sl.SetCellValue("A1", "Organisation");
+
+                    // Header style: bold + yellow background
+                    var headerStyle = sl.CreateStyle();
+                    headerStyle.SetFontBold(true);
+                    headerStyle.Fill.SetPattern(PatternValues.Solid, System.Drawing.Color.Yellow, System.Drawing.Color.Yellow);
+                    sl.SetCellStyle("A1", "A1", headerStyle);
+
+                    // Write data rows
+                    int row = 2;
+                    foreach (string  item in selectedValues)
+                    {
+                        sl.SetCellValue(row, 1, item);
+                        row++;
+                    }
+
+                    sl.Filter("A1", "A1");
+
+                    // Optional: Set column widths for better display
+                    sl.SetColumnWidth(1, 15);
+
+                    // Save the file
+                    sl.SaveAs(filePath);
+                }
+
+
+
+
+
+                //envoie du courriel
+                SmtpClient SmtpServer = new SmtpClient("smtp.tetratech.com", 25);
+                MailMessage NewEmail = new MailMessage();
+                string emailMessage = "";
+                emailMessage += "<html><head>";
+                emailMessage += "</head><body>";
+                emailMessage += "</br>";
+                emailMessage += "<p>Bonjour, </p>";
+                emailMessage += "<p>Voici les Org desquelles " + KMName.Split('/')[0] +" a été retiré en tant que :</p>";
+                emailMessage += "<p>Role: "+ KMName.Split('/')[1].Split('.')[1]+ "</p>";
+                emailMessage += "<p>Titre: " + KMName.Split('/')[2].Split('-')[1] + "</p>";
+                emailMessage += "</br>";
+                emailMessage += "<ul>";
+                foreach (string item in selectedValues)
+                {
+                    emailMessage += "<li>"+ item + "</li>";
+
+                }
+                emailMessage += "</ul>";
+                emailMessage += "</br>";
+                emailMessage += "<div>Merci.</div>";
+
+                System.Net.Mime.ContentType contentType = new System.Net.Mime.ContentType();
+                contentType.MediaType = System.Net.Mime.MediaTypeNames.Application.Octet;
+                System.Net.Mail.Attachment data = new System.Net.Mail.Attachment(filePath, contentType);
+                NewEmail.Attachments.Add(data);
+
+
+                //prod:                                    
+                NewEmail.From = new MailAddress("rapports@tetratech.com");
+                NewEmail.To.Add("sylvie.lambert@tetratech.com");//
+                NewEmail.CC.Add("rapports@tetratech.com");
+                NewEmail.Subject = "Retrait  KM : " + KMName.Split('\\')[0];
+                NewEmail.IsBodyHtml = true;
+                NewEmail.Body = new MessageBody(BodyType.HTML, emailMessage);
+
+                ServicePointManager.ServerCertificateValidationCallback =
+               delegate (
+                   object s,
+                   System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+                   System.Security.Cryptography.X509Certificates.X509Chain chain,
+                   System.Net.Security.SslPolicyErrors sslPolicyErrors
+               )
+               {
+                   return true;
+               };
+
+                SmtpServer.Send(NewEmail);
+                data.Dispose();
+                emailMessage = "";
+
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+        }
+
+
     }
 }

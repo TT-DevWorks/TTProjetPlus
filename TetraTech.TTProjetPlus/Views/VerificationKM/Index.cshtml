@@ -335,19 +335,27 @@
                                                                             var counter2 = 0;
                                                                         }
                                                                         @for (int j = 0; j < Model[0].Columns.Count; j++)
-                                                                        {
-                                                                            if (Model[0].Columns[j].ColumnName == "id")
-                                                                            {
-                                                                                counter2 = counter;
-                                                                                continue;
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                <th data-column="@Model[0].Columns[j].ColumnName">@Model[0].Columns[j].ColumnName</th>
-                                                                                counter++;
-                                                                            }
+                                                                                    {
+                                                                                        if (Model[0].Columns[j].ColumnName == "id")
+                                                                                        {
+                                                                                            counter2 = counter;
+                                                                                            continue;
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            if (Model[0].Columns[j].ColumnName == "Nom de l'employé")
+                                                                                            {
+                                                                                <th data - column = "@Model[0].Columns[j].ColumnName" style="width: 180px; white-space: nowrap;"> @Model[0].Columns[j].ColumnName </th>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                <th data - column = "@Model[0].Columns[j].ColumnName" > @Model[0].Columns[j].ColumnName </th>
+                                                                    
+                                                                                           }
+                                                                                            counter++;
+                                                                                        }
 
-                                                                    }
+                                                                                    }
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tableBody">
@@ -366,14 +374,34 @@
                                                                             }
                                                                             else
                                                                             {
-                                                                                <td>
-                                                                                    <input type="text"
-                                                                                           class="form-control form-control-sm"
-                                                                                           value="@(cell.ToString()== "NULL"? "": cell)"
-                                                                                           data-original="@cell"
-                                                                                           style="font-size: 10px; border: none; box-shadow: none; color: black"
-                                                                                           @(colIndex < 3 ? "disabled" : "") />
-                                                                                </td>
+                                                                                if (colIndex == 2)
+                                                                                {
+                                                                                    <td>
+                                                                                        <input type="text"
+                                                                                               class="form-control form-control-sm"
+                                                                                               value="@(cell.ToString()== "NULL"? "": cell)"
+                                                                                               data-original="@cell"
+                                                                                               style="width: 180px;font-size: 10px; border: none; box-shadow: none; color: black"
+                                                                                               @(colIndex < 3 ? "disabled" : "") />
+                                                                                    </td>
+
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    
+                                                                                        var val = (cell != null && cell.ToString() == "NULL") ? "" : cell.ToString();
+                                                                                    
+
+                                                                                    <td>
+                                                                                        <input type="text"
+                                                                                               class="form-control form-control-sm"
+                                                                                                value="@Html.Raw(val)"  
+                                                                                               data-original="@val"
+                                                                                               style="font-size: 10px; border: none; box-shadow: none; color: black"
+                                                                                               @(colIndex < 3 ? "disabled" : "") />
+                                                                                    </td>
+
+                                                                                }
 
                                                                             }
                                                                         }
@@ -384,7 +412,7 @@
                                                         </div>
                                                     </div> }
                                                 else
-                                                {
+                                                                        {
                                                     <p>Aucune donnée disponible.</p>
                                                 }
                                             </div>
@@ -591,10 +619,14 @@
                 <div class="input-group " style="width: 100%">
                     <select id="km_NameInput" class="form-control form-select">
                         <option selected disabled>Choisir un membre clé</option>
-                        @foreach (System.Data.DataRow row in Model[4].Rows)
+                        @foreach (System.Data.DataRow row in Model[5].Rows)
                         {
                             var items = row.ItemArray;
-                            <option value="@items[0]">@items[0]</option>
+                            var valPrenom = items[0].ToString().Split('/')[0].Split('(')[0].Split(' ')[0];
+                            var valNomF = items[0].ToString().Split('/')[0].Split('(')[0].Split(' ')[1];
+                            var empNum = " -" + items[0].ToString().Split('/')[1];
+                            var emp = valPrenom + " " + valNomF + empNum;
+                            <option value="@emp">@items[0].ToString().Split('/')[0]</option>
                         }
                     </select>
                 </div>
@@ -656,7 +688,7 @@
                             }
                             modelListeOrg = modelListeOrg.OrderBy(x => x).ToList();
                         }
-                        @for (int j = 3; j < modelListeOrg.Count ; j++)
+                        @for (int j = 0; j < modelListeOrg.Count ; j++)
                         {
                             if (modelListeOrg[j]== "id")
                             {
@@ -1351,11 +1383,11 @@
         const departments = getSelectedDepartments(); // array of selected departments
 
         // Simple validation
-        const regex = /^[A-Za-zÀ-ÖØ-öø-ÿ]+ [A-Za-zÀ-ÖØ-öø-ÿ]+ - \d+$/;
-        if (!regex.test(kmName)) {
-            alert("Veuillez entrer le membre clé au format : Nom Prénom - numéro (ex: Jean Dupont - 12345).");
-            return false;
-        }
+        //const regex = /^[A-Za-zÀ-ÖØ-öø-ÿ]+ [A-Za-zÀ-ÖØ-öø-ÿ]+ - \d+$/;
+        //if (!regex.test(kmName)) {
+        //    alert("Veuillez entrer le membre clé au format : Nom Prénom - numéro (ex: Jean Dupont - 12345).");
+        //    return false;
+        //}
 
         // Prepare data to send
         const data = {
@@ -1451,15 +1483,22 @@
             //    return $(this).val();
             // }).get();
             //puisque toutes les org ont été selectionnées cela signifie que l on veut completement retirer le km de la table
-            selectedValue = null
+           // selectedValue = null
+            allValues = $(".form-check-input2").map(function () {
+                return $(this).val();
+            }).get();
+
+
             flag = true;
         }
         else{
             allValues = $(".form-check-input2:checked").map(function () {
                 return $(this).val();
             }).get();
+
             flag = false;
         }
+
 
         $.ajax({
             url: '/VerificationKM/RemoveKMFromTable', // Remplace par le bon nom

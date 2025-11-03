@@ -25,7 +25,7 @@ namespace TetraTech.TTProjetPlus.Services
             List<string> finalList = new List<string>();
             //var folder = @"\\tts349test04\D$\TTProjetPlus\TQEDocs\";
 
-            var folder = @"\\tts349iis\D$\TTProjetPlus\TQEDocs\";
+            var folder = @"\\tqcs349iis1\D$\TTProjetPlus\TQEDocs\";
 
             DirectoryInfo d = new DirectoryInfo(folder); //IMPORTANT: tts349iis pour prod
 

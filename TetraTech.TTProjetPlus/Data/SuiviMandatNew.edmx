@@ -668,6 +668,8 @@ warning 6002: The table/view 'SuiviMandat.dbo.ST_descriptions_listeEnvoie_types'
           <Property Name="Nom" Type="nvarchar" MaxLength="255" />
           <Property Name="A-I" Type="nvarchar" MaxLength="255" />
           <Property Name="CC-I" Type="nvarchar" MaxLength="255" />
+          <Property Name="A-BAT" Type="nvarchar" MaxLength="255" />
+          <Property Name="CC-BAT" Type="nvarchar" MaxLength="255" />
           <Property Name="A-MUN" Type="nvarchar" MaxLength="255" />
           <Property Name="CC-MUN" Type="nvarchar" MaxLength="255" />
           <Property Name="A-ENV" Type="nvarchar" MaxLength="255" />
@@ -1739,7 +1741,6 @@ warning 6002: The table/view 'SuiviMandat.dbo.TEMP_PROJECT_TASKS_WBS' does not h
         <Function Name="usp_getProject_ProgramManager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="role" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="usp_getProject_ProgramManager_lastPeriodWeekDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_GetProjectPriority" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EMP" Type="nvarchar" Mode="In" />
           <Parameter Name="role" Type="varchar" Mode="In" />
@@ -1756,6 +1757,9 @@ warning 6002: The table/view 'SuiviMandat.dbo.TEMP_PROJECT_TASKS_WBS' does not h
           <Parameter Name="EMP" Type="varchar" Mode="In" />
           <Parameter Name="role" Type="varchar" Mode="In" />
           <Parameter Name="ToArchive" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="usp_getProjetAvecDateDepasse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="empRGE" Type="varchar" Mode="In" />
         </Function>
         <Function Name="usp_GetRAF_4_Extraction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ProjectID" Type="varchar" Mode="In" />
@@ -1801,9 +1805,6 @@ warning 6002: The table/view 'SuiviMandat.dbo.TEMP_PROJECT_TASKS_WBS' does not h
           <Parameter Name="err_msg" Type="nvarchar" Mode="InOut" />
         </Function>
         <Function Name="usp_SM_Transfer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="usp_TDT__getProject_ProgramManager_Precedent_vs_Current_PeriodWeekDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="usp_TDT_ getProject_ProgramManager_Precedent_vs_Current_PeriodWeekDate" />
-        <Function Name="usp_TDT_getPrecedentPWD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="usp_TDT_getProject_ProgramManager_Current_vs_Precedent_PeriodWeekDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_TT_getProjetAvecDateDepasse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="empRGE" Type="varchar" Mode="In" />
         </Function>
@@ -4214,15 +4215,18 @@ warning 6002: The table/view 'SuiviMandat.dbo.TEMP_PROJECT_TASKS_WBS' does not h
           <FunctionImport Name="usp_TDT_getProject_ProgramManager_Current_vs_Precedent_PeriodWeekDate" ReturnType="Collection(SuiviMandatModelNew.usp_TDT_getProject_ProgramManager_Current_vs_Precedent_PeriodWeekDate_Result)" />
           <FunctionImport Name="usp_TDT_getPrecedentPWD" ReturnType="Collection(SuiviMandatModelNew.usp_TDT_getPrecedentPWD_Result)" />
           <FunctionImport Name="usp_TDT__getProject_ProgramManager_Precedent_vs_Current_PeriodWeekDate" ReturnType="Collection(SuiviMandatModelNew.usp_TDT__getProject_ProgramManager_Precedent_vs_Current_PeriodWeekDate_Result)" />
-          <EntitySet Name="TDT_TablePSW" EntityType="SuiviMandatModelNew.TDT_TablePSW" />
           <FunctionImport Name="usp_TT_Verif_KM_role" ReturnType="Collection(SuiviMandatModelNew.usp_TT_Verif_KM_role_Result)">
             <Parameter Name="acct_center" Mode="In" Type="String" />
             <Parameter Name="role" Mode="In" Type="String" />
             <Parameter Name="empNum" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_TT_getProjetAvecDateDepasse" ReturnType="Collection(SuiviMandatModelNew.usp_TT_getProjetAvecDateDepasse_Result)">
-            <Parameter Name="empRGE" Mode="In" Type="String" />
+          <FunctionImport Name="usp_getProjetAvecDateDepasse">
+          <Parameter Name="empRGE" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="usp_TT_getProjetAvecDateDepasse" ReturnType="Collection(SuiviMandatModelNew.usp_TT_getProjetAvecDateDepasse_Result)">
+          <Parameter Name="empRGE" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="TDT_TablePSW" EntityType="SuiviMandatModelNew.TDT_TablePSW" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -5141,6 +5145,8 @@ warning 6002: The table/view 'SuiviMandat.dbo.TEMP_PROJECT_TASKS_WBS' does not h
           <Property Name="CC_MUN_J_715" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CC_TRA_J_715" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="A_BAT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CC_BAT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ST_descriptions_listeEnvoie_types">
           <Key>
@@ -5180,18 +5186,22 @@ warning 6002: The table/view 'SuiviMandat.dbo.TEMP_PROJECT_TASKS_WBS' does not h
           <Property Type="String" Name="Courriel" Nullable="true" MaxLength="240" />
           <Property Type="String" Name="role" Nullable="false" MaxLength="20" />
         </ComplexType>
-        <EntityType Name="TDT_TablePSW">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="Moyen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Partiel" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Complet" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="dateChgt" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
         <ComplexType Name="usp_TT_Verif_KM_role_Result">
           <Property Type="String" Name="project_number" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="usp_getProjetAvecDateDepasse_Result">
+          <Property Type="String" Name="C__Projet" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="Titre" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="Client" Nullable="true" MaxLength="8000" />
+          <Property Type="String" Name="Agent_de_facturation" Nullable="true" MaxLength="240" />
+          <Property Type="Decimal" Name="Budget_de_revenu" Nullable="false" Precision="20" Scale="2" />
+          <Property Type="Decimal" Name="RevReconnu" Nullable="true" Precision="20" Scale="2" />
+          <Property Type="Decimal" Name="C__Dépensé" Nullable="true" Precision="20" Scale="5" />
+          <Property Type="Decimal" Name="Vendant_cumulatif" Nullable="true" Precision="20" Scale="2" />
+          <Property Type="Decimal" Name="Facturé_à_date" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="C__Facturé" Nullable="true" Precision="20" Scale="5" />
+          <Property Type="DateTime" Name="Date_de_fin_de_projet" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="Semaine_Inactive" Nullable="true" Precision="20" Scale="2" />
         </ComplexType>
         <ComplexType Name="usp_TT_getProjetAvecDateDepasse_Result">
           <Property Type="Int64" Name="rn" Nullable="true" />
@@ -5202,7 +5212,7 @@ warning 6002: The table/view 'SuiviMandat.dbo.TEMP_PROJECT_TASKS_WBS' does not h
           <Property Type="String" Name="project_mgr_num" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="project_mgr_name" Nullable="true" MaxLength="240" />
           <Property Type="String" Name="Client" Nullable="true" MaxLength="8000" />
-          <Property Type="String" Name="Agent_de_facturation" Nullable="true" MaxLength="301" />
+          <Property Type="String" Name="Agent_de_facturation" Nullable="true" MaxLength="240" />
           <Property Type="String" Name="Numéro_agent_de_facturation" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="Budget_de_revenu" Nullable="false" Precision="20" Scale="2" />
           <Property Type="Decimal" Name="RevReconnu" Nullable="true" Precision="20" Scale="2" />
@@ -5213,6 +5223,16 @@ warning 6002: The table/view 'SuiviMandat.dbo.TEMP_PROJECT_TASKS_WBS' does not h
           <Property Type="DateTime" Name="Date_de_fin_de_projet" Nullable="false" Precision="23" />
           <Property Type="Decimal" Name="Semaine_Inactive" Nullable="true" Precision="20" Scale="2" />
         </ComplexType>
+        <EntityType Name="TDT_TablePSW">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Moyen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Partiel" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Complet" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="dateChgt" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7080,6 +7100,8 @@ warning 6002: The table/view 'SuiviMandat.dbo.TEMP_PROJECT_TASKS_WBS' does not h
           <EntitySetMapping Name="ST_liste_envois">
             <EntityTypeMapping TypeName="SuiviMandatModelNew.ST_liste_envois">
               <MappingFragment StoreEntitySet="ST_liste_envois">
+                <ScalarProperty Name="CC_BAT" ColumnName="CC-BAT" />
+                <ScalarProperty Name="A_BAT" ColumnName="A-BAT" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="CC_TRA_J_715" ColumnName="CC-TRA-J-715" />
                 <ScalarProperty Name="CC_MUN_J_715" ColumnName="CC-MUN-J-715" />
@@ -7163,55 +7185,6 @@ warning 6002: The table/view 'SuiviMandat.dbo.TEMP_PROJECT_TASKS_WBS' does not h
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_getProject_ProgramManager_lastPeriodWeekDate" FunctionName="SuiviMandatModelNew.Store.usp_getProject_ProgramManager_lastPeriodWeekDate">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SuiviMandatModelNew.usp_getProject_ProgramManager_lastPeriodWeekDate_Result">
-                <ScalarProperty Name="Employé_e_" ColumnName="Employé(e)" />
-                <ScalarProperty Name="Courriel" ColumnName="Courriel" />
-                <ScalarProperty Name="role" ColumnName="role" />
-                <ScalarProperty Name="ORG" ColumnName="ORG" />
-                <ScalarProperty Name="EMPLOYEE_NUMBER" ColumnName="EMPLOYEE_NUMBER" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_TDT_getProject_ProgramManager_Current_vs_Precedent_PeriodWeekDate" FunctionName="SuiviMandatModelNew.Store.usp_TDT_getProject_ProgramManager_Current_vs_Precedent_PeriodWeekDate">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SuiviMandatModelNew.usp_TDT_getProject_ProgramManager_Current_vs_Precedent_PeriodWeekDate_Result">
-                <ScalarProperty Name="EMPLOYEE_NUMBER" ColumnName="EMPLOYEE_NUMBER" />
-                <ScalarProperty Name="Courriel" ColumnName="Courriel" />
-                <ScalarProperty Name="role" ColumnName="role" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_TDT_getPrecedentPWD" FunctionName="SuiviMandatModelNew.Store.usp_TDT_getPrecedentPWD">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SuiviMandatModelNew.usp_TDT_getPrecedentPWD_Result">
-                <ScalarProperty Name="predecentPDWEND" ColumnName="predecentPDWEND" />
-                <ScalarProperty Name="actualPWD" ColumnName="actualPWD" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_TDT__getProject_ProgramManager_Precedent_vs_Current_PeriodWeekDate" FunctionName="SuiviMandatModelNew.Store.usp_TDT__getProject_ProgramManager_Precedent_vs_Current_PeriodWeekDate">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SuiviMandatModelNew.usp_TDT__getProject_ProgramManager_Precedent_vs_Current_PeriodWeekDate_Result">
-                <ScalarProperty Name="EMPLOYEE_NUMBER" ColumnName="EMPLOYEE_NUMBER" />
-                <ScalarProperty Name="Courriel" ColumnName="Courriel" />
-                <ScalarProperty Name="role" ColumnName="role" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <EntitySetMapping Name="TDT_TablePSW">
-            <EntityTypeMapping TypeName="SuiviMandatModelNew.TDT_TablePSW">
-              <MappingFragment StoreEntitySet="TDT_TablePSW">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="dateChgt" ColumnName="dateChgt" />
-                <ScalarProperty Name="Complet" ColumnName="Complet" />
-                <ScalarProperty Name="Partiel" ColumnName="Partiel" />
-                <ScalarProperty Name="Moyen" ColumnName="Moyen" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="usp_TT_Verif_KM_role" FunctionName="SuiviMandatModelNew.Store.usp_TT_Verif_KM_role">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SuiviMandatModelNew.usp_TT_Verif_KM_role_Result">
@@ -7219,6 +7192,7 @@ warning 6002: The table/view 'SuiviMandat.dbo.TEMP_PROJECT_TASKS_WBS' does not h
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_getProjetAvecDateDepasse" FunctionName="SuiviMandatModelNew.Store.usp_TT_getProjetAvecDateDepasse" />
           <FunctionImportMapping FunctionImportName="usp_TT_getProjetAvecDateDepasse" FunctionName="SuiviMandatModelNew.Store.usp_TT_getProjetAvecDateDepasse">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SuiviMandatModelNew.usp_TT_getProjetAvecDateDepasse_Result">
@@ -7243,6 +7217,17 @@ warning 6002: The table/view 'SuiviMandat.dbo.TEMP_PROJECT_TASKS_WBS' does not h
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="TDT_TablePSW">
+            <EntityTypeMapping TypeName="SuiviMandatModelNew.TDT_TablePSW">
+              <MappingFragment StoreEntitySet="TDT_TablePSW">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="dateChgt" ColumnName="dateChgt" />
+                <ScalarProperty Name="Complet" ColumnName="Complet" />
+                <ScalarProperty Name="Partiel" ColumnName="Partiel" />
+                <ScalarProperty Name="Moyen" ColumnName="Moyen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

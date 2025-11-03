@@ -33,20 +33,43 @@ namespace TetraTech.TTProjetPlus.Controllers
             //ATTENTION CHNAGER POUR LA MISE EN PROD!!!
             string connectionString = @"data source=tts349test02;initial catalog=TTProjetPlus;persist security info=True;user id=BPRProjetUser;password=BPRProjetUser;MultipleActiveResultSets=True;App=EntityFramework";
 
-            string sqlQuery = "SELECT * FROM TableVerificationKM  order by 2 , 3";  // Remplacez par le nom réel de votre table
-            string sqlQuery2 = "SELECT * FROM TableChgtKM";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                var dt = new DataTable();
+
+                using (SqlCommand command = new SqlCommand("dbo.usp_TableVerificationKM_Exclusions", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    connection.Open();
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dt);
+                    }
+
+                    liste_dt.Add(dt);
+                }
+            }
+
+
+
+            string sqlQuery2 = "SELECT * FROM TableChgtKM   ";
             string sqlQuery3 = "SELECT * FROM TableRoles";
             string sqlQuery4 = "SELECT * FROM TableTitres";
             //  string sqlQuery5 = "SELECT FIRST_NAME+ ' '+ LAST_NAME + ' - ' + [EMPLOYEE_NUMBER] as empData FROM [TTProjetPlus].[dbo].[EmployeeActif_Inactive] where EFFECTIVE_END_DATE > GETDATE()";
             string sqlQuery5 = "  select distinct [Nom de l'employé] , [Role],[Titre de l'employé_] FROM [TTProjetPlus].[dbo].[TableVerificationKM]order by[Nom de l'employé]";
-            var dt = new DataTable();
+            string sqlQuery6 = "SELECT [FIRST_NAME]+ ' ' + [LAST_NAME] + ' (' + [EMAIL_ADDRESS] + ')' + ' / ' +EMPLOYEE_NUMBER as emp FROM[TTProjetPlus].[dbo].[EmployeeActif_Inactive] where EFFECTIVE_END_DATE > GETDATE() order by emp";
+
+
+            //  var dt = new DataTable();
 
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var adapter = new SqlDataAdapter(sqlQuery, connection);
-                adapter.Fill(dt);
-                liste_dt.Add(dt);
+                //var adapter = new SqlDataAdapter(sqlQuery, connection);
+                //adapter.Fill(dt);
+                //liste_dt.Add(dt);
                 //}
 
                 var dt2 = new DataTable();
@@ -83,6 +106,15 @@ namespace TetraTech.TTProjetPlus.Controllers
                 var adapter5 = new SqlDataAdapter(sqlQuery5, connection);
                 adapter5.Fill(dt5);
                 liste_dt.Add(dt5);
+
+
+                var dt6 = new DataTable();
+                //using (var connection3 = new SqlConnection(connectionString))
+                //{
+                //connection3.Open();
+                var adapter6 = new SqlDataAdapter(sqlQuery6, connection);
+                adapter6.Fill(dt6);
+                liste_dt.Add(dt6);
 
             }
 
@@ -341,6 +373,11 @@ namespace TetraTech.TTProjetPlus.Controllers
                 {
                     connection.Open();
                     command.ExecuteNonQuery();
+
+                    //envoi d un courriel a sylvie pour indiquer qui a été retiré de quelle org:
+                    selectedValues = flag == true ? selectedValues.Skip(1).ToList() : selectedValues;
+                  var sendMail =   _verificationKMService.sendRemovedMail( KMName, selectedValues);
+
                     return Json(KMName + " a été retirée de la table.", JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
@@ -476,12 +513,65 @@ namespace TetraTech.TTProjetPlus.Controllers
 
         public ActionResult AddKMToTable2(string KMName, string KMRole, string KMTitre, List<string> KMDepartments)
         {
+            //KMName = KMName.Contains("’") ? KMName.Replace("’", "''") : KMName;
+            //KMRole = KMRole.Contains("’") ? KMRole.Replace("’", "''") : KMRole;
+
             // string connectionString = @"data source=TQCS349SQL1\BPRSQL;initial catalog=TTProjetPlus;persist security info=True;user id=BPRProjetUser;password=BPRProjetUser;MultipleActiveResultSets=True;App=EntityFramework";
             //ATTENTION CHNAGER POUR LA MISE EN PROD!!!
             string connectionString = @"data source=tts349test02;initial catalog=TTProjetPlus;persist security info=True;user id=BPRProjetUser;password=BPRProjetUser;MultipleActiveResultSets=True;App=EntityFramework";
             string sql = "";
             try
             {
+               
+                //on va d abord verifier si le km a deja le role et le titre pour lequel on veut ajouter une org.
+                //si c est le cas, il ne faut pas creer une nouvelle ligne dans la table mais faire un update pour les org considérées.
+                
+                //verification de l existence d une ligne correspondante pour l'emp, le role et le titre:
+                string checkEmpExistRoleTitre = "SELECT COUNT(*) FROM TableVerificationKM where  [Role] = '"+ KMRole + "' and  [Titre de l'employé_] = '" + KMTitre + "' and  [Nom de l'employé] = '" + KMName+ "' ";
+                int columnCount0 = 0;
+                using (var connection = new SqlConnection(connectionString))
+                using (var command = new SqlCommand(checkEmpExistRoleTitre, connection))
+                {
+                    connection.Open();
+                    columnCount0 = (int)command.ExecuteScalar();
+                }
+                if (columnCount0 == 1)
+                {
+
+                    string sqlDept0 = "";
+
+                    for (int p = 0; p < KMDepartments.Count; p++)
+                    {
+
+                        if (p == KMDepartments.Count - 1)
+                        {
+                            sqlDept0 += " [" + KMDepartments[p] + "] = '" + KMName + "' ";
+                        }
+                        else
+                        {
+                            sqlDept0 += " [" + KMDepartments[p] + "] = '" + KMName + "' , " ;
+                        }
+
+
+                    }
+                    //ici on doit faire un update:
+                    string updateString = "UPDATE [TTProjetPlus].[dbo].[TableVerificationKM] ";
+                    updateString += " SET " + sqlDept0 ;
+                    updateString += " WHERE [Nom de l'employé] = '" + KMName.TrimStart() + "' ";
+
+                    using (var connection = new SqlConnection(connectionString))
+                    using (var command = new SqlCommand(updateString, connection))
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+
+                    return Json(KMName + " a été ajouté à la table.", JsonRequestBehavior.AllowGet);
+
+                }
+
+                else
+                {
                 if (KMDepartments.Count == 1 && KMDepartments[0] == "Toutes")
                 {
                     string sqlColumnCount = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'TableVerificationKM' ";
@@ -558,6 +648,9 @@ namespace TetraTech.TTProjetPlus.Controllers
                 }
 
                 return Json(KMName + " a été ajouté à la table.", JsonRequestBehavior.AllowGet);
+
+                }
+
             }
             catch (Exception ex)
             {

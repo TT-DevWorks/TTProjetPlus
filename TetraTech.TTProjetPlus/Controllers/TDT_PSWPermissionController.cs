@@ -44,7 +44,7 @@ namespace TetraTech.TTProjetPlus.Controllers
                   _TDT_PSWPermissionService.sendInsertionMail(emp.FULL_NAME, emp.EMPLOYEE_NUMBER, titre, password);
 
                 }
-                else if(item.Split('#')[4] == "retiré(e)" && _TDT_PSWPermissionService.isInTableMoyenne(emp.EMPLOYEE_NUMBER) == true)
+                if(item.Split('#')[4] == "retiré(e)" && _TDT_PSWPermissionService.isInTableMoyenne(emp.EMPLOYEE_NUMBER) == true)
                 {
                     deletEmpPerm(item.Split('#')[0], "moyenne");
                 }

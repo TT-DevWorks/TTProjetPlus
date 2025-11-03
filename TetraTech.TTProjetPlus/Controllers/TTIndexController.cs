@@ -39,21 +39,23 @@ namespace TetraTech.TTProjetPlus.Controllers
 
         public ActionResult submitSearch(string pathKeyword = "", string fileKeyword = "", string[] extensionsArray = null, string folder ="", string dateCreation = null)
         {
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
+          //  //ce code est a réparé... il est commenté pour le moement 2025-10-06
+          //  var stopwatch = new Stopwatch();
+          //  stopwatch.Start();
 
-            //les intervales de dates:
-          //  var listProjects = _TTIndexService.returnListProjets(pathKeyword, fileKeyword, dateCreation, folder); //extensionsArray,
-                                                                                                                  // var lineCount = System.IO.File.ReadLines(@"C:\Users\Frederic.Ohnona\Desktop\TestList2.txt").Count();
-            var listProjet2 = _TTIndexService.returnListProjets2(pathKeyword, fileKeyword, dateCreation, folder);
+          //  //les intervales de dates:
+          ////  var listProjects = _TTIndexService.returnListProjets(pathKeyword, fileKeyword, dateCreation, folder); //extensionsArray,
+          //                                                                                                        // var lineCount = System.IO.File.ReadLines(@"C:\Users\Frederic.Ohnona\Desktop\TestList2.txt").Count();
+          //  var listProjet2 = _TTIndexService.returnListProjets2(pathKeyword, fileKeyword, dateCreation, folder);
 
-            ResultModel model = new ResultModel();
-            // model.result = listProjects;
-            model.result2 = listProjet2;
+          //  ResultModel model = new ResultModel();
+          //  // model.result = listProjects;
+          //  model.result2 = listProjet2;
             try
             {
-                model.elapsedTime = (int)(stopwatch.ElapsedMilliseconds / 1000);
-                return PartialView("_searchResultsPartial", model);
+                //model.elapsedTime = (int)(stopwatch.ElapsedMilliseconds / 1000);
+                //return PartialView("_searchResultsPartial", model);
+                return null;
             }
 
 

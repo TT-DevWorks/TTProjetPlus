@@ -561,7 +561,7 @@
 
 
 
-    function submitToUpload (process)
+    @*function submitToUpload (process)
     {
      $("#submitForUpload").prop("disabled", true);
      var fileUpload = $("#file").get(0);
@@ -581,7 +581,7 @@
 
         resultCustom = customersName.endsWith(",");
 
-        if (resultCustom = true) {
+        if (resultCustom == true) {
             customersNamenew = customersName.substr(0, customersName.length - 1);
         }
         else {
@@ -658,7 +658,177 @@
         $("#submitForUpload").prop("disabled", false);
 
 
+    }*@
+
+    @*function submitToUpload(process) {
+    $("#submitForUpload").prop("disabled", true);
+
+    var fileUpload = $("#file").get(0);
+    var files = fileUpload.files;
+
+    // Prevent empty file submission
+    if (!files || files.length === 0) {
+        alert("Please select a file to upload.");
+        $("#submitForUpload").prop("disabled", false);
+        return;
     }
+
+    var data = new FormData();
+
+    // Append files (matching your controller parameter name: "file")
+    for (var i = 0; i < files.length; i++) {
+        console.log("Appending file:", files[i].name); // debug
+        data.append("file", files[i]);
+    }
+
+    // Collect customer names
+    var customersName = "";
+    $('#clients option:selected').each(function () {
+        customersName += $(this).text().trimEnd() + ',';
+    });
+
+    var customersNamenew = customersName.endsWith(",")
+        ? customersName.substr(0, customersName.length - 1)
+        : customersName;
+
+    if (process === 'process') {
+        var continueProcess = true; // explicitly defined
+
+        // Append other fields
+        data.append("repCode", $("#folders").val());
+        data.append("subRepId", $("#subfolders").val());
+        data.append("customerName", customersNamenew);
+        data.append("customerNumber", $('#clients').val());
+        data.append("continueProcess", continueProcess);
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("UploadFile2", "FileUpload")",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (message) {
+                if (message === 'success') {
+                    alert("File uploaded successfully to " + $('#folders').val() + "\\" + $("#subfolders option:selected").text());
+                } else if (message === 'Failed') {
+                    alert("File upload failed for folder " + $('#folders').val() + "\\" + $("#subfolders option:selected").text());
+                }
+                location.reload(true);
+            },
+            error: function () {
+                alert("There was an error uploading files!");
+            }
+        });
+    }
+    else {
+        // First check if the file already exists
+
+        $.ajax({
+    type: "POST",
+    url: "@Url.Action("checkIfFilexists", "FileUpload")",
+    data: { fileName: files[0].name },
+    success: function (message) {
+        if (message === 'Exists') {
+            alert("File already exists!");
+        } else {
+            submitToUpload('process');
+        }
+    },
+    error: function () {
+        alert("Error in checkIfFilexists call");
+    }
+});
+
+    }
+
+    $("#submitForUpload").prop("disabled", false);
+}*@
+
+
+function submitToUpload(process) {
+    $("#submitForUpload").prop("disabled", true);
+
+    var fileUpload = $("#file").get(0);
+    var files = fileUpload.files;
+
+    if (!files || files.length === 0) {
+        alert("Please select a file to upload.");
+        $("#submitForUpload").prop("disabled", false);
+        return;
+    }
+
+    var data = new FormData();
+
+    // Append the file (first one)
+    data.append("file", files[0]);
+
+    // Collect customer names
+    var customersName = "";
+    $('#clients option:selected').each(function () {
+        customersName += $(this).text().trimEnd() + ',';
+    });
+
+    var customersNamenew = customersName.endsWith(",")
+        ? customersName.slice(0, -1)
+        : customersName;
+
+    // Append other variables
+    data.append("repCode", $("#folders").val());
+    data.append("subRepId", $("#subfolders").val());
+    data.append("customerName", customersNamenew);
+    data.append("customerNumber", $('#clients').val());
+    data.append("continueProcess", true);
+
+    if (process === 'process') {
+        // Upload file
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("UploadFile2", "FileUpload")",
+            data: data,
+            enctype: "multipart/form-data",
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function (message) {
+                if (message === 'success') {
+                    alert("Téléversement réussi du fichier  " + $('#folders').val() + "\\" + $("#subfolders option:selected").text());
+                } else {
+                    alert("Téléversement échoué pour le fichier " + $('#folders').val() + "\\" + $("#subfolders option:selected").text());
+                }
+                location.reload(true);
+            },
+            error: function (xhr, status, error) {
+                alert("Error uploading file: " + error);
+                console.log(xhr);
+                $("#submitForUpload").prop("disabled", false);
+            }
+        });
+    } else {
+        // First check if the file exists
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("checkIfFilexists", "FileUpload")",
+            data: { fileName: files[0].name },
+            success: function (message) {
+                if (message === 'Exists') {
+                    if (confirm("Ce fichier existe déjà; voulez vous l'écraser et le réécrire?")) {
+                        submitToUpload('process'); // overwrite
+                    } else {
+                        $("#submitForUpload").prop("disabled", false);
+                    }
+                } else {
+                    submitToUpload('process'); // file does not exist
+                }
+            },
+            error: function () {
+                alert("Error in checkIfFilexists call");
+                $("#submitForUpload").prop("disabled", false);
+            }
+        });
+    }
+}
+
+
 
 
     function cancelDel() {

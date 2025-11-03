@@ -156,33 +156,33 @@ namespace TetraTech.TTProjetPlus.Services
         }
 
 
-        public List<usp_TTIndex_getFiles2_Result> returnListProjets2(string pathKeyword="",string fileKeyword="",string dateCreation="",string folder="")
-        {
-            //les dates
-            var startDate = "";
-            var endDate = "";
+        //public List<usp_TTIndex_getFiles2_Result> returnListProjets2(string pathKeyword="",string fileKeyword="",string dateCreation="",string folder="")
+        //{
+        //    //les dates
+        //    var startDate = "";
+        //    var endDate = "";
 
-            if (dateCreation != "")
-            {
-                string[] dates = dateCreation.TrimStart().TrimEnd().Split(' ');
-                startDate = dates[0];//.Remove(10);                  
-                endDate = dates[2];//.Remove(0, 1);  
-            }
+        //    if (dateCreation != "")
+        //    {
+        //        string[] dates = dateCreation.TrimStart().TrimEnd().Split(' ');
+        //        startDate = dates[0];//.Remove(10);                  
+        //        endDate = dates[2];//.Remove(0, 1);  
+        //    }
 
-            var folderT = "";
-            //com.CommandTimeout = 360;
-            if (folder.Split('-').Count() > 2)
-            {
-                for (int i = 1; i < folder.Split('-').Count(); i++)
-                {
-                    folderT += folder.Split('-')[i] + "-";
-                }
-                folderT = folderT.Remove(folderT.Length - 1).TrimEnd().TrimStart();
-            }
-            else folderT = folder.Split('-')[1].TrimEnd().TrimStart();
-            var liste = _entities.usp_TTIndex_getFiles2(folderT, pathKeyword, fileKeyword, startDate, endDate).ToList();
-            return liste;
-        }
+        //    var folderT = "";
+        //    //com.CommandTimeout = 360;
+        //    if (folder.Split('-').Count() > 2)
+        //    {
+        //        for (int i = 1; i < folder.Split('-').Count(); i++)
+        //        {
+        //            folderT += folder.Split('-')[i] + "-";
+        //        }
+        //        folderT = folderT.Remove(folderT.Length - 1).TrimEnd().TrimStart();
+        //    }
+        //    else folderT = folder.Split('-')[1].TrimEnd().TrimStart();
+        //    var liste = _entities.usp_TTIndex_getFiles2(folderT, pathKeyword, fileKeyword, startDate, endDate).ToList();
+        //    return liste;
+        //}
 
         public List<string> getSearchResults(string keyword, int startIndex, int endIndex)
         {

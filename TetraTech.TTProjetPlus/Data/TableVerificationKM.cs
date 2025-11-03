@@ -20,10 +20,10 @@ namespace TetraTech.TTProjetPlus.Data
         public string C715_BAT_QC_Électricité { get; set; }
         public string C715_BAT_QC_Structure { get; set; }
         public string C715_BAT_QC_Mécanique { get; set; }
-        public string C715_BAT_QC_Méc_Élec { get; set; }
+        public string C715_BAT_QC_Méc_Élect_ { get; set; }
         public string C715_BAT_Bouch__Méc__Élec_ { get; set; }
         public string C715_BAT_Laval_Méc__Élec_ { get; set; }
-        public string C715_BAT_Ouest_Mécanique { get; set; }
+        public string C715_BAT_MTL_Méc_Élect__ { get; set; }
         public string C715_BAT_Ouest_Structure { get; set; }
         public string C715_BAT_Ouest_Électrique { get; set; }
         public string C715_BAT_Ouest_Efficacité_énergétique { get; set; }
@@ -34,9 +34,8 @@ namespace TetraTech.TTProjetPlus.Data
         public string C715_MUN_Solutions_Technologiques { get; set; }
         public string C715_MUN_Gaspé_Chandler { get; set; }
         public string C715_MUN_Granby { get; set; }
-        public string C715_MUN_Laval { get; set; }
         public string C715_MUN_Québec { get; set; }
-        public string C715_MUN_Ressource_Eau { get; set; }
+        public string C715_Ressources_hydriques { get; set; }
         public string C715_MUN_Rimouski { get; set; }
         public string C715_TRA_Est_Québec { get; set; }
         public string C715_TRA_Est_Rivière_du_Loup { get; set; }
@@ -50,5 +49,7 @@ namespace TetraTech.TTProjetPlus.Data
         public string C715_TRA_Aéroportuaire_et_Électrotechnique { get; set; }
         public string C715_TRA_Gestion_de_projet { get; set; }
         public int id { get; set; }
+        public string C715_BAT_Structure { get; set; }
+        public string C715_BAT_Direction { get; set; }
     }
 }

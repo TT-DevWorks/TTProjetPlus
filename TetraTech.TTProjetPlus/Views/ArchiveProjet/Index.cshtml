@@ -63,6 +63,20 @@
 
     .multiselect {
     }
+
+    /* applique au conteneur du widget */
+    .ui-multiselect {
+        display: flex;
+        flex-direction: row; /* par défaut: selected | available */
+    }
+        /* inverse l’ordre d’affichage */
+        .ui-multiselect .available {
+            order: 0;
+        }
+
+        .ui-multiselect .selected {
+            order: 1;
+        }
 </style>
 @{
     ViewBag.Title = "Archiver un projet";
@@ -150,7 +164,6 @@
                 </div>
             </div>
 
-
         }
 
         <div class="row">
@@ -208,25 +221,8 @@
                                                     <div class="alert alert-info" id="actionCancelled" hidden="hidden">
                                                         <strong>@ArchiveResources.ArchiveProjetRessource.ActionCancelled</strong>
                                                     </div>
-
                                                 </div>
                                             </div>
-                                            <div class="row" style="color:steelblue; font-size:15px">
-                                                <div class="form-group">
-                                                    <div class="col-sm-12">
-                                                        <select class="multiselect" multiple="multiple" hidden id="">
-                                                            @foreach (structureItem item in ArchiveProjetController.ListeProjetsToArchive)
-                                                            {
-
-                                                                <option value="@item.Value">@item.Name</option>
-                                                            }
-                                                        </select>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <br />
                                             <div class="row" style="color:steelblue; font-size:15px" hidden id="errorLog">
                                                 <div class="form-group">
                                                     <div class="col-sm-12" id="errorLogInnerDiv">
@@ -235,12 +231,31 @@
                                                 </div>
                                             </div>
 
+
+                                           
+                                                <div class="row" style="color:steelblue; font-size:15px">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <div class="wrapper">
+                                                                <select class="multiselect" multiple="multiple" hidden id="">
+                                                                    @foreach (structureItem item in ArchiveProjetController.ListeProjetsToArchive)
+                                                                    {
+                                                                        <option value="@item.Value">@item.Name</option>
+                                                                    }
+                                                                </select>
+
+                                                            </div>
+                                                        </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <br />
                                             <br />
                                             <div style="text-align:right">
                                                 <button class="specialB" value="Submit" onclick="confirmDelete()" style="">@ArchiveResources.ArchiveProjetRessource.Archive</button>&nbsp;
                                             </div>
-
-
                                         }
                                         else
                                         {

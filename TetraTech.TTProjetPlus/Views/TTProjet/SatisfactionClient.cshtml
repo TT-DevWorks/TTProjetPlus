@@ -517,6 +517,63 @@
     }
 
 
+      function EnvoyerCourrielSatisfactionClient() {
+
+        var ProjectStartDate = "";
+        var ProjectEndDate = "";
+        var UniteAffaire = $('#UniteAffaire').val();
+        var TypeEnvoi = $('#TypeEnvoi').val();
+
+        //if ($('#datedebut').val() == '') {
+        //    ProjectStartDate = "1900-01-01";
+
+        //}
+        //else {
+        //    ProjectStartDate = $('#datedebut').val();
+        //}
+
+        //if ($('#datefin').val() == '') {
+        //    ProjectEndDate = "1900-01-01";
+
+        //}
+        //else {
+        //    ProjectEndDate = $('#datefin').val();
+        //}
+
+        if (UniteAffaire !== '') {
+             $.ajax({
+                     type: 'GET',
+                     dataType: 'JSON',
+                     cache: false,
+                     data: {
+                         //ProjectStartDate: $('#datedebut').val(),
+                         //ProjectEndDate: $('#datefin').val(),
+                         UniteAffaire: UniteAffaire,
+                         TypeEnvoi: TypeEnvoi
+                            },
+                     url: '@Url.Action("SendCourrielSatisfactionClient", "TTProjet")',
+                      success: function (data)
+                      {
+                          if (data.result == "success") {
+                              alert('@Resources3.TTProjet.EnvoiReussi'.replace('&#233;', '\é'))
+
+                          }
+                          else
+                              alert(data.result)
+                      }
+                 });
+
+        }
+        else {
+            $("#UniteAffaireMissing").show();
+            setTimeout(function () {
+                $('#UniteAffaireMissing').fadeOut('slow');
+            }, 60000
+            );
+        }
+    }
+
+
 
     $(".close").click(function () {
         $(".alert").hide();

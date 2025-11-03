@@ -565,6 +565,9 @@
     <Compile Include="Data\TQEDocsToInsertInSubForlders_Sly.cs">
       <DependentUpon>BPRProjetNew.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\TTIndex_getProjectsList_Result.cs">
+      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\TT_EmployeesPermissions.cs">
       <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
     </Compile>
@@ -649,6 +652,9 @@
     <Compile Include="Data\usp_getProject_ProgramManager_Result.cs">
       <DependentUpon>SuiviMandatNew.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\usp_getProjetAvecDateDepasse_Result.cs">
+      <DependentUpon>SuiviMandatNew.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\usp_GetSecurityDirectoryADGroupForAdmin_Result.cs">
       <DependentUpon>BPRProjetNew.tt</DependentUpon>
     </Compile>
@@ -719,9 +725,6 @@
     </Compile>
     <Compile Include="Data\usp_TDT__getProject_ProgramManager_Precedent_vs_Current_PeriodWeekDate_Result.cs">
       <DependentUpon>SuiviMandatNew.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\usp_TTIndex_getFiles2_Result.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\usp_TTIndex_getFiles_Result.cs">
       <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
@@ -920,7 +923,7 @@
       <DependentUpon>SuiviMandatNew.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\EmployeeActif_Inactive.cs">
-      <DependentUpon>TTProjetPlusModel.tt</DependentUpon>
+      <DependentUpon>SuiviMandatNew.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\EmployeeCommisFacturation.cs">
       <DependentUpon>SuiviMandatNew.tt</DependentUpon>
@@ -3311,7 +3314,6 @@
     <Content Include="Data\SuiviMandatNew.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SuiviMandatNew.edmx</DependentUpon>
-      <LastGenOutput>SuiviMandatNew.cs</LastGenOutput>
     </Content>
     <Content Include="Data\TTProjetPlusModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -6686,7 +6688,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53459</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:53460/</IISUrl>
+          <IISUrl>http://localhost:53461/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

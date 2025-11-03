@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using TetraTech.TTProjetPlus.Services;
 
@@ -19,7 +20,11 @@ namespace TetraTech.TTProjetPlus.Controllers
 
         public ActionResult insertIntoTable(string moyen, string partiel, string complet, string dateChgt)
         {
-            var success = _TDT_PSW.insertIntoTablePSW(moyen, partiel, complet, dateChgt);
+
+            DateTime date = DateTime.ParseExact(dateChgt, "yyyy/MM/dd", null);
+            string output = date.ToString("yyyy-MM-dd");
+
+            var success = _TDT_PSW.insertIntoTablePSW(moyen, partiel, complet, output);
             return Json(success, JsonRequestBehavior.AllowGet);
 
 

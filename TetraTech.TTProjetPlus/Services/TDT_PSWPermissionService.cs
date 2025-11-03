@@ -497,7 +497,7 @@ namespace TetraTech.TTProjetPlus.Services
                 model.Moyen = moyen;
                 model.Partiel = partiel;
                 model.Complet = complet;
-                model.dateChgt = dateChgt;
+                model.dateChgt = dateChgt; //DateTime.Parse(dateChgt);
                 _entitiesSuiviMandat.TDT_TablePSW.Add(model);
                 _entitiesSuiviMandat.SaveChanges();
 

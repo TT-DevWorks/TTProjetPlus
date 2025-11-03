@@ -55,22 +55,40 @@ namespace TetraTech.TTProjetPlus.Services
                         emailMessage += "<html><head>";
                         emailMessage += "</head><body>";
                         emailMessage += "</br>";
-
                         emailMessage += "<p> Merci de remplir les informations dans le tableau, a l'dresse suivante :</p> ";
-                        emailMessage += "<a href='http://ttprojetplusdev.tetratech.com//emailCP/Index?empNum=" + item.CP_num  + "'>Projets échus ou qui arrivent a échéance</a>";
+                        emailMessage += "<div>Bonjour "+ item.CP_name +"</div>";
+                        emailMessage += "<div>Nous vous invitons à prendre action dans les dix prochains jours ouvrables concernant les projets dont la date de fin est dépassée ou arriveront à échéance au cours des 30 prochains jours.</div>";
+                        emailMessage += "<div>Veuillez consulter la liste des projets concernés en cliquant sur le lien ci - dessous : </div>";
+                        emailMessage += "<a href='http://ttprojetplusdev.tetratech.com//emailCP/Index?empNum=" + item.CP_num + "'>Projets échus ou qui arrivent a échéance</a>";
+                        emailMessage += "<div>Pour chacun de ces projets, merci de bien vouloir:</div>";
+                        emailMessage += "<p>•	Indiquer la nouvelle date de fin prévue, si le projet se poursuit</p>";
+                        emailMessage += "<p>Ou</p>";
+                        emailMessage += "<p>•	Transmettre une directive de fermeture, si le projet est complété</p>";
+                        emailMessage += "<div>Un champ commentaire est également disponible pour toute précision supplémentaire.</div>";
+                        emailMessage += "<div>Un suivi sera effectué auprès des gestionnaires n’ayant pas répondu dans le délai indiqué.</div>";
+                        emailMessage += "<div>Nous comptons sur votre collaboration et votre engagement afin de maintenir l’exactitude des informations relatives à l’état d’avancement de vos projets. Nous vous remercions d’avance pour votre diligence.</div>";
+                        emailMessage += "</br>";
+                        emailMessage += "<div>Cordialement,</div>";
+                        emailMessage += "<div>Votre technicienne a la facturation</div>";//"+ item.+ "
                         emailMessage += "</body>";
                         ///////////////////////////////////////////////////////////////////////
                         //NewEmail.Attachments.AddFileAttachment(FileNameForEmp);
                         System.Net.Mime.ContentType contentType = new System.Net.Mime.ContentType();
                         contentType.MediaType = System.Net.Mime.MediaTypeNames.Application.Octet;
 
+                    //A: chargé de projet
+                    //: agent de facturation
+                    var emailCP = _entitiesSuiviMandat.EmployeeActif_Inactive.Where(x => x.EMPLOYEE_NUMBER == item.CP_num).Select(x => x.EMAIL_ADDRESS).FirstOrDefault();
 
-                        NewEmail.To.Add("sylvie.lambert@tetratech.com");//mail to sylvie.lambert@tetratech.com
-
-                        NewEmail.From = new System.Net.Mail.MailAddress("rapport@tetratech.com");
-                        NewEmail.Subject = "informations à compléter par le chargé de projet  - (" + item.CP_name + ") ";
-                        NewEmail.Body = new MessageBody(BodyType.HTML, emailMessage);
-                        NewEmail.IsBodyHtml = true;
+                    //a decommenter
+                   // NewEmail.To.Add(emailCP);//mail to sylvie.lambert@tetratech.com
+                    NewEmail.To.Add("rapports@tetratech.com");//mail to sylvie.lambert@tetratech.com
+                 //   NewEmail.CC.Add("rapports@tetratech.com");//mail CC to sylvie.lambert@tetratech.com
+                    
+                    NewEmail.From = new System.Net.Mail.MailAddress("rapport@tetratech.com");
+                    NewEmail.Subject = "Projets - Date de fin est dépassée ou échéance dans les 30 prochains jours (" + item.CP_name + ") ";
+                    NewEmail.Body = new MessageBody(BodyType.HTML, emailMessage);
+                    NewEmail.IsBodyHtml = true;
 
                         // SmtpServer.Send(NewEmail);
 
@@ -131,7 +149,7 @@ namespace TetraTech.TTProjetPlus.Services
 
 
 
-                        NewEmail2.To.Add("sylvie.lambert@tetratech.com");//mail sylvie.lambert@tetratech.com
+                        NewEmail2.To.Add("rapports@tetratech.com");//mail sylvie.lambert@tetratech.com
 
                         NewEmail2.From = new System.Net.Mail.MailAddress("rapport@tetratech.com");
                         NewEmail2.Subject = "Rapport d'envoie aux CP test";
@@ -236,7 +254,7 @@ namespace TetraTech.TTProjetPlus.Services
                 emailMessage += "<table style='border-style: solid;width: 100%;'>";
                 emailMessage += "<thead>";
                 emailMessage += "<tr style='font-family: arial; font-size:14px;background-color: #aab1b1;' >";
-                emailMessage += "<th style='width:8%;border: 1px solid black; border-collapse: collapse;text-align: left; padding: 4px;' > Numéro de CP </th>";
+                emailMessage += "<th style='width:8%;border: 1px solid black; border-collapse: collapse;text-align: left; padding: 4px;' > Numéro de projet </th>";
                 emailMessage += "<th style='width:8%;border: 1px solid black; border-collapse: collapse;text-align: left; padding: 4px;' > Nom cP </th>";
                 emailMessage += "<th style='width:8%;border: 1px solid black; border-collapse: collapse;text-align: left; padding: 4px;'># Projet</th>";
                 emailMessage += "<th style='width:8%;border: 1px solid black; border-collapse: collapse;text-align: left; padding: 4px;'>Nouvelle date</th>";
@@ -248,8 +266,8 @@ namespace TetraTech.TTProjetPlus.Services
                 foreach(LigneData item in liste_ligneData)
                 {
                     emailMessage += "<tr style='font-family: arial; font-size:14px;;'>";
-                    emailMessage += "<td  style='border: 1px solid black; border-collapse: collapse;vertical-align: top;text-align: left; padding: 4px;'>" + item.cpNum + "</td>";
                     emailMessage += "<td  style='border: 1px solid black; border-collapse: collapse;vertical-align: top;text-align: left; padding: 4px;'>" + item.cpName + "</td>";
+                    emailMessage += "<td  style='border: 1px solid black; border-collapse: collapse;vertical-align: top;text-align: left; padding: 4px;'>" + item.cpNum + "</td>";
                     emailMessage += "<td  style='border: 1px solid black; border-collapse: collapse;vertical-align: top;text-align: left; padding: 4px;'>" + item.ProjetNum + "</td>";
                     emailMessage += "<td  style='border: 1px solid black; border-collapse: collapse;vertical-align: top;text-align: left; padding: 4px;'>" + item.NouvelleDate + "</td>";
                     emailMessage += "<td  style='border: 1px solid black; border-collapse: collapse;vertical-align: top;text-align: left; padding: 4px;'>" + item.AFermer + "</td>";
@@ -269,13 +287,13 @@ namespace TetraTech.TTProjetPlus.Services
 
 
 
-                NewEmail.To.Add("sylvie.lambert@tetratech.com");//mail sylvie.lambert@tetratech.com
+                NewEmail.To.Add("rapports@tetratech.com");//mail sylvie.lambert@tetratech.com
 
                 NewEmail.CC.Add("rapports@tetratech.com");//mail
 
 
                 NewEmail.From = new System.Net.Mail.MailAddress("rapport@tetratech.com");
-                NewEmail.Subject = "réponse CP ("+ liste_ligneData[0].cpName +")" + "test" ;
+                NewEmail.Subject = "réponse CP ("+ liste_ligneData[0].cpNum +")"  ;
                 NewEmail.Body = new MessageBody(BodyType.HTML, emailMessage);
                 NewEmail.IsBodyHtml = true;
 

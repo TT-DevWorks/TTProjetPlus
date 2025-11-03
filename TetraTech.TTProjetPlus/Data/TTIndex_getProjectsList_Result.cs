@@ -11,14 +11,9 @@ namespace TetraTech.TTProjetPlus.Data
 {
     using System;
     
-    public partial class usp_TTIndex_getFiles2_Result
+    public partial class TTIndex_getProjectsList_Result
     {
-        public string projectNumber { get; set; }
-        public string parentFolder { get; set; }
-        public string fileName { get; set; }
-        public string fileType { get; set; }
-        public string fileDateCreation { get; set; }
-        public string fileLastModificationDate { get; set; }
-        public int itemId { get; set; }
+        public string serverName { get; set; }
+        public string folderName { get; set; }
     }
 }
